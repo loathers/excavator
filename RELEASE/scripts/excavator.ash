@@ -1,4 +1,4 @@
-since r1;
+since r20142; // Support for spadingScripts
 
 import <excavator/utils.ash>;
 import <excavator/projects/guzzlr.ash>;
