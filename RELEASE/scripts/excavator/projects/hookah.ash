@@ -6,7 +6,7 @@
 import <excavator/utils.ash>;
 
 item ESR = $item[enhanced signal receiver];
-string EFFECT_PATTERN = "<center><table><tr><td><img .*? onClick='eff\\(\"(.*?)\"\\);' width=30 height=30 alt=\"(.*?)\" title="
+string EFFECT_PATTERN = "<center><table><tr><td><img .*? onClick='eff\\(\"(.*?)\"\\);' width=30 height=30 alt=\"(.*?)\" title=";
 
 effect descid_to_effect( string descid )
 {
