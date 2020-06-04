@@ -1,3 +1,8 @@
+/**
+ * @author gausie
+ * Determine the relationship between Guzzlr deliveries and enchantments on the Guzzlr tablet accessory
+ */
+
 import <excavator/utils.ash>;
 
 item GUZZLR_TABLET = $item[Guzzlr tablet];
@@ -32,7 +37,7 @@ string [string] get_guzzlr_tablet_stats()
     return results;
 }
 
-void spade_guzzlr( string page )
+void spade_guzzlr( string encounter, string page )
 {
     if ( current_round() != 0 )
     {

@@ -31,7 +31,7 @@ void add_spading_data( string [string] data, string project )
     data["_PROJECT"] = project;
     string reason = `Excavator's project to spade {project}`;
 
-    string spading_data = `{data.to_json()}|{get_recipient()}|{reason}`;
+    string spading_data = `{data.to_json().replace_string(" ", "+")}|{get_recipient()}|{reason}`;
     string current_data = get_property( "spadingData" );
 
     if ( current_data.index_of( spading_data ) > -1 )
@@ -52,10 +52,10 @@ void register_project( string event, string function_name )
     REGISTERED_PROJECTS[event][count(REGISTERED_PROJECTS[event])] = function_name;
 }
 
-void call_registered_projects( string event, string page )
+void call_registered_projects( string event, string meta, string page )
 {
     foreach i, function_name in REGISTERED_PROJECTS[event]
     {
-        call void function_name( page );
+        call void function_name( meta, page );
     }
 }
