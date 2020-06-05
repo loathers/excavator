@@ -1,0 +1,52 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+env:
+  MAFIA_VERSION: "20147"
+  SCRIPT_NAME: "excavate.ash"
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    # Set up a specific version of the Java JDK and add the command-line tools to the PATH
+    - name: Setup Java JDK
+      uses: actions/setup-java@v1.3.0
+      with:
+        java-version: 1.8
+
+    # Runs a set of commands using the runners shell
+    - name: Download KoLmafia
+      run: curl "https://ci.kolmafia.us/job/Kolmafia/1654/artifact/dist/KoLmafia-${MAFIA_VERSION}.jar" --output kolmafia.jar
+    
+    - name: Copy script to kolmafia folder
+      run: cp -r ./RELEASE/scripts/* ~/.kolmafia/scripts/
+    
+    - name: Create test script
+      run: echo "try { cli_execute('verify ${SCRIPT_NAME}'); } finally { cli_execute("exit"); }" > ~/.kolmafia/scripts/_ci.ash
+    
+    - name: Verify file
+      run: |
+        output=$(java -jar ./kolmafia.jar --CLI _ci)
+        if [[ $output == *"Script verification complete." ]]; then
+          exit 0;
+        else
+          echo $output;
+          exit 1;
+        fi
