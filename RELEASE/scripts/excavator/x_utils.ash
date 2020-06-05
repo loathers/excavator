@@ -1,3 +1,5 @@
+import <zlib.ash>;
+
 string [string] [int] REGISTERED_PROJECTS;
 
 string get_recipient()
@@ -35,7 +37,7 @@ void add_spading_data( string [string] data, string project )
     // Rather than try to backwards engineer this, I'll just replace all spaces with +
     // and then treat spaces as hostile on the processing server. This obviously means
     // that data cannot contain a + sign. We'll have to solve that when we come to it.
-    data_string = data_string.replace_string(" ", "+");
+    data_string = data_string.replace_string( " ", "+" );
 
     string recipient = get_recipient();
     string reason = `Excavator's project to spade {project}`;
@@ -48,7 +50,7 @@ void add_spading_data( string [string] data, string project )
         return;
     }
 
-    if ( current_data != "" && current_data.substring( current_data.length() ) != "|")
+    if ( current_data != "" && current_data.substring( current_data.length() ) != "|" )
     {
         current_data += "|";
     }
@@ -66,5 +68,36 @@ void call_registered_projects( string event, string meta, string page )
     foreach i, function_name in REGISTERED_PROJECTS[event]
     {
         call void function_name( meta, page );
+    }
+}
+
+void send_spading_data()
+{
+    string spading_data = get_property( "spadingData" );
+
+    string [int] pieces = spading_data.split_string( "|" );
+
+    int i = 0;
+    while ( i < count(pieces) - 4 )
+    {
+        string contents = pieces[i];
+        i += 2;
+        string recipient = pieces[i];
+        i += 2;
+        string explanation = pieces[i];
+        i += 2;
+
+        kmail(recipient, contents, 0);
+    }
+
+    set_property( "spadingData", "" );
+}
+
+void daily_spading_data()
+{
+    if ( get_property( "_excavatorDailyReport" ).to_boolean() == false )
+    {
+        send_spading_data();
+        set_property( "_excavatorDailyReport", "true" );
     }
 }
