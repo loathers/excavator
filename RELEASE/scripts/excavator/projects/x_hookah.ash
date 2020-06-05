@@ -1,6 +1,6 @@
 /**
  * @author gausie
- * Submit data if an effect is obtained through a hookah-like mechanice that KoLmafia thinks shouldn't be possible
+ * Submit data if an effect is obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible
  */
 
 import <excavator/x_utils.ash>;
@@ -72,6 +72,24 @@ void check_hookah_source( string page, string source, string event_trigger_text 
 
     add_spading_data( data, "Hookah" );
 }
+
+// The ittah bittah hookah is a familiar equip that gives 6 adventures of a hookahable effect
+void spade_hookah( string encounter, string page )
+{
+    if ( current_round() != 1 )
+    {
+        return;
+    }
+
+    if ( $item[ittah bittah hookah].equipped_amount() == 0 )
+    {
+        return;
+    }
+
+    page.check_hookah_source( "ittah bittah hookah", "takes a pull on the hookah" );
+}
+
+register_project( "COMBAT_ROUND", "spade_hookah" );
 
 // Enhanced signal receiver is an off-hand item that gives 2-11 adventures of a hookahable effect
 void spade_enhanced_signal_receiver( string encounter, string page )
