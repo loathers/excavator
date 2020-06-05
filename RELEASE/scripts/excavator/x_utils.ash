@@ -29,9 +29,18 @@ string [string] combine_maps( string [string] ... maps )
 void add_spading_data( string [string] data, string project )
 {
     data["_PROJECT"] = project;
+    string data_string = data.to_json();
+    
+    // KoL adds spaces using v1.1 of htmlwrap (https://greywyvern.com/code/php/htmlwrap)
+    // Rather than try to backwards engineer this, I'll just replace all spaces with +
+    // and then treat spaces as hostile on the processing server. This obviously means
+    // that data cannot contain a + sign. We'll have to solve that when we come to it.
+    data_string = data_string.replace_string(" ", "+");
+
+    string recipient = get_recipient();
     string reason = `Excavator's project to spade {project}`;
 
-    string spading_data = `{data.to_json().replace_string(" ", "+")}|{get_recipient()}|{reason}`;
+    string spading_data = `{data_string}|{recipient}|{reason}`;
     string current_data = get_property( "spadingData" );
 
     if ( current_data.index_of( spading_data ) > -1 )

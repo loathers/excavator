@@ -4,7 +4,7 @@ excavator is a `spadingScript` for KoLmafia (at least r20145) for collaborativel
 
 These data are pulled once an hour to the [excavator-data](https://github.com/gausie/excavator-data) repository.
 
-It it maintained by gausie (#1197090).
+It is maintained by gausie (#1197090).
 
 ## Installation and Usage
 
@@ -30,5 +30,5 @@ A reminder to do so appears on login and in the Daily Deeds panel.
 
 ## Current projects
 
-* **[Hookah](RELEASE/scripts/excavator/projects/hookah.ash)** - Submit data if an effect is obtained through a hookah-like mechanice that KoLmafia thinks shouldn't be possible
-* **[Guzzlr](RELEASE/scripts/excavator/projects/guzzlr.ash)** - Determine the relationship between Guzzlr deliveries and enchantments on the Guzzlr tablet accessory
+* **[Hookah](RELEASE/scripts/excavator/projects/x_hookah.ash)** - Submit data if an effect is obtained through a hookah-like mechanice that KoLmafia thinks shouldn't be possible
+* **[Guzzlr](RELEASE/scripts/excavator/projects/x_guzzlr.ash)** - Determine the relationship between Guzzlr deliveries and enchantments on the Guzzlr tablet accessory

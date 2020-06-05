@@ -3,10 +3,11 @@
  * Determine the relationship between Guzzlr deliveries and enchantments on the Guzzlr tablet accessory
  */
 
-import <excavator/utils.ash>;
+import <excavator/x_utils.ash>;
 
 item GUZZLR_TABLET = $item[Guzzlr tablet];
 
+// Retrieve Guzzlr tablet stats from its item description
 string [string] get_guzzlr_tablet_stats()
 {
     string desc = visit_url(`desc_item.php?whichitem={GUZZLR_TABLET.descid}`);
