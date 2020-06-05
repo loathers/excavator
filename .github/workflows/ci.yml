@@ -2,6 +2,7 @@
 
 name: CI
 env:
+  MAFIA_BUILD: "1655"
   MAFIA_VERSION: "20147"
   SCRIPT_NAME: "excavate.ash"
 
@@ -34,7 +35,7 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Prepare KoLmafia
       run: |
-        curl "https://ci.kolmafia.us/job/Kolmafia/1654/artifact/dist/KoLmafia-${MAFIA_VERSION}.jar" --output kolmafia.jar
+        curl "https://ci.kolmafia.us/job/Kolmafia/${MAFIA_BUILD}/artifact/dist/KoLmafia-${MAFIA_VERSION}.jar" --output kolmafia.jar
         mkdir -p ~/.kolmafia/scripts/
     
     - name: Copy script to kolmafia folder
