@@ -4,7 +4,7 @@ name: CI
 env:
   MAFIA_BUILD: "1655"
   MAFIA_VERSION: "20147"
-  SCRIPT_NAME: "excavate.ash"
+  SCRIPT_NAME: "excavator.ash"
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
