@@ -148,7 +148,7 @@ void spade_mumming_trunk( string encounter, string page )
                     "familiar": fam.to_string(),
                 };
 
-                add_spading_data( data, "Mumming Trunk" );
+                send_spading_data( data, "Mumming Trunk" );
             }
         }
     }
