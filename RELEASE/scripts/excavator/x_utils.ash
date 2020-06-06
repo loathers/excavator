@@ -75,19 +75,16 @@ void send_spading_data()
 {
     string spading_data = get_property( "spadingData" );
 
-    string [int] pieces = spading_data.split_string( "|" );
+    string [int] pieces = spading_data.split_string( "\\|" );
 
     int i = 0;
-    while ( i < count(pieces) - 4 )
+    while ( i < count(pieces) - 2 )
     {
         string contents = pieces[i];
-        i += 2;
-        string recipient = pieces[i];
-        i += 2;
-        string explanation = pieces[i];
-        i += 2;
-
+        string recipient = pieces[++i];
+        string explanation = pieces[++i];
         kmail(recipient, contents, 0);
+        i++;
     }
 
     set_property( "spadingData", "" );
