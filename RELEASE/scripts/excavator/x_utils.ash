@@ -95,7 +95,7 @@ void send_spading_data( string [string] data, string project )
 
     string recipient = get_recipient();
 
-    if ( can_kmail )
+    if ( can_kmail() )
     {
         kmail( recipient, data_string, 0 );
         flush_spading_data();
