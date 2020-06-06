@@ -70,7 +70,7 @@ void check_hookah_source( string page, string source, string event_trigger_text 
         "effect": eff.to_string(),
     };
 
-    add_spading_data( data, "Hookah" );
+    send_spading_data( data, "Hookah" );
 }
 
 // The ittah bittah hookah is a familiar equip that gives 6 adventures of a hookahable effect
