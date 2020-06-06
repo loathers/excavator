@@ -9,6 +9,5 @@ import <excavator/projects/x_mumming_trunk.ash>;
 
 void main( string event, string meta, string page )
 {
-    daily_spading_data();
     call_registered_projects( event, meta, page );
 }
