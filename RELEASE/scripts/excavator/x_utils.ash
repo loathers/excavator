@@ -26,6 +26,17 @@ string [string] combine_maps( string [string] ... maps )
     return accumulator;
 }
 
+string [string] get_day_seed()
+{
+    string [string] seed = {
+        "daycount": my_daycount().to_string(),
+        "class": my_class().to_string(),
+        "path": my_path(),
+    };
+
+    return seed;
+}
+
 void add_spading_data( string [string] data, string project )
 {
     data["_PROJECT"] = project;
