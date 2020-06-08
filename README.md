@@ -1,6 +1,6 @@
 # excavator
 
-excavator is a `spadingScript` for KoLmafia (at least r20145) for collaboratively gathering data while playing the Kingdom of Loathing. It collects sends data via kmail to the player `Excavator` when possible (i.e. when you're not in an encounter), otherwise it is cached in the spadingData property. The cache can be processed by running the spade command in the CLI.
+excavator is a `spadingScript` for KoLmafia (at least r20145) for collaboratively gathering data while playing the Kingdom of Loathing. It collects sends data via kmail to the player `Excavator` when possible (i.e. when you're not in an encounter), otherwise it is cached in the `spadingData` property. The cache can be processed by running the `spade` command in the CLI.
 
 Only data pertinent to the [current projects](#current-projects) are reported (outcomes from combats, state of flags or counters on your player etc) and each packet of data can be reviewed and approved before it is sent. No personal information will ever be transmitted.
 
