@@ -61,7 +61,7 @@ void spade_guzzlr( string encounter, string page )
 
     string [string] data = combine_maps( deliveries, stats );
 
-    add_spading_data( data, "Guzzlr" );
+    send_spading_data( data, "Guzzlr" );
 }
 
 register_project( "COMBAT_ROUND", "spade_guzzlr" );

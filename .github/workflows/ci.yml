@@ -14,6 +14,7 @@ on:
 
 jobs:
   verify:
+    name: Verify
     runs-on: ubuntu-latest
 
     steps:
@@ -27,20 +28,32 @@ jobs:
     - name: Prepare KoLmafia
       run: |
         curl "https://ci.kolmafia.us/job/Kolmafia/${MAFIA_BUILD}/artifact/dist/KoLmafia-${MAFIA_VERSION}.jar" --output kolmafia.jar
-        mkdir -p ~/.kolmafia/scripts/
     
-    - name: Copy script to kolmafia folder
-      run: cp -r ./RELEASE/scripts/* ~/.kolmafia/scripts/
-
-    - name: Create test script
-      run: echo "try { cli_execute('verify ${SCRIPT_NAME}'); } finally { cli_execute('exit'); }" > ~/.kolmafia/scripts/_ci.ash
-    
-    - name: Verify file
+    - name: Install and verify
       run: |
-        output=$(java -jar ./kolmafia.jar --CLI _ci)
+        cd RELEASE
+
+        if [[ -f "dependencies.txt" ]]; then
+          # Install dependencies
+          echo "Installing dependencies..."
+
+          output_file="scripts/_ci_dependencies.ash"
+          while read -r line || [ -n "$line" ]; do
+            echo "cli_execute('svn checkout ${line}');" >> "$output_file"
+          done < "dependencies.txt"
+          echo "cli_execute('exit');" >> "$output_file"
+          java -DuseCWDasROOT=true -jar ../kolmafia.jar --CLI _ci_dependencies
+        fi
+
+        # Run the verification
+        echo "Verifying..."
+
+        echo "try { cli_execute('verify ${SCRIPT_NAME}'); } finally { cli_execute('exit'); }" > scripts/_ci_verify.ash
+        output=$(java -DuseCWDasROOT=true -jar ../kolmafia.jar --CLI _ci_verify)
         if [[ $output == *"Script verification complete." ]]; then
-          exit 0;
+          echo "Verified!"
+          exit 0
         else
-          echo $output;
-          exit 1;
+          echo $output
+          exit 1
         fi
