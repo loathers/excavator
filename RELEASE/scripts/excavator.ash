@@ -1,4 +1,4 @@
-since r20145; // Support for spadingScripts with third param
+since r20151; // Support for my_path_id()
 
 import <excavator/x_utils.ash>;
 

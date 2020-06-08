@@ -32,9 +32,9 @@ string [string] combine_maps( string [string] ... maps )
 string [string] get_day_seed()
 {
     string [string] seed = {
-        "daycount": my_daycount().to_string(),
-        "class": my_class().to_string(),
-        "path": my_path(),
+        "daycount": my_daycount(),
+        "class": my_class().to_int(),
+        "path": my_path_id(),
     };
 
     return seed;
