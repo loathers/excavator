@@ -1,6 +1,7 @@
 import <zlib.ash>;
 
 string [string] [int] REGISTERED_PROJECTS;
+string DATA_PROPERTY = "spadingData";
 
 string get_recipient()
 {
@@ -45,10 +46,25 @@ boolean can_kmail()
     return true;
 }
 
+string get_spading_cache()
+{
+    return get_property( DATA_PROPERTY );
+}
+
+void set_spading_cache( string value )
+{
+    set_property( DATA_PROPERTY, value );
+}
+
+boolean is_spading_cache_empty()
+{
+    return get_spading_cache() == "";
+}
+
 void add_spading_data( string data, string recipient, string reason )
 {
     string spading_data = `{data}|{recipient}|{reason}`;
-    string current_data = get_property( "spadingData" );
+    string current_data = get_spading_cache();
 
     if ( current_data.index_of( spading_data ) > -1 )
     {
@@ -60,13 +76,17 @@ void add_spading_data( string data, string recipient, string reason )
         current_data += "|";
     }
     
-    set_property( "spadingData", current_data + spading_data );
+    set_spading_cache( current_data + spading_data );
 }
 
 void flush_spading_data()
 {
-    string spading_data = get_property( "spadingData" );
+    string spading_data = get_spading_cache();
 
+    // This will flush *all* spading data, not just that collected for Excavator.
+    // I think that's fine? Noone uses this prop. But if they do, it would just be a
+    // case of replacing this with a regex for `.*?|{get_recipient()}.*?` and then
+    // selectively removing them with replace_all or something
     string [int] pieces = spading_data.split_string( "\\|" );
 
     int i = 0;
@@ -79,7 +99,7 @@ void flush_spading_data()
         i++;
     }
 
-    set_property( "spadingData", "" );
+    set_spading_cache( "" );
 }
 
 void send_spading_data( string [string] data, string project )
@@ -97,6 +117,8 @@ void send_spading_data( string [string] data, string project )
 
     if ( can_kmail() )
     {
+        string flush_message = is_spading_cache_empty() ? "" : ", as well as some other data we couldn't send before, ";
+        print_html( `<font color="green">Sending spading data for <b>{project}</b>{flush_message} to {recipient}. Thanks!</font>` );
         kmail( recipient, data_string, 0 );
         flush_spading_data();
         return;
