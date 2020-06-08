@@ -27,10 +27,10 @@ string [string] get_blessing_modifiers()
         }
 
         // If this modifier is populated record its value
-        if ( blessing.numeric_modifier( key ) != 0 )
+        if ( BLESSING.numeric_modifier( key ) != 0 )
         {
             data[ type ] = key;
-            data[ `{type}_value` ] = blessing.numeric_modifier( key ).to_string();
+            data[ `{type}_value` ] = BLESSING.numeric_modifier( key ).to_string();
         }
     }
 
