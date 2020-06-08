@@ -49,7 +49,7 @@ boolean [string][string][string] attribute_indicators = {
         },
     },
     "4": {
-        "clothed": {
+        "clothes": {
             "<name> smooths his purple crushed velvet suit and adjusts his lace cravat, then does an elaborate sexy dance for you. Unless you have put this costume on an underage familiar, in which case the dance is not sexy.": true,
             "<name>, dressed to the nines in his fancy Prince George costume, orders a random passerby to bring him some extra items. So haughty!": true,
             "Prince <name> does a regal dance. Some kind of waltz or something I guess? One of those dances with a lot of bowing and turning around.": true,
