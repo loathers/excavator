@@ -46,7 +46,7 @@ void spade_bird_a_day( string item_name, string page )
 
     string [string] data = combine_maps( get_blessing_modifiers(), get_day_seed() );
 
-    add_spading_data( data, "Bird-a-Day" );
+    send_spading_data( data, "Bird-a-Day" );
 }
 
 register_project( "CONSUME_USE", "spade_bird_a_day" );
