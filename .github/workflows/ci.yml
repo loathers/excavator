@@ -2,8 +2,8 @@
 
 name: CI
 env:
-  MAFIA_BUILD: "1655"
-  MAFIA_VERSION: "20147"
+  MAFIA_BUILD: "1659"
+  MAFIA_VERSION: "20151"
   SCRIPT_NAME: "excavator.ash"
 
 on:

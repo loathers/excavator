@@ -29,6 +29,17 @@ string [string] combine_maps( string [string] ... maps )
     return accumulator;
 }
 
+string [string] get_day_seed()
+{
+    string [string] seed = {
+        "daycount": my_daycount(),
+        "class": my_class().to_int(),
+        "path": my_path_id(),
+    };
+
+    return seed;
+}
+
 boolean can_kmail()
 {
     // In a fight

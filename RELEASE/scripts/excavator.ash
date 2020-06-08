@@ -1,8 +1,9 @@
-since r20145; // Support for spadingScripts with third param
+since r20151; // Support for my_path_id()
 
 import <excavator/x_utils.ash>;
 
 // Projects
+import <excavator/projects/x_bird_a_day.ash>;
 import <excavator/projects/x_guzzlr.ash>;
 import <excavator/projects/x_hookah.ash>;
 import <excavator/projects/x_mumming_trunk.ash>;
