@@ -1,0 +1,33 @@
+# This is a workflow to run our ETL script
+
+name: ETL
+env:
+  KOL_USERNAME: "Excavator"
+  KOL_PASSWORD: ${{ secrets.KOL_PASSWORD }}
+  SPREADSHEET_ID: "1IZV-Rj6_mcuYcYQ-gBa_ZyghO9MXNQARL5MlSBwopMs"
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Decrypt credentials
+        run: gpg --quiet --batch --yes --decrypt --passphrase="$CREDENTIALS_PASSPHRASE" --output $HOME/tools/credentials.json $HOME/.github/secrets/credentials.json.gpg
+        env:
+          CREDENTIALS_PASSPHRASE: ${{ secrets.CREDENTIALS_PASSPHRASE }}
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.6.9'
+
+      - name: Run ETL
+        run: |
+          python -m pip install -r ./tools/requirements.txt
+          python ./tools/kmail-to-gsheet.py
