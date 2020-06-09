@@ -11,8 +11,8 @@ on:
     - cron: '*/15 * * * *'
 
 jobs:
-  ETL:
-    name: Verify
+  etl:
+    name: ETL
     runs-on: ubuntu-latest
 
     steps:

@@ -1,16 +1,18 @@
 import asyncio
 from typing import Dict, Optional
 import json
-import os
+from os import path, getenv
 
 import gspread
 from gspread.exceptions import WorksheetNotFound
 from gspread.utils import rowcol_to_a1
 from libkol import Session
 
-SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
-KOL_USERNAME = os.getenv("KOL_USERNAME")
-KOL_PASSWORD = os.getenv("KOL_PASSWORD")
+SPREADSHEET_ID = getenv("SPREADSHEET_ID")
+KOL_USERNAME = getenv("KOL_USERNAME")
+KOL_PASSWORD = getenv("KOL_PASSWORD")
+
+CREDENTIALS_FILE = path.join(path.dirname(__file__), "credentials.json")
 
 def process_row(sheet, data: Dict[str, str]) -> Optional[str]:
     project = data.pop("_PROJECT", None)
@@ -35,7 +37,7 @@ def process_row(sheet, data: Dict[str, str]) -> Optional[str]:
     return None
 
 async def main():
-    gc = gspread.service_account(filename='./credentials.json')
+    gc = gspread.service_account(filename=CREDENTIALS_FILE)
     sheet = gc.open_by_key(SPREADSHEET_ID)
 
     async with Session() as kol:
