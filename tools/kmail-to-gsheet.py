@@ -39,10 +39,12 @@ async def main():
 
         for message in messages:
             error = None
+            data = None
+
             try:
                 text = message.text.replace(" ", "").replace("+", " ")
                 data = json.loads(text)
-                data = {"user_id": message.user_id, **data}
+                data = {"user_id": str(message.user_id), **data}
 
                 project = data.pop("_PROJECT", None)
                 if project is None:
@@ -65,15 +67,18 @@ async def main():
                 error = process_row(values, data)
 
             except json.JSONDecodeError:
+                project = "Unknown"
                 error = "Error decoding message"
-                pass
             
             if error is not None:
-                print(f"[{message.username}] {error}")
+                print(f"[{message.username} -> {project}] {error}")
             else:
-                print(f"[{message.username}] Success")
+                print(f"[{message.username} -> {project}] Success")
 
-            # await kol.kmail.delete(message.id)
+            if data is not None:
+                print(f"  {str(data)}")
+
+            await kol.kmail.delete(message.id)
 
         for project, values in worksheets.items():
             ws = sheet.worksheet(project)
