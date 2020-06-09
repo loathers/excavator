@@ -83,6 +83,7 @@ async def main():
         for project, values in worksheets.items():
             ws = sheet.worksheet(project)
             ws.format(f"A1:{rowcol_to_a1(1, len(values[0]))}", {"textFormat": {"bold": True}})
+            ws.resize(rows=len(values))
             ws.update(values=values)
 
 if __name__ == "__main__":
