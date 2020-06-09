@@ -4,7 +4,7 @@ excavator is a `spadingScript` for KoLmafia (at least r20145) for collaborativel
 
 Only data pertinent to the [current projects](#current-projects) are reported (outcomes from combats, state of flags or counters on your player etc) and each packet of data can be reviewed and approved before it is sent. No personal information will ever be transmitted.
 
-These data are pulled once an hour to the [excavator-data](https://github.com/gausie/excavator-data) repository.
+These data are pulled every 15 minutes to a [Google Sheet](https://tinyurl.com/excavator-data).
 
 It is maintained by gausie (#1197090).
 

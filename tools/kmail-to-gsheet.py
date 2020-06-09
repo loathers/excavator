@@ -48,8 +48,6 @@ async def main():
                             headers = list(data.keys())
                             ws = sheet.add_worksheet(title=project, rows=1, cols=len(headers))
                             values = [headers]
-
-                        worksheets[project] = values
                     else:
                         values = worksheets[project]
                         headers = values[0]
@@ -60,6 +58,7 @@ async def main():
                         error = "Discarded as duplicate"
                     else:
                         values.append(data_to_insert)
+                        worksheets[project] = values
 
             except json.JSONDecodeError:
                 project = "Unknown"
@@ -73,13 +72,13 @@ async def main():
             if data is not None:
                 print(f"  {str(data)}")
 
-            # await kol.kmail.delete(message.id)
+            await kol.kmail.delete(message.id)
 
         for project, values in worksheets.items():
             ws = sheet.worksheet(project)
             ws.format(f"A1:{rowcol_to_a1(1, len(values[0]))}", {"textFormat": {"bold": True}})
             ws.resize(rows=len(values))
-            ws.update(values=values)
+            ws.update(values)
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
