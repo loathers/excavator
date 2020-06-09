@@ -1,5 +1,5 @@
 import asyncio
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 import json
 from os import path, getenv
 
@@ -14,31 +14,23 @@ KOL_PASSWORD = getenv("KOL_PASSWORD")
 
 CREDENTIALS_FILE = path.join(path.dirname(__file__), "credentials.json")
 
-def process_row(sheet, data: Dict[str, str]) -> Optional[str]:
-    project = data.pop("_PROJECT", None)
-    if project is None:
-        return "No project key"
-
-    try:
-        ws = sheet.worksheet(project)
-        headers = ws.row_values(1)
-    except WorksheetNotFound:
-        headers = list(data.keys())
-        ws = sheet.add_worksheet(title=project, rows=1, cols=len(headers))
-        ws.insert_row(headers)
-        ws.format(f"A1:{rowcol_to_a1(1, len(headers))}", {"textFormat": {"bold": True}})
+def process_row(values: List[List[str]], data: Dict[str, str]) -> Optional[str]:
+    headers = values[0]
 
     data_to_insert = [data.get(k, '') for k in headers]
 
-    if any(i for i in range(2, ws.row_count + 1) if ws.row_values(i) == data_to_insert):
+    if any(i for i in range(2, len(values)) if values[i] == data_to_insert):
         return "Discarded as duplicate"
 
-    ws.append_row(data_to_insert)
+    values.append(data_to_insert)
+
     return None
 
 async def main():
     gc = gspread.service_account(filename=CREDENTIALS_FILE)
     sheet = gc.open_by_key(SPREADSHEET_ID)
+
+    worksheets = {}
 
     async with Session() as kol:
         await kol.login(KOL_USERNAME, KOL_PASSWORD)
@@ -52,7 +44,26 @@ async def main():
                 data = json.loads(text)
                 data = {"user_id": message.user_id, **data}
 
-                error = process_row(sheet, data)
+                project = data.pop("_PROJECT", None)
+                if project is None:
+                    return "No project key"
+
+                if project not in worksheets:
+                    try:
+                        ws = sheet.worksheet(project)
+                        values = ws.get_all_values()
+                        headers = values[0]
+                    except WorksheetNotFound:
+                        headers = list(data.keys())
+                        ws = sheet.add_worksheet(title=project, rows=1, cols=len(headers))
+                        values = [headers]
+
+                    worksheets[project] = values
+                else:
+                    values = worksheets[project]
+
+                error = process_row(values, data)
+
             except json.JSONDecodeError:
                 error = "Error decoding message"
                 pass
@@ -64,6 +75,10 @@ async def main():
 
             # await kol.kmail.delete(message.id)
 
+        for project, values in worksheets.items():
+            ws = sheet.worksheet(project)
+            ws.format(f"A1:{rowcol_to_a1(1, len(values[0]))}", {"textFormat": {"bold": True}})
+            ws.update(values=values)
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
