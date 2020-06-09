@@ -14,17 +14,6 @@ KOL_PASSWORD = getenv("KOL_PASSWORD")
 
 CREDENTIALS_FILE = path.join(path.dirname(__file__), "credentials.json")
 
-def process_row(values: List[List[str]], data: Dict[str, str]) -> Optional[str]:
-    headers = values[0]
-
-    data_to_insert = [data.get(k, '') for k in headers]
-
-    if any(i for i in range(2, len(values)) if values[i] == data_to_insert):
-        return "Discarded as duplicate"
-
-    values.append(data_to_insert)
-
-    return None
 
 async def main():
     gc = gspread.service_account(filename=CREDENTIALS_FILE)
@@ -48,23 +37,29 @@ async def main():
 
                 project = data.pop("_PROJECT", None)
                 if project is None:
-                    return "No project key"
-
-                if project not in worksheets:
-                    try:
-                        ws = sheet.worksheet(project)
-                        values = ws.get_all_values()
-                        headers = values[0]
-                    except WorksheetNotFound:
-                        headers = list(data.keys())
-                        ws = sheet.add_worksheet(title=project, rows=1, cols=len(headers))
-                        values = [headers]
-
-                    worksheets[project] = values
+                    error = "No project key"
                 else:
-                    values = worksheets[project]
+                    if project not in worksheets:
+                        try:
+                            ws = sheet.worksheet(project)
+                            values = ws.get_all_values()
+                            headers = values[0]
+                        except WorksheetNotFound:
+                            headers = list(data.keys())
+                            ws = sheet.add_worksheet(title=project, rows=1, cols=len(headers))
+                            values = [headers]
 
-                error = process_row(values, data)
+                        worksheets[project] = values
+                    else:
+                        values = worksheets[project]
+                        headers = values[0]
+
+                    data_to_insert = [data.get(k, '') for k in headers]
+
+                    if any(i for i in range(2, len(values)) if values[i] == data_to_insert):
+                        error = "Discarded as duplicate"
+                    else:
+                        values.append(data_to_insert)
 
             except json.JSONDecodeError:
                 project = "Unknown"
@@ -78,7 +73,7 @@ async def main():
             if data is not None:
                 print(f"  {str(data)}")
 
-            await kol.kmail.delete(message.id)
+            # await kol.kmail.delete(message.id)
 
         for project, values in worksheets.items():
             ws = sheet.worksheet(project)
