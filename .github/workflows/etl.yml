@@ -27,6 +27,15 @@ jobs:
         with:
           python-version: '3.6.9'
 
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('./tools/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+
       - name: Run ETL
         run: |
           python -m pip install -r ./tools/requirements.txt
