@@ -42,14 +42,16 @@ string [string] get_day_seed()
 
 boolean can_kmail()
 {
-    // In a fight
-    if ( current_round() > 0 )
-    {
-        return false;
-    }
-
-    // In a choice
-    if ( handling_choice() )
+    if (
+        // In a fight
+        current_round() > 0 ||
+        // In a choice
+        handling_choice() ||
+        // Gonna be in a fight
+        fight_follows_choice() ||
+        // Gonna be in a choice
+        choice_follows_fight()
+    )
     {
         return false;
     }
@@ -106,7 +108,12 @@ void flush_spading_data()
         string contents = pieces[i];
         string recipient = pieces[++i];
         string explanation = pieces[++i];
-        kmail(recipient, contents, 0);
+        boolean success = kmail(recipient, contents, 0);
+        if ( !success )
+        {
+            print( "Sending a kmail failed while Excavator was flushing the spading cache. Flush aborted.", "red" );
+            return;
+        }
         i++;
     }
 
@@ -130,9 +137,17 @@ void send_spading_data( string [string] data, string project )
     {
         string flush_message = is_spading_cache_empty() ? "" : ", as well as some other data we couldn't send before, ";
         print_html( `<font color="green">Sending spading data for <b>{project}</b>{flush_message} to {recipient}. Thanks!</font>` );
-        kmail( recipient, data_string, 0 );
-        flush_spading_data();
-        return;
+        boolean success = kmail( recipient, data_string, 0 );
+
+        if ( success )
+        {
+            flush_spading_data();
+            return;
+        }
+        else
+        {
+            print( "Excavator thought it could send data via kmail but it can't. Saving to cache instead.", "orange" );
+        }
     }
 
     string reason = `Excavator's project to spade {project}`;
