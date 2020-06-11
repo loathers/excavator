@@ -47,10 +47,12 @@ boolean can_kmail()
         current_round() > 0 ||
         // In a choice
         handling_choice() ||
-        // Gonna be in a fight
+        // Was in a choice, gonna be in a fight
         fight_follows_choice() ||
-        // Gonna be in a choice
-        choice_follows_fight()
+        // Was in a fight, gonna be in a choice
+        choice_follows_fight() ||
+        // Was in a fight, gonna be in another fight
+        in_multi_fight()
     )
     {
         return false;
