@@ -40,7 +40,14 @@ string [string] get_blessing_modifiers()
 
 void spade_bird_a_day( string item_name, string page )
 {
-    if ( item_name.to_string() != $item[Bird-a-Day calendar].to_string() )
+    // Bird-a-Day calendar
+    if ( item_name != $item[Bird-a-Day calendar].to_string() )
+    {
+        return;
+    }
+
+    // Only track first use
+    if ( page.contains_text( "You already read about today's bird." ) )
     {
         return;
     }
