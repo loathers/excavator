@@ -28,12 +28,13 @@ async def main():
 
         for message in messages:
             error = None
-            data = None
+            data = None # type: Optional[Dict[str, str]]
 
             try:
                 text = message.text.replace(" ", "").replace("+", " ")
                 data = json.loads(text)
-                data = {"user_id": str(message.user_id), **data}
+                version = data.pop("_VERSION", "")
+                data = {"_user_id": str(message.user_id), "_version": version, **data}
 
                 project = data.pop("_PROJECT", None)
                 if project is None:
