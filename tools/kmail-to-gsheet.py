@@ -53,7 +53,7 @@ async def main():
                         values = worksheets[project]
                         headers = values[0]
 
-                    data_to_insert = [data.get(k, '') for k in headers]
+                    data_to_insert = [data.get(k, "") for k in headers]
 
                     if any(i for i in range(2, len(values)) if values[i] == data_to_insert):
                         error = "Discarded as duplicate"
