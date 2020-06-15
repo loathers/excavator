@@ -14,6 +14,9 @@ KOL_PASSWORD = getenv("KOL_PASSWORD")
 
 CREDENTIALS_FILE = path.join(path.dirname(__file__), "credentials.json")
 
+# While transitioning to new standard for data added on the server,
+# let's add a leading _ programmatically
+ADD_LEADING_UNDERSCORE_TO_USER_ID = True
 
 async def main():
     gc = gspread.service_account(filename=CREDENTIALS_FILE)
@@ -53,7 +56,10 @@ async def main():
                         values = worksheets[project]
                         headers = values[0]
 
-                    data_to_insert = [data.get(k, '') for k in headers]
+                    if ADD_LEADING_UNDERSCORE_TO_USER_ID:
+                        headers = ["_user_ud" if k == "user_id" else k for k in headers]
+
+                    data_to_insert = [data.get(k, "") for k in headers]
 
                     if any(i for i in range(2, len(values)) if values[i] == data_to_insert):
                         error = "Discarded as duplicate"
