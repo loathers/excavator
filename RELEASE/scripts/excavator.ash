@@ -1,4 +1,4 @@
-since r20151; // Support for my_path_id()
+since r20180; // CONSUME_* events now triggered after mafia's result processing
 
 import <excavator/x_utils.ash>;
 
