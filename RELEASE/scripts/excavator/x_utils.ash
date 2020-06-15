@@ -125,7 +125,7 @@ void flush_spading_data()
 void send_spading_data( string [string] data, string project )
 {
     data["_PROJECT"] = project;
-    data["_VERSION"] = get_version();
+    data["_VERSION"] = get_revision().to_string();
     string data_string = data.to_json();
 
     // KoL adds spaces using v1.1 of htmlwrap (https://greywyvern.com/code/php/htmlwrap)
