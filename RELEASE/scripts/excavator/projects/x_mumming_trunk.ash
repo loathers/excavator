@@ -8,10 +8,10 @@ import <excavator/x_utils.ash>;
 boolean [string][string][string] attribute_indicators = {
     "1": {
         "hands": {
-            "Captain <name> waves <pronoun-pos> hands at you until you notice the Meat <pronoun-s>'s found\\.": true,
-            "Captain <name> distracts your opponent with <pronoun-subj> left hand while punching the Meat out of their pockets with the other\\.": true,
+            "Captain <name> waves <pronoun-pos> hands at you until you notice the Meat <pronoun-subj>'s found\\.": true,
+            "Captain <name> distracts your opponent with <pronoun-pos> left hand while punching the Meat out of their pockets with the other\\.": true,
             "Captain <name> emits an enthusiastic \"Arrrr,\" grabs a shovel, and digs up some extra Meat for you\\.": true,
-            "Captain <name> rubs <pronoun-pos> hands together gleefully, thinking about all the Meat <pronoun-pos>'s gonna carve off your foe\\.": true,
+            "Captain <name> rubs <pronoun-pos> hands together gleefully, thinking about all the Meat <pronoun-subj>'s gonna carve off your foe\\.": true,
         },
         "undead": {
             "<name> shows your opponent what's under <pronoun-pos> Captain's eyepatch\\. They shudder\\.": true,
