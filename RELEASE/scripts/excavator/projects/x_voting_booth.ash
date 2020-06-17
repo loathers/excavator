@@ -12,7 +12,17 @@ void spade_voting_booth( string url, string page )
         return;
     }
 
-    string [string] initiatives = get_some_properties( "_voteLocal1", "_voteLocal2", "_voteLocal3", "_voteLocal4" );
+    string [int] props = { 0: "_voteLocal1", 1: "_voteLocal2", 2: "_voteLocal3", 3: "_voteLocal4" };
+
+    string [string] initiatives = get_some_properties( props );
+
+    // There is no official modifier for unarmed damage,
+    // but it's the only unknown modifier possible
+    foreach i, prop in props if ( initiatives[ prop ] == "" )
+    {
+        initiatives[ prop ] = "Weapon Damage Unarmed: +20";
+        break;
+    }
 
     string [string] data = combine_maps( initiatives, get_day_seed() );
 
