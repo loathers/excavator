@@ -82,7 +82,6 @@ boolean matches( string text, string pattern, string [string] replacements )
     return m.find();
 }
 
-
 string get_spading_cache()
 {
     return get_property( DATA_PROPERTY );
