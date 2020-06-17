@@ -61,6 +61,27 @@ boolean can_kmail()
     return true;
 }
 
+string [string] default_replacements = {
+    "pronoun-subj": "(he|she|it|they)",
+    "pronoun-obj": "(him|her|it|them)",
+    "pronoun-pos": "(his|her|its|their)",
+    "part": ".*?",
+    "number": "[0-9]+",
+    "elemental": "<font color=[a-zA-Z]+><b>[0-9]+</b></font>",
+};
+
+boolean matches( string text, string pattern, string [string] replacements )
+{
+    foreach key, value in combine_maps( default_replacements, replacements )
+    {
+        pattern = pattern.replace_string( `<{key}>`, value );
+    }
+
+    matcher m = pattern.create_matcher( text );
+
+    return m.find();
+}
+
 string get_spading_cache()
 {
     return get_property( DATA_PROPERTY );
