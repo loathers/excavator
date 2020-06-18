@@ -34,10 +34,15 @@ void spade_genie( string page )
 
     matcher fight_matcher = "(?:to (?:fight|be fighting) (?:a )?)(.*)".create_matcher( wish );
 
-    // Determine wishability for fight and prepare data map
-	if ( fight_matcher.find() )
+    //  Determine wishability for fight and prepare data map
+    if ( fight_matcher.find() )
     {
         monster mon = fight_matcher.group( 1 ).to_monster();
+
+        if ( mon == $monster[none] )
+        {
+            return;
+        }
 
         data["type"] = "monster";
         data["value"] = mon.to_string();
@@ -48,6 +53,11 @@ void spade_genie( string page )
     else if ( wish.starts_with( "to be " ) || wish.starts_with( "i was " ) )
 	{
 		effect eff = wish.substring( 6 ).to_effect();
+
+        if ( eff == $effect[none] )
+        {
+            return;
+        }
 
         data["type"] = "effect";
         data["value"] = eff.to_string();
