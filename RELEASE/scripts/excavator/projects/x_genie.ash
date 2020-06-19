@@ -69,15 +69,14 @@ void spade_genie( string page )
         return;
     }
 
-    // Report any unusual data
-    if ( success && !wishable )
+    // We expect wishables to be successes and visa versa
+    if ( success == wishable )
     {
-        send_spading_data( data, "Genie" );
+        return;
     }
-    else if ( !success && wishable )
-    {
-        send_spading_data( data, "Genie" );
-    }
+
+    // If we get here something needs reporting
+    send_spading_data( data, "Genie" );
 }
 
 void spade_genie_choice_visit( string choice, string page )
