@@ -1,6 +1,8 @@
 /**
  * @author gausie
  * Determine which effects are decremented by PvP fights.
+ *
+ * Requires r20199, but since it degrades gracefully there is no matching `since` directive.
  */
 
 import <excavator/x_utils.ash>
