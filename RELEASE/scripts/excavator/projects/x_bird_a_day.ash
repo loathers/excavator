@@ -9,7 +9,7 @@ boolean [string] [string] modifier_keys = {
     "stat": $strings[Muscle Percent, Mysticality Percent, Moxie Percent],
     "element": $strings[Cold Resistance, Hot Resistance, Sleaze Resistance, Spooky Resistance, Stench Resistance],
     "attribute": $strings[Item Drop, Meat Drop, Monster Level, Combat Rate, Initiative, Experience],
-    "bonus": $strings[HP Regen Min, Bonus Weapon Damage, Damage Absorption, MP Regen Min],
+    "bonus": $strings[HP Regen Min, Weapon Damage, Damage Absorption, MP Regen Min],
 };
 
 effect BLESSING = $effect[Blessing of the Bird];
