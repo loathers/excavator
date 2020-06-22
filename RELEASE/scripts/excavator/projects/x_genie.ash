@@ -21,7 +21,7 @@ void spade_genie( string page )
         return;
     }
 
-    string wish = m.group( 1 );
+    string wish = m.group( 1 ).to_lower_case();
 
     // Determine if this was a success
     boolean success = !page.contains_text( "<br />You could try, " );
@@ -33,7 +33,7 @@ void spade_genie( string page )
     boolean wishable;
     matcher fight_matcher = "(?:(?:to fight|i (?:was|were) fighting) (?:a )?)(.*)".create_matcher( wish );
     // This will match fights, but is checked afterwards
-    matcher effect_matcher = "(?:to be|I (?:was|were)) (?!big|a baller|rich|a little bit taller)(.*)".create_matcher( wish );
+    matcher effect_matcher = "(?:to be|i (?:was|were)) (?!big|a baller|rich|a little bit taller)(.*)".create_matcher( wish );
 
     //  Determine wishability for fight and prepare data map
     if ( fight_matcher.find() )
