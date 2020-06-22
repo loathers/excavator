@@ -31,8 +31,9 @@ void spade_genie( string page )
     };
 
     boolean wishable;
-
-    matcher fight_matcher = "(?:to (?:fight|be fighting) (?:a )?)(.*)".create_matcher( wish );
+    matcher fight_matcher = "(?:(?:to fight|i (?:was|were) fighting) (?:a )?)(.*)".create_matcher( wish );
+    // This will match fights, but is checked afterwards
+    matcher effect_matcher = "(?:to be|I (?:was|were)) (?!big|a baller|rich|a little bit taller)(.*)".create_matcher( wish );
 
     //  Determine wishability for fight and prepare data map
     if ( fight_matcher.find() )
@@ -50,9 +51,9 @@ void spade_genie( string page )
         wishable = !mon.boss && mon.copyable;
     }
     // Determine wishability for effect and prepare data map
-    else if ( wish.starts_with( "to be " ) || wish.starts_with( "i was " ) )
-	{
-		effect eff = wish.substring( 6 ).to_effect();
+    else if ( effect_matcher.find() )
+    {
+        effect eff = effect_matcher.group( 1 ).to_effect();
 
         if ( eff == $effect[none] )
         {
