@@ -3,6 +3,17 @@ import <zlib.ash>;
 string [string] [int] REGISTERED_PROJECTS;
 string DATA_PROPERTY = "spadingData";
 
+string get_excavator_revision()
+{
+    int revision = svn_info("gausie-excavator-trunk-RELEASE").revision;
+    if ( revision == 0 )
+    {
+        revision = svn_info("Excavator").revision;
+    }
+
+    return revision;
+}
+
 string get_recipient()
 {
     string recipient = get_property( "excavatorRecipient" );
@@ -146,7 +157,7 @@ void flush_spading_data()
 void send_spading_data( string [string] data, string project )
 {
     data["_PROJECT"] = project;
-    data["_VERSION"] = get_revision().to_string();
+    data["_VERSION"] = `{get_revision()}/{get_excavator_revision()}`;
     string data_string = data.to_json();
 
     // KoL adds spaces using v1.1 of htmlwrap (https://greywyvern.com/code/php/htmlwrap)
