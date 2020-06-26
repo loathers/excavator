@@ -37,6 +37,7 @@ A reminder to do so appears on login and in the Daily Deeds panel.
 * **[Guzzlr](RELEASE/scripts/excavator/projects/x_guzzlr.ash)** - Determine the relationship between Guzzlr deliveries and enchantments on the Guzzlr tablet accessory
 * **[Hookah](RELEASE/scripts/excavator/projects/x_hookah.ash)** - Submit data if an effect is obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible
 * **[Mumming Trunk](RELEASE/scripts/excavator/projects/x_mumming_trunk.ash)** - Record instances of a familiar indicating that it has a previous undetected attribute through mumming trunk bonuses
+* **[Out of Order](RELEASE/scripts/excavator/projects/x_out_of_order.ash)** - Determine the relationship between initiative bonus and beeps from the GPS-tracking wristwatch during the Out of Order quest
 * **[PvP Effects](RELEASE/scripts/excavator/projects/x_pvp_effects.ash)** - Determine which effects are decremented by PvP fights
 * **[Voting Booth](RELEASE/scripts/excavator/projects/x_voting_booth.ash)** - Determine the relationship between voting initiatives and the day seed
 

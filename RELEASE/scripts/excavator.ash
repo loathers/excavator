@@ -8,6 +8,7 @@ import <excavator/projects/x_genie.ash>;
 import <excavator/projects/x_guzzlr.ash>;
 import <excavator/projects/x_hookah.ash>;
 import <excavator/projects/x_mumming_trunk.ash>;
+import <excavator/projects/x_out_of_order.ash>;
 import <excavator/projects/x_pvp_effects.ash>;
 import <excavator/projects/x_voting_booth.ash>;
 
