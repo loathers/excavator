@@ -20,11 +20,15 @@ async def main():
     sheet = gc.open_by_key(SPREADSHEET_ID)
 
     worksheets = {}
+    worksheet_handles = {}
+    worksheet_new_rows = {}
 
     async with Session() as kol:
         await kol.login(KOL_USERNAME, KOL_PASSWORD)
 
         messages = await kol.kmail.get()
+
+        messages_to_delete = []
 
         for message in messages:
             error = None
@@ -49,6 +53,7 @@ async def main():
                             headers = list(data.keys())
                             ws = sheet.add_worksheet(title=project, rows=1, cols=len(headers))
                             values = [headers]
+                        worksheet_handles[project] = ws
                     else:
                         values = worksheets[project]
                         headers = values[0]
@@ -60,6 +65,9 @@ async def main():
                     else:
                         values.append(data_to_insert)
                         worksheets[project] = values
+                        old_new_rows = worksheet_new_rows.get(project, [])
+                        old_new_rows.append(data_to_insert)
+                        worksheet_new_rows[project] = old_new_rows
 
             except json.JSONDecodeError:
                 project = "Unknown"
@@ -73,13 +81,16 @@ async def main():
             if data is not None:
                 print(f"  {str(data)}")
 
-            await kol.kmail.delete(message.id)
+            messages_to_delete.append(message.id)
 
-        for project, values in worksheets.items():
-            ws = sheet.worksheet(project)
-            ws.format(f"A1:{rowcol_to_a1(1, len(values[0]))}", {"textFormat": {"bold": True}})
-            ws.resize(rows=len(values))
-            ws.update(values)
+        for project, new_data in worksheet_new_rows.items():
+            ws = worksheet_handles[project]
+            # ws.format(f"A1:{rowcol_to_a1(1, len(values[0]))}", {"textFormat": {"bold": True}})
+            ws.append_rows(new_data)
+
+        for mid in messages_to_delete:
+            await kol.kmail.delete(mid)
+
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
