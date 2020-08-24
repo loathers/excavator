@@ -11,7 +11,7 @@ void spade_pvp_effects( string url, string page )
 {
     if ( !page.contains_text( "</b> won the fight, <b>" ) )
     {
-        return false;
+        return;
     }
 
     int [effect] before = my_effects();
