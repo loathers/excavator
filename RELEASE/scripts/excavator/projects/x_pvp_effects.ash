@@ -9,6 +9,11 @@ import <excavator/x_utils.ash>
 
 void spade_pvp_effects( string url, string page )
 {
+    if ( !page.contains_text( "</b> won the fight, <b>" ) )
+    {
+        return false;
+    }
+
     int [effect] before = my_effects();
     visit_url( "api.php?what=status&for=KoLmafia" );
     int [effect] after = my_effects();
