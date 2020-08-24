@@ -15,6 +15,11 @@ KOL_PASSWORD = getenv("KOL_PASSWORD")
 CREDENTIALS_FILE = path.join(path.dirname(__file__), "credentials.json")
 
 
+def compare_project(project: str, headers: List[str], a: List[str], b: List[str]) -> bool:
+    comparable_keys = [i for i, key in enumerate(headers) if key.startswith("_") is False]
+    return [v for i, v in enumerate(a) if i in comparable_keys] == [v for i, v in enumerate(b) if i in comparable_keys]
+
+
 async def main():
     gc = gspread.service_account(filename=CREDENTIALS_FILE)
     sheet = gc.open_by_key(SPREADSHEET_ID)
@@ -60,7 +65,7 @@ async def main():
 
                     data_to_insert = [data.get(k, "") for k in headers]
 
-                    if any(i for i in range(2, len(values)) if values[i] == data_to_insert):
+                    if any(i for i in range(1, len(values)) if compare_project(project, headers, values[i], data_to_insert)):
                         error = "Discarded as duplicate"
                     else:
                         values.append(data_to_insert)
