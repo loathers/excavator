@@ -164,7 +164,7 @@ void send_spading_data( string [string] data, string project )
     // Rather than try to backwards engineer this, I'll just replace all spaces with +
     // and then treat spaces as hostile on the processing server. This obviously means
     // that data cannot contain a + sign. We'll have to solve that when we come to it.
-    data_string = data_string.replace_string( " ", "+" );
+    data_string = data_string.url_encode();
 
     string recipient = get_recipient();
 

@@ -2,7 +2,7 @@ import asyncio
 from typing import Dict, List, Optional
 import json
 from os import path, getenv
-
+from urllib import parse
 import gspread
 from gspread.exceptions import WorksheetNotFound
 from gspread.utils import rowcol_to_a1
@@ -40,7 +40,11 @@ async def main():
             data = None # type: Optional[Dict[str, str]]
 
             try:
-                text = message.text.replace(" ", "").replace("+", " ")
+                text = message.text.replace(" ", "")
+                if text.startswith("%"):
+                    text = parse.unquote(text)
+                else:
+                    text = text.replace("+", " ")
                 data = json.loads(text)
                 version = data.pop("_VERSION", "")
                 data = {"_user_id": str(message.user_id), "_version": version, **data}
