@@ -2,8 +2,8 @@
 
 name: CI
 env:
-  MAFIA_BUILD: "1826"
-  MAFIA_VERSION: "20318"
+  MAFIA_BUILD: "1841"
+  MAFIA_VERSION: "20333"
   SCRIPT_NAME: "excavator.ash"
 
 on:
@@ -27,7 +27,9 @@ jobs:
 
     - name: Prepare KoLmafia
       run: |
-        curl "https://ci.kolmafia.us/job/Kolmafia/${MAFIA_BUILD}/artifact/dist/KoLmafia-${MAFIA_VERSION}.jar" --output kolmafia.jar
+        if [[ ! -f ".github/kolmafia.jar" ]]; then
+          curl "https://ci.kolmafia.us/job/Kolmafia/${MAFIA_BUILD}/artifact/dist/KoLmafia-${MAFIA_VERSION}.jar" --output .github/kolmafia.jar
+        fi
     
     - name: Install and verify
       run: |
@@ -42,14 +44,14 @@ jobs:
             echo "cli_execute('svn checkout ${line}');" >> "$output_file"
           done < "dependencies.txt"
           echo "cli_execute('exit');" >> "$output_file"
-          java -DuseCWDasROOT=true -jar ../kolmafia.jar --CLI _ci_dependencies
+          java -DuseCWDasROOT=true -jar ../.github/kolmafia.jar --CLI _ci_dependencies
         fi
 
         # Run the verification
         echo "Verifying..."
 
         echo "try { cli_execute('verify ${SCRIPT_NAME}'); } finally { cli_execute('exit'); }" > scripts/_ci_verify.ash
-        output=$(java -DuseCWDasROOT=true -jar ../kolmafia.jar --CLI _ci_verify)
+        output=$(java -DuseCWDasROOT=true -jar ../.github/kolmafia.jar --CLI _ci_verify)
         if [[ $output == *"Script verification complete." ]]; then
           echo "Verified!"
           exit 0
