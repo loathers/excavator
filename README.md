@@ -33,6 +33,7 @@ A reminder to do so appears on login and in the Daily Deeds panel.
 ## Current projects
 
 * **[Bird-a-Day](RELEASE/scripts/excavator/projects/x_bird_a_day.ash)** - Determine the relationship between Blessing of the Bird modifiers and the day seed
+* **[Cargo Cultist Shorts](RELEASE/scripts/excavator/projects/x_cargo_cultist_shorts.ash)** - Deterimine what it's got in its pocketses
 * **[Genie](RELEASE/scripts/excavator/projects/x_genie.ash)** - Determine which monsters and effects can be fought/acquired with the Genie
 * **[Hookah](RELEASE/scripts/excavator/projects/x_hookah.ash)** - Submit data if an effect is obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible
 * **[Mumming Trunk](RELEASE/scripts/excavator/projects/x_mumming_trunk.ash)** - Record instances of a familiar indicating that it has a previous undetected attribute through mumming trunk bonuses
