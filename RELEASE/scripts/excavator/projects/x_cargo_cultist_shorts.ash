@@ -6,7 +6,7 @@
 import <excavator/x_utils.ash>;
 
 string POCKET_NUMBER_PATTERN = "pocket=([0-9]+)";
-string POCKET_RESULTS_PATTERN = "Results:.*?<table><tr><td>(.*?)</td";
+string POCKET_RESULTS_PATTERN = "Results:.*?<span class='?guts'?>(.*?)</span>";
 
 void spade_cargo_cultist_shorts( string url, string page )
 {
@@ -17,29 +17,29 @@ void spade_cargo_cultist_shorts( string url, string page )
 
     matcher number_matcher = POCKET_NUMBER_PATTERN.create_matcher( url );
 
-    if ( !m.find() )
+    if ( !number_matcher.find() )
     {
         return;
     }
 
     string [string] data;
 
-    data["pocket"] = m.group( 1 );
+    data["pocket"] = number_matcher.group( 1 );
 
-    matcher results_matcher = POCKET_RESULTS_MATCHER.create_matcher( page );
+    matcher results_matcher = POCKET_RESULTS_PATTERN.create_matcher( page );
 
     string results;
 
-    if ( !m.find() )
+    if ( !results_matcher.find() )
     {
         results = "Excavator failed to parse the results";
     }
     else
     {
-        results = m.group( 1 );
+        results = results_matcher.group( 1 );
     }
 
-    data["results"] = resukts;
+    data["results"] = results;
 
     send_spading_data( data, "Cargo Cultist Shorts" );
 }
