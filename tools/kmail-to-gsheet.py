@@ -42,7 +42,7 @@ async def main():
             try:
                 text = message.text.replace(" ", "")
                 if text.startswith("%"):
-                    text = parse.unquote(text)
+                    text = parse.unquote_plus(text)
                 else:
                     text = text.replace("+", " ")
                 data = json.loads(text)
