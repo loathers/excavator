@@ -8,7 +8,7 @@ env:
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '*/15 * * * *'
 
 jobs:
   etl:

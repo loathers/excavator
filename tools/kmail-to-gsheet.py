@@ -62,6 +62,7 @@ async def main():
                             headers = list(data.keys())
                             ws = sheet.add_worksheet(title=project, rows=1, cols=len(headers))
                             values = [headers]
+                        worksheets[project] = values
                         worksheet_handles[project] = ws
                     else:
                         values = worksheets[project]
