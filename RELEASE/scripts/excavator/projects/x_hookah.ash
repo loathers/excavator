@@ -1,6 +1,6 @@
 /**
  * @author gausie
- * Submit data if an effect is obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible
+ * Record instances of an effect obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible.
  */
 
 import <excavator/x_utils.ash>;

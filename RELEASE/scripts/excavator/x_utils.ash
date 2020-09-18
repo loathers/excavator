@@ -51,6 +51,11 @@ string [string] get_day_seed()
     return seed;
 }
 
+string to_normalised_string( monster mon )
+{
+    return `[{mon.to_int()}]{mon.to_string()}`;
+}
+
 boolean can_kmail()
 {
     if (
