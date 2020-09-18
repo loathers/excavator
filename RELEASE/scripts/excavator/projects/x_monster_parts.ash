@@ -1,10 +1,20 @@
 /**
  * @author gausie
- * Determine what parts are considered to make up each monster.
+ * Record instances of a familiar indicating that it has a previous undetected attribute through mumming trunk bonuses.
  */
 
 import <excavator/x_utils.ash>;
 import <zlib.ash>;
+
+boolean planted_in( string plant, location loc )
+{
+    foreach l, i, p in get_florist_plants() if ( ( l == loc ) && ( p == plant ) )
+    {
+        return true;
+    }
+
+    return false;
+}
 
 record MonsterPartPattern {
     string type;
@@ -74,7 +84,7 @@ void spade_monster_parts( string encounter, string page )
             ( mpp.type == "skill" && !mpp.prereq.to_skill().have_skill() ) ||
             ( mpp.type == "familiar" && mpp.prereq.to_familiar() != my_familiar() ) ||
             ( mpp.type == "effect" && mpp.prereq.to_effect().have_effect() == 0 ) ||
-            ( mpp.type == "plant" && !get_property( "_floristPlantsUsed").contains_text( mpp.prereq ) ) ||
+            ( mpp.type == "plant" && !mpp.prereq.planted_in( my_location() ) ) ||
             ( mpp.type == "equip" && !mpp.prereq.to_item().have_equipped() )
         )
         {
