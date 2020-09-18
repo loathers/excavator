@@ -42,7 +42,6 @@ A reminder to do so appears on login and in the Daily Deeds panel.
 * **[PvP Effects](RELEASE/scripts/excavator/projects/x_pvp_effects.ash)** - Determine which effects are decremented by PvP fights
 
 ## Retired Projects
-## Retired Projects
 * **[Guzzlr](retired_projects/x_guzzlr.ash)** - We worked out [the relationship between Guzzlr deliveries and enchantments](https://kol.coldfront.net/thekolwiki/index.php/Guzzlr_tablet#Notes) on the Guzzlr tablet accessory
 * **[Voting Booth](RELEASE/scripts/excavator/projects/x_voting_booth.ash)** - We [backwards-engineered the code](https://kol.coldfront.net/thekolwiki/index.php/Talk:Voting_Booth#Initiative_seeding) that maps day seed to voting initiatives
 
