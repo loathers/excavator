@@ -39,10 +39,11 @@ A reminder to do so appears on login and in the Daily Deeds panel.
 * **[Mumming Trunk](RELEASE/scripts/excavator/projects/x_mumming_trunk.ash)** - Record instances of a familiar indicating that it has a previous undetected attribute through mumming trunk bonuses
 * **[Out of Order](RELEASE/scripts/excavator/projects/x_out_of_order.ash)** - Determine the relationship between initiative bonus and beeps from the GPS-tracking wristwatch during the Out of Order quest
 * **[PvP Effects](RELEASE/scripts/excavator/projects/x_pvp_effects.ash)** - Determine which effects are decremented by PvP fights
-* **[Voting Booth](RELEASE/scripts/excavator/projects/x_voting_booth.ash)** - Determine the relationship between voting initiatives and the day seed
 
 ## Retired Projects
-* **[Guzzlr](retired_projects/x_guzzlr.ash)** - Determine the relationship between Guzzlr deliveries and enchantments on the Guzzlr tablet accessory
+## Retired Projects
+* **[Guzzlr](retired_projects/x_guzzlr.ash)** - We worked out [the relationship between Guzzlr deliveries and enchantments](https://kol.coldfront.net/thekolwiki/index.php/Guzzlr_tablet#Notes) on the Guzzlr tablet accessory
+* **[Voting Booth](RELEASE/scripts/excavator/projects/x_voting_booth.ash)** - We [backwards-engineered the code](https://kol.coldfront.net/thekolwiki/index.php/Talk:Voting_Booth#Initiative_seeding) that maps day seed to voting initiatives
 
 ## Further information
 
