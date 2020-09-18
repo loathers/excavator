@@ -104,6 +104,18 @@ void spade_monster_parts( string encounter, string page )
     {
         check_and_report( mon, "arm", confirmation );
     }
+
+    if ( current_round() == 1 && is_wearing_outfit( "Mutant Couture" ) )
+    {
+        string skills = page.excise( "<select name=whichskill>", "</select>" );
+
+        if ( skills != "" )
+        {
+            check_and_report( mon, "head", skills.contains_text( `<option value="{$skill[Strangle].to_int()}"` ) );
+            check_and_report( mon, "arm", skills.contains_text( `<option value="{$skill[Disarm].to_int()}"` ) );
+            check_and_report( mon, "leg", skills.contains_text( `<option value="{$skill[Entangle].to_int()}"` ) );
+        }
+    }
 }
 
 register_project( "COMBAT_ROUND", "spade_monster_parts" );
