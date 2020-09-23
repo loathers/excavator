@@ -33,7 +33,6 @@ A reminder to do so appears on login and in the Daily Deeds panel.
 ## Current projects
 
 * **[Bird-a-Day](RELEASE/scripts/excavator/projects/x_bird_a_day.ash)** - Determine the relationship between Blessing of the Bird modifiers and the day seed
-* **[Cargo Cultist Shorts](RELEASE/scripts/excavator/projects/x_cargo_cultist_shorts.ash)** - Deterimine what it's got in its pocketses
 * **[Genie](RELEASE/scripts/excavator/projects/x_genie.ash)** - Determine which monsters and effects can be fought/acquired with the Genie
 * **[Hookah](RELEASE/scripts/excavator/projects/x_hookah.ash)** - Record instances of an effect obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible
 * **[Monster Parts](RELEASE/scripts/excavator/projects/x_monster_parts.ash)** -  Determine what parts are considered to make up each monster
@@ -42,6 +41,7 @@ A reminder to do so appears on login and in the Daily Deeds panel.
 * **[PvP Effects](RELEASE/scripts/excavator/projects/x_pvp_effects.ash)** - Determine which effects are decremented by PvP fights
 
 ## Retired Projects
+* **[Cargo Cultist Shorts](RELEASE/scripts/excavator/projects/x_cargo_cultist_shorts.ash)** - We determined [what it has in its pocketses](https://kol.coldfront.net/thekolwiki/index.php/What_has_it_got_in_its_pocketses%3F/contents)
 * **[Guzzlr](retired_projects/x_guzzlr.ash)** - We worked out [the relationship between Guzzlr deliveries and enchantments](https://kol.coldfront.net/thekolwiki/index.php/Guzzlr_tablet#Notes) on the Guzzlr tablet accessory
 * **[Voting Booth](RELEASE/scripts/excavator/projects/x_voting_booth.ash)** - We [backwards-engineered the code](https://kol.coldfront.net/thekolwiki/index.php/Talk:Voting_Booth#Initiative_seeding) that maps day seed to voting initiatives
 
