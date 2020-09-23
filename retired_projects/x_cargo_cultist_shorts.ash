@@ -1,6 +1,6 @@
 /**
  * @author gausie
- * Deterimine what it's got in its pocketses.
+ * Determine what it's got in its pocketses.
  */
 
 import <excavator/x_utils.ash>;
