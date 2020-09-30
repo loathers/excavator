@@ -51,6 +51,17 @@ string [string] get_day_seed()
     return seed;
 }
 
+string [string] get_gameday_seed()
+{
+    string [string] seed = {
+        "gameday": gameday_to_int(),
+        "moonlight": moon_light(),
+        "moonphase": moon_phase()
+    };
+
+    return seed;
+}
+
 string to_normalised_string( monster mon )
 {
     return `[{mon.to_int()}]{mon.to_string()}`;
