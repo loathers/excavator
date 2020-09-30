@@ -4,7 +4,7 @@ string [string] [int] REGISTERED_PROJECTS;
 string DATA_PROPERTY = "spadingData";
 string DEBUG_PROPERTY = "excavatorDebugMode";
 string RECIPIENT_PROPERTY = "excavatorRecipient";
-string LAST_PAGE_PROPERTY = "_excavatorLastPage";
+string LAST_PAGE_FILENAME = "excavator_last_page.txt";
 
 string get_excavator_revision()
 {
@@ -246,7 +246,8 @@ void call_registered_projects( string event, string meta, string page )
     if ( is_debug_mode( event ) )
     {
         print( `[{event}] {meta}`, "blue" );
-        set_property( LAST_PAGE_PROPERTY, page );
+        // There is no `to_buffer` (yet) so we need to do this
+        buffer_to_file( page.replace_string( "", "" ), LAST_PAGE_FILENAME );
     }
 
     foreach i, function_name in REGISTERED_PROJECTS[ event ]
