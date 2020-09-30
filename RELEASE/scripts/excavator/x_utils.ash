@@ -2,6 +2,9 @@ import <zlib.ash>;
 
 string [string] [int] REGISTERED_PROJECTS;
 string DATA_PROPERTY = "spadingData";
+string DEBUG_PROPERTY = "excavatorDebugMode";
+string RECIPIENT_PROPERTY = "excavatorRecipient";
+string LAST_PAGE_PROPERTY = "_excavatorLastPage";
 
 string get_excavator_revision()
 {
@@ -16,7 +19,7 @@ string get_excavator_revision()
 
 string get_recipient()
 {
-    string recipient = get_property( "excavatorRecipient" );
+    string recipient = get_property( RECIPIENT_PROPERTY );
     return ( recipient != "" ) ? recipient : "Excavator";
 }
 
@@ -65,6 +68,16 @@ string [string] get_gameday_seed()
 string to_normalised_string( monster mon )
 {
     return `[{mon.to_int()}]{mon.to_string()}`;
+}
+
+string to_normalised_string( item it )
+{
+    return `[{it.to_int()}]{it.to_string()}`;
+}
+
+boolean is_debug_mode()
+{
+    return get_property( DEBUG_PROPERTY ).to_boolean();
 }
 
 boolean can_kmail()
@@ -213,8 +226,19 @@ void register_project( string event, string function_name )
 
 void call_registered_projects( string event, string meta, string page )
 {
-    foreach i, function_name in REGISTERED_PROJECTS[event]
+    if ( is_debug_mode() )
     {
+        print( `[{event}] {meta}`, "blue" );
+        set_property( LAST_PAGE_PROPERTY, page );
+    }
+
+    foreach i, function_name in REGISTERED_PROJECTS[ event ]
+    {
+        if ( is_debug_mode() )
+        {
+            print( `Calling '{function_name}'`, "blue" );
+        }
+
         call void function_name( meta, page );
     }
 }
