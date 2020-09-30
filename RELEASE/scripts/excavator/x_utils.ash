@@ -243,7 +243,7 @@ void register_project( string event, string function_name )
 
 void call_registered_projects( string event, string meta, string page )
 {
-    if ( is_debug_mode() )
+    if ( is_debug_mode( event ) )
     {
         print( `[{event}] {meta}`, "blue" );
         set_property( LAST_PAGE_PROPERTY, page );
@@ -251,7 +251,7 @@ void call_registered_projects( string event, string meta, string page )
 
     foreach i, function_name in REGISTERED_PROJECTS[ event ]
     {
-        if ( is_debug_mode() )
+        if ( is_debug_mode( event ) )
         {
             print( `Calling '{function_name}'`, "blue" );
         }
