@@ -35,6 +35,7 @@ A reminder to do so appears on login and in the Daily Deeds panel.
 * **[Bird-a-Day](RELEASE/scripts/excavator/projects/x_bird_a_day.ash)** - Determine the relationship between Blessing of the Bird modifiers and the day seed
 * **[Genie](RELEASE/scripts/excavator/projects/x_genie.ash)** - Determine which monsters and effects can be fought/acquired with the Genie
 * **[Hookah](RELEASE/scripts/excavator/projects/x_hookah.ash)** - Record instances of an effect obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible
+* **[Continental Juice Bar](RELEASE/scripts/excavator/projects/x_juice_bar.ash)** - Determine the relationship between Chateau Mantegna Continental Juice Bar potions and the day seed
 * **[Monster Parts](RELEASE/scripts/excavator/projects/x_monster_parts.ash)** -  Determine what parts are considered to make up each monster
 * **[Mumming Trunk](RELEASE/scripts/excavator/projects/x_mumming_trunk.ash)** - Record instances of a familiar indicating that it has a previous undetected attribute through mumming trunk bonuses
 * **[Out of Order](RELEASE/scripts/excavator/projects/x_out_of_order.ash)** - Determine the relationship between initiative bonus and beeps from the GPS-tracking wristwatch during the Out of Order quest
