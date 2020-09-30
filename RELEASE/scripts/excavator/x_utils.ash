@@ -77,7 +77,24 @@ string to_normalised_string( item it )
 
 boolean is_debug_mode()
 {
-    return get_property( DEBUG_PROPERTY ).to_boolean();
+    return get_property( DEBUG_PROPERTY ) != "";
+}
+
+boolean is_debug_mode( string event )
+{
+    string debug_prop = get_property( DEBUG_PROPERTY );
+
+    if ( debug_prop == "true" )
+    {
+        return true;
+    }
+
+    foreach i, event_to_debug in debug_prop.split_string( "," ) if ( event_to_debug == event )
+    {
+        return true;
+    }
+
+    return false;
 }
 
 boolean can_kmail()
