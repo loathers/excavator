@@ -6,6 +6,8 @@
 import <excavator/x_utils.ash>;
 import <zlib.ash>;
 
+boolean [monster] MONSTER_PARTS_BLACKLIST = $monsters[Perceiver of Sensations, Performer of Actions, Thinker of Thoughts];
+
 boolean planted_in( string plant, location loc )
 {
     foreach l, i, p in get_florist_plants() if ( ( l == loc ) && ( p == plant ) )
@@ -77,6 +79,11 @@ void check_and_report( monster mon, string part, boolean confirmation )
 void spade_monster_parts( string encounter, string page )
 {
     monster mon = last_monster();
+
+    if ( MONSTER_PARTS_BLACKLIST contains mon )
+    {
+        return;
+    }
 
     foreach i, mpp in MONSTER_PART_PATTERNS
     {
