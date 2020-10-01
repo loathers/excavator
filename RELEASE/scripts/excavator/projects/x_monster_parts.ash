@@ -6,7 +6,7 @@
 import <excavator/x_utils.ash>;
 import <zlib.ash>;
 
-boolean [monster] MONSTER_PARTS_BLACKLIST = $monsters[Perceiver of Sensations, Performer of Actions, Thinker of Thoughts];
+boolean [monster] MONSTER_PARTS_BLACKLIST = $monsters[the darkness (blind), Perceiver of Sensations, Performer of Actions, Thinker of Thoughts];
 
 boolean planted_in( string plant, location loc )
 {
