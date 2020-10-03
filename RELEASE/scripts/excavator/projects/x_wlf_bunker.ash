@@ -5,20 +5,32 @@
 
 import <excavator/x_utils.ash>
 
-void spade_wlf_bunker()
+void spade_wlf_bunker( string page )
 {
-    string [int] props = {
-        0: "_volcanoItem1", 1: "_volcanoItem2", 2: "_volcanoItem3",
-        3: "_volcanoItemCount1", 4: "_volcanoItemCount2", 5: "_volcanoItemCount3"
-    };
+    // Extract the items from the page manually, properties are not set on first page visit
+    string pattern = `onclick='descitem\\(\\d+\\)' alt=".+?" title=".+?">(.+?) (?:\\((\\d)\\))?<\\/td>`;
+    matcher m = pattern.create_matcher( page );
 
-    string [string] operations = get_some_properties( props );
+    string [string] operations;
+    int index = 0;
+    while ( m.find() )
+    {
+        index = index + 1;
+        operations[`_volcanoItem{index}`] = m.group( 1 ).to_item().to_string();
+        operations[`_volcanoItemCount1{index}`] = "1";
+        if ( m.group( 2 ) != "" )
+        {
+            operations[`_volcanoItemCount1{index}`] = m.group( 2 );
+        }
+    }
 
-    // Convert from item id to string
-    operations["_volcanoItem1"] = operations["_volcanoItem1"].to_int().to_item().to_string();
-    operations["_volcanoItem2"] = operations["_volcanoItem2"].to_int().to_item().to_string();
-    operations["_volcanoItem3"] = operations["_volcanoItem3"].to_int().to_item().to_string();
+    // Expecting exactly 3 results
+    if ( index != 3 )
+    {
+        return;
+    }
 
+    // Ensure items are valid
     if ( operations["_volcanoItem1"] == "none" && operations["_volcanoItem2"] == "none" && operations["_volcanoItem3"] == "none" )
     {
         return;
@@ -36,7 +48,7 @@ void spade_wlf_bunker_visit( string choice, string page )
         return;
     }
 
-    spade_wlf_bunker();
+    spade_wlf_bunker( page );
 }
 
 void spade_wlf_bunker_choice( string url, string page )
@@ -46,7 +58,7 @@ void spade_wlf_bunker_choice( string url, string page )
         return;
     }
 
-    spade_wlf_bunker();
+    spade_wlf_bunker( page );
 }
 
 register_project( "CHOICE_VISIT", "spade_wlf_bunker_visit" );
