@@ -17,10 +17,10 @@ void spade_wlf_bunker( string page )
     {
         index = index + 1;
         operations[`_volcanoItem{index}`] = m.group( 1 ).to_item().to_string();
-        operations[`_volcanoItemCount1{index}`] = "1";
+        operations[`_volcanoItemCount{index}`] = "1";
         if ( m.group( 2 ) != "" )
         {
-            operations[`_volcanoItemCount1{index}`] = m.group( 2 );
+            operations[`_volcanoItemCount{index}`] = m.group( 2 );
         }
     }
 
