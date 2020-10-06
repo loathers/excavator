@@ -64,7 +64,7 @@ void check_and_report( monster mon, string part, boolean confirmation )
     {
         string [string] data = {
             "monster": mon.to_normalised_string(),
-            "part": part,
+            "part": part.trim(),
             "confirmation": confirmation.to_string(),
         };
 
