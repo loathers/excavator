@@ -75,6 +75,11 @@ string to_normalised_string( item it )
     return `[{it.to_int()}]{it.to_string()}`;
 }
 
+string trim( string s )
+{
+    return create_matcher( "(^\\s+|\\s+$)", s ).replace_all( "" );
+}
+
 boolean is_debug_mode()
 {
     return get_property( DEBUG_PROPERTY ) != "";
