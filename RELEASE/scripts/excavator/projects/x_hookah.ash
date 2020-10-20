@@ -122,7 +122,14 @@ void spade_crazy_horse( string encounter, string page )
         return;
     }
 
-    page.check_hookah_source( "crazy horse", get_property( "_horseryCrazyName" ) );
+    string horse_name = get_property( "_horseryCrazyName" );
+
+    if ( horse_name == "" )
+    {
+        return;
+    }
+
+    page.check_hookah_source( "crazy horse", horse_name );
 }
 
 register_project( "COMBAT_ROUND", "spade_crazy_horse" );
