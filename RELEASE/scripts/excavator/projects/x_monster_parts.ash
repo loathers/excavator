@@ -30,7 +30,7 @@ MonsterPartPattern [int] MONSTER_PART_PATTERNS = {
     new MonsterPartPattern( "equip", "high-temperature mining drill", "You drill a neat hole in your opponent's (.+?) which deals \\d+? damage" ),
     new MonsterPartPattern( "familiar", "Adorable Seal Larva", "fangs your opponent in the (.+?) and greedily sucks the vital juices from the wound" ),
     new MonsterPartPattern( "familiar", "Adventurous Spelunker", "whips your opponent in the (.+?), dealing \\d+? damage" ),
-    new MonsterPartPattern( "familiar", "Bowlet", "flaps directly into your opponent's (.+?), causing \\d+? damage" ),
+    // new MonsterPartPattern( "familiar", "Bowlet", "flaps directly into your opponent's (.+?), causing \\d+? damage" ),
     new MonsterPartPattern( "familiar", "Left-Hand Man", "smacks your opponent in the (.+?) with the" ),
     new MonsterPartPattern( "item", "electronics kit", "You wire up a quick circuit and hook it to your opponent's (.+?)\\. You flip the switch" ),
     new MonsterPartPattern( "item", "small golem", "Your little golem punches your foe in the (.+?) for \\d+? damage" ),
