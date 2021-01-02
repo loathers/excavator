@@ -31,7 +31,7 @@ string [string] get_paint_modifiers()
     return data;
 }
 
-void spade_coat_of_paint( string item_name, string page );
+void spade_coat_of_paint( string item_name, string page )
 {
     if ( item_name.to_item() != COAT_OF_PAINT )
     {
