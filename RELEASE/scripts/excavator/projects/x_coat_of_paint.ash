@@ -5,7 +5,7 @@
 
 import <excavator/x_utils.ash>
 
-boolean [string] [string] modifier_keys = {
+boolean [string] [string] COAT_OF_PAINT_MODIFIERS = {
     "stat_experience": $strings[Muscle Experience, Mysticality Experience, Moxie Experience],
     "resist_element": $strings[Cold Resistance, Hot Resistance, Sleaze Resistance, Spooky Resistance, Stench Resistance],
     "damage_element": $strings[Cold Damage, Hot Damage, Sleaze Damage, Spooky Damage, Stench Damage],
@@ -18,7 +18,7 @@ string [string] get_paint_modifiers()
 {
     string [string] data;
 
-    foreach type, key in modifier_keys
+    foreach type, key in COAT_OF_PAINT_MODIFIERS
     {
         // If this modifier is populated record its value
         if ( COAT_OF_PAINT.numeric_modifier( key ) != 0 )

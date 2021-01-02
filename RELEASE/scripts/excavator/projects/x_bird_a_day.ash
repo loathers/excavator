@@ -5,7 +5,7 @@
 
 import <excavator/x_utils.ash>
 
-boolean [string] [string] modifier_keys = {
+boolean [string] [string] BIRD_A_DAY_MODIFIERS = {
     "stat": $strings[Muscle Percent, Mysticality Percent, Moxie Percent],
     "element": $strings[Cold Resistance, Hot Resistance, Sleaze Resistance, Spooky Resistance, Stench Resistance],
     "attribute": $strings[Item Drop, Meat Drop, Monster Level, Combat Rate, Initiative, Experience],
@@ -18,7 +18,7 @@ string [string] get_blessing_modifiers()
 {
     string [string] data;
 
-    foreach type, key in modifier_keys
+    foreach type, key in BIRD_A_DAY_MODIFIERS
     {
         // We explicitly want a blank key for absent modifiers
         if ( data[ type ] == "" )
