@@ -5,6 +5,7 @@ string DATA_PROPERTY = "spadingData";
 string DEBUG_PROPERTY = "excavatorDebugMode";
 string RECIPIENT_PROPERTY = "excavatorRecipient";
 string LAST_PAGE_FILENAME = "excavator_last_page.txt";
+string EXCAVATOR_DAILY_EVENT = "EXCAVATOR_DAILY";
 
 string get_excavator_revision()
 {
@@ -246,9 +247,14 @@ void register_project( string event, string function_name )
     REGISTERED_PROJECTS[event][count(REGISTERED_PROJECTS[event])] = function_name;
 }
 
+void register_daily_project( string function_name )
+{
+    register_project( EXCAVATOR_DAILY_EVENT, function_name );
+}
+
 void call_registered_projects( string event, string meta, string page )
 {
-    if ( is_debug_mode( event ) )
+    if ( is_debug_mode( event ) && ( event != EXCAVATOR_DAILY_EVENT ) )
     {
         print( `[{event}] {meta}`, "blue" );
         // There is no `to_buffer` (yet) so we need to do this
@@ -262,6 +268,18 @@ void call_registered_projects( string event, string meta, string page )
             print( `Calling '{function_name}'`, "blue" );
         }
 
-        call void function_name( meta, page );
+        if ( event == EXCAVATOR_DAILY_EVENT )
+        {
+            call void function_name();
+        }
+        else
+        {
+            call void function_name( meta, page );
+        }
     }
+}
+
+void call_daily_projects()
+{
+    call_registered_projects( EXCAVATOR_DAILY_EVENT, "", "" );
 }
