@@ -18,8 +18,3 @@ void main( string event, string meta, string page )
 {
     call_registered_projects( event, meta, page );
 }
-
-void run_daily_excavations()
-{
-    call_daily_projects();
-}
