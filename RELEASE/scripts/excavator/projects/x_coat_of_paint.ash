@@ -9,14 +9,15 @@ boolean [string] [string] COAT_OF_PAINT_MODIFIERS = {
     "stat_experience": $strings[Muscle Experience, Mysticality Experience, Moxie Experience],
     "resist_element": $strings[Cold Resistance, Hot Resistance, Sleaze Resistance, Spooky Resistance, Stench Resistance],
     "damage_element": $strings[Cold Damage, Hot Damage, Sleaze Damage, Spooky Damage, Stench Damage],
-    "bonus": $strings[Muscle Percent, Mysticality Percent, Moxie Percent, Maximum HP, Maximum MP, Initiative, Critical Hit Percent, Spell Critical Percent, Familiar Weight, Damage Reduction, Food Drop, Booze Drop, Candy Drop, Item Drop],
 };
 
 item COAT_OF_PAINT = $item[Fresh Coat of Paint];
+string BONUS_PATTERN = "Spells</font><br>(.+?)</font><br>Enchantments are different every day</font>";
 
-string [string] get_paint_modifiers()
+string [string] get_paint_modifiers(string page)
 {
     string [string] data;
+    matcher m = BONUS_PATTERN.create_matcher( page );
 
     foreach type, key in COAT_OF_PAINT_MODIFIERS
     {
@@ -28,6 +29,11 @@ string [string] get_paint_modifiers()
         }
     }
 
+    if ( m.find() )
+    {
+        string bonus = m.group( 1 );
+        data[ "bonus" ] = bonus;
+    }
     return data;
 }
 
@@ -43,7 +49,7 @@ void spade_coat_of_paint( string item_name, string page )
         return;
     }
 
-    string [string] data = combine_maps( get_paint_modifiers(), get_day_seed() );
+    string [string] data = combine_maps( get_paint_modifiers(page), get_day_seed() );
     send_spading_data( data, "Fresh Coat Of Paint" );
 }
 
