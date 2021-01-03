@@ -12,12 +12,12 @@ boolean [string] [string] COAT_OF_PAINT_MODIFIERS = {
 };
 
 item COAT_OF_PAINT = $item[Fresh Coat of Paint];
-string BONUS_PATTERN = "Spells</font><br>(.+?)</font><br>Enchantments are different every day</font>";
+string COAT_BONUS_PATTERN = "Spells</font><br>(.+?)</font><br>Enchantments are different every day</font>";
 
-string [string] get_paint_modifiers(string page)
+string [string] get_paint_modifiers( string page )
 {
     string [string] data;
-    matcher m = BONUS_PATTERN.create_matcher( page );
+    matcher m = COAT_BONUS_PATTERN.create_matcher( page );
 
     foreach type, key in COAT_OF_PAINT_MODIFIERS
     {
@@ -34,6 +34,7 @@ string [string] get_paint_modifiers(string page)
         string bonus = m.group( 1 );
         data[ "bonus" ] = bonus;
     }
+
     return data;
 }
 
@@ -49,7 +50,7 @@ void spade_coat_of_paint( string item_name, string page )
         return;
     }
 
-    string [string] data = combine_maps( get_paint_modifiers(page), get_day_seed() );
+    string [string] data = combine_maps( get_paint_modifiers( page ), get_day_seed() );
     send_spading_data( data, "Fresh Coat Of Paint" );
 }
 
