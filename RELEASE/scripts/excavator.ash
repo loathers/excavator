@@ -4,6 +4,7 @@ import <excavator/x_utils.ash>;
 
 // Projects
 import <excavator/projects/x_bird_a_day.ash>;
+import <excavator/projects/x_coat_of_paint.ash>;
 import <excavator/projects/x_genie.ash>;
 import <excavator/projects/x_hookah.ash>;
 import <excavator/projects/x_juice_bar.ash>;
