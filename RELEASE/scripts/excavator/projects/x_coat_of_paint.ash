@@ -25,7 +25,6 @@ string [string] get_paint_modifiers( string page )
         if ( COAT_OF_PAINT.numeric_modifier( key ) != 0 )
         {
             data[ type ] = key;
-            data[ `{type}_value` ] = COAT_OF_PAINT.numeric_modifier( key ).to_string();
         }
     }
 
@@ -50,7 +49,7 @@ void spade_coat_of_paint( string item_name, string page )
         return;
     }
 
-    string [string] data = combine_maps( get_paint_modifiers( page ), get_day_seed() );
+    string [string] data = combine_maps( get_paint_modifiers( page ), get_day_seed(), get_difficulty_seed() );
     send_spading_data( data, "Fresh Coat Of Paint" );
 }
 
