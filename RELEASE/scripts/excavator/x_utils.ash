@@ -65,6 +65,19 @@ string [string] get_gameday_seed()
     return seed;
 }
 
+string [string] get_difficulty_seed()
+{
+    string difficulty = "Casual";
+    if ( my_path_id() != 0 ) { difficulty = "Normal"; }
+    if ( !can_interact() ) { difficulty = "Normal (Ronin)"; }
+    if ( in_hardcore() ) { difficulty = "Hardcore"; }
+    string [string] seed = {
+        "difficulty": difficulty,
+    };
+
+    return seed;
+}
+
 string to_normalised_string( monster mon )
 {
     return `[{mon.to_int()}]{mon.to_string()}`;
