@@ -17,11 +17,29 @@ void spade_beach_comb( string url, string page )
     int beach = (rest / 10) + (mod == 0 ? 0 : 1);
     int col = (mod == 0) ? 0 : (10 - mod);
 
-    string rarity;
+    foreach x,val in get_property("_beachLayout").split_string(":")
+    {
+        foreach y,square in val.split_string("")
+        {
+            // Log twinkling or whales
+            if (square == "t" || square == "W") {
+
+                string [string] twinkle_data;
+                twinkle_data["Minute"] = beach;
+                twinkle_data["Row"] = x.to_int();
+                twinkle_data["Column"] = y.to_int() + 1;
+                twinkle_data["Twinkle"] = true;
+
+                send_spading_data( twinkle_data, "Beach Comb Twinkle" );
+            }
+        }
+    }
+
+    string rarity = "";
 
     string alreadyCombed = "already combed this spot";
     string frequent = "which is not particularly interesting";
-    string frequentSandCastle = "demolish the sand castle"; // frequent
+    string frequentSandCastle = "demolish the sand castle";
     string infrequent = "oh hey!";
     string scarseDriftwood = "piece of driftwood buried under the sand";
     string scarsePirate = "pirate treasure chest";
@@ -37,22 +55,33 @@ void spade_beach_comb( string url, string page )
     else if (page.contains_text("meat off the whale carcass")) rarity = "scarse";
     else if (page.contains_text("except for a weird rock")) rarity = "scarse";
 
-    if (rarity == "") return;
+    if (rarity != "")
+    {
+        // An infrequent or scarse tile also twinkles
+        // _beachLayout is updated with the combed spot before the spading script is run so it won't be logged above
+        if (rarity == "infrequent" || rarity == "scarse")
+        {
+            string [string] twinkle_data;
+            twinkle_data["Minute"] = beach;
+            twinkle_data["Row"] = row;
+            twinkle_data["Column"] = col;
+            twinkle_data["Twinkle"] = true;
 
-    string [string] data;
-    data["Minute"] = beach;
-    data["Row"] = row;
-    data["Column"] = col;
-    data["Rarity"] = rarity;
+            send_spading_data( twinkle_data, "Beach Comb Twinkle" );
+        }
 
-    print(data);
+        string [string] data;
+        data["Minute"] = beach;
+        data["Row"] = row;
+        data["Column"] = col;
+        data["Rarity"] = rarity;
 
-    //send_spading_data( data, "Beach Comb" );
+        send_spading_data( data, "Beach Comb Rarity" );
+    }
 }
 
 void spade_beach_comb_choice( string url, string page )
 {
-    print(url);
     if ( !url.contains_text( "whichchoice=1388" ) )
     {
         return;
