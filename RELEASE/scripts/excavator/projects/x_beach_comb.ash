@@ -1,6 +1,6 @@
 /**
  * @author rinn
- * Track beach comb squares
+ * Track beach comb tiles
  */
 
 import <excavator/x_utils.ash>
@@ -19,10 +19,10 @@ void spade_beach_comb( string url, string page )
 
     foreach x,val in get_property("_beachLayout").split_string(":")
     {
-        foreach y,square in val.split_string("")
+        foreach y,tile in val.split_string("")
         {
             // Log twinkling or whales
-            if (square == "t" || square == "W") {
+            if (tile == "t" || tile == "W") {
 
                 string [string] twinkle_data;
                 twinkle_data["Minute"] = beach;
