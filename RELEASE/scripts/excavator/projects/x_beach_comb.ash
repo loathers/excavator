@@ -7,13 +7,12 @@ import <excavator/x_utils.ash>
 
 void spade_beach_comb( string url, string page )
 {
-    print(url);
     string pattern = `coords=(\\d+)%2C(\\d+)`;
     matcher m = pattern.create_matcher( url );
     if (!m.find()) return;
 
-    int row = matcher.group(1).to_int();
-    int rest = matcher.group(2).to_int();
+    int row = m.group(1).to_int();
+    int rest = m.group(2).to_int();
     int mod = (rest % 10);
     int beach = (rest / 10) + (mod == 0 ? 0 : 1);
     int col = (mod == 0) ? 0 : (10 - mod);
@@ -53,6 +52,7 @@ void spade_beach_comb( string url, string page )
 
 void spade_beach_comb_choice( string url, string page )
 {
+    print(url);
     if ( !url.contains_text( "whichchoice=1388" ) )
     {
         return;
