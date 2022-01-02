@@ -37,29 +37,20 @@ void spade_beach_comb( string url, string page )
 
     string rarity = "";
 
-    string alreadyCombed = "already combed this spot";
-    string frequent = "which is not particularly interesting";
-    string frequentSandCastle = "demolish the sand castle";
-    string infrequent = "oh hey!";
-    string scarseDriftwood = "piece of driftwood buried under the sand";
-    string scarsePirate = "pirate treasure chest";
-    string scarseWhale = "meat off the whale carcass";
-    string scarseFragment = "except for a weird rock";
-
     if (page.contains_text("already combed this spot")) return;
     else if (page.contains_text("which is not particularly interesting")) rarity = "frequent";
     else if (page.contains_text("demolish the sand castle")) rarity = "frequent";
     else if (page.contains_text("oh hey")) rarity = "infrequent";
-    else if (page.contains_text("piece of driftwood buried under the sand")) rarity = "scarse";
-    else if (page.contains_text("pirate treasure chest")) rarity = "scarse";
-    else if (page.contains_text("meat off the whale carcass")) rarity = "scarse";
-    else if (page.contains_text("except for a weird rock")) rarity = "scarse";
+    else if (page.contains_text("piece of driftwood buried under the sand")) rarity = "scarce";
+    else if (page.contains_text("pirate treasure chest")) rarity = "scarce";
+    else if (page.contains_text("meat off the whale carcass")) rarity = "scarce";
+    else if (page.contains_text("except for a weird rock")) rarity = "scarce";
 
     if (rarity != "")
     {
-        // An infrequent or scarse tile also twinkles
+        // An infrequent or scarce tile also twinkles
         // _beachLayout is updated with the combed spot before the spading script is run so it won't be logged above
-        if (rarity == "infrequent" || rarity == "scarse")
+        if (rarity == "infrequent" || rarity == "scarce")
         {
             string [string] twinkle_data;
             twinkle_data["Minute"] = beach;
