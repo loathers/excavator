@@ -32,6 +32,7 @@ A reminder to do so appears on login and in the Daily Deeds panel.
 
 ## Current projects
 
+* **[Beach Comb](RELEASE/scripts/excavator/projects/x_beach_comb.ash)** - Record rarity of beach combing tiles.
 * **[Bird-a-Day](RELEASE/scripts/excavator/projects/x_bird_a_day.ash)** - Determine the relationship between Blessing of the Bird modifiers and the day seed
 * **[Genie](RELEASE/scripts/excavator/projects/x_genie.ash)** - Determine which monsters and effects can be fought/acquired with the Genie
 * **[Hookah](RELEASE/scripts/excavator/projects/x_hookah.ash)** - Record instances of an effect obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible
