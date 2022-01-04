@@ -17,17 +17,18 @@ void spade_beach_comb( string url, string page )
     int beach = (rest / 10) + (mod == 0 ? 0 : 1);
     int col = (mod == 0) ? 0 : (10 - mod);
 
-    foreach x,val in get_property("_beachLayout").split_string(":")
+    foreach x,val in get_property("_beachLayout").split_string(",")
     {
-        foreach y,tile in val.split_string("")
+        string[int] split = val.split_string(":");
+        foreach y,tile in split[1].split_string("")
         {
             // Log twinkling or whales
             if (tile == "t" || tile == "W") {
 
                 string [string] twinkle_data;
                 twinkle_data["Minute"] = beach;
-                twinkle_data["Row"] = x.to_int();
-                twinkle_data["Column"] = y.to_int() + 1;
+                twinkle_data["Row"] = split[0].to_int();
+                twinkle_data["Column"] = y;
                 twinkle_data["Twinkle"] = true;
 
                 send_spading_data( twinkle_data, "Beach Comb Twinkle" );
