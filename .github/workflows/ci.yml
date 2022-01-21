@@ -2,8 +2,6 @@
 
 name: CI
 env:
-  MAFIA_BUILD: "1841"
-  MAFIA_VERSION: "20333"
   SCRIPT_NAME: "excavator.ash"
 
 on:
@@ -20,16 +18,39 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup Java JDK
-      uses: actions/setup-java@v1.4.3
+    - name: Setup Java 17
+      uses: actions/setup-java@v2
       with:
-        java-version: 1.8
+        distribution: "temurin"
+        java-version: "17"
 
-    - name: Prepare KoLmafia
+    - name: Determine KoLmafia version
+      id: mafia
       run: |
-        if [[ ! -f ".github/kolmafia.jar" ]]; then
-          curl "https://ci.kolmafia.us/job/Kolmafia/${MAFIA_BUILD}/artifact/dist/KoLmafia-${MAFIA_VERSION}.jar" --output .github/kolmafia.jar
+        set -o pipefail
+        export GITHUB_RELEASE=$(curl --fail --silent --globoff 'https://api.github.com/repos/kolmafia/kolmafia/releases/latest')
+        if [[ -z "$GITHUB_RELEASE" ]]; then
+          echo "Could not get KoLmafia latst release from GitHub!"
+          exit 1
         fi
+        export GITHUB_BUILD=$(echo $GITHUB_RELEASE | jq --raw-output '.name')
+        export GITHUB_URL=$(echo $GITHUB_RELEASE | jq --raw-output '.assets[0].browser_download_url')
+        echo "::set-output name=github::$GITHUB_URL"
+        echo "GitHub URL = ${GITHUB_URL}"
+        echo "::set-output name=build::$GITHUB_BUILD"
+        echo "GitHub Mafia Build = ${GITHUB_BUILD}"
+
+    - name: Cache KoLmafia
+      id: cache
+      uses: actions/cache@v2
+      with:
+        path: .github/kolmafia.jar
+        key: kolmafia-${{steps.mafia.outputs.build}}
+
+    - name: Download KoLmafia
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: |
+        curl -L "${{steps.mafia.outputs.github}}" --output .github/kolmafia.jar
     
     - name: Install and verify
       run: |
