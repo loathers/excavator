@@ -22,7 +22,7 @@ Set up KoLmafia to use `excavator.ash` as your spadingScript:
 set spadingScript = excavator.ash
 ```
 
-Data will be automatically submitted when possible, but if you want to manually clear the cache in the `spadingData` prop, you can do so using the `spade` command:
+Data will be automatically submitted when possible, but if you want to manually clear the cache in the `spadingData` prop, you can do so using the `spade autoconfirm` command:
 
 ```
 spade
