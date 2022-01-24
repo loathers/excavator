@@ -46,6 +46,7 @@ void spade_beach_comb( string url, string page )
     else if (page.contains_text("pirate treasure chest")) rarity = "scarce";
     else if (page.contains_text("meat off the whale carcass")) rarity = "scarce";
     else if (page.contains_text("except for a weird rock")) rarity = "scarce";
+    else if (page.contains_text("you find a bottle")) rarity = "scarce";
 
     if (rarity != "")
     {
