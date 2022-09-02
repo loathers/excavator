@@ -48,7 +48,7 @@ string [string] get_day_seed()
     string [string] seed = {
         "daycount": my_daycount(),
         "class": my_class().to_int(),
-        "path": my_path_id(),
+        "path": my_path().id,
     };
 
     return seed;
@@ -68,7 +68,7 @@ string [string] get_gameday_seed()
 string [string] get_difficulty_seed()
 {
     string difficulty = "Casual";
-    if ( my_path_id() != 0 ) { difficulty = "Normal"; }
+    if ( my_path() != $path[none] ) { difficulty = "Normal"; }
     if ( !can_interact() ) { difficulty = "Normal (Ronin)"; }
     if ( in_hardcore() ) { difficulty = "Hardcore"; }
     string [string] seed = {
