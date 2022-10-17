@@ -15,7 +15,8 @@ string get_excavator_revision()
     }
     if ( revision == 0 )
     {
-        revision = git_info("gausie-excavator").commit.substring(0, 7);
+        string rev = git_info("gausie-excavator").commit.substring(0, 7);
+        if (rev != "") return rev;
     }
 
     return revision;
