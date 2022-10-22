@@ -51,36 +51,32 @@ boolean check_upgrade(location l, string page) {
 
 boolean check_item(location l, string page) {
     string expected = `{l.difficulty_level} {l.environment}`;
-    // if user has meltables, can't be sure as some Mafia envs are wrong
-    if (item_amount($item[autumn debris shield]) > 0) {
-        if (!page.contains_text("You acquire an item: <b>autumn debris shield")) {
-            return false;
-        }
+    string actual = "";
+    // if user received meltables, location is known
+    if (page.contains_text("You acquire an item: <b>autumn debris shield")) {
         if ("mid outdoor" == expected) {
             return false;
         }
         send_data(l, "mid outdoor", "Item: autumn debris shield");
         return true;
     }
-    if (item_amount($item[autumn leaf pendant]) > 0) {
-        if (!page.contains_text("You acquire an item: <b>autumn leaf pendant")) {
-            return false;
-        }
+    if (page.contains_text("You acquire an item: <b>autumn leaf pendant")) {
         if ("high outdoor" == expected) {
             return false;
         }
         send_data(l, "high outdoor", "Item: autumn leaf pendant");
         return true;
     }
-    if (item_amount($item[autumn sweater-weather sweater]) > 0) {
-        if (!page.contains_text("You acquire an item: <b>autumn sweater-weather sweater")) {
-            return false;
-        }
+    if (page.contains_text("You acquire an item: <b>autumn sweater-weather sweater")) {
         if ("low underground" == expected) {
             return false;
         }
         send_data(l, "low underground", "Item: autumn sweater-weather sweater");
         return true;
+    }
+    // if user has meltables, can't be sure as some Mafia envs are wrong
+    if (item_amount($item[autumn debris shield]) > 0 || item_amount($item[autumn leaf pendant]) > 0 || item_amount($item[autumn sweater-weather sweater]) > 0) {
+        return false;
     }
     // user has no meltables
     matcher autumn_matcher = create_matcher("You acquire an item: <b>(autumn[^<]+)</b>", page);
@@ -88,7 +84,6 @@ boolean check_item(location l, string page) {
     if (!autumn_matcher.find()) return false;
     if (!autumn_matcher.find()) return false;
     string acquired = autumn_matcher.group(1);
-    string actual = "";
     if (acquired == "autumn leaf") {
         actual = "low outdoor";
     } else if (acquired == "AutumnFest Ale") {
