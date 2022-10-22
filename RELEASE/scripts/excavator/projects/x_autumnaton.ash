@@ -43,7 +43,7 @@ boolean check_upgrade(location l, string page) {
         actual = "high underground";
     }
     if (actual != expected) {
-        send_data(l, actual, `Upgrade: {upgrade}`)
+        send_data(l, actual, `Upgrade: {upgrade}`);
         return true;
     }
     return false;
@@ -105,7 +105,7 @@ boolean check_item(location l, string page) {
         actual = "high underground";
     }
     if (actual != expected) {
-        send_data(l, actual, `Item: {acquired}`)
+        send_data(l, actual, `Item: {acquired}`);
         return true;
     }
     return false;
