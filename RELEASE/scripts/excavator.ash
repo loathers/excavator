@@ -1,4 +1,4 @@
-since r20180; // CONSUME_* events now triggered after mafia's result processing
+since r26571; // git_info function
 
 import <excavator/x_utils.ash>;
 

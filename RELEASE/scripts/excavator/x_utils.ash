@@ -13,6 +13,11 @@ string get_excavator_revision()
     {
         revision = svn_info("Excavator").revision;
     }
+    if ( revision == 0 )
+    {
+        string rev = git_info("gausie-excavator").commit.substring(0, 7);
+        if (rev != "") return rev;
+    }
 
     return revision;
 }
