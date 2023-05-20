@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Setup Java 17
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
         distribution: "temurin"
         java-version: "17"
@@ -30,19 +30,19 @@ jobs:
         set -o pipefail
         export GITHUB_RELEASE=$(curl --fail --silent --globoff 'https://api.github.com/repos/kolmafia/kolmafia/releases/latest')
         if [[ -z "$GITHUB_RELEASE" ]]; then
-          echo "Could not get KoLmafia latst release from GitHub!"
+          echo "Could not get KoLmafia latest release from GitHub!"
           exit 1
         fi
         export GITHUB_BUILD=$(echo $GITHUB_RELEASE | jq --raw-output '.name')
         export GITHUB_URL=$(echo $GITHUB_RELEASE | jq --raw-output '.assets[] | select(.browser_download_url | contains(".jar")).browser_download_url')
-        echo "::set-output name=github::$GITHUB_URL"
+        echo "github=$GITHUB_URL" >> $GITHUB_OUTPUT
         echo "GitHub URL = ${GITHUB_URL}"
-        echo "::set-output name=build::$GITHUB_BUILD"
+        echo "build=$GITHUB_BUILD" >> $GITHUB_OUTPUT
         echo "GitHub Mafia Build = ${GITHUB_BUILD}"
 
     - name: Cache KoLmafia
       id: cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: .github/kolmafia.jar
         key: kolmafia-${{steps.mafia.outputs.build}}

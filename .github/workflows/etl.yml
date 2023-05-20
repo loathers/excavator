@@ -17,25 +17,17 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Decrypt credentials
         run: gpg --quiet --batch --yes --decrypt --passphrase="$CREDENTIALS_PASSPHRASE" --output $GITHUB_WORKSPACE/tools/credentials.json $GITHUB_WORKSPACE/.github/secrets/credentials.json.gpg
         env:
           CREDENTIALS_PASSPHRASE: ${{ secrets.CREDENTIALS_PASSPHRASE }}
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.6.9'
-
-      - name: Cache pip
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('./tools/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-            ${{ runner.os }}-
+          cache: 'pip'
 
       - name: Run ETL
         run: |
