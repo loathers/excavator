@@ -3,7 +3,6 @@ since r26571; // git_info function
 import <excavator/x_utils.ash>;
 
 // Projects
-import <excavator/projects/x_beach_comb.ash>;
 import <excavator/projects/x_bird_a_day.ash>;
 import <excavator/projects/x_coat_of_paint.ash>;
 import <excavator/projects/x_genie.ash>;
