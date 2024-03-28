@@ -24,12 +24,10 @@ export const OUT_OF_ORDER: ExcavatorProject = {
       if (equippedAmount($item`GPS-tracking wristwatch`) < 1) return null;
       // Must be in the jungle
       if (myLocation() !== $location`The Deep Dark Jungle`) return null;
-      const beeps = page.match(
-        /Your GPS tracker beeps ([0-9]+) times as it zeroes in on your quarry\\. You're confident that you'll track it down soon\\./,
-      )?.[1];
+      const beeps = page.match(/Your GPS tracker beeps ([0-9]+) times as it zeroes in on your quarry/);
       if (!beeps) return null;
       return {
-        beeps,
+        beeps: beeps[1],
         initiative: numericModifier($modifier`Initiative`),
       };
     },
