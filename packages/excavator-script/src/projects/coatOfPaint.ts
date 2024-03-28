@@ -2,7 +2,7 @@
  * @author Phillammon
  * Determine the relationship between Fresh Coat of Paint modifiers and the day seed
  */
-import { numericModifier } from "kolmafia";
+import { numericModifier, sessionStorage } from "kolmafia";
 import { $item, get } from "libram";
 
 import { ExcavatorProject } from "../type";
@@ -62,7 +62,12 @@ export const COAT_OF_PAINT: ExcavatorProject = {
   hooks: {
     DESC_ITEM: (itemName: string, page: string) => {
       if (itemName !== $item`fresh coat of paint`.name) return null;
-      if (get("_coatOfPaintModifier") === "") return null;
+      const mod = get("_coatOfPaintModifier");
+      if (mod === "") return null;
+
+      // Avoid sending the same data multiple times per session
+      if (sessionStorage.getItem("reportedCoatOfPaintMod") === mod) return null
+      sessionStorage.setItem("reportedCoatOfPaintMod", mod);
 
       return {
         ...getPaintModifiers(page),
