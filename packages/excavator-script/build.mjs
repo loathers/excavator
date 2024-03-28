@@ -2,6 +2,7 @@
 import esbuild from "esbuild";
 import babel from "esbuild-plugin-babel";
 import process from "process";
+import fs from "fs";
 
 const args = process.argv.slice(2);
 
@@ -41,6 +42,8 @@ const context = await esbuild.context({
 });
 
 await context.rebuild();
+
+fs.writeFileSync("dist/scripts/excavator.ash", "set_property(\"spadingScript\", \"excavator.js\");")
 
 if (watch) {
   await context.watch();
