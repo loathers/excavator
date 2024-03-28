@@ -2,17 +2,10 @@
  * @author gausie
  * Record instances of an effect obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible.
  */
-import { currentRound, Effect, equippedAmount } from "kolmafia";
+import { currentRound, descToEffect, Effect, equippedAmount } from "kolmafia";
 import { $item, get, Horsery } from "libram";
 
 import { ExcavatorProject } from "../type";
-
-/**
- * Return an effect given its descid
- */
-function descIdToEffect(descid: string) {
-  return Effect.all().find((effect) => effect.descid === descid) || Effect.none;
-}
 
 /**
  * Returns the next effect gained after a given event trigger text
@@ -28,7 +21,7 @@ function extractEffectFromEvent(page: string, eventTriggerText: string) {
 
   if (!descid) return Effect.none;
 
-  return descIdToEffect(descid);
+  return descToEffect(descid);
 }
 
 /**
