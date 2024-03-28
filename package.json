@@ -9,7 +9,7 @@
     "prettier": "^3.0.3"
   },
   "scripts": {
-    "build": "yarn workspace excavator-script run build && yarn workspace excavator-web run build",
+    "build": "yarn workspace excavator-script run build",
     "format": "yarn workspaces run format"
   }
 }
