@@ -1,0 +1,1 @@
+set_property("spadingScript", "excavator.js");
