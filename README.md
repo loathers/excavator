@@ -13,7 +13,7 @@ It is maintained by gausie (#1197090).
 Install the script using the KoLmafia CLI:
 
 ```
-git checkout gausie/excavator
+git checkout gausie/excavator release
 ```
 
 Set up KoLmafia to use `excavator.js` as your spadingScript:
