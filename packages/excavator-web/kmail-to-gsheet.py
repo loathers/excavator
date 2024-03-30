@@ -53,7 +53,7 @@ async def main():
                 if project is None:
                     error = "No project key"
                 else:
-                    if project not in worksheets:
+                    if project.lower() not in worksheets:
                         try:
                             ws = sheet.worksheet(project)
                             values = ws.get_all_values()
@@ -62,10 +62,10 @@ async def main():
                             headers = list(data.keys())
                             ws = sheet.add_worksheet(title=project, rows=1, cols=len(headers))
                             values = [headers]
-                        worksheets[project] = values
-                        worksheet_handles[project] = ws
+                        worksheets[project.lower()] = values
+                        worksheet_handles[project.lower()] = ws
                     else:
-                        values = worksheets[project]
+                        values = worksheets[project.lower()]
                         headers = values[0]
 
                     data_to_insert = [data.get(k, "") for k in headers]
@@ -74,10 +74,10 @@ async def main():
                         error = "Discarded as duplicate"
                     else:
                         values.append(data_to_insert)
-                        worksheets[project] = values
+                        worksheets[project.lower()] = values
                         old_new_rows = worksheet_new_rows.get(project, [])
                         old_new_rows.append(data_to_insert)
-                        worksheet_new_rows[project] = old_new_rows
+                        worksheet_new_rows[project.lower()] = old_new_rows
 
             except json.JSONDecodeError:
                 project = "Unknown"
@@ -94,7 +94,7 @@ async def main():
             messages_to_delete.append(message.id)
 
         for project, new_data in worksheet_new_rows.items():
-            ws = worksheet_handles[project]
+            ws = worksheet_handles[project.lower()]
             # ws.format(f"A1:{rowcol_to_a1(1, len(values[0]))}", {"textFormat": {"bold": True}})
             ws.append_rows(new_data)
 
