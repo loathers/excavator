@@ -16,11 +16,11 @@
     "url": "git+https://github.com/gausie/excavator.git"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
-    "prettier": "^3.0.3"
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "prettier": "^3.1.1"
   },
   "peerDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
-    "prettier": "^3.0.3"
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "prettier": "^3.1.1"
   }
 }

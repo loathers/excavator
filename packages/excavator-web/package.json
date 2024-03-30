@@ -1,0 +1,28 @@
+{
+  "name": "excavator-web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "node ./server.js",
+    "start": "NODE_ENV=production node ./server.js"
+  },
+  "dependencies": {
+    "@remix-run/express": "^2.8.1",
+    "@remix-run/node": "^2.8.1",
+    "@remix-run/react": "^2.8.1",
+    "express": "^4.19.2",
+    "isbot": "4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^2.8.1",
+    "@types/express": "^4.17.21",
+    "@types/react": "^18.2.73",
+    "@types/react-dom": "^18.2.23",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.7"
+  }
+}
