@@ -53,6 +53,8 @@ async def main():
                 if project is None:
                     error = "No project key"
                 else:
+                    if project == "Fresh Coat of Paint":
+                        project = "Fresh Coat Of Paint"
                     if project.lower() not in worksheets:
                         try:
                             ws = sheet.worksheet(project)
