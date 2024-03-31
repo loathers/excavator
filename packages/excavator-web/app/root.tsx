@@ -1,27 +1,57 @@
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-} from "@remix-run/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import { withEmotionCache } from "@emotion/react";
+import { Links, Meta, Outlet, Scripts } from "@remix-run/react";
+import { useContext, useEffect } from "react";
+
+import { ClientStyleContext, ServerStyleContext } from "./context.js";
+
+const Document = withEmotionCache(
+  ({ children }: React.PropsWithChildren, emotionCache) => {
+    const serverStyleData = useContext(ServerStyleContext);
+    const clientStyleData = useContext(ClientStyleContext);
+
+    // Only executed on client
+    useEffect(() => {
+      // re-link sheet container
+      emotionCache.sheet.container = document.head;
+      // re-inject tags
+      const tags = emotionCache.sheet.tags;
+      emotionCache.sheet.flush();
+      tags.forEach((tag) => {
+        (emotionCache.sheet as any)._insertTag(tag);
+      });
+      // reset cache to reapply global styles
+      clientStyleData?.reset();
+    }, []);
+
+    return (
+      <html lang="en">
+        <head>
+          <Meta />
+          <Links />
+          {serverStyleData?.map(({ key, ids, css }) => (
+            <style
+              key={key}
+              data-emotion={`${key} ${ids.join(" ")}`}
+              dangerouslySetInnerHTML={{ __html: css }}
+            />
+          ))}
+        </head>
+        <body>
+          {children}
+          <Scripts />
+        </body>
+      </html>
+    );
+  },
+);
 
 export default function App() {
   return (
-    <html>
-      <head>
-        <link
-          rel="icon"
-          href="data:image/x-icon;base64,AA"
-        />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <h1>Hello world!</h1>
+    <Document>
+      <ChakraProvider>
         <Outlet />
-
-        <Scripts />
-      </body>
-    </html>
+      </ChakraProvider>
+    </Document>
   );
 }

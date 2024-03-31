@@ -1,2 +1,0 @@
-gspread==4.0.0
-git+https://github.com/python-kol/libkol@master#egg=libkol
