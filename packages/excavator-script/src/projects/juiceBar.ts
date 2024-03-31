@@ -3,6 +3,7 @@
  * Determine the relationship between Chateau Mantegna Continental Juice Bar potions and the day seed
  */
 import "core-js/modules/es.string.match-all";
+
 import { ExcavatorProject } from "../type";
 import { getDaySeed } from "../utils/game";
 
