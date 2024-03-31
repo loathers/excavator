@@ -8,7 +8,6 @@ import {
   inMultiFight,
   print,
   printHtml,
-  svnInfo,
 } from "kolmafia";
 import { get, Kmail, set } from "libram";
 
@@ -18,12 +17,7 @@ const DATA_PROPERTY = "spadingData";
 const RECIPIENT_PROPERTY = "excavatorRecipient";
 
 function getExcavatorVersion() {
-  return (
-    svnInfo("gausie-excavator-trunk-RELEASE").revision ||
-    svnInfo("Excavator").revision ||
-    gitInfo("gausie-excavator").commit.substring(0, 7) ||
-    0
-  );
+  return gitInfo("gausie-excavator-release").commit.substring(0, 7) || 0;
 }
 
 function getVersionString() {
