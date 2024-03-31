@@ -1,6 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { withEmotionCache } from "@emotion/react";
 import { Links, Meta, Outlet, Scripts } from "@remix-run/react";
+import React from "react";
 import { useContext, useEffect } from "react";
 
 import { ClientStyleContext, ServerStyleContext } from "./context.js";

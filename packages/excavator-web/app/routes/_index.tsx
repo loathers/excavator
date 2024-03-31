@@ -1,6 +1,7 @@
 import { Heading } from "@chakra-ui/react";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import React from "react";
 
 import { db } from "../db.server.js";
 

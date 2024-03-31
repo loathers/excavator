@@ -1,8 +1,8 @@
-// entry.server.tsx
 import { CacheProvider } from "@emotion/react";
 import createEmotionServer from "@emotion/server/create-instance";
 import type { EntryContext } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
+import React from "react";
 import { renderToString } from "react-dom/server";
 
 // Depends on the runtime you choose

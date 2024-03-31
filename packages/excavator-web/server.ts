@@ -1,4 +1,5 @@
 import { createRequestHandler } from "@remix-run/express";
+import type { ServerBuild } from "@remix-run/server-runtime";
 import express from "express";
 
 const viteDevServer =
@@ -16,9 +17,11 @@ app.use(
 );
 
 const build = viteDevServer
-  ? () => viteDevServer.ssrLoadModule("virtual:remix/server-build")
-  : //@ts-expect-error This file may not exist
-    await import("./build/server/index.js");
+  ? () =>
+      viteDevServer.ssrLoadModule(
+        "virtual:remix/server-build",
+      ) as unknown as Promise<ServerBuild>
+  : await import("./build/server/index.js");
 
 app.all("*", createRequestHandler({ build }));
 
