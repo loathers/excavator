@@ -1,4 +1,4 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Container, Heading, Stack } from "@chakra-ui/react";
 import { withEmotionCache } from "@emotion/react";
 import { Links, Meta, Outlet, Scripts } from "@remix-run/react";
 import React from "react";
@@ -51,7 +51,12 @@ export default function App() {
   return (
     <Document>
       <ChakraProvider>
-        <Outlet />
+        <Container maxW="container.lg" pt={5}>
+          <Stack>
+            <Heading alignSelf="center">Excavator ♠️</Heading>
+            <Outlet />
+          </Stack>
+        </Container>
       </ChakraProvider>
     </Document>
   );

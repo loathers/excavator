@@ -20,4 +20,5 @@ model SpadingData {
   project   String
   version   String
   data      Json
+  dataHash  String
 }

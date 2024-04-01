@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import makeFetchCookie from "fetch-cookie";
+import crypto from "node:crypto";
 
 const f = makeFetchCookie(fetch);
 const prisma = new PrismaClient();
@@ -42,9 +43,21 @@ type SpadingData = {
 
 async function loadKmails() {
   const request = await f(
-    "https://kingdomofloathing.com/api.php?what=kmail&for=excavator",
+    "https://www.kingdomofloathing.com/api.php?what=kmail&for=excavator",
   );
   return (await request.json()) as Kmail[];
+}
+
+function hashData(data: Record<string, string | number | boolean>) {
+  return crypto
+    .createHash("md5")
+    .update(
+      Object.entries(data)
+        .sort(([a], [b]) => b.localeCompare(a))
+        .map((k) => k.join(":"))
+        .join(","),
+    )
+    .digest("hex");
 }
 
 async function main() {
@@ -68,6 +81,7 @@ async function main() {
           playerId: Number(kmail.fromid),
           project: _PROJECT,
           version: _VERSION,
+          dataHash: hashData(data),
           data,
         },
         update: {},
