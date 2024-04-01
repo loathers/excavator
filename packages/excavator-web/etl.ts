@@ -5,6 +5,22 @@ import crypto from "node:crypto";
 const f = makeFetchCookie(fetch);
 const prisma = new PrismaClient();
 
+type Kmail = {
+  id: string;
+  type: string;
+  fromid: string;
+  fromname: string;
+  localtime: string;
+  azunixtime: string;
+  message: string;
+};
+
+type SpadingData = {
+  _PROJECT: string;
+  _VERSION: string;
+  [key: string]: string | number | boolean;
+};
+
 function createBody(data: Record<string, string>) {
   const formData = new FormData();
   Object.entries(data).forEach(([key, value]) => formData.append(key, value));
@@ -24,22 +40,6 @@ async function login() {
   });
   return (await request.text()).includes("main.php");
 }
-
-type Kmail = {
-  id: string;
-  type: string;
-  fromid: string;
-  fromname: string;
-  localtime: string;
-  azunixtime: string;
-  message: string;
-};
-
-type SpadingData = {
-  _PROJECT: string;
-  _VERSION: string;
-  [key: string]: string | number | boolean;
-};
 
 async function loadKmails() {
   const request = await f(

@@ -21,7 +21,8 @@ const build = viteDevServer
       viteDevServer.ssrLoadModule(
         "virtual:remix/server-build",
       ) as unknown as Promise<ServerBuild>
-  : await import("./build/server/index.js");
+  : // @ts-ignore
+    await import("./build/server/index.js");
 
 app.all("*", createRequestHandler({ build }));
 

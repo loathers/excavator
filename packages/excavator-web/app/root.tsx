@@ -1,10 +1,21 @@
 import { ChakraProvider, Container, Heading, Stack } from "@chakra-ui/react";
 import { withEmotionCache } from "@emotion/react";
-import { Links, Meta, Outlet, Scripts } from "@remix-run/react";
+import { LinksFunction } from "@remix-run/node";
+import { Link, Links, Meta, Outlet, Scripts } from "@remix-run/react";
 import React from "react";
 import { useContext, useEffect } from "react";
 
 import { ClientStyleContext, ServerStyleContext } from "./context.js";
+import faviconUrl from "./favicon.png";
+import { theme } from "./theme.js";
+
+export const links: LinksFunction = () => [
+  {
+    rel: "icon",
+    href: faviconUrl,
+    type: "image/png",
+  },
+];
 
 const Document = withEmotionCache(
   ({ children }: React.PropsWithChildren, emotionCache) => {
@@ -50,10 +61,12 @@ const Document = withEmotionCache(
 export default function App() {
   return (
     <Document>
-      <ChakraProvider>
-        <Container maxW="container.lg" pt={5}>
-          <Stack>
-            <Heading alignSelf="center">Excavator ♠️</Heading>
+      <ChakraProvider theme={theme}>
+        <Container maxW="container.lg" pt={10}>
+          <Stack spacing={10}>
+            <Heading alignSelf="center">
+              <Link to="/">Excavator ♠️</Link>
+            </Heading>
             <Outlet />
           </Stack>
         </Container>

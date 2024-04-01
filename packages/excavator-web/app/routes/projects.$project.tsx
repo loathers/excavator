@@ -1,4 +1,7 @@
 import {
+  Button,
+  HStack,
+  Stack,
   Table,
   TableContainer,
   Tbody,
@@ -7,13 +10,12 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { Prisma } from "@prisma/client";
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link as RemixLink, useLoaderData, useParams } from "@remix-run/react";
 
 import { db } from "../db.server.js";
-
-const deslug = (slug: string) => slug.replace(/-/g, " ");
+import { deslug } from "../utils/utils.js";
+import { loadProjectData } from "../utils/utils.server.js";
 
 const getValuesInKeyOrder = <T,>(obj: Record<string, T>, keys: string[]) =>
   Object.entries(obj)
@@ -27,17 +29,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     where: { project: { equals: project, mode: "insensitive" } },
   });
 
-  const data = await db.$queryRaw<
-    { count: number; data: Record<string, any>; dataHash: string }[]
-  >`
-    SELECT
-      COUNT(*) as "count",
-      "dataHash",
-      (SELECT "data" FROM "SpadingData" as "b" WHERE "b"."dataHash" = "a"."dataHash" LIMIT 1)
-    FROM "SpadingData" as "a"
-    WHERE LOWER("project") = LOWER(${project})
-    GROUP BY "dataHash"
-  `;
+  const data = await loadProjectData(project);
 
   if (data.length === 0) {
     throw new Response("No data found for this project", { status: 404 });
@@ -60,31 +52,44 @@ function Frequency({ count, total }: { count: number; total: number }) {
 
 export default function Project() {
   const { data, total } = useLoaderData<typeof loader>();
-
+  const { project } = useParams();
   const headers = Object.keys(data.at(0)!.data);
 
   return (
-    <TableContainer>
-      <Table>
-        <Thead>
-          <Tr>
-            <Th>&#119891;</Th>
-            {headers.map((h) => (
-              <Th key={h}>{h.replace(/_/g, " ")}</Th>
-            ))}
-          </Tr>
-        </Thead>
-        <Tbody>
-          {data.map((d) => (
-            <Tr key={d.dataHash}>
-              <Frequency count={d.count} total={total} />
-              {getValuesInKeyOrder(d.data, headers).map((v, i) => (
-                <Td key={headers[i]}>{v}</Td>
+    <Stack mt={4}>
+      <HStack flexDirection="row-reverse">
+        <Button
+          as={RemixLink}
+          size="xs"
+          rightIcon={<>⬇</>}
+          to={`../${project}.csv`}
+          reloadDocument
+        >
+          Download Data
+        </Button>
+      </HStack>
+      <TableContainer>
+        <Table>
+          <Thead>
+            <Tr>
+              <Th>&#119891;</Th>
+              {headers.map((h) => (
+                <Th key={h}>{h.replace(/_/g, " ")}</Th>
               ))}
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+          </Thead>
+          <Tbody>
+            {data.map((d) => (
+              <Tr key={d.dataHash}>
+                <Frequency count={d.count} total={total} />
+                {getValuesInKeyOrder(d.data, headers).map((v, i) => (
+                  <Td key={headers[i]}>{v}</Td>
+                ))}
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </Stack>
   );
 }
