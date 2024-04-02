@@ -17,7 +17,7 @@ const DATA_PROPERTY = "spadingData";
 const RECIPIENT_PROPERTY = "excavatorRecipient";
 
 function getExcavatorVersion() {
-  return gitInfo("gausie-excavator-release").commit.substring(0, 7) || 0;
+  return gitInfo("loathers-excavator-release").commit.substring(0, 7) || gitInfo("gausie-excavator-release").commit.substring(0, 7) || 0;
 }
 
 function getVersionString() {
