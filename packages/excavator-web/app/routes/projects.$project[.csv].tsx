@@ -21,7 +21,10 @@ export async function loader({ params }: LoaderFunctionArgs) {
     count: Number(count),
     ...data,
   }));
-  const csvString = stringify(csvData, { header: true });
+  const csvString = stringify(csvData, {
+    header: true,
+    cast: { boolean: (v) => String(v) },
+  });
   const file = createReadableStreamFromReadable(Readable.from(csvString));
   return new Response(file, {
     status: 200,

@@ -83,7 +83,7 @@ export default function Project() {
               <Tr key={d.dataHash}>
                 <Frequency count={d.count} total={total} />
                 {getValuesInKeyOrder(d.data, headers).map((v, i) => (
-                  <Td key={headers[i]}>{v}</Td>
+                  <Td key={headers[i]}>{String(v)}</Td>
                 ))}
               </Tr>
             ))}
