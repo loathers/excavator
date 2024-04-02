@@ -26,10 +26,11 @@ export async function loader({ params }: LoaderFunctionArgs) {
     cast: { boolean: (v) => String(v) },
   });
   const file = createReadableStreamFromReadable(Readable.from(csvString));
+  const yyyymmdd = new Date().toISOString().split("T").at(0)?.replace(/-/g, "");
   return new Response(file, {
     status: 200,
     headers: {
-      "Content-Disposition": `attachment; filename="${params.project}"`,
+      "Content-Disposition": `attachment; filename="${params.project}-${yyyymmdd}.csv"`,
       "Content-Type": "text/csv",
     },
   });
