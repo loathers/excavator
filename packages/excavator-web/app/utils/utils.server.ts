@@ -26,7 +26,7 @@ export async function loadProjectData(project: string) {
     FROM
       "SpadingData" AS "a"
     WHERE
-      LOWER("project") = LOWER('genie')
+      LOWER("project") = LOWER(${project})
     GROUP BY
       "dataHash",
       "project"
