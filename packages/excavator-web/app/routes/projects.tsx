@@ -6,7 +6,7 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import { json } from "@remix-run/node";
+import { MetaFunction, json } from "@remix-run/node";
 import {
   Outlet,
   useLoaderData,
@@ -16,6 +16,11 @@ import {
 import { useEffect } from "react";
 
 import { db } from "../db.server.js";
+import { slug } from "../utils/utils.js";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Excavator ♠️ - Projects" }];
+};
 
 export async function loader() {
   const projects = (
@@ -28,8 +33,6 @@ export async function loader() {
 
   return json({ projects });
 }
-
-const slug = (name: string) => name.replace(/ /g, "-").toLowerCase();
 
 export default function Projects() {
   const { projects } = useLoaderData<typeof loader>();

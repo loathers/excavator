@@ -1,6 +1,6 @@
 import { ChakraProvider, Container, Heading, Stack } from "@chakra-ui/react";
 import { withEmotionCache } from "@emotion/react";
-import { LinksFunction } from "@remix-run/node";
+import { LinksFunction, MetaFunction } from "@remix-run/node";
 import { Link, Links, Meta, Outlet, Scripts } from "@remix-run/react";
 import React from "react";
 import { useContext, useEffect } from "react";
@@ -16,6 +16,10 @@ export const links: LinksFunction = () => [
     type: "image/png",
   },
 ];
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Excavator ♠️" }];
+};
 
 const Document = withEmotionCache(
   ({ children }: React.PropsWithChildren, emotionCache) => {

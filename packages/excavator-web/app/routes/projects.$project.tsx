@@ -10,17 +10,17 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
 import { Link as RemixLink, useLoaderData, useParams } from "@remix-run/react";
 
+import Frequency from "../components/Frequency.js";
 import { db } from "../db.server.js";
-import { deslug } from "../utils/utils.js";
+import { deslug, getValuesInKeyOrder } from "../utils/utils.js";
 import { loadProjectData } from "../utils/utils.server.js";
 
-const getValuesInKeyOrder = <T,>(obj: Record<string, T>, keys: string[]) =>
-  Object.entries(obj)
-    .sort(([a], [b]) => keys.indexOf(a) - keys.indexOf(b))
-    .map(([, v]) => v);
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return [{ title: `Excavator ♠️ - ${data?.projectName}` }];
+};
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const project = deslug(params.project || "");
@@ -36,18 +36,10 @@ export async function loader({ params }: LoaderFunctionArgs) {
   }
 
   return json({
+    projectName: data.at(0)?.project,
     data: data.map(({ count, ...rest }) => ({ count: Number(count), ...rest })),
     total,
   });
-}
-
-function Frequency({ count, total }: { count: number; total: number }) {
-  const full = (count / total) * 100;
-  return (
-    <Td title={`${count} times out of ${total})`}>
-      {full.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
-    </Td>
-  );
 }
 
 export default function Project() {
@@ -83,7 +75,9 @@ export default function Project() {
           <Tbody>
             {data.map((d) => (
               <Tr key={d.dataHash}>
-                <Frequency count={d.count} total={total} />
+                <Td>
+                  <Frequency count={d.count} total={total} />
+                </Td>
                 {getValuesInKeyOrder(d.data, headers).map((v, i) => (
                   <Td key={headers[i]}>{String(v)}</Td>
                 ))}
