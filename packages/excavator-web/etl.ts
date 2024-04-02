@@ -43,7 +43,7 @@ async function login() {
 
 async function loadKmails() {
   const request = await f(
-    "https://www.kingdomofloathing.com/api.php?what=kmail&for=excavator",
+    "https://www.kingdomofloathing.com/api.php?what=kmail&for=excavator&count=100",
   );
   return (await request.json()) as Kmail[];
 }
@@ -61,18 +61,16 @@ function hashData(data: Record<string, string | number | boolean>) {
 }
 
 function applyFixes(data: SpadingData) {
-  let fixed = data;
-
   // 2024-03-31: The old version of excavator used to have a capital letter here that annoyed gausie
   if (data._PROJECT === "Fresh Coat Of Paint")
-    fixed._PROJECT = "Fresh Coat of Paint";
+    data._PROJECT = "Fresh Coat of Paint";
 
   // 2024-04-02: Accidentally zero-indexed this item count
   if (data._PROJECT === "Continental Juice Bar" && "item0" in data) {
-    fixed["item3"] = fixed["item2"];
-    fixed["item2"] = fixed["item1"];
-    fixed["item1"] = fixed["item0"];
-    delete fixed["item0"];
+    data["item3"] = data["item2"];
+    data["item2"] = data["item1"];
+    data["item1"] = data["item0"];
+    delete data["item0"];
   }
 
   // 2024-04-02: Made a few mistakes here
@@ -82,10 +80,11 @@ function applyFixes(data: SpadingData) {
       data["evidence"] as string,
     )
   ) {
+    console.log(data);
     return null;
   }
 
-  return fixed;
+  return data;
 }
 
 async function main() {
