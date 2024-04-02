@@ -44,7 +44,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 function Frequency({ count, total }: { count: number; total: number }) {
   const full = (count / total) * 100;
   return (
-    <Td title={`${count} times out of ${total} (${full}%)`}>
+    <Td title={`${count} times out of ${total})`}>
       {full.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
     </Td>
   );
@@ -72,7 +72,9 @@ export default function Project() {
         <Table>
           <Thead>
             <Tr>
-              <Th>&#119891;</Th>
+              <Th>
+                <span title="Frequency">&#119891;</span>
+              </Th>
               {headers.map((h) => (
                 <Th key={h}>{h.replace(/_/g, " ")}</Th>
               ))}
