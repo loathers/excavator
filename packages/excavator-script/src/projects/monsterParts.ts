@@ -1,6 +1,6 @@
 /**
- * @author gausie
- * Record instances of a familiar indicating that it has a previous undetected attribute through mumming trunk bonuses.
+ * @author Rinn
+ * Determine what parts are considered to make up each monster
  */
 import {
   currentRound,
