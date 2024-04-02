@@ -1,5 +1,6 @@
 import { createRequestHandler } from "@remix-run/express";
 import type { ServerBuild } from "@remix-run/server-runtime";
+import "dotenv/config";
 import express from "express";
 
 const viteDevServer =

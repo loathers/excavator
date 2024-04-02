@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import "dotenv/config";
 import makeFetchCookie from "fetch-cookie";
 import crypto from "node:crypto";
 

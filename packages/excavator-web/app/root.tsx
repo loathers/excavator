@@ -18,7 +18,13 @@ export const links: LinksFunction = () => [
 ];
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Excavator ♠️" }];
+  return [
+    { title: "Excavator ♠️" },
+    {
+      name: "viewport",
+      content: "width=device-width,initial-scale=1",
+    },
+  ];
 };
 
 const Document = withEmotionCache(
