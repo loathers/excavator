@@ -4,6 +4,7 @@
  */
 import {
   currentRound,
+  dartPartsToSkills,
   Effect,
   Familiar,
   haveEquipped,
@@ -213,6 +214,22 @@ function spadeMonsterParts(
         part,
         confirmation: page.includes(`<option value="${skill.id}"`),
         source: "Mutant Couture",
+      })),
+    );
+  }
+
+  // Everfull Dart Holster
+  if (
+    currentRound() === 1 &&
+    // eslint-disable-next-line libram/verify-constants
+    haveEquipped($item`Everfull Dart Holster`)
+  ) {
+    data.push(
+      ...Object.keys(dartPartsToSkills()).map((part) => ({
+        monster,
+        part,
+        confirmation: true,
+        source: "Everfull Dart Holster",
       })),
     );
   }
