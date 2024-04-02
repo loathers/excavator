@@ -60,6 +60,34 @@ function hashData(data: Record<string, string | number | boolean>) {
     .digest("hex");
 }
 
+function applyFixes(data: SpadingData) {
+  let fixed = data;
+
+  // 2024-03-31: The old version of excavator used to have a capital letter here that annoyed gausie
+  if (data._PROJECT === "Fresh Coat Of Paint")
+    fixed._PROJECT = "Fresh Coat of Paint";
+
+  // 2024-04-02: Accidentally zero-indexed this item count
+  if (data._PROJECT === "Continental Juice Bar" && "item0" in data) {
+    fixed["item3"] = fixed["item2"];
+    fixed["item2"] = fixed["item1"];
+    fixed["item1"] = fixed["item0"];
+    delete fixed["item0"];
+  }
+
+  // 2024-04-02: Made a few mistakes here
+  if (
+    data._PROJECT === "Autumnaton" &&
+    ["Item: {acquired}", "Item: autumn-aton"].includes(
+      data["evidence"] as string,
+    )
+  ) {
+    return null;
+  }
+
+  return fixed;
+}
+
 async function main() {
   if (!(await login())) {
     console.log("Can't log in, probably rollover");
@@ -71,20 +99,20 @@ async function main() {
       const message = decodeURIComponent(
         kmail.message.replace(/ /g, "").replace(/\+/g, " "),
       );
-      const { _PROJECT, _VERSION, ...data } = JSON.parse(
-        message,
-      ) as SpadingData;
-      const id = Number(kmail.id);
+      const fixed = applyFixes(JSON.parse(message) as SpadingData);
 
-      const project =
-        _PROJECT === "Fresh Coat Of Paint" ? "Fresh Coat of Paint" : _PROJECT;
+      if (fixed === null) continue;
+
+      const { _PROJECT, _VERSION, ...data } = fixed;
+
+      const id = Number(kmail.id);
 
       await prisma.spadingData.upsert({
         create: {
           id,
           createdAt: new Date(Number(kmail.azunixtime) * 1000),
           playerId: Number(kmail.fromid),
-          project,
+          project: _PROJECT,
           version: _VERSION,
           dataHash: hashData(data),
           data,

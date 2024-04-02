@@ -24,7 +24,7 @@ export const JUICE_BAR: ExcavatorProject = {
 
       return {
         ...created.reduce(
-          (acc, match, i) => ({ ...acc, [`item${i}`]: match[1] }),
+          (acc, match, i) => ({ ...acc, [`item${i + 1}`]: match[1] }),
           {} as Record<string, string>,
         ),
         ...getDaySeed(),

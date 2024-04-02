@@ -7,7 +7,7 @@ export default function Frequency({
 }) {
   const full = (count / total) * 100;
   return (
-    <span title={`${count} times out of ${total})`}>
+    <span title={`${count} times out of ${total}`}>
       {full.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
     </span>
   );

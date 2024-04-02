@@ -46,8 +46,13 @@ export default function Projects() {
 
   if (projects.length === 0) return <Alert>No projects found</Alert>;
 
+  const projectIndex = projects.findIndex((p) => slug(p) === params.project);
+
   return (
-    <Tabs isLazy onChange={(i) => navigate(`./${slug(projects[i])}`)}>
+    <Tabs
+      defaultIndex={projectIndex}
+      onChange={(i) => navigate(`./${slug(projects[i])}`)}
+    >
       <TabList>
         {projects.map((p) => (
           <Tab key={p}>{p}</Tab>
