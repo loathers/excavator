@@ -68,18 +68,23 @@ async function main() {
 
   for (const kmail of await loadKmails()) {
     try {
-      const message = decodeURIComponent(kmail.message.replace(/ /g, ""));
+      const message = decodeURIComponent(
+        kmail.message.replace(/ /g, "").replace(/\+/g, " "),
+      );
       const { _PROJECT, _VERSION, ...data } = JSON.parse(
         message,
       ) as SpadingData;
       const id = Number(kmail.id);
+
+      const project =
+        _PROJECT === "Fresh Coat Of Paint" ? "Fresh Coat of Paint" : _PROJECT;
 
       await prisma.spadingData.upsert({
         create: {
           id,
           createdAt: new Date(Number(kmail.azunixtime) * 1000),
           playerId: Number(kmail.fromid),
-          project: _PROJECT,
+          project,
           version: _VERSION,
           dataHash: hashData(data),
           data,
