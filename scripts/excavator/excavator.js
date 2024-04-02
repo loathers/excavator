@@ -3192,7 +3192,7 @@ var JUICE_BAR = {
         return null;
       var created = _toConsumableArray3(page.matchAll(/You acquire an item: <b>(.*?)<\/b>/g));
       return _objectSpread4(_objectSpread4({}, created.reduce(function(acc, match, i) {
-        return _objectSpread4(_objectSpread4({}, acc), {}, _defineProperty5({}, "item".concat(i), match[1]));
+        return _objectSpread4(_objectSpread4({}, acc), {}, _defineProperty5({}, "item".concat(i + 1), match[1]));
       }, {})), getDaySeed());
     }
   }
