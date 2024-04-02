@@ -80,7 +80,6 @@ function applyFixes(data: SpadingData) {
       data["evidence"] as string,
     )
   ) {
-    console.log(data);
     return null;
   }
 
