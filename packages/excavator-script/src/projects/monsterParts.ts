@@ -165,7 +165,7 @@ type MonsterPartsData = {
   monster: string;
   part: string;
   confirmation: boolean;
-  method: string;
+  source: string;
 };
 
 function spadeMonsterParts(
@@ -187,13 +187,13 @@ function spadeMonsterParts(
       monster,
       part,
       confirmation: true,
-      method: indicator.prerequisite.toString(),
+      source: indicator.prerequisite.toString(),
     });
   }
 
   // El Vibrato restraints
   if (page.includes("lvcuff.gif")) {
-    const base = { monster, part: "arm", method: "El Vibrato restraints" };
+    const base = { monster, part: "arm", source: "El Vibrato restraints" };
     if (page.includes("This foe doesn't have any arms that you can find")) {
       data.push({ ...base, confirmation: false });
     } else if (page.includes("You push the button on top of the restraints")) {
@@ -212,7 +212,7 @@ function spadeMonsterParts(
         monster,
         part,
         confirmation: page.includes(`<option value="${skill.id}"`),
-        method: "Mutant Couture",
+        source: "Mutant Couture",
       })),
     );
   }
