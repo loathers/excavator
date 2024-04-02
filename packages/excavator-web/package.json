@@ -7,7 +7,7 @@
   "scripts": {
     "build": "remix vite:build",
     "dev": "node --loader tsm ./server.ts",
-    "start": "NODE_ENV=production node --loader tsm ./server.js",
+    "start": "NODE_ENV=production node --loader tsm ./server.ts",
     "etl": "node --loader tsm ./etl.ts",
     "format": "prettier --write ."
   },
