@@ -205,7 +205,7 @@ function spadeMonsterParts(
   if (
     currentRound() === 1 &&
     isWearingOutfit("Mutant Couture") &&
-    page.includes("<selet name=whichskill>")
+    page.includes("<select name=whichskill>")
   ) {
     data.push(
       ...Object.entries(MUTANT_COUTURE_SKILLS).map(([part, skill]) => ({
