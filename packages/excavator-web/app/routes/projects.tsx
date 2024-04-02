@@ -1,4 +1,11 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import {
+  Alert,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
 import { json } from "@remix-run/node";
 import {
   Outlet,
@@ -28,6 +35,8 @@ export default function Projects() {
   const { projects } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const params = useParams();
+
+  if (projects.length === 0) return <Alert>No projects found</Alert>;
 
   useEffect(() => {
     if (!params.project) navigate(`./${slug(projects.at(0)!)}`);
