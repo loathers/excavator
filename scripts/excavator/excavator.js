@@ -2689,7 +2689,7 @@ var UPGRADE_TO_LOCATION_DETAILS = {
   "autumn sweater-weather sweater": "low underground"
 }, ITEM_TO_LOCATION_DETAILS = {
   "autumn leaf": "low outdoor",
-  "AutumnFest Ale": "low indoor",
+  "AutumnFest ale": "low indoor",
   "autumn-spice donut": "mid indoor",
   "autumn breeze": "high indoor",
   "autumn sweater-weather sweater": "low underground",
