@@ -2734,7 +2734,7 @@ function checkItem(location, page) {
   return actual === expected ? null : {
     location: location.toString(),
     estimate: actual,
-    evidence: "Item: {acquired}"
+    evidence: "Item: ".concat(acquired)
   };
 }
 function endQuest(locationName, page) {
