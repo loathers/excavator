@@ -6,6 +6,7 @@ import { COAT_OF_PAINT } from "./coatOfPaint";
 import { GENIE } from "./genie";
 import { HOOKAH } from "./hookah";
 import { JUICE_BAR } from "./juiceBar";
+import { MONSTER_PARTS } from "./monsterParts";
 import { MUMMING_TRUNK } from "./mummingTrunk";
 import { OUT_OF_ORDER } from "./outOfOrder";
 
@@ -16,6 +17,7 @@ export const projects: ExcavatorProject[] = [
   GENIE,
   HOOKAH,
   JUICE_BAR,
+  MONSTER_PARTS,
   MUMMING_TRUNK,
   OUT_OF_ORDER,
 ];
