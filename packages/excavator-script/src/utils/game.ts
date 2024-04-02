@@ -2,6 +2,8 @@ import {
   canInteract,
   gamedayToInt,
   inHardcore,
+  Item,
+  Monster,
   moonLight,
   moonPhase,
   myClass,
@@ -37,4 +39,8 @@ export function getDifficultySeed() {
   return {
     difficulty: getDifficulty(),
   };
+}
+
+export function toNormalisedString(thing: Item | Monster) {
+  return `[${thing.id}]${thing.name}`;
 }

@@ -84,6 +84,11 @@ function applyFixes(data: SpadingData) {
     return null;
   }
 
+  // 2024-04-02: Added method to Monster Parts
+  if (data._PROJECT === "Monster Parts" && !("method" in data)) {
+    data["method"] = "Unknown";
+  }
+
   return data;
 }
 
