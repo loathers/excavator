@@ -95,7 +95,7 @@ function checkItem(location: Location, page: string) {
   return {
     location: location.toString(),
     estimate: actual,
-    evidence: `Item: {acquired}`,
+    evidence: `Item: ${acquired}`,
   };
 }
 
