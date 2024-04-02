@@ -9,19 +9,26 @@ type ProjectData = {
 
 export async function loadProjectData(project: string) {
   return await db.$queryRaw<ProjectData[]>`
-    SELECT "a"."count",
-        "a"."dataHash",
-        "b"."data",
-        "b"."project"
+    SELECT
+      COUNT(*) as "count",
+      "dataHash",
+      "project",
+      (
+        SELECT
+          "data"
+        FROM
+          "SpadingData" AS "b"
+        WHERE
+          "b"."dataHash" = "a"."dataHash"
+        LIMIT
+          1
+      )
     FROM
-    (
-        SELECT COUNT(*) as "count",
-              "dataHash"
-        FROM "SpadingData"
-        WHERE LOWER("project") = LOWER(${project})
-        GROUP BY "dataHash"
-    ) AS "a"
-        LEFT JOIN "SpadingData" as "b"
-            ON "a"."dataHash" = "b"."dataHash"
+      "SpadingData" AS "a"
+    WHERE
+      LOWER("project") = LOWER('genie')
+    GROUP BY
+      "dataHash",
+      "project"
   `;
 }
