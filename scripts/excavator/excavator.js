@@ -3039,7 +3039,7 @@ function spadeGenie(page) {
     var monster = (0, import_kolmafia11.toMonster)(fightWished[1]);
     if (monster === import_kolmafia11.Monster.none)
       return null;
-    var wishable = !monster.boss && monster.copyable;
+    var wishable = !monster.boss && monster.copyable && !monster.attributes.includes("NOWISH");
     return wishable === success ? null : {
       success: success,
       type: "monster",
