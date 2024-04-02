@@ -3384,7 +3384,7 @@ function _toPrimitive6(t, r) {
 }
 var DATA_PROPERTY = "spadingData", RECIPIENT_PROPERTY = "excavatorRecipient";
 function getExcavatorVersion() {
-  return (0, import_kolmafia15.gitInfo)("gausie-excavator-release").commit.substring(0, 7) || 0;
+  return (0, import_kolmafia15.gitInfo)("loathers-excavator-release").commit.substring(0, 7) || (0, import_kolmafia15.gitInfo)("gausie-excavator-release").commit.substring(0, 7) || 0;
 }
 function getVersionString() {
   return "".concat((0, import_kolmafia15.getRevision)(), "/").concat(getExcavatorVersion());
