@@ -83,7 +83,7 @@ function checkItem(location: Location, page: string) {
 
   // user has no meltables
   const acquired = page.match(
-    /You acquire an item: <b>([Aa]utumn(?!aton)[^<]+)<\/b>/,
+    /You acquire an item: <b>([Aa]utumn(?!-aton)[^<]+)<\/b>/,
   )?.[1];
 
   if (!acquired) return null;
