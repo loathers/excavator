@@ -66,7 +66,7 @@ export const COAT_OF_PAINT: ExcavatorProject = {
       if (mod === "") return null;
 
       // Avoid sending the same data multiple times per session
-      if (sessionStorage.getItem("reportedCoatOfPaintMod") === mod) return null
+      if (sessionStorage.getItem("reportedCoatOfPaintMod") === mod) return null;
       sessionStorage.setItem("reportedCoatOfPaintMod", mod);
 
       return {
