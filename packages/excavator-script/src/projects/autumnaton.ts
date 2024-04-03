@@ -88,6 +88,9 @@ function checkItem(location: Location, page: string) {
 
   if (!acquired) return null;
 
+  // If we have a collection prow installed random items can drop, so this work is less useful.
+  if (get("autumnatonUpgrades").includes("cowcatcher")) return null;
+
   const actual = ITEM_TO_LOCATION_DETAILS[acquired];
 
   if (actual === expected) return null;
