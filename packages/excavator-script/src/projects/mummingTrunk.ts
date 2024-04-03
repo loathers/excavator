@@ -9,7 +9,7 @@ import { ExcavatorProject } from "../type";
 
 const ATTRIBUTE_INDICATORS = {
   "1": {
-    hands: [
+    hashands: [
       "Captain <name> waves <pronoun-pos> hands at you until you notice the Meat <pronoun-subj>'s found\\.",
       "Captain <name> distracts your opponent with <pronoun-pos> left hand while punching the Meat out of their pockets with the other\\.",
       'Captain <name> emits an enthusiastic "Arrrr," grabs a shovel, and digs up some extra Meat for you\\.',
@@ -23,7 +23,7 @@ const ATTRIBUTE_INDICATORS = {
     ],
   },
   "2": {
-    wings: [
+    haswings: [
       "<name> beats <pronoun-pos> wings, building up a static charge in <pronoun-pos> little Beelzebub pitchfork, which <pronoun-subj> then jabs you in the skull with\\.",
       "<name> flaps <pronoun-pos> wings until <pronoun-subj> builds up a good static charge, then jabs you with <pronoun-pos> little Beelzebub pitchfork\\. Zzzap!",
       "<name> flies up above you and fires little lightning bolts from <pronoun-pos> little pitchfork at your head, painfully refilling your MP\\.",
@@ -43,7 +43,7 @@ const ATTRIBUTE_INDICATORS = {
       "Saint <name> barks or howls or makes whatever sort of excited animal noise is appropriate for a thing like <name>, and this gets you pumped up\\.",
       "You give Saint <name> a pat on the head, which might possibly be sacrilegious, and uh\\.\\.\\. I guess that results in you getting a little stronger somehow\\.",
     ],
-    biting: [
+    bite: [
       "<name> bares her fangs at your foe in a not-particularly-saintly way; your foe hesitates for a moment\\.",
       "and shakes them violently, as Saint Patrick was famous for doing all the time\\.",
       "<name> chomps your foe on the head and refuses to let go\\. That's that famous Saint Patrick tenacity at work\\.",
@@ -51,7 +51,7 @@ const ATTRIBUTE_INDICATORS = {
     ],
   },
   "4": {
-    clothes: [
+    wearsclothes: [
       "<name> smooths <pronoun-pos> purple crushed velvet suit and adjusts <pronoun-pos> lace cravat, then does an elaborate sexy dance for you\\. Unless you have put this costume on an underage familiar, in which case the dance is not sexy\\.",
       "<name>, dressed to the nines in <pronoun-pos> fancy Prince George costume, orders a random passerby to bring <pronoun-obj> some extra items\\. So haughty!",
       "Prince <name> does a regal dance\\. Some kind of waltz or something I guess\\? One of those dances with a lot of bowing and turning around\\.",
@@ -65,13 +65,13 @@ const ATTRIBUTE_INDICATORS = {
     ],
   },
   "5": {
-    eyes: [
+    haseyes: [
       "<name> peers at a tactical map of the area and pushes some little toy soldiers around it with a bent stick\\.",
       "<name> scans the horizon with her little field binoculars and gives you some Oliver Cromwellian intelligence updates\\.",
       "<name> blinks her eyes intelligently, like Oliver Cromwell would\\. Some of that intelligence rubs off on you\\.",
       "<name> adjusts her little Oliver Cromwell glasses and makes some helpful adjustments to your to-do list\\.",
     ],
-    flying: [
+    flies: [
       "From <pronoun-pos> position above the battlefield, <name> helps you get the jump on your foe in typical Oliver Cromwell style\\.",
       "<name> shouts some intel about enemy troop formations down at you from <pronoun-pos> position over the battlefield\\. Because that's something Oliver Cromwell did\\.",
       "<name> dissolves the Rump Parliament and is elected Lord Protector of England by your other familiars\\. Also, you win initiative\\.",
@@ -79,7 +79,7 @@ const ATTRIBUTE_INDICATORS = {
     ],
   },
   "6": {
-    mechanical: [
+    technological: [
       "<name>, dressed as The Doctor, gives you a quick MRI\\.",
       "<name> consults some bleeping Doctor-type machines and writes you a prescription\\.",
       "Doctor <name> puts a stick in your mouth and shines a light-up gadget in your eyes\\. For some reason, you feel better\\.",
