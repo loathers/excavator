@@ -72,7 +72,7 @@ export default function App() {
   return (
     <Document>
       <ChakraProvider theme={theme}>
-        <Container maxW="container.xl" pt={10}>
+        <Container maxW={["100%", null, "container.xl"]} pt={10}>
           <Stack spacing={10}>
             <Heading alignSelf="center">
               <Link to="/">Excavator ♠️</Link>

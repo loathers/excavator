@@ -1,6 +1,7 @@
 import {
   Alert,
   Tab,
+  TabIndicator,
   TabList,
   TabPanel,
   TabPanels,
@@ -51,13 +52,26 @@ export default function Projects() {
   return (
     <Tabs
       defaultIndex={projectIndex}
+      maxWidth="100%"
       onChange={(i) => navigate(`./${slug(projects[i])}`)}
     >
-      <TabList>
+      <TabList
+        overflowX="scroll"
+        sx={{
+          scrollbarWidth: "none",
+          "::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
+        pb={1}
+      >
         {projects.map((p) => (
-          <Tab key={p}>{p}</Tab>
+          <Tab key={p} sx={{ textWrap: "nowrap" }}>
+            {p}
+          </Tab>
         ))}
       </TabList>
+      <TabIndicator />
       <TabPanels>
         <Outlet />
       </TabPanels>
