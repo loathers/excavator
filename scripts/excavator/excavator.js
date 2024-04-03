@@ -3177,7 +3177,7 @@ function checkItem(location, page) {
   }))
     return null;
   var acquired = (_page$match2 = page.match(/You acquire an item: <b>([Aa]utumn(?!-aton)[^<]+)<\/b>/)) === null || _page$match2 === void 0 ? void 0 : _page$match2[1];
-  if (!acquired)
+  if (!acquired || get("autumnatonUpgrades").includes("cowcatcher"))
     return null;
   var actual = ITEM_TO_LOCATION_DETAILS[acquired];
   return actual === expected ? null : {
