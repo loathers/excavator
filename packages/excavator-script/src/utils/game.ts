@@ -1,6 +1,8 @@
 import {
   canInteract,
+  currentRound,
   gamedayToInt,
+  haveEquipped,
   inHardcore,
   Item,
   Monster,
@@ -8,9 +10,29 @@ import {
   moonPhase,
   myClass,
   myDaycount,
+  myLocation,
   myPath,
+  myTotalTurnsSpent,
   Path,
 } from "kolmafia";
+import { $effects, $items, $locations, have } from "libram";
+
+const ALTERING_EFFECTS = $effects`Can Has Cyborger, Dis Abled, Haiku State of Mind, Just the Best Anapests, O Hai!, Robocamo, Temporary Blindness`;
+const ALTERING_EQUIPMENT = $items`makeshift turban, staph of homophones, sword behind inappropriate prepositions`;
+const ALTERING_LOCATIONS = $locations`The Haiku Dungeon`;
+
+let _lastAdventureTextAltered = -1;
+let _isAdventureTextAltered = false;
+export function isAdventureTextAltered(): boolean {
+  if (myTotalTurnsSpent() !== _lastAdventureTextAltered) {
+    _lastAdventureTextAltered = myTotalTurnsSpent();
+    _isAdventureTextAltered =
+      ALTERING_EFFECTS.some((effect) => have(effect)) ||
+      ALTERING_EQUIPMENT.some((item) => haveEquipped(item)) ||
+      (currentRound() > 0 && ALTERING_LOCATIONS.includes(myLocation()));
+  }
+  return _isAdventureTextAltered;
+}
 
 export function getDaySeed() {
   return {
