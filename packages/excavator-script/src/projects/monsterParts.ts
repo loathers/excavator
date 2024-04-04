@@ -259,20 +259,8 @@ function spadeMonsterParts(
     // eslint-disable-next-line libram/verify-constants
     haveEquipped($item`Everfull Dart Holster`)
   ) {
-    const dartParts = Object.keys(dartPartsToSkills());
     data.push(
-      ...monsterParts
-        .filter((part) => !dartParts.includes(part))
-        .map((part) => ({
-          monster,
-          part,
-          confirmation: false,
-          source: "Everfull Dart Holster",
-        })),
-    );
-
-    data.push(
-      ...dartParts
+      ...Object.keys(dartPartsToSkills())
         .filter((part) => !monsterParts.includes(part))
         .map((part) => ({
           monster: monster,
