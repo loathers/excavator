@@ -1,3 +1,5 @@
+import { getRevision } from "kolmafia";
+
 import { projects } from "./projects";
 import { Hooks } from "./type";
 import { sendSpadingData } from "./utils/spading";
@@ -10,7 +12,7 @@ function tupleNotNull<A, B>(
 
 function main(event: keyof Hooks, meta: string, page: string) {
   projects
-    .filter(({ hooks }) => event in hooks)
+    .filter(({ hooks, since = 0 }) => event in hooks && since <= getRevision())
     .map(({ name, hooks }) => [name, hooks[event]!(meta, page)] as const)
     .filter(tupleNotNull)
     .forEach(([name, data]) => {
