@@ -1,6 +1,5 @@
 # This workflow will do a clean install of node dependencies, build the source
 # code across multiple Node.js versions, and lint the project.
-
 name: Build & Lint
 
 on:
@@ -9,18 +8,21 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  # Default version of Node.js for jobs
-  node-version: "18"
-
 jobs:
   lint:
+    name: Code formatting
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.node-version }}
-      - run: yarn install --frozen-lockfile
+          node-version: latest
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Check code formatting
+        run: yarn run lint

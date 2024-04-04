@@ -2,7 +2,7 @@ name: Deploy KoLmafia script
 
 on:
   push:
-      branches: [main]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -10,15 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Push
     steps:
-      - name: git-checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          cache: yarn
+          node-version: latest
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: Build script
         run: yarn workspace excavator-script run build
-    
+
       - name: Push
         uses: s0/git-publish-subdir-action@develop
         env:
