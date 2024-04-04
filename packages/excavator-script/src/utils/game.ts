@@ -29,7 +29,7 @@ export function isAdventureTextAltered(): boolean {
     _isAdventureTextAltered =
       ALTERING_EFFECTS.some((effect) => have(effect)) ||
       ALTERING_EQUIPMENT.some((item) => haveEquipped(item)) ||
-      (currentRound() > 0 && ALTERING_LOCATIONS.includes(myLocation()));
+      ALTERING_LOCATIONS.includes(myLocation());
   }
   return _isAdventureTextAltered;
 }
