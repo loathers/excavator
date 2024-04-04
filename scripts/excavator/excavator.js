@@ -3951,7 +3951,7 @@ function spadeMonsterParts(encounter, page) {
       }));
     }
   }
-  if ((0, import_kolmafia15.currentRound)() === 1 && (0, import_kolmafia15.isWearingOutfit)("Mutant Couture") && page.includes("<select name=whichskill>") && (data.push.apply(data, _toConsumableArray5(Object.entries(MUTANT_COUTURE_SKILLS).filter(function(_ref2) {
+  return (0, import_kolmafia15.currentRound)() === 1 && (0, import_kolmafia15.isWearingOutfit)("Mutant Couture") && page.includes("<select name=whichskill>") && (data.push.apply(data, _toConsumableArray5(Object.entries(MUTANT_COUTURE_SKILLS).filter(function(_ref2) {
     var _ref3 = _slicedToArray6(_ref2, 2), part2 = _ref3[0], skill = _ref3[1];
     return !monsterParts.includes(part2) && page.includes('<option value="'.concat(skill.id, '"'));
   }).map(function(_ref4) {
@@ -3974,29 +3974,16 @@ function spadeMonsterParts(encounter, page) {
       source: "Mutant Couture"
     };
   })))), (0, import_kolmafia15.currentRound)() === 1 && // eslint-disable-next-line libram/verify-constants
-  (0, import_kolmafia15.haveEquipped)($item(_templateObject222 || (_templateObject222 = _taggedTemplateLiteral7(["Everfull Dart Holster"]))))) {
-    var dartParts = Object.keys((0, import_kolmafia15.dartPartsToSkills)());
-    data.push.apply(data, _toConsumableArray5(monsterParts.filter(function(part2) {
-      return !dartParts.includes(part2);
-    }).map(function(part2) {
-      return {
-        monster: monster,
-        part: part2,
-        confirmation: !1,
-        source: "Everfull Dart Holster"
-      };
-    }))), data.push.apply(data, _toConsumableArray5(dartParts.filter(function(part2) {
-      return !monsterParts.includes(part2);
-    }).map(function(part2) {
-      return {
-        monster: monster,
-        part: part2,
-        confirmation: !0,
-        source: "Everfull Dart Holster"
-      };
-    })));
-  }
-  return data;
+  (0, import_kolmafia15.haveEquipped)($item(_templateObject222 || (_templateObject222 = _taggedTemplateLiteral7(["Everfull Dart Holster"])))) && data.push.apply(data, _toConsumableArray5(Object.keys((0, import_kolmafia15.dartPartsToSkills)()).filter(function(part2) {
+    return !monsterParts.includes(part2);
+  }).map(function(part2) {
+    return {
+      monster: monster,
+      part: part2,
+      confirmation: !0,
+      source: "Everfull Dart Holster"
+    };
+  }))), data;
 }
 var MONSTER_PARTS = {
   name: "Monster Parts",
