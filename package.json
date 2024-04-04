@@ -11,6 +11,6 @@
   "scripts": {
     "build": "yarn workspace excavator-script run build",
     "format": "yarn workspaces run format && yarn prettier --write .github",
-    "lint": "yarn workspaces run lint"
+    "lint": "yarn workspaces run lint && yarn prettier --check .github"
   }
 }
