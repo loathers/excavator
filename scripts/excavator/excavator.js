@@ -3210,6 +3210,18 @@ var import_kolmafia11 = require("kolmafia");
 // src/utils/game.ts
 init_kolmafia_polyfill();
 var import_kolmafia10 = require("kolmafia");
+var _templateObject2, _templateObject210, _templateObject3;
+function _taggedTemplateLiteral3(strings, raw) {
+  return raw || (raw = strings.slice(0)), Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } }));
+}
+var ALTERING_EFFECTS = $effects(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral3(["Can Has Cyborger, Dis Abled, Haiku State of Mind, Just the Best Anapests, O Hai!, Robocamo, Temporary Blindness"]))), ALTERING_EQUIPMENT = $items(_templateObject210 || (_templateObject210 = _taggedTemplateLiteral3(["makeshift turban, staph of homophones, sword behind inappropriate prepositions"]))), ALTERING_LOCATIONS = $locations(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral3(["The Haiku Dungeon"])));
+function isAdventureTextAltered() {
+  return ALTERING_EFFECTS.some(function(effect) {
+    return have(effect);
+  }) || ALTERING_EQUIPMENT.some(function(item) {
+    return (0, import_kolmafia10.haveEquipped)(item);
+  }) || ALTERING_LOCATIONS.includes((0, import_kolmafia10.myLocation)());
+}
 function getDaySeed() {
   return {
     daycount: (0, import_kolmafia10.myDaycount)(),
@@ -3230,7 +3242,7 @@ function toNormalisedString(thing) {
 }
 
 // src/projects/birdADay.ts
-var _templateObject2;
+var _templateObject4;
 function ownKeys3(e, r) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -3324,7 +3336,7 @@ function _arrayWithHoles4(arr) {
   if (Array.isArray(arr))
     return arr;
 }
-function _taggedTemplateLiteral3(strings, raw) {
+function _taggedTemplateLiteral4(strings, raw) {
   return raw || (raw = strings.slice(0)), Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } }));
 }
 var BIRD_A_DAY_MODIFIERS = {
@@ -3332,7 +3344,7 @@ var BIRD_A_DAY_MODIFIERS = {
   element: ["Cold Resistance", "Hot Resistance", "Sleaze Resistance", "Spooky Resistance", "Stench Resistance"],
   attribute: ["Item Drop", "Meat Drop", "Monster Level", "Combat Rate", "Initiative", "Experience"],
   bonus: ["HP Regen Min", "Weapon Damage", "Damage Absorption", "MP Regen Min"]
-}, BLESSING = $effect(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral3(["Blessing of the Bird"])));
+}, BLESSING = $effect(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral4(["Blessing of the Bird"])));
 function getBlessingModifiers() {
   return Object.entries(BIRD_A_DAY_MODIFIERS).reduce(function(data, _ref) {
     var _ref2 = _slicedToArray4(_ref, 2), type = _ref2[0], mods = _ref2[1], mod = mods.find(function(m) {
@@ -3353,7 +3365,7 @@ var BIRD_A_DAY = {
 // src/projects/coatOfPaint.ts
 init_kolmafia_polyfill();
 var import_kolmafia12 = require("kolmafia");
-var _templateObject3, _templateObject210, _templateObject35;
+var _templateObject5, _templateObject211, _templateObject35;
 function ownKeys4(e, r) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -3394,7 +3406,7 @@ function _toPrimitive6(t, r) {
   }
   return (r === "string" ? String : Number)(t);
 }
-function _taggedTemplateLiteral4(strings, raw) {
+function _taggedTemplateLiteral5(strings, raw) {
   return raw || (raw = strings.slice(0)), Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } }));
 }
 function _slicedToArray5(arr, i) {
@@ -3458,9 +3470,9 @@ var COAT_OF_PAINT_MODIFIERS = {
 function getPaintModifiers(page) {
   var paintMods = Object.entries(COAT_OF_PAINT_MODIFIERS).reduce(function(data, _ref) {
     var _ref2 = _slicedToArray5(_ref, 2), type = _ref2[0], mods = _ref2[1], mod = mods.find(function(m) {
-      return (0, import_kolmafia12.numericModifier)($item(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral4(["fresh coat of paint"]))), m) !== 0;
+      return (0, import_kolmafia12.numericModifier)($item(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral5(["fresh coat of paint"]))), m) !== 0;
     });
-    return _objectSpread4(_objectSpread4({}, data), {}, _defineProperty6(_defineProperty6({}, type, mod || ""), "".concat(type, "_value"), mod ? String((0, import_kolmafia12.numericModifier)($item(_templateObject210 || (_templateObject210 = _taggedTemplateLiteral4(["fresh coat of paint"]))), mod)) : ""));
+    return _objectSpread4(_objectSpread4({}, data), {}, _defineProperty6(_defineProperty6({}, type, mod || ""), "".concat(type, "_value"), mod ? String((0, import_kolmafia12.numericModifier)($item(_templateObject211 || (_templateObject211 = _taggedTemplateLiteral5(["fresh coat of paint"]))), mod)) : ""));
   }, {}), bonus = page.match(COAT_BONUS_REGEX);
   return bonus && (paintMods.bonus = bonus[1]), paintMods;
 }
@@ -3468,7 +3480,7 @@ var COAT_OF_PAINT = {
   name: "Fresh Coat of Paint",
   hooks: {
     DESC_ITEM: function(itemName, page) {
-      if (itemName !== $item(_templateObject35 || (_templateObject35 = _taggedTemplateLiteral4(["fresh coat of paint"]))).name)
+      if (itemName !== $item(_templateObject35 || (_templateObject35 = _taggedTemplateLiteral5(["fresh coat of paint"]))).name)
         return null;
       var mod = get("_coatOfPaintModifier");
       return mod === "" || import_kolmafia12.sessionStorage.getItem("reportedCoatOfPaintMod") === mod ? null : (import_kolmafia12.sessionStorage.setItem("reportedCoatOfPaintMod", mod), _objectSpread4(_objectSpread4(_objectSpread4({}, getPaintModifiers(page)), getDaySeed()), getDifficultySeed()));
@@ -3525,8 +3537,8 @@ var GENIE = {
 // src/projects/hookah.ts
 init_kolmafia_polyfill();
 var import_kolmafia14 = require("kolmafia");
-var _templateObject4, _templateObject211;
-function _taggedTemplateLiteral5(strings, raw) {
+var _templateObject6, _templateObject212;
+function _taggedTemplateLiteral6(strings, raw) {
   return raw || (raw = strings.slice(0)), Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } }));
 }
 function extractEffectFromEvent(page, eventTriggerText) {
@@ -3552,9 +3564,9 @@ var HOOKAH = {
     COMBAT_ROUND: function(encounter, page) {
       switch ((0, import_kolmafia14.currentRound)()) {
         case 0:
-          return (0, import_kolmafia14.equippedAmount)($item(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral5(["enhanced signal receiver"])))) > 0 ? checkHookahSource(page, "enhanced signal receiver", "Your signal receiver pipes up:") : Horsery_exports.current() === "crazy" && get("_horseryCrazyName") ? checkHookahSource(page, "crazy horse", get("_horseryCrazyName")) : null;
+          return (0, import_kolmafia14.equippedAmount)($item(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral6(["enhanced signal receiver"])))) > 0 ? checkHookahSource(page, "enhanced signal receiver", "Your signal receiver pipes up:") : Horsery_exports.current() === "crazy" && get("_horseryCrazyName") ? checkHookahSource(page, "crazy horse", get("_horseryCrazyName")) : null;
         case 1:
-          return (0, import_kolmafia14.equippedAmount)($item(_templateObject211 || (_templateObject211 = _taggedTemplateLiteral5(["ittah bittah hookah"])))) > 0 ? checkHookahSource(page, "ittah bittha hookah", "takes a pull on the hookah") : null;
+          return (0, import_kolmafia14.equippedAmount)($item(_templateObject212 || (_templateObject212 = _taggedTemplateLiteral6(["ittah bittah hookah"])))) > 0 ? checkHookahSource(page, "ittah bittha hookah", "takes a pull on the hookah") : null;
         default:
           return null;
       }
@@ -3653,7 +3665,7 @@ var JUICE_BAR = {
 // src/projects/monsterParts.ts
 init_kolmafia_polyfill();
 var import_kolmafia15 = require("kolmafia");
-var _templateObject5, _templateObject212, _templateObject36, _templateObject42, _templateObject52, _templateObject6, _templateObject7, _templateObject8, _templateObject92, _templateObject102, _templateObject112, _templateObject122, _templateObject132, _templateObject142, _templateObject152, _templateObject162, _templateObject172, _templateObject182, _templateObject192, _templateObject202;
+var _templateObject7, _templateObject213, _templateObject36, _templateObject42, _templateObject52, _templateObject62, _templateObject72, _templateObject8, _templateObject92, _templateObject102, _templateObject112, _templateObject122, _templateObject132, _templateObject142, _templateObject152, _templateObject162, _templateObject172, _templateObject182, _templateObject192, _templateObject202, _templateObject214, _templateObject222;
 function _slicedToArray6(arr, i) {
   return _arrayWithHoles6(arr) || _iterableToArrayLimit6(arr, i) || _unsupportedIterableToArray9(arr, i) || _nonIterableRest6();
 }
@@ -3793,49 +3805,49 @@ function _arrayLikeToArray9(arr, len) {
     arr2[i] = arr[i];
   return arr2;
 }
-function _taggedTemplateLiteral6(strings, raw) {
+function _taggedTemplateLiteral7(strings, raw) {
   return raw || (raw = strings.slice(0)), Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } }));
 }
-var MONSTER_BLACKLIST = $monsters(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral6(["the darkness (blind), Perceiver of Sensations, Performer of Actions, Thinker of Thoughts"]))), INDICATORS = [
+var MONSTER_DENYLIST = $monsters(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral7(["the darkness (blind)"]))), MONSTER_SEARCH_DENYLIST = $monsters(_templateObject213 || (_templateObject213 = _taggedTemplateLiteral7(["Perceiver of Sensations, Performer of Actions, Thinker of Thoughts"]))), INDICATORS = [
   // { type: "familiar", prerequisite: $familiar`Bowlet`, pattern: "flaps directly into your opponent's (.+?), causing \\d+? damage" },
   {
     type: "effect",
-    prerequisite: $effect(_templateObject212 || (_templateObject212 = _taggedTemplateLiteral6(["Little Mouse Skull Buddy"]))),
+    prerequisite: $effect(_templateObject36 || (_templateObject36 = _taggedTemplateLiteral7(["Little Mouse Skull Buddy"]))),
     pattern: "The cute little floating mouse skull nibbles at your opponent's (.+?), dealing \\d+? damage"
   },
   {
     type: "equip",
-    prerequisite: $item(_templateObject36 || (_templateObject36 = _taggedTemplateLiteral6(["battery-powered drill"]))),
+    prerequisite: $item(_templateObject42 || (_templateObject42 = _taggedTemplateLiteral7(["battery-powered drill"]))),
     pattern: "You drill a neat hole in your opponent's (.+?) which deals \\d+? damage"
   },
   {
     type: "equip",
-    prerequisite: $item(_templateObject42 || (_templateObject42 = _taggedTemplateLiteral6(["high-temperature mining drill"]))),
+    prerequisite: $item(_templateObject52 || (_templateObject52 = _taggedTemplateLiteral7(["high-temperature mining drill"]))),
     pattern: "You drill a neat hole in your opponent's (.+?) which deals \\d+? damage"
   },
   {
     type: "familiar",
-    prerequisite: $familiar(_templateObject52 || (_templateObject52 = _taggedTemplateLiteral6(["Adorable Seal Larva"]))),
+    prerequisite: $familiar(_templateObject62 || (_templateObject62 = _taggedTemplateLiteral7(["Adorable Seal Larva"]))),
     pattern: "fangs your opponent in the (.+?) and greedily sucks the vital juices from the wound"
   },
   {
     type: "familiar",
-    prerequisite: $familiar(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral6(["Adventurous Spelunker"]))),
+    prerequisite: $familiar(_templateObject72 || (_templateObject72 = _taggedTemplateLiteral7(["Adventurous Spelunker"]))),
     pattern: "whips your opponent in the (.+?), dealing \\d+? damage"
   },
   {
     type: "familiar",
-    prerequisite: $familiar(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral6(["Left-Hand Man"]))),
+    prerequisite: $familiar(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral7(["Left-Hand Man"]))),
     pattern: "smacks your opponent in the (.+?) with the"
   },
   {
     type: "item",
-    prerequisite: $item(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral6(["electronics kit"]))),
+    prerequisite: $item(_templateObject92 || (_templateObject92 = _taggedTemplateLiteral7(["electronics kit"]))),
     pattern: "You wire up a quick circuit and hook it to your opponent's (.+?)\\. You flip the switch"
   },
   {
     type: "item",
-    prerequisite: $item(_templateObject92 || (_templateObject92 = _taggedTemplateLiteral6(["small golem"]))),
+    prerequisite: $item(_templateObject102 || (_templateObject102 = _taggedTemplateLiteral7(["small golem"]))),
     pattern: "Your little golem punches your foe in the (.+?) for \\d+? damage"
   },
   {
@@ -3845,43 +3857,43 @@ var MONSTER_BLACKLIST = $monsters(_templateObject5 || (_templateObject5 = _tagge
   },
   {
     type: "skill",
-    prerequisite: $skill(_templateObject102 || (_templateObject102 = _taggedTemplateLiteral6(["Extract"]))),
+    prerequisite: $skill(_templateObject112 || (_templateObject112 = _taggedTemplateLiteral7(["Extract"]))),
     pattern: "You reach into your foe's (.+?) and pull out some juicy, pulsating data"
   },
   {
     type: "skill",
-    prerequisite: $skill(_templateObject112 || (_templateObject112 = _taggedTemplateLiteral6(["Hammer Smash"]))),
+    prerequisite: $skill(_templateObject122 || (_templateObject122 = _taggedTemplateLiteral7(["Hammer Smash"]))),
     pattern: "You smack your foe right in the (.+?) with your hammer, dealing"
   },
   {
     type: "skill",
-    prerequisite: $skill(_templateObject122 || (_templateObject122 = _taggedTemplateLiteral6(["Shoot"]))),
+    prerequisite: $skill(_templateObject132 || (_templateObject132 = _taggedTemplateLiteral7(["Shoot"]))),
     pattern: "You draw your sixgun and shoot your foe right in the (.+?), dealing \\d+? damage"
   },
   {
     type: "skill",
-    prerequisite: $skill(_templateObject132 || (_templateObject132 = _taggedTemplateLiteral6(["Stream of Sauce"]))),
+    prerequisite: $skill(_templateObject142 || (_templateObject142 = _taggedTemplateLiteral7(["Stream of Sauce"]))),
     pattern: "You blast it with a stream of hot .+?, dealing \\d+? damage. Right in the (.+?)"
   },
   {
     type: "skill",
-    prerequisite: $skill(_templateObject142 || (_templateObject142 = _taggedTemplateLiteral6(["Ultrasonic Ululations"]))),
+    prerequisite: $skill(_templateObject152 || (_templateObject152 = _taggedTemplateLiteral7(["Ultrasonic Ululations"]))),
     pattern: "You shriek in the direction of your foe's (.+?), vibrating it to the tune of \\d+? damage"
   },
   {
     type: "skill",
-    prerequisite: $skill(_templateObject152 || (_templateObject152 = _taggedTemplateLiteral6(["Unleash Terra Cotta Army"]))),
+    prerequisite: $skill(_templateObject162 || (_templateObject162 = _taggedTemplateLiteral7(["Unleash Terra Cotta Army"]))),
     pattern: "A terra cotta .+?s your foe(?: in the|'s) (.+?)(?:, dealing| with a fireball)"
   },
   {
     type: "skill",
-    prerequisite: $skill(_templateObject162 || (_templateObject162 = _taggedTemplateLiteral6(["Utensil Twist"]))),
+    prerequisite: $skill(_templateObject172 || (_templateObject172 = _taggedTemplateLiteral7(["Utensil Twist"]))),
     pattern: "You slap your .+? against the ground, kicking up a spark that strikes your foe in the (.+?), dealing \\d+? damage"
   }
 ], MUTANT_COUTURE_SKILLS = {
-  head: $skill(_templateObject172 || (_templateObject172 = _taggedTemplateLiteral6(["Strangle"]))),
-  arm: $skill(_templateObject182 || (_templateObject182 = _taggedTemplateLiteral6(["Disarm"]))),
-  leg: $skill(_templateObject192 || (_templateObject192 = _taggedTemplateLiteral6(["Entangle"])))
+  head: $skill(_templateObject182 || (_templateObject182 = _taggedTemplateLiteral7(["Strangle"]))),
+  arm: $skill(_templateObject192 || (_templateObject192 = _taggedTemplateLiteral7(["Disarm"]))),
+  leg: $skill(_templateObject202 || (_templateObject202 = _taggedTemplateLiteral7(["Entangle"])))
 };
 function checkPrerequisite(_ref) {
   var type = _ref.type, prerequisite = _ref.prerequisite;
@@ -3902,56 +3914,88 @@ function checkPrerequisite(_ref) {
   }
 }
 function spadeMonsterParts(encounter, page) {
-  if (MONSTER_BLACKLIST.includes((0, import_kolmafia15.lastMonster)()))
+  if ((0, import_kolmafia15.getRevision)() < 27884 || MONSTER_DENYLIST.includes((0, import_kolmafia15.lastMonster)()))
     return null;
-  var monster = toNormalisedString((0, import_kolmafia15.lastMonster)()), data = [], _iterator = _createForOfIteratorHelper4(INDICATORS), _step;
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done; ) {
-      var _page$match, indicator = _step.value;
-      if (checkPrerequisite(indicator)) {
-        var part = (_page$match = page.match(indicator.pattern)) === null || _page$match === void 0 ? void 0 : _page$match[1];
-        part && data.push({
-          monster: monster,
-          part: part,
-          confirmation: !0,
-          source: indicator.prerequisite.toString()
-        });
+  var monster = toNormalisedString((0, import_kolmafia15.lastMonster)()), monsterParts = (0, import_kolmafia15.lastMonster)().parts, data = [];
+  if (!isAdventureTextAltered() && !MONSTER_SEARCH_DENYLIST.includes((0, import_kolmafia15.lastMonster)())) {
+    var _iterator = _createForOfIteratorHelper4(INDICATORS), _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done; ) {
+        var _page$match, indicator = _step.value;
+        if (checkPrerequisite(indicator)) {
+          var part = (_page$match = page.match(indicator.pattern)) === null || _page$match === void 0 ? void 0 : _page$match[1];
+          part && (monsterParts.includes(part) || data.push({
+            monster: monster,
+            part: part,
+            confirmation: !0,
+            source: indicator.prerequisite.toString()
+          }));
+        }
       }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
     }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
+    if (have($item(_templateObject214 || (_templateObject214 = _taggedTemplateLiteral7(["El Vibrato restraints"])))) && page.includes("lvcuff.gif")) {
+      var base = {
+        monster: monster,
+        part: "arm",
+        source: "El Vibrato restraints"
+      };
+      monsterParts.includes("arm") && page.includes("This foe doesn't have any arms that you can find") ? data.push(_objectSpread6(_objectSpread6({}, base), {}, {
+        confirmation: !1
+      })) : !monsterParts.includes("arm") && page.includes("You push the button on top of the restraints") && data.push(_objectSpread6(_objectSpread6({}, base), {}, {
+        confirmation: !0
+      }));
+    }
   }
-  if (page.includes("lvcuff.gif")) {
-    var base = {
-      monster: monster,
-      part: "arm",
-      source: "El Vibrato restraints"
-    };
-    page.includes("This foe doesn't have any arms that you can find") ? data.push(_objectSpread6(_objectSpread6({}, base), {}, {
-      confirmation: !1
-    })) : page.includes("You push the button on top of the restraints") && data.push(_objectSpread6(_objectSpread6({}, base), {}, {
-      confirmation: !0
-    }));
-  }
-  return (0, import_kolmafia15.currentRound)() === 1 && (0, import_kolmafia15.isWearingOutfit)("Mutant Couture") && page.includes("<select name=whichskill>") && data.push.apply(data, _toConsumableArray5(Object.entries(MUTANT_COUTURE_SKILLS).map(function(_ref2) {
+  if ((0, import_kolmafia15.currentRound)() === 1 && (0, import_kolmafia15.isWearingOutfit)("Mutant Couture") && page.includes("<select name=whichskill>") && (data.push.apply(data, _toConsumableArray5(Object.entries(MUTANT_COUTURE_SKILLS).filter(function(_ref2) {
     var _ref3 = _slicedToArray6(_ref2, 2), part2 = _ref3[0], skill = _ref3[1];
-    return {
-      monster: monster,
-      part: part2,
-      confirmation: page.includes('<option value="'.concat(skill.id, '"')),
-      source: "Mutant Couture"
-    };
-  }))), (0, import_kolmafia15.currentRound)() === 1 && // eslint-disable-next-line libram/verify-constants
-  (0, import_kolmafia15.haveEquipped)($item(_templateObject202 || (_templateObject202 = _taggedTemplateLiteral6(["Everfull Dart Holster"])))) && data.push.apply(data, _toConsumableArray5(Object.keys((0, import_kolmafia15.dartPartsToSkills)()).map(function(part2) {
+    return !monsterParts.includes(part2) && page.includes('<option value="'.concat(skill.id, '"'));
+  }).map(function(_ref4) {
+    var _ref5 = _slicedToArray6(_ref4, 2), part2 = _ref5[0], _ = _ref5[1];
     return {
       monster: monster,
       part: part2,
       confirmation: !0,
-      source: "Everfull Dart Holster"
+      source: "Mutant Couture"
     };
-  }))), data;
+  }))), data.push.apply(data, _toConsumableArray5(Object.entries(MUTANT_COUTURE_SKILLS).filter(function(_ref6) {
+    var _ref7 = _slicedToArray6(_ref6, 2), part2 = _ref7[0], skill = _ref7[1];
+    return monsterParts.includes(part2) && !page.includes('<option value="'.concat(skill.id, '"'));
+  }).map(function(_ref8) {
+    var _ref9 = _slicedToArray6(_ref8, 2), part2 = _ref9[0], _ = _ref9[1];
+    return {
+      monster: monster,
+      part: part2,
+      confirmation: !0,
+      source: "Mutant Couture"
+    };
+  })))), (0, import_kolmafia15.currentRound)() === 1 && // eslint-disable-next-line libram/verify-constants
+  (0, import_kolmafia15.haveEquipped)($item(_templateObject222 || (_templateObject222 = _taggedTemplateLiteral7(["Everfull Dart Holster"]))))) {
+    var dartParts = Object.keys((0, import_kolmafia15.dartPartsToSkills)());
+    data.push.apply(data, _toConsumableArray5(monsterParts.filter(function(part2) {
+      return !dartParts.includes(part2);
+    }).map(function(part2) {
+      return {
+        monster: monster,
+        part: part2,
+        confirmation: !1,
+        source: "Everfull Dart Holster"
+      };
+    }))), data.push.apply(data, _toConsumableArray5(dartParts.filter(function(part2) {
+      return !monsterParts.includes(part2);
+    }).map(function(part2) {
+      return {
+        monster: monster,
+        part: part2,
+        confirmation: !0,
+        source: "Everfull Dart Holster"
+      };
+    })));
+  }
+  return data;
 }
 var MONSTER_PARTS = {
   name: "Monster Parts",
@@ -4017,7 +4061,7 @@ function _arrayWithHoles7(arr) {
   if (Array.isArray(arr))
     return arr;
 }
-function _taggedTemplateLiteral7(strings, raw) {
+function _taggedTemplateLiteral8(strings, raw) {
   return raw || (raw = strings.slice(0)), Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } }));
 }
 var ATTRIBUTE_INDICATORS = {
@@ -4053,7 +4097,7 @@ var ATTRIBUTE_INDICATORS = {
   name: "Mumming Trunk",
   hooks: {
     COMBAT_ROUND: function(encounter, page) {
-      if (!have($item(_templateObject37 || (_templateObject37 = _taggedTemplateLiteral7(["mumming trunk"])))))
+      if (!have($item(_templateObject37 || (_templateObject37 = _taggedTemplateLiteral8(["mumming trunk"])))))
         return null;
       var fam = (0, import_kolmafia16.myFamiliar)();
       return get("_mummeryMods").includes(fam.toString()) ? get("_mummeryUses").split(",").filter(function(costume) {
@@ -4079,20 +4123,20 @@ var ATTRIBUTE_INDICATORS = {
 // src/projects/outOfOrder.ts
 init_kolmafia_polyfill();
 var import_kolmafia17 = require("kolmafia");
-var _templateObject38, _templateObject213, _templateObject39;
-function _taggedTemplateLiteral8(strings, raw) {
+var _templateObject38, _templateObject215, _templateObject39;
+function _taggedTemplateLiteral9(strings, raw) {
   return raw || (raw = strings.slice(0)), Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } }));
 }
 var OUT_OF_ORDER = {
   name: "Out of Order",
   hooks: {
     COMBAT_ROUND: function(encounter, page) {
-      if (questStep("questEspOutOfOrder") < 0 || (0, import_kolmafia17.currentRound)() !== 0 || (0, import_kolmafia17.equippedAmount)($item(_templateObject38 || (_templateObject38 = _taggedTemplateLiteral8(["GPS-tracking wristwatch"])))) < 1 || (0, import_kolmafia17.myLocation)() !== $location(_templateObject213 || (_templateObject213 = _taggedTemplateLiteral8(["The Deep Dark Jungle"]))))
+      if (questStep("questEspOutOfOrder") < 0 || (0, import_kolmafia17.currentRound)() !== 0 || (0, import_kolmafia17.equippedAmount)($item(_templateObject38 || (_templateObject38 = _taggedTemplateLiteral9(["GPS-tracking wristwatch"])))) < 1 || (0, import_kolmafia17.myLocation)() !== $location(_templateObject215 || (_templateObject215 = _taggedTemplateLiteral9(["The Deep Dark Jungle"]))))
         return null;
       var beeps = page.match(/Your GPS tracker beeps ([0-9]+) times as it zeroes in on your quarry/);
       return beeps ? {
         beeps: beeps[1],
-        initiative: (0, import_kolmafia17.numericModifier)($modifier(_templateObject39 || (_templateObject39 = _taggedTemplateLiteral8(["Initiative"]))))
+        initiative: (0, import_kolmafia17.numericModifier)($modifier(_templateObject39 || (_templateObject39 = _taggedTemplateLiteral9(["Initiative"]))))
       } : null;
     }
   }
