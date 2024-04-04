@@ -1,6 +1,5 @@
 import {
   canInteract,
-  currentRound,
   gamedayToInt,
   haveEquipped,
   inHardcore,
@@ -12,7 +11,6 @@ import {
   myDaycount,
   myLocation,
   myPath,
-  myTotalTurnsSpent,
   Path,
 } from "kolmafia";
 import { $effects, $items, $locations, have } from "libram";
