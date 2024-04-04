@@ -260,7 +260,7 @@ function spadeMonsterParts(
     haveEquipped($item`Everfull Dart Holster`)
   ) {
     data.push(
-      ...Object.keys(dartPartsToSkills());
+      ...Object.keys(dartPartsToSkills())
         .filter((part) => !monsterParts.includes(part))
         .map((part) => ({
           monster: monster,
