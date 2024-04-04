@@ -1549,6 +1549,7 @@ var require_es_string_match_all = __commonJS({
 
 // src/excavator.ts
 init_kolmafia_polyfill();
+var import_kolmafia19 = require("kolmafia");
 
 // src/projects/index.ts
 init_kolmafia_polyfill();
@@ -3914,7 +3915,7 @@ function checkPrerequisite(_ref) {
   }
 }
 function spadeMonsterParts(encounter, page) {
-  if ((0, import_kolmafia15.getRevision)() < 27884 || MONSTER_DENYLIST.includes((0, import_kolmafia15.lastMonster)()))
+  if (MONSTER_DENYLIST.includes((0, import_kolmafia15.lastMonster)()))
     return null;
   var monster = toNormalisedString((0, import_kolmafia15.lastMonster)()), monsterParts = (0, import_kolmafia15.lastMonster)().parts, data = [];
   if (!isAdventureTextAltered() && !MONSTER_SEARCH_DENYLIST.includes((0, import_kolmafia15.lastMonster)())) {
@@ -4001,7 +4002,9 @@ var MONSTER_PARTS = {
   name: "Monster Parts",
   hooks: {
     COMBAT_ROUND: spadeMonsterParts
-  }
+  },
+  since: 27884
+  // Monster.prototype.parts added
 };
 
 // src/projects/mummingTrunk.ts
@@ -4299,8 +4302,8 @@ function tupleNotNull(value) {
 }
 function main(event, meta, page) {
   projects.filter(function(_ref) {
-    var hooks = _ref.hooks;
-    return event in hooks;
+    var hooks = _ref.hooks, _ref$since = _ref.since, since = _ref$since === void 0 ? 0 : _ref$since;
+    return event in hooks && since <= (0, import_kolmafia19.getRevision)();
   }).map(function(_ref2) {
     var name = _ref2.name, hooks = _ref2.hooks;
     return [name, hooks[event](meta, page)];
