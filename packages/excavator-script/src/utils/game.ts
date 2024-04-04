@@ -21,17 +21,12 @@ const ALTERING_EFFECTS = $effects`Can Has Cyborger, Dis Abled, Haiku State of Mi
 const ALTERING_EQUIPMENT = $items`makeshift turban, staph of homophones, sword behind inappropriate prepositions`;
 const ALTERING_LOCATIONS = $locations`The Haiku Dungeon`;
 
-let _lastAdventureTextAltered = -1;
-let _isAdventureTextAltered = false;
 export function isAdventureTextAltered(): boolean {
-  if (myTotalTurnsSpent() !== _lastAdventureTextAltered) {
-    _lastAdventureTextAltered = myTotalTurnsSpent();
-    _isAdventureTextAltered =
-      ALTERING_EFFECTS.some((effect) => have(effect)) ||
-      ALTERING_EQUIPMENT.some((item) => haveEquipped(item)) ||
-      ALTERING_LOCATIONS.includes(myLocation());
-  }
-  return _isAdventureTextAltered;
+  return (
+    ALTERING_EFFECTS.some((effect) => have(effect)) ||
+    ALTERING_EQUIPMENT.some((item) => haveEquipped(item)) ||
+    ALTERING_LOCATIONS.includes(myLocation())
+  );
 }
 
 export function getDaySeed() {
