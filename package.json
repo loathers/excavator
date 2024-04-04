@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "yarn workspace excavator-script run build",
-    "format": "yarn workspaces run format"
+    "format": "yarn workspaces run format",
+    "lint": "yarn workspaces run lint"
   }
 }

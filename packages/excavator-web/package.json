@@ -9,7 +9,8 @@
     "dev": "node --loader tsm ./server.ts",
     "start": "NODE_ENV=production node --loader tsm ./server.ts",
     "etl": "node --loader tsm ./etl.ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "lint": "prettier --check ."
   },
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
