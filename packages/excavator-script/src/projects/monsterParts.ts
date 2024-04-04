@@ -7,7 +7,6 @@ import {
   dartPartsToSkills,
   Effect,
   Familiar,
-  getRevision,
   haveEquipped,
   isWearingOutfit,
   Item,
@@ -175,8 +174,7 @@ function spadeMonsterParts(
   encounter: string,
   page: string,
 ): MonsterPartsData[] | null {
-  if (getRevision() < 27884 || MONSTER_DENYLIST.includes(lastMonster()))
-    return null;
+  if (MONSTER_DENYLIST.includes(lastMonster())) return null;
 
   const monster = toNormalisedString(lastMonster());
   const monsterParts = lastMonster().parts;
@@ -293,4 +291,5 @@ export const MONSTER_PARTS: ExcavatorProject = {
   hooks: {
     COMBAT_ROUND: spadeMonsterParts,
   },
+  since: 27884, // Monster.prototype.parts added
 };
