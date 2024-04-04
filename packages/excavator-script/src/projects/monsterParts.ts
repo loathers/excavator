@@ -7,6 +7,7 @@ import {
   dartPartsToSkills,
   Effect,
   Familiar,
+  getRevision,
   haveEquipped,
   isWearingOutfit,
   Item,
@@ -26,10 +27,11 @@ import {
 } from "libram";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedString } from "../utils/game";
+import { isAdventureTextAltered, toNormalisedString } from "../utils/game";
 
 // eslint-disable-next-line libram/verify-constants
-const MONSTER_BLACKLIST = $monsters`the darkness (blind), Perceiver of Sensations, Performer of Actions, Thinker of Thoughts`;
+const MONSTER_DENYLIST = $monsters`the darkness (blind)`;
+const MONSTER_SEARCH_DENYLIST = $monsters`Perceiver of Sensations, Performer of Actions, Thinker of Thoughts`;
 
 type Indicator =
   | { type: "effect"; prerequisite: Effect; pattern: string }
@@ -173,32 +175,46 @@ function spadeMonsterParts(
   encounter: string,
   page: string,
 ): MonsterPartsData[] | null {
-  if (MONSTER_BLACKLIST.includes(lastMonster())) return null;
+  if (getRevision() < 27884 || MONSTER_DENYLIST.includes(lastMonster()))
+    return null;
 
   const monster = toNormalisedString(lastMonster());
+  const monsterParts = lastMonster().parts;
 
   const data = [];
 
-  // Simple indicators
-  for (const indicator of INDICATORS) {
-    if (!checkPrerequisite(indicator)) continue;
-    const part = page.match(indicator.pattern)?.[1];
-    if (!part) continue;
-    data.push({
-      monster,
-      part,
-      confirmation: true,
-      source: indicator.prerequisite.toString(),
-    });
-  }
+  if (
+    !isAdventureTextAltered() &&
+    !MONSTER_SEARCH_DENYLIST.includes(lastMonster())
+  ) {
+    // Simple indicators
+    for (const indicator of INDICATORS) {
+      if (!checkPrerequisite(indicator)) continue;
+      const part = page.match(indicator.pattern)?.[1];
+      if (!part) continue;
+      if (monsterParts.includes(part)) continue;
+      data.push({
+        monster,
+        part,
+        confirmation: true,
+        source: indicator.prerequisite.toString(),
+      });
+    }
 
-  // El Vibrato restraints
-  if (page.includes("lvcuff.gif")) {
-    const base = { monster, part: "arm", source: "El Vibrato restraints" };
-    if (page.includes("This foe doesn't have any arms that you can find")) {
-      data.push({ ...base, confirmation: false });
-    } else if (page.includes("You push the button on top of the restraints")) {
-      data.push({ ...base, confirmation: true });
+    // El Vibrato restraints
+    if (have($item`El Vibrato restraints`) && page.includes("lvcuff.gif")) {
+      const base = { monster, part: "arm", source: "El Vibrato restraints" };
+      if (
+        monsterParts.includes("arm") &&
+        page.includes("This foe doesn't have any arms that you can find")
+      ) {
+        data.push({ ...base, confirmation: false });
+      } else if (
+        !monsterParts.includes("arm") &&
+        page.includes("You push the button on top of the restraints")
+      ) {
+        data.push({ ...base, confirmation: true });
+      }
     }
   }
 
@@ -209,12 +225,33 @@ function spadeMonsterParts(
     page.includes("<select name=whichskill>")
   ) {
     data.push(
-      ...Object.entries(MUTANT_COUTURE_SKILLS).map(([part, skill]) => ({
-        monster,
-        part,
-        confirmation: page.includes(`<option value="${skill.id}"`),
-        source: "Mutant Couture",
-      })),
+      ...Object.entries(MUTANT_COUTURE_SKILLS)
+        .filter(
+          ([part, skill]) =>
+            !monsterParts.includes(part) &&
+            page.includes(`<option value="${skill.id}"`),
+        )
+        .map(([part, _]) => ({
+          monster,
+          part,
+          confirmation: true,
+          source: "Mutant Couture",
+        })),
+    );
+
+    data.push(
+      ...Object.entries(MUTANT_COUTURE_SKILLS)
+        .filter(
+          ([part, skill]) =>
+            monsterParts.includes(part) &&
+            !page.includes(`<option value="${skill.id}"`),
+        )
+        .map(([part, _]) => ({
+          monster,
+          part,
+          confirmation: true,
+          source: "Mutant Couture",
+        })),
     );
   }
 
@@ -224,13 +261,27 @@ function spadeMonsterParts(
     // eslint-disable-next-line libram/verify-constants
     haveEquipped($item`Everfull Dart Holster`)
   ) {
+    const dartParts = Object.keys(dartPartsToSkills());
     data.push(
-      ...Object.keys(dartPartsToSkills()).map((part) => ({
-        monster,
-        part,
-        confirmation: true,
-        source: "Everfull Dart Holster",
-      })),
+      ...monsterParts
+        .filter((part) => !dartParts.includes(part))
+        .map((part) => ({
+          monster,
+          part,
+          confirmation: false,
+          source: "Everfull Dart Holster",
+        })),
+    );
+
+    data.push(
+      ...dartParts
+        .filter((part) => !monsterParts.includes(part))
+        .map((part) => ({
+          monster: monster,
+          part,
+          confirmation: true,
+          source: "Everfull Dart Holster",
+        })),
     );
   }
 
