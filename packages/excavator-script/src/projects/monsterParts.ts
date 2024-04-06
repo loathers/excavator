@@ -263,11 +263,13 @@ function spadeMonsterParts(
     haveEquipped($item`Everfull Dart Holster`)
   ) {
     const buttAwareness = get("everfullDartPerks").includes("Butt awareness");
+    const allDartParts = [...page.matchAll(DART_REGEX)].map(
+      (match) => match[1],
+    );
+
     const dartParts = [
       ...new Set(
-        [...page.matchAll(DART_REGEX)]
-          .map((match) => match[1])
-          .filter((part) => !buttAwareness || part !== "butt"),
+        allDartParts.filter((part) => !buttAwareness || part !== "butt"),
       ),
     ];
 
@@ -282,16 +284,18 @@ function spadeMonsterParts(
         })),
     );
 
-    data.push(
-      ...monsterParts
-        .filter((part) => !dartParts.includes(part))
-        .map((part) => ({
-          monster: monster,
-          part,
-          confirmation: false,
-          source: "Everfull Dart Holster",
-        })),
-    );
+    if (allDartParts.length <= 4) {
+      data.push(
+        ...monsterParts
+          .filter((part) => !dartParts.includes(part))
+          .map((part) => ({
+            monster: monster,
+            part,
+            confirmation: false,
+            source: "Everfull Dart Holster",
+          })),
+      );
+    }
   }
 
   return data;
