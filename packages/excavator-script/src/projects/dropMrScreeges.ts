@@ -1,6 +1,6 @@
 /**
  * @author rinn
- * Track drops from the can of mixed everything
+ * Track drops from the Mr. Screege's Spectacles
  */
 import { currentRound, equippedAmount, Item } from "kolmafia";
 import { $item } from "libram";
