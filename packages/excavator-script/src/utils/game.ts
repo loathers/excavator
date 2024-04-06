@@ -16,7 +16,7 @@ import {
 import { $effects, $items, $locations, have } from "libram";
 
 const ALTERING_EFFECTS = $effects`Can Has Cyborger, Dis Abled, Haiku State of Mind, Just the Best Anapests, O Hai!, Robocamo, Temporary Blindness`;
-const ALTERING_EQUIPMENT = $items`makeshift turban, staph of homophones, sword behind inappropriate prepositions`;
+const ALTERING_EQUIPMENT = $items`makeshift turban, papier-mâchine gun, papier-mâchéte, staph of homophones, sword behind inappropriate prepositions`;
 const ALTERING_LOCATIONS = $locations`The Haiku Dungeon`;
 
 export function isAdventureTextAltered(): boolean {
