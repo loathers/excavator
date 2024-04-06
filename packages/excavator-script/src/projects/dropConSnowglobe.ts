@@ -8,9 +8,7 @@ import { $item } from "libram";
 import { ExcavatorProject } from "../type";
 import { toNormalisedString } from "../utils/game";
 
-type Indicator =
-  | { type: "substat"; pattern: RegExp }
-  | { type: "item"; pattern: RegExp };
+type Indicator = { type: "substat" | "item"; pattern: RegExp };
 
 const INDICATORS: Indicator[] = [
   {
