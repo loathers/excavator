@@ -261,7 +261,7 @@ function spadeMonsterParts(
   ) {
     data.push(
       ...Object.keys(dartPartsToSkills())
-        .filter((part) => !monsterParts.includes(part))
+        .filter((part) => !monsterParts.includes(part) && part !== "butt")
         .map((part) => ({
           monster: monster,
           part,
