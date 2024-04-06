@@ -22,6 +22,7 @@ import {
   $monsters,
   $skill,
   FloristFriar,
+  get,
   have,
 } from "libram";
 
@@ -259,9 +260,10 @@ function spadeMonsterParts(
     // eslint-disable-next-line libram/verify-constants
     haveEquipped($item`Everfull Dart Holster`)
   ) {
+    const buttAwareness = get("everfullDartPerks").includes("Butt awareness");
     data.push(
       ...Object.keys(dartPartsToSkills())
-        .filter((part) => !monsterParts.includes(part) && part !== "butt")
+        .filter((part) => !monsterParts.includes(part) && (!buttAwareness || part !== "butt"))
         .map((part) => ({
           monster: monster,
           part,
