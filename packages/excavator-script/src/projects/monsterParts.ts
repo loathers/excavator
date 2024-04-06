@@ -263,7 +263,10 @@ function spadeMonsterParts(
     const buttAwareness = get("everfullDartPerks").includes("Butt awareness");
     data.push(
       ...Object.keys(dartPartsToSkills())
-        .filter((part) => !monsterParts.includes(part) && (!buttAwareness || part !== "butt"))
+        .filter(
+          (part) =>
+            !monsterParts.includes(part) && (!buttAwareness || part !== "butt"),
+        )
         .map((part) => ({
           monster: monster,
           part,
