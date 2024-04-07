@@ -4,7 +4,6 @@
  */
 import {
   currentRound,
-  dartPartsToSkills,
   Effect,
   Familiar,
   haveEquipped,
@@ -143,6 +142,9 @@ const MUTANT_COUTURE_SKILLS = {
   leg: $skill`Entangle`,
 };
 
+const DART_REGEX =
+  /<div class="ed_part.*?name="whichskill" value="\d+".*?<button>([^<]+?)<\/button>/g;
+
 function checkPrerequisite({
   type,
   prerequisite,
@@ -261,12 +263,19 @@ function spadeMonsterParts(
     haveEquipped($item`Everfull Dart Holster`)
   ) {
     const buttAwareness = get("everfullDartPerks").includes("Butt awareness");
+    const allDartParts = [...page.matchAll(DART_REGEX)].map(
+      (match) => match[1],
+    );
+
+    const dartParts = [
+      ...new Set(
+        allDartParts.filter((part) => !buttAwareness || part !== "butt"),
+      ),
+    ];
+
     data.push(
-      ...Object.keys(dartPartsToSkills())
-        .filter(
-          (part) =>
-            !monsterParts.includes(part) && (!buttAwareness || part !== "butt"),
-        )
+      ...dartParts
+        .filter((part) => !monsterParts.includes(part))
         .map((part) => ({
           monster: monster,
           part,
@@ -274,6 +283,19 @@ function spadeMonsterParts(
           source: "Everfull Dart Holster",
         })),
     );
+
+    if (allDartParts.length <= 4) {
+      data.push(
+        ...monsterParts
+          .filter((part) => !dartParts.includes(part))
+          .map((part) => ({
+            monster: monster,
+            part,
+            confirmation: false,
+            source: "Everfull Dart Holster",
+          })),
+      );
+    }
   }
 
   return data;
