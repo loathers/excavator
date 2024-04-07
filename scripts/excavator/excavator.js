@@ -4099,7 +4099,7 @@ var MONSTER_DENYLIST = $monsters(_templateObject38 || (_templateObject38 = _tagg
   head: $skill(_templateObject182 || (_templateObject182 = _taggedTemplateLiteral11(["Strangle"]))),
   arm: $skill(_templateObject192 || (_templateObject192 = _taggedTemplateLiteral11(["Disarm"]))),
   leg: $skill(_templateObject202 || (_templateObject202 = _taggedTemplateLiteral11(["Entangle"])))
-};
+}, DART_REGEX = /<div class="ed_part.*?name="whichskill" value="\d+".*?<button>([^<]+?)<\/button>/g;
 function checkPrerequisite(_ref) {
   var type = _ref.type, prerequisite = _ref.prerequisite;
   switch (type) {
@@ -4179,14 +4179,27 @@ function spadeMonsterParts(encounter, page) {
     };
   })))), (0, import_kolmafia19.currentRound)() === 1 && // eslint-disable-next-line libram/verify-constants
   (0, import_kolmafia19.haveEquipped)($item(_templateObject222 || (_templateObject222 = _taggedTemplateLiteral11(["Everfull Dart Holster"]))))) {
-    var buttAwareness = get("everfullDartPerks").includes("Butt awareness");
-    data.push.apply(data, _toConsumableArray5(Object.keys((0, import_kolmafia19.dartPartsToSkills)()).filter(function(part2) {
-      return !monsterParts.includes(part2) && (!buttAwareness || part2 !== "butt");
+    var buttAwareness = get("everfullDartPerks").includes("Butt awareness"), allDartParts = _toConsumableArray5(page.matchAll(DART_REGEX)).map(function(match) {
+      return match[1];
+    }), dartParts = _toConsumableArray5(new Set(allDartParts.filter(function(part2) {
+      return !buttAwareness || part2 !== "butt";
+    })));
+    data.push.apply(data, _toConsumableArray5(dartParts.filter(function(part2) {
+      return !monsterParts.includes(part2);
     }).map(function(part2) {
       return {
         monster: monster,
         part: part2,
         confirmation: !0,
+        source: "Everfull Dart Holster"
+      };
+    }))), allDartParts.length <= 4 && data.push.apply(data, _toConsumableArray5(monsterParts.filter(function(part2) {
+      return !dartParts.includes(part2);
+    }).map(function(part2) {
+      return {
+        monster: monster,
+        part: part2,
+        confirmation: !1,
         source: "Everfull Dart Holster"
       };
     })));
