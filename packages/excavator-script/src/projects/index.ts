@@ -3,6 +3,7 @@ import type { ExcavatorProject } from "../type";
 import { AUTUMNATON } from "./autumnaton";
 import { BIRD_A_DAY } from "./birdADay";
 import { COAT_OF_PAINT } from "./coatOfPaint";
+import { DROP_CON_SNOWGLOBE } from "./dropConSnowglobe";
 import { DROP_MIXED_EVERYTHING } from "./dropMixedEverything";
 import { DROP_MR_CHEENGS } from "./dropMrCheengs";
 import { DROP_MR_SCREEGES } from "./dropMrScreeges";
@@ -20,6 +21,7 @@ export const projects: ExcavatorProject[] = [
   GENIE,
   HOOKAH,
   JUICE_BAR,
+  DROP_CON_SNOWGLOBE,
   DROP_MIXED_EVERYTHING,
   DROP_MR_CHEENGS,
   DROP_MR_SCREEGES,
