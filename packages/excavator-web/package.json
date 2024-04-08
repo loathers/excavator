@@ -17,7 +17,7 @@
     "@emotion/react": "^11",
     "@emotion/server": "^11",
     "@emotion/styled": "^11",
-    "@prisma/client": "5.11.0",
+    "@prisma/client": "5.12.1",
     "@remix-run/express": "^2.8.1",
     "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",
@@ -25,8 +25,8 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "fetch-cookie": "^3.0.1",
-    "framer-motion": "^6",
-    "isbot": "4",
+    "framer-motion": "^11.0.25",
+    "isbot": "5.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -38,9 +38,9 @@
     "@types/react-dom": "^18.2.23",
     "excavator-prettier-config": "^0.0.0",
     "prettier": "^3.1.1",
-    "prisma": "^5.11.0",
+    "prisma": "^5.12.1",
     "tsm": "^2.3.0",
-    "typescript": "^5.4.3",
+    "typescript": "^5.4.4",
     "vite": "^5.2.7"
   },
   "prettier": "excavator-prettier-config"
