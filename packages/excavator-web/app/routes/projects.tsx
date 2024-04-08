@@ -1,9 +1,9 @@
 import {
   Alert,
+  Spinner,
   Tab,
   TabIndicator,
   TabList,
-  TabPanel,
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
@@ -12,9 +12,11 @@ import {
   Outlet,
   useLoaderData,
   useNavigate,
+  useNavigation,
   useParams,
 } from "@remix-run/react";
 import { useEffect } from "react";
+import { useSpinDelay } from "spin-delay";
 
 import { db } from "../db.server.js";
 import { slug } from "../utils/utils.js";
@@ -38,7 +40,9 @@ export async function loader() {
 export default function Projects() {
   const { projects } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
+  const navigation = useNavigation();
   const params = useParams();
+  const showSpinner = useSpinDelay(navigation.state === "loading");
 
   useEffect(() => {
     if (!params.project && projects.length > 0)
@@ -72,9 +76,7 @@ export default function Projects() {
         ))}
       </TabList>
       <TabIndicator />
-      <TabPanels>
-        <Outlet />
-      </TabPanels>
+      <TabPanels>{showSpinner ? <Spinner /> : <Outlet />}</TabPanels>
     </Tabs>
   );
 }
