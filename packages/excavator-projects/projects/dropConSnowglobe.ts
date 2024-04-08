@@ -6,7 +6,7 @@ import { currentRound, equippedAmount, Item } from "kolmafia";
 import { $item } from "libram";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedString } from "../utils/game";
+import { toNormalisedString } from "../utils";
 
 type Indicator = { type: "substat" | "item"; pattern: RegExp };
 

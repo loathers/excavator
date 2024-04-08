@@ -6,7 +6,7 @@ import { numericModifier, sessionStorage } from "kolmafia";
 import { $item, get } from "libram";
 
 import { ExcavatorProject } from "../type";
-import { getDaySeed, getDifficultySeed } from "../utils/game";
+import { getDaySeed, getDifficultySeed } from "../utils";
 
 const COAT_OF_PAINT_MODIFIERS = {
   stat_experience: [

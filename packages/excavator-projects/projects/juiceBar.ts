@@ -5,7 +5,7 @@
 import "core-js/modules/es.string.match-all";
 
 import { ExcavatorProject } from "../type";
-import { getDaySeed } from "../utils/game";
+import { getDaySeed } from "../utils";
 
 export const JUICE_BAR: ExcavatorProject = {
   name: "Continental Juice Bar",

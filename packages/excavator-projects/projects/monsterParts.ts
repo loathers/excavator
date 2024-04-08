@@ -26,7 +26,7 @@ import {
 } from "libram";
 
 import { ExcavatorProject } from "../type";
-import { isAdventureTextAltered, toNormalisedString } from "../utils/game";
+import { isAdventureTextAltered, toNormalisedString } from "../utils";
 
 // eslint-disable-next-line libram/verify-constants
 const MONSTER_DENYLIST = $monsters`the darkness (blind)`;

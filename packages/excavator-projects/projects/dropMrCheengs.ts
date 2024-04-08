@@ -1,23 +1,23 @@
 /**
  * @author rinn
- * Track drops from the can of mixed everything
+ * Track drops from the Mr. Cheeng's Spectacles
  */
 import { currentRound, equippedAmount, Item } from "kolmafia";
 import { $item } from "libram";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedString } from "../utils/game";
+import { toNormalisedString } from "../utils";
 
-export const DROP_MIXED_EVERYTHING: ExcavatorProject = {
-  name: "Can Of Mixed Everything",
+export const DROP_MR_CHEENGS: ExcavatorProject = {
+  name: "Mr. Cheeng's Spectacles",
   hooks: {
     COMBAT_ROUND: (encounter: string, page: string) => {
       // Must be end of battle
       if (currentRound() !== 0) return null;
-      // Must be wearing the can of mixed everything
-      if (equippedAmount($item`can of mixed everything`) < 1) return null;
+      // Must be wearing Mr. Cheeng's spectacles
+      if (equippedAmount($item`Mr. Cheeng's spectacles`) < 1) return null;
       const result = page.match(
-        /Something falls out of your can of mixed everything.*?You acquire an item: <b>(.*?)<\/b>/,
+        /You see a weird thing out of the corner of your eye, and you grab it.\s+Far out, man!.*?You acquire an item: <b>(.*?)<\/b>/,
       );
       if (!result) return null;
       const item = Item.get(result[1]);

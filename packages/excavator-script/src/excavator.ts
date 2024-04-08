@@ -1,8 +1,8 @@
 import { getRevision } from "kolmafia";
+import type { ExcavatorProject } from "excavator-projects";
 
-import { projects } from "./projects";
-import { Hooks } from "./type";
-import { sendSpadingData } from "./utils/spading";
+import { projects } from "excavator-projects";
+import { sendSpadingData } from "./utils";
 
 function tupleNotNull<A, B>(
   value: readonly [A, B | null],
@@ -10,7 +10,9 @@ function tupleNotNull<A, B>(
   return value[1] !== null;
 }
 
-function main(event: keyof Hooks, meta: string, page: string) {
+type Event = keyof ExcavatorProject['hooks'];
+
+function main(event: Event, meta: string, page: string) {
   projects
     .filter(({ hooks, since = 0 }) => event in hooks && since <= getRevision())
     .map(({ name, hooks }) => [name, hooks[event]!(meta, page)] as const)

@@ -1,23 +1,23 @@
 /**
  * @author rinn
- * Track drops from the Mr. Screege's Spectacles
+ * Track drops from the can of mixed everything
  */
 import { currentRound, equippedAmount, Item } from "kolmafia";
 import { $item } from "libram";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedString } from "../utils/game";
+import { toNormalisedString } from "../utils";
 
-export const DROP_MR_SCREEGES: ExcavatorProject = {
-  name: "Mr. Screege's Spectacles",
+export const DROP_MIXED_EVERYTHING: ExcavatorProject = {
+  name: "Can Of Mixed Everything",
   hooks: {
     COMBAT_ROUND: (encounter: string, page: string) => {
       // Must be end of battle
       if (currentRound() !== 0) return null;
-      // Must be wearing Mr. Screege's spectacles
-      if (equippedAmount($item`Mr. Screege's spectacles`) < 1) return null;
+      // Must be wearing the can of mixed everything
+      if (equippedAmount($item`can of mixed everything`) < 1) return null;
       const result = page.match(
-        /You notice something valuable hidden .*?You acquire an item: <b>(.*?)<\/b>/,
+        /Something falls out of your can of mixed everything.*?You acquire an item: <b>(.*?)<\/b>/,
       );
       if (!result) return null;
       const item = Item.get(result[1]);

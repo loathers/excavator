@@ -34,6 +34,7 @@
     "eslint-plugin-libram": "^0.4.0",
     "eslint-plugin-prettier": "^5.0.1",
     "excavator-prettier-config": "^0.0.0",
+    "excavator-projects": "^0.0.0",
     "prettier": "^3.1.1",
     "typescript": "^5.4.3"
   },

@@ -5,7 +5,7 @@ import { numericModifier } from "kolmafia";
 import { $effect } from "libram";
 
 import { ExcavatorProject } from "../type";
-import { getDaySeed } from "../utils/game";
+import { getDaySeed } from "../utils";
 
 const BIRD_A_DAY_MODIFIERS = {
   stat: ["Muscle Percent", "Mysticaliy Percent", "Moxie Percent"],
