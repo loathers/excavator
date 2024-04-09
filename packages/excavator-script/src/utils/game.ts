@@ -4,6 +4,7 @@ import {
   haveEquipped,
   inHardcore,
   Item,
+  Location,
   Monster,
   moonLight,
   moonPhase,
@@ -56,6 +57,6 @@ export function getDifficultySeed() {
   };
 }
 
-export function toNormalisedString(thing: Item | Monster) {
-  return `[${thing.id}]${thing.name}`;
+export function toNormalisedString(thing: Item | Monster | Location) {
+  return `[${thing.id}]${"name" in thing ? thing.name : thing}`;
 }
