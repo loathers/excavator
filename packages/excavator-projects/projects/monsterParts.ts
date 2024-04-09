@@ -157,7 +157,10 @@ function checkPrerequisite({
     case "equip":
       return haveEquipped(prerequisite);
     case "plant":
-      return getFloristPlants()[myLocation().toString()].includes(prerequisite);
+      return (
+        getFloristPlants()[myLocation().toString()]?.includes(prerequisite) ??
+        false
+      );
     default:
       return false;
   }
