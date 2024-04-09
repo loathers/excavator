@@ -8,7 +8,12 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import { MetaFunction } from "@remix-run/node";
-import { Outlet, useNavigate, useNavigation, useParams } from "@remix-run/react";
+import {
+  Outlet,
+  useNavigate,
+  useNavigation,
+  useParams,
+} from "@remix-run/react";
 import { projects } from "excavator-projects";
 import { useEffect } from "react";
 import { useSpinDelay } from "spin-delay";
@@ -32,9 +37,7 @@ export default function Projects() {
 
   if (projects.length === 0) return <Alert>No projects found</Alert>;
 
-  const projectIndex = projects.findIndex(
-    (p) => toSlug(p.name) === project,
-  );
+  const projectIndex = projects.findIndex((p) => toSlug(p.name) === project);
 
   return (
     <Tabs
