@@ -72,8 +72,8 @@ export function getDifficultySeed() {
   };
 }
 
-export function toNormalisedString(thing: Item | Monster) {
-  return `[${thing.id}]${thing.name}`;
+export function toNormalisedString(thing: Item | Monster | Location) {
+  return `[${thing.id}]${"name" in thing ? thing.name : thing.toString()}`;
 }
 
 export function notNull<T>(value: T | null): value is T {
