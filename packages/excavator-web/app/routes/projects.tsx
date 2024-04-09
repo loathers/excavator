@@ -1,16 +1,17 @@
 import {
   Alert,
+  Spinner,
   Tab,
   TabIndicator,
   TabList,
-  TabPanel,
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
 import { MetaFunction } from "@remix-run/node";
-import { Outlet, useNavigate, useParams } from "@remix-run/react";
+import { Outlet, useNavigate, useNavigation, useParams } from "@remix-run/react";
 import { projects } from "excavator-projects";
 import { useEffect } from "react";
+import { useSpinDelay } from "spin-delay";
 
 import { toSlug } from "../utils/utils.js";
 
@@ -20,17 +21,19 @@ export const meta: MetaFunction = () => {
 
 export default function Projects() {
   const navigate = useNavigate();
-  const params = useParams();
+  const navigation = useNavigation();
+  const { project } = useParams();
+  const showSpinner = useSpinDelay(navigation.state === "loading");
 
   useEffect(() => {
-    if (!params.project && projects.length > 0)
+    if (!project && projects.length > 0)
       navigate(`./${toSlug(projects.at(0)!.name)}`);
   }, []);
 
   if (projects.length === 0) return <Alert>No projects found</Alert>;
 
   const projectIndex = projects.findIndex(
-    (p) => toSlug(p.name) === params.project,
+    (p) => toSlug(p.name) === project,
   );
 
   return (
@@ -56,9 +59,7 @@ export default function Projects() {
         ))}
       </TabList>
       <TabIndicator />
-      <TabPanels>
-        <Outlet />
-      </TabPanels>
+      <TabPanels>{showSpinner ? <Spinner /> : <Outlet />}</TabPanels>
     </Tabs>
   );
 }
