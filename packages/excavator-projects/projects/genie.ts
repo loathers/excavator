@@ -1,10 +1,23 @@
-/**
- * @author gausie
- * Determine which monsters and effects can be fought/acquired with the Genie.
- */
 import { Effect, Monster, toEffect, toMonster } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
+
+export const GENIE: ExcavatorProject = {
+  name: "Genie",
+  description:
+    "Determine which monsters and effects can be fought/acquired with the Genie.",
+  author: "gausie",
+  hooks: {
+    CHOICE_VISIT: (choice: string, page: string) => {
+      if (choice !== "1267") return null;
+      return spadeGenie(page);
+    },
+    CHOICE: (url: string, page: string) => {
+      if (!url.includes("whichchoice=1267")) return null;
+      return spadeGenie(page);
+    },
+  },
+};
 
 function spadeGenie(page: string) {
   // Check page validity
@@ -63,17 +76,3 @@ function spadeGenie(page: string) {
 
   return null;
 }
-
-export const GENIE: ExcavatorProject = {
-  name: "Genie",
-  hooks: {
-    CHOICE_VISIT: (choice: string, page: string) => {
-      if (choice !== "1267") return null;
-      return spadeGenie(page);
-    },
-    CHOICE: (url: string, page: string) => {
-      if (!url.includes("whichchoice=1267")) return null;
-      return spadeGenie(page);
-    },
-  },
-};

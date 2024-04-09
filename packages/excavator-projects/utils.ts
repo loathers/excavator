@@ -1,9 +1,12 @@
 import {
   canInteract,
+  Effect,
   gamedayToInt,
+  haveEffect,
   haveEquipped,
   inHardcore,
   Item,
+  Location,
   Monster,
   moonLight,
   moonPhase,
@@ -13,15 +16,28 @@ import {
   myPath,
   Path,
 } from "kolmafia";
-import { $effects, $items, $locations, have } from "libram";
 
-const ALTERING_EFFECTS = $effects`Can Has Cyborger, Dis Abled, Haiku State of Mind, Just the Best Anapests, O Hai!, Robocamo, Temporary Blindness`;
-const ALTERING_EQUIPMENT = $items`makeshift turban, papier-mâchine gun, papier-mâchéte, staph of homophones, sword behind inappropriate prepositions`;
-const ALTERING_LOCATIONS = $locations`The Haiku Dungeon`;
+const ALTERING_EFFECTS = Effect.get([
+  "Can Has Cyborger",
+  "Dis Abled",
+  "Haiku State of Mind",
+  "Just the Best Anapests",
+  "O Hai!",
+  "Robocamo",
+  "Temporary Blindness",
+]);
+const ALTERING_EQUIPMENT = Item.get([
+  "makeshift turban",
+  "papier-mâchine gun",
+  "papier-mâchéte",
+  "staph of homophones",
+  "sword behind inappropriate prepositions",
+]);
+const ALTERING_LOCATIONS = Location.get(["The Haiku Dungeon"]);
 
 export function isAdventureTextAltered(): boolean {
   return (
-    ALTERING_EFFECTS.some((effect) => have(effect)) ||
+    ALTERING_EFFECTS.some((effect) => haveEffect(effect)) ||
     ALTERING_EQUIPMENT.some((item) => haveEquipped(item)) ||
     ALTERING_LOCATIONS.includes(myLocation())
   );
@@ -58,4 +74,8 @@ export function getDifficultySeed() {
 
 export function toNormalisedString(thing: Item | Monster) {
   return `[${thing.id}]${thing.name}`;
+}
+
+export function notNull<T>(value: T | null): value is T {
+  return value !== null;
 }

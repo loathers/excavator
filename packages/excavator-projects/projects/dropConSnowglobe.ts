@@ -1,12 +1,18 @@
-/**
- * @author rinn
- * Track drops from the KoL Con 13 snowglobe
- */
+import "core-js/modules/es.string.match-all";
 import { currentRound, equippedAmount, Item } from "kolmafia";
-import { $item } from "libram";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedString } from "../utils/game";
+import { toNormalisedString } from "../utils";
+
+export const DROP_CON_SNOWGLOBE: ExcavatorProject = {
+  name: "KoL Con 13 Snowglobe",
+  slug: "snowglobe",
+  description: "Track drops from the KoL Con 13 snowglobe.",
+  author: "Rinn",
+  hooks: {
+    COMBAT_ROUND: spadeSnowglobe,
+  },
+};
 
 type Indicator = { type: "substat" | "item"; pattern: RegExp };
 
@@ -69,7 +75,7 @@ function spadeSnowglobe(
   // Must be end of battle
   if (currentRound() !== 0) return null;
   // Must be wearing KoL Con 13 snowglobe
-  if (equippedAmount($item`KoL Con 13 snowglobe`) < 1) return null;
+  if (equippedAmount(Item.get("KoL Con 13 snowglobe")) < 1) return null;
 
   const data = [];
 
@@ -79,7 +85,7 @@ function spadeSnowglobe(
       let str = "";
       if (indicator.type === "item") {
         const item = Item.get(match[1]);
-        str = item !== $item`none` ? toNormalisedString(item) : match[1];
+        str = item !== Item.none ? toNormalisedString(item) : match[1];
       }
       data.push({
         type: indicator.type,
@@ -90,10 +96,3 @@ function spadeSnowglobe(
 
   return data;
 }
-
-export const DROP_CON_SNOWGLOBE: ExcavatorProject = {
-  name: "KoL Con 13 Snowglobe",
-  hooks: {
-    COMBAT_ROUND: spadeSnowglobe,
-  },
-};

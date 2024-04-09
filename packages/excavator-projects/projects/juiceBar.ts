@@ -1,14 +1,13 @@
-/**
- * @author rinn
- * Determine the relationship between Chateau Mantegna Continental Juice Bar potions and the day seed
- */
 import "core-js/modules/es.string.match-all";
 
 import { ExcavatorProject } from "../type";
-import { getDaySeed } from "../utils/game";
+import { getDaySeed } from "../utils";
 
 export const JUICE_BAR: ExcavatorProject = {
   name: "Continental Juice Bar",
+  description:
+    "Determine the relationship between Chateau Mantegna Continental Juice Bar potions and the day seed.",
+  author: "Rinn",
   hooks: {
     PLACE: (url: string, page: string) => {
       // place.php?whichplace=chateau&action=chateau_desk or

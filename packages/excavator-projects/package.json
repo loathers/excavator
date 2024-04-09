@@ -1,0 +1,20 @@
+{
+  "name": "excavator-projects",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "ISC",
+  "author": "Sam Gaus <sam@gaus.co.uk>",
+  "scripts": {
+    "format": "prettier --write .",
+    "lint": "prettier --check ."
+  },
+  "devDependencies": {
+    "excavator-prettier-config": "^0.0.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.4.3"
+  },
+  "prettier": "excavator-prettier-config",
+  "dependencies": {
+    "kolmafia": "^5.27896.0"
+  }
+}

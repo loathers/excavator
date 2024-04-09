@@ -11,8 +11,6 @@ import {
 } from "kolmafia";
 import { get, Kmail, set } from "libram";
 
-import { ExcavatorData } from "../type";
-
 const DATA_PROPERTY = "spadingData";
 const RECIPIENT_PROPERTY = "excavatorRecipient";
 
@@ -86,7 +84,7 @@ function flushSpadingData() {
   set(DATA_PROPERTY, "");
 }
 
-export function sendSpadingData(projectName: string, data: ExcavatorData) {
+export function sendSpadingData(projectName: string, data: object) {
   // KoL adds spaces using v1.1 of htmlwrap (https://greywyvern.com/code/php/htmlwrap)
   // Rather than try to backwards engineer this, I'll just replace all spaces with +
   // and then treat spaces as hostile on the processing server. This obviously means
