@@ -2,8 +2,14 @@
  * @author gausie
  * Record instances of an effect obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible.
  */
-import { currentRound, descToEffect, Effect, equippedAmount } from "kolmafia";
-import { $item, get, Horsery } from "libram";
+import {
+  currentRound,
+  descToEffect,
+  Effect,
+  equippedAmount,
+  getProperty,
+  Item,
+} from "kolmafia";
 
 import { ExcavatorProject } from "../type";
 
@@ -60,7 +66,7 @@ export const HOOKAH: ExcavatorProject = {
         // End of battle
         case 0: {
           // Enhanced signal receiver is an off-hand item that gives 2-11 adventures of a hookahable effect
-          if (equippedAmount($item`enhanced signal receiver`) > 0) {
+          if (equippedAmount(Item.get("enhanced signal receiver")) > 0) {
             return checkHookahSource(
               page,
               "enhanced signal receiver",
@@ -68,11 +74,14 @@ export const HOOKAH: ExcavatorProject = {
             );
           }
           // The crazy horse (acquired from The Horsery) is a slotless resource that gives 5 adventures of a hookahable effect
-          if (Horsery.current() === "crazy" && get("_horseryCrazyName")) {
+          if (
+            getProperty("_horsery") === "crazy horse" &&
+            getProperty("_horseryCrazyName")
+          ) {
             return checkHookahSource(
               page,
               "crazy horse",
-              get("_horseryCrazyName"),
+              getProperty("_horseryCrazyName"),
             );
           }
           return null;
@@ -80,7 +89,7 @@ export const HOOKAH: ExcavatorProject = {
         // Start of battle
         case 1: {
           // The ittah bittah hookah is a familiar equip that gives 6 adventures of a hookahable effect
-          if (equippedAmount($item`ittah bittah hookah`) > 0) {
+          if (equippedAmount(Item.get("ittah bittah hookah")) > 0) {
             return checkHookahSource(
               page,
               "ittah bittha hookah",

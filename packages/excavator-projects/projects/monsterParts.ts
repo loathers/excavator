@@ -3,34 +3,34 @@
  * Determine what parts are considered to make up each monster
  */
 import {
+  availableAmount,
   currentRound,
   Effect,
   Familiar,
+  getFloristPlants,
+  getProperty,
+  haveEffect,
   haveEquipped,
+  haveSkill,
   isWearingOutfit,
   Item,
   lastMonster,
+  Monster,
   myFamiliar,
   myLocation,
   Skill,
 } from "kolmafia";
-import {
-  $effect,
-  $familiar,
-  $item,
-  $monsters,
-  $skill,
-  FloristFriar,
-  get,
-  have,
-} from "libram";
 
 import { ExcavatorProject } from "../type";
 import { isAdventureTextAltered, toNormalisedString } from "../utils";
 
 // eslint-disable-next-line libram/verify-constants
-const MONSTER_DENYLIST = $monsters`the darkness (blind)`;
-const MONSTER_SEARCH_DENYLIST = $monsters`Perceiver of Sensations, Performer of Actions, Thinker of Thoughts`;
+const MONSTER_DENYLIST = Monster.get(["the darkness (blind)"]);
+const MONSTER_SEARCH_DENYLIST = Monster.get([
+  "Perceiver of Sensations",
+  "Performer of Actions",
+  "Thinker of Thoughts",
+]);
 
 type Indicator =
   | { type: "effect"; prerequisite: Effect; pattern: string }
@@ -41,50 +41,50 @@ type Indicator =
   | { type: "skill"; prerequisite: Skill; pattern: string };
 
 const INDICATORS: Indicator[] = [
-  // { type: "familiar", prerequisite: $familiar`Bowlet`, pattern: "flaps directly into your opponent's (.+?), causing \\d+? damage" },
+  // { type: "familiar", prerequisite: Familiar.get("Bowlet"), pattern: "flaps directly into your opponent's (.+?), causing \\d+? damage" },
   {
     type: "effect",
-    prerequisite: $effect`Little Mouse Skull Buddy`,
+    prerequisite: Effect.get("Little Mouse Skull Buddy"),
     pattern:
       "The cute little floating mouse skull nibbles at your opponent's (.+?), dealing \\d+? damage",
   },
   {
     type: "equip",
-    prerequisite: $item`battery-powered drill`,
+    prerequisite: Item.get("battery-powered drill"),
     pattern:
       "You drill a neat hole in your opponent's (.+?) which deals \\d+? damage",
   },
   {
     type: "equip",
-    prerequisite: $item`high-temperature mining drill`,
+    prerequisite: Item.get("high-temperature mining drill"),
     pattern:
       "You drill a neat hole in your opponent's (.+?) which deals \\d+? damage",
   },
   {
     type: "familiar",
-    prerequisite: $familiar`Adorable Seal Larva`,
+    prerequisite: Familiar.get("Adorable Seal Larva"),
     pattern:
       "fangs your opponent in the (.+?) and greedily sucks the vital juices from the wound",
   },
   {
     type: "familiar",
-    prerequisite: $familiar`Adventurous Spelunker`,
+    prerequisite: Familiar.get("Adventurous Spelunker"),
     pattern: "whips your opponent in the (.+?), dealing \\d+? damage",
   },
   {
     type: "familiar",
-    prerequisite: $familiar`Left-Hand Man`,
+    prerequisite: Familiar.get("Left-Hand Man"),
     pattern: "smacks your opponent in the (.+?) with the",
   },
   {
     type: "item",
-    prerequisite: $item`electronics kit`,
+    prerequisite: Item.get("electronics kit"),
     pattern:
       "You wire up a quick circuit and hook it to your opponent's (.+?)\\. You flip the switch",
   },
   {
     type: "item",
-    prerequisite: $item`small golem`,
+    prerequisite: Item.get("small golem"),
     pattern: "Your little golem punches your foe in the (.+?) for \\d+? damage",
   },
   {
@@ -95,51 +95,51 @@ const INDICATORS: Indicator[] = [
   },
   {
     type: "skill",
-    prerequisite: $skill`Extract`,
+    prerequisite: Skill.get("Extract"),
     pattern:
       "You reach into your foe's (.+?) and pull out some juicy, pulsating data",
   },
   {
     type: "skill",
-    prerequisite: $skill`Hammer Smash`,
+    prerequisite: Skill.get("Hammer Smash"),
     pattern: "You smack your foe right in the (.+?) with your hammer, dealing",
   },
   {
     type: "skill",
-    prerequisite: $skill`Shoot`,
+    prerequisite: Skill.get("Shoot"),
     pattern:
       "You draw your sixgun and shoot your foe right in the (.+?), dealing \\d+? damage",
   },
   {
     type: "skill",
-    prerequisite: $skill`Stream of Sauce`,
+    prerequisite: Skill.get("Stream of Sauce"),
     pattern:
       "You blast it with a stream of hot .+?, dealing \\d+? damage. Right in the (.+?)",
   },
   {
     type: "skill",
-    prerequisite: $skill`Ultrasonic Ululations`,
+    prerequisite: Skill.get("Ultrasonic Ululations"),
     pattern:
       "You shriek in the direction of your foe's (.+?), vibrating it to the tune of \\d+? damage",
   },
   {
     type: "skill",
-    prerequisite: $skill`Unleash Terra Cotta Army`,
+    prerequisite: Skill.get("Unleash Terra Cotta Army"),
     pattern:
       "A terra cotta .+?s your foe(?: in the|'s) (.+?)(?:, dealing| with a fireball)",
   },
   {
     type: "skill",
-    prerequisite: $skill`Utensil Twist`,
+    prerequisite: Skill.get("Utensil Twist"),
     pattern:
       "You slap your .+? against the ground, kicking up a spark that strikes your foe in the (.+?), dealing \\d+? damage",
   },
 ];
 
 const MUTANT_COUTURE_SKILLS = {
-  head: $skill`Strangle`,
-  arm: $skill`Disarm`,
-  leg: $skill`Entangle`,
+  head: Skill.get("Strangle"),
+  arm: Skill.get("Disarm"),
+  leg: Skill.get("Entangle"),
 };
 
 const DART_REGEX =
@@ -151,16 +151,15 @@ function checkPrerequisite({
 }: (typeof INDICATORS)[number]) {
   switch (type) {
     case "skill":
+      return haveSkill(prerequisite);
     case "effect":
-      return have(prerequisite);
+      return haveEffect(prerequisite) > 0;
     case "familiar":
       return myFamiliar() === prerequisite;
     case "equip":
       return haveEquipped(prerequisite);
     case "plant":
-      return FloristFriar.flowersIn(myLocation())
-        .map((f) => f.name)
-        .includes(prerequisite);
+      return getFloristPlants()[myLocation().toString()].includes(prerequisite);
     default:
       return false;
   }
@@ -203,7 +202,10 @@ function spadeMonsterParts(
     }
 
     // El Vibrato restraints
-    if (have($item`El Vibrato restraints`) && page.includes("lvcuff.gif")) {
+    if (
+      availableAmount(Item.get("El Vibrato restraints")) > 0 &&
+      page.includes("lvcuff.gif")
+    ) {
       const base = { monster, part: "arm", source: "El Vibrato restraints" };
       if (
         monsterParts.includes("arm") &&
@@ -260,9 +262,10 @@ function spadeMonsterParts(
   if (
     currentRound() === 1 &&
     // eslint-disable-next-line libram/verify-constants
-    haveEquipped($item`Everfull Dart Holster`)
+    haveEquipped(Item.get("Everfull Dart Holster"))
   ) {
-    const buttAwareness = get("everfullDartPerks").includes("Butt awareness");
+    const buttAwareness =
+      getProperty("everfullDartPerks").includes("Butt awareness");
     const allDartParts = [...page.matchAll(DART_REGEX)].map(
       (match) => match[1],
     );

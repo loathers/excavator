@@ -1,5 +1,3 @@
-import type { ExcavatorProject } from "./type";
-
 import { AUTUMNATON } from "./projects/autumnaton";
 import { BIRD_A_DAY } from "./projects/birdADay";
 import { COAT_OF_PAINT } from "./projects/coatOfPaint";
@@ -13,6 +11,7 @@ import { JUICE_BAR } from "./projects/juiceBar";
 import { MONSTER_PARTS } from "./projects/monsterParts";
 import { MUMMING_TRUNK } from "./projects/mummingTrunk";
 import { OUT_OF_ORDER } from "./projects/outOfOrder";
+import type { ExcavatorProject } from "./type";
 
 export { ExcavatorProject };
 

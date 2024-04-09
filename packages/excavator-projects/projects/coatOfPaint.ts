@@ -2,8 +2,7 @@
  * @author Phillammon
  * Determine the relationship between Fresh Coat of Paint modifiers and the day seed
  */
-import { numericModifier, sessionStorage } from "kolmafia";
-import { $item, get } from "libram";
+import { Item, getProperty, numericModifier, sessionStorage } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
 import { getDaySeed, getDifficultySeed } from "../utils";
@@ -37,13 +36,13 @@ function getPaintModifiers(page: string) {
   const paintMods = Object.entries(COAT_OF_PAINT_MODIFIERS).reduce(
     (data, [type, mods]) => {
       const mod = mods.find(
-        (m) => numericModifier($item`fresh coat of paint`, m) !== 0,
+        (m) => numericModifier(Item.get("fresh coat of paint"), m) !== 0,
       );
       return {
         ...data,
         [type]: mod || "",
         [`${type}_value`]: mod
-          ? String(numericModifier($item`fresh coat of paint`, mod))
+          ? String(numericModifier(Item.get("fresh coat of paint"), mod))
           : "",
       };
     },
@@ -61,8 +60,8 @@ export const COAT_OF_PAINT: ExcavatorProject = {
   name: "Fresh Coat of Paint",
   hooks: {
     DESC_ITEM: (itemName: string, page: string) => {
-      if (itemName !== $item`fresh coat of paint`.name) return null;
-      const mod = get("_coatOfPaintModifier");
+      if (itemName !== Item.get("fresh coat of paint").name) return null;
+      const mod = getProperty("_coatOfPaintModifier");
       if (mod === "") return null;
 
       // Avoid sending the same data multiple times per session

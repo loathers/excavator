@@ -1,7 +1,7 @@
-import { getRevision } from "kolmafia";
 import type { ExcavatorProject } from "excavator-projects";
-
 import { projects } from "excavator-projects";
+import { getRevision } from "kolmafia";
+
 import { sendSpadingData } from "./utils";
 
 function tupleNotNull<A, B>(
@@ -10,7 +10,7 @@ function tupleNotNull<A, B>(
   return value[1] !== null;
 }
 
-type Event = keyof ExcavatorProject['hooks'];
+type Event = keyof ExcavatorProject["hooks"];
 
 function main(event: Event, meta: string, page: string) {
   projects

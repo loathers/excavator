@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "core-js": "^3.0.0",
-    "kolmafia": "^5.27890.0",
+    "kolmafia": "^5.27893.0",
     "libram": "^0.8.25"
   },
   "devDependencies": {
@@ -24,9 +24,9 @@
     "@babel/preset-env": "^7.23.6",
     "@babel/preset-typescript": "^7.23.3",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/node": "^20.12.5",
-    "@typescript-eslint/eslint-plugin": "^7.5.0",
-    "@typescript-eslint/parser": "^7.5.0",
+    "@types/node": "^20.12.6",
+    "@typescript-eslint/eslint-plugin": "^7.6.0",
+    "@typescript-eslint/parser": "^7.6.0",
     "esbuild": "^0.20.2",
     "esbuild-plugin-babel": "^0.2.3",
     "eslint": "^8.56.0",

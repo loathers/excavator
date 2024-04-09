@@ -34,7 +34,7 @@
     "@remix-run/dev": "^2.8.1",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/express": "^4.17.21",
-    "@types/react": "^18.2.73",
+    "@types/react": "^18.2.75",
     "@types/react-dom": "^18.2.23",
     "excavator-prettier-config": "^0.0.0",
     "prettier": "^3.1.1",

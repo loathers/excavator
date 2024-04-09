@@ -2,10 +2,10 @@
  * @author gausie
  * Record instances of a familiar indicating that it has a previous undetected attribute through mumming trunk bonuses.
  */
-import { myFamiliar } from "kolmafia";
-import { $item, get, have, notNull } from "libram";
+import { Item, availableAmount, getProperty, myFamiliar } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
+import { notNull } from "../utils";
 
 const ATTRIBUTE_INDICATORS = {
   "1": {
@@ -113,10 +113,10 @@ export const MUMMING_TRUNK: ExcavatorProject = {
   name: "Mumming Trunk",
   hooks: {
     COMBAT_ROUND: (encounter: string, page: string) => {
-      if (!have($item`mumming trunk`)) return null;
+      if (availableAmount(Item.get("mumming trunk")) === 0) return null;
       const fam = myFamiliar();
-      if (!get("_mummeryMods").includes(fam.toString())) return null;
-      return get("_mummeryUses")
+      if (!getProperty("_mummeryMods").includes(fam.toString())) return null;
+      return getProperty("_mummeryUses")
         .split(",")
         .filter(
           (costume): costume is keyof typeof ATTRIBUTE_INDICATORS =>

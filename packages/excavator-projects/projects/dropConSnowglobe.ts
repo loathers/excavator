@@ -3,7 +3,6 @@
  * Track drops from the KoL Con 13 snowglobe
  */
 import { currentRound, equippedAmount, Item } from "kolmafia";
-import { $item } from "libram";
 
 import { ExcavatorProject } from "../type";
 import { toNormalisedString } from "../utils";
@@ -69,7 +68,7 @@ function spadeSnowglobe(
   // Must be end of battle
   if (currentRound() !== 0) return null;
   // Must be wearing KoL Con 13 snowglobe
-  if (equippedAmount($item`KoL Con 13 snowglobe`) < 1) return null;
+  if (equippedAmount(Item.get("KoL Con 13 snowglobe")) < 1) return null;
 
   const data = [];
 
@@ -79,7 +78,7 @@ function spadeSnowglobe(
       let str = "";
       if (indicator.type === "item") {
         const item = Item.get(match[1]);
-        str = item !== $item`none` ? toNormalisedString(item) : match[1];
+        str = item !== Item.none ? toNormalisedString(item) : match[1];
       }
       data.push({
         type: indicator.type,

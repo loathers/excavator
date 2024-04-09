@@ -1,8 +1,7 @@
 /* @author gausie
  * Determine the relationship between Blessing of the Bird modifiers and the day seed
  */
-import { numericModifier } from "kolmafia";
-import { $effect } from "libram";
+import { Effect, numericModifier } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
 import { getDaySeed } from "../utils";
@@ -27,7 +26,7 @@ const BIRD_A_DAY_MODIFIERS = {
   bonus: ["HP Regen Min", "Weapon Damage", "Damage Absorption", "MP Regen Min"],
 };
 
-const BLESSING = $effect`Blessing of the Bird`;
+const BLESSING = Effect.get("Blessing of the Bird");
 
 function getBlessingModifiers() {
   return Object.entries(BIRD_A_DAY_MODIFIERS).reduce(
