@@ -3,12 +3,7 @@ import { currentRound, Item, equippedItem, Slot, myLocation } from "kolmafia";
 import { ExcavatorProject } from "../type";
 import { toNormalisedString } from "../utils";
 
-type SweatpantsData = { location: string; sweat: number };
-const SWEAT_PATTERN = /You get (\d)% sweatier/;
-function spadeSweatpants(
-  _encounter: string,
-  page: string,
-): SweatpantsData | null {
+function spadeSweatpants(encounter: string, page: string) {
   if (currentRound() !== 0) return null;
   if (
     !Item.get(["designer sweatpants", "replica designer sweatpants"]).includes(
@@ -16,13 +11,12 @@ function spadeSweatpants(
     )
   )
     return null;
-  const result = page.match(SWEAT_PATTERN);
-  if (result)
-    return {
-      location: toNormalisedString(myLocation()),
-      sweat: Number(result[1]),
-    };
-  return null;
+  const sweat = page.match(/You get (\d)% sweatier/)?.[1];
+  if (!sweat) return null;
+  return {
+    location: toNormalisedString(myLocation()),
+    sweat: Number(sweat),
+  };
 }
 
 export const DESIGNER_SWEATPANTS: ExcavatorProject = {
