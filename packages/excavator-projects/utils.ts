@@ -60,9 +60,13 @@ export function getGamedaySeed() {
 }
 
 export function getDifficulty() {
-  if (myPath() !== Path.none) return "Normal";
-  if (!canInteract()) return "Normal (Ronin)";
+  // If we're in hardcore, we're in hardcore
   if (inHardcore()) return "Hardcore";
+  // If we aren't in hardcore and we can't access the mall, we're in ronin
+  if (!canInteract()) return "Normal (Ronin)";
+  // If we're out of ronin and not in a path, we're in post-ronin softcore
+  if (myPath() !== Path.none) return "Normal";
+  // If we're out of ronin and not in a path, it's safe to assume we're casual
   return "Casual";
 }
 
