@@ -14,6 +14,9 @@ export type Hooks = {
 
 export type ExcavatorProject = {
   name: string;
+  slug?: string;
+  description: string;
+  author: string;
   hooks: Partial<Hooks>;
   since?: number;
 };

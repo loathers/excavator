@@ -5183,10 +5183,10 @@ kleur@^4.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-4.1.5.tgz#95106101795f7050c6c650f350c683febddb1780"
   integrity sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==
 
-kolmafia@^5.27893.0:
-  version "5.27893.0"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.27893.0.tgz#74edd0690ab86f07dd7d4170c2c1fbe51b21a101"
-  integrity sha512-I1xtpii78UJyywt/EYxN4jxHq1fQkoguV/lKxtdOLzn/Er1HbD3DKneTJxQx+cZYqeqSNxH6BoJ9WjcVD7/L2g==
+kolmafia@^5.27896.0:
+  version "5.27896.0"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.27896.0.tgz#48ba7ce04985ce590d2534a6463b5f15438e7dfc"
+  integrity sha512-qvI2H6HEgDGffP7PG4zWGRRobRh/hiAWoP6k7fujCARjWHFOYalN9PT72gtioYjx1E4TOMgNLheEbjB4bknxkg==
 
 levn@^0.4.1:
   version "0.4.1"

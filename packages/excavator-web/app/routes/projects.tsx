@@ -7,53 +7,37 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import { MetaFunction, json } from "@remix-run/node";
-import {
-  Outlet,
-  useLoaderData,
-  useNavigate,
-  useParams,
-} from "@remix-run/react";
+import { MetaFunction } from "@remix-run/node";
+import { Outlet, useNavigate, useParams } from "@remix-run/react";
+import { projects } from "excavator-projects";
 import { useEffect } from "react";
 
-import { db } from "../db.server.js";
-import { slug } from "../utils/utils.js";
+import { toSlug } from "../utils/utils.js";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Excavator ♠️ - Projects" }];
 };
 
-export async function loader() {
-  const projects = (
-    await db.spadingData.findMany({
-      distinct: "project",
-      select: { project: true },
-      orderBy: { project: "asc" },
-    })
-  ).map(({ project }) => project);
-
-  return json({ projects });
-}
-
 export default function Projects() {
-  const { projects } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
     if (!params.project && projects.length > 0)
-      navigate(`./${slug(projects.at(0)!)}`);
+      navigate(`./${toSlug(projects.at(0)!.name)}`);
   }, []);
 
   if (projects.length === 0) return <Alert>No projects found</Alert>;
 
-  const projectIndex = projects.findIndex((p) => slug(p) === params.project);
+  const projectIndex = projects.findIndex(
+    (p) => toSlug(p.name) === params.project,
+  );
 
   return (
     <Tabs
       defaultIndex={projectIndex}
       maxWidth="100%"
-      onChange={(i) => navigate(`./${slug(projects[i])}`)}
+      onChange={(i) => navigate(`./${toSlug(projects[i].name)}`)}
     >
       <TabList
         overflowX="scroll"
@@ -66,8 +50,8 @@ export default function Projects() {
         pb={1}
       >
         {projects.map((p) => (
-          <Tab key={p} sx={{ textWrap: "nowrap" }}>
-            {p}
+          <Tab key={p.name} sx={{ textWrap: "nowrap" }}>
+            {p.name}
           </Tab>
         ))}
       </TabList>

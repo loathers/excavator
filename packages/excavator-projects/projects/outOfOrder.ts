@@ -1,7 +1,3 @@
-/**
- * @author gausie
- * Determine the relationship between initiative bonus and beeps from the GPS-tracking wristwatch during the Out of Order quest
- */
 import {
   Item,
   Location,
@@ -17,6 +13,9 @@ import { ExcavatorProject } from "../type";
 
 export const OUT_OF_ORDER: ExcavatorProject = {
   name: "Out of Order",
+  description:
+    "Determine the relationship between initiative bonus and beeps from the GPS-tracking wristwatch during the Out of Order quest.",
+  author: "gausie",
   hooks: {
     COMBAT_ROUND: (encounter: string, page: string) => {
       // Must be on the quest

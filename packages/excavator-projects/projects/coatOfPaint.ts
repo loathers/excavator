@@ -1,11 +1,31 @@
-/**
- * @author Phillammon
- * Determine the relationship between Fresh Coat of Paint modifiers and the day seed
- */
 import { Item, getProperty, numericModifier, sessionStorage } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
 import { getDaySeed, getDifficultySeed } from "../utils";
+
+export const COAT_OF_PAINT: ExcavatorProject = {
+  name: "Fresh Coat of Paint",
+  description:
+    "Determine the relationship between Fresh Coat of Paint modifiers and the day seed.",
+  author: "Phillammon",
+  hooks: {
+    DESC_ITEM: (itemName: string, page: string) => {
+      if (itemName !== Item.get("fresh coat of paint").name) return null;
+      const mod = getProperty("_coatOfPaintModifier");
+      if (mod === "") return null;
+
+      // Avoid sending the same data multiple times per session
+      if (sessionStorage.getItem("reportedCoatOfPaintMod") === mod) return null;
+      sessionStorage.setItem("reportedCoatOfPaintMod", mod);
+
+      return {
+        ...getPaintModifiers(page),
+        ...getDaySeed(),
+        ...getDifficultySeed(),
+      };
+    },
+  },
+};
 
 const COAT_OF_PAINT_MODIFIERS = {
   stat_experience: [
@@ -55,24 +75,3 @@ function getPaintModifiers(page: string) {
 
   return paintMods;
 }
-
-export const COAT_OF_PAINT: ExcavatorProject = {
-  name: "Fresh Coat of Paint",
-  hooks: {
-    DESC_ITEM: (itemName: string, page: string) => {
-      if (itemName !== Item.get("fresh coat of paint").name) return null;
-      const mod = getProperty("_coatOfPaintModifier");
-      if (mod === "") return null;
-
-      // Avoid sending the same data multiple times per session
-      if (sessionStorage.getItem("reportedCoatOfPaintMod") === mod) return null;
-      sessionStorage.setItem("reportedCoatOfPaintMod", mod);
-
-      return {
-        ...getPaintModifiers(page),
-        ...getDaySeed(),
-        ...getDifficultySeed(),
-      };
-    },
-  },
-};

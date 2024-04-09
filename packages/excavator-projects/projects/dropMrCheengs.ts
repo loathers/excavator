@@ -1,7 +1,3 @@
-/**
- * @author rinn
- * Track drops from the Mr. Cheeng's Spectacles
- */
 import { currentRound, equippedAmount, Item } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
@@ -9,6 +5,9 @@ import { toNormalisedString } from "../utils";
 
 export const DROP_MR_CHEENGS: ExcavatorProject = {
   name: "Mr. Cheeng's Spectacles",
+  slug: "cheengs",
+  description: "Track drops from the Mr. Cheeng's Spectacles.",
+  author: "Rinn",
   hooks: {
     COMBAT_ROUND: (encounter: string, page: string) => {
       // Must be end of battle

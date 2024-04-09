@@ -23,6 +23,7 @@
     "@remix-run/react": "^2.8.1",
     "csv-stringify": "^6.4.6",
     "dotenv": "^16.4.5",
+    "excavator-projects": "^0.0.0",
     "express": "^4.19.2",
     "fetch-cookie": "^3.0.1",
     "framer-motion": "^11.0.25",

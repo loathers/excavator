@@ -1,7 +1,3 @@
-/**
- * @author gausie
- * Record instances of an effect obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible.
- */
 import {
   currentRound,
   descToEffect,
@@ -12,6 +8,16 @@ import {
 } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
+
+export const HOOKAH: ExcavatorProject = {
+  name: "Hookah",
+  description:
+    "Record instances of an effect obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible.",
+  author: "gausie",
+  hooks: {
+    COMBAT_ROUND: spadeHookah,
+  },
+};
 
 /**
  * Returns the next effect gained after a given event trigger text
@@ -58,49 +64,44 @@ function checkHookahSource(
   };
 }
 
-export const HOOKAH: ExcavatorProject = {
-  name: "Hookah",
-  hooks: {
-    COMBAT_ROUND: (encounter: string, page: string) => {
-      switch (currentRound()) {
-        // End of battle
-        case 0: {
-          // Enhanced signal receiver is an off-hand item that gives 2-11 adventures of a hookahable effect
-          if (equippedAmount(Item.get("enhanced signal receiver")) > 0) {
-            return checkHookahSource(
-              page,
-              "enhanced signal receiver",
-              "Your signal receiver pipes up:",
-            );
-          }
-          // The crazy horse (acquired from The Horsery) is a slotless resource that gives 5 adventures of a hookahable effect
-          if (
-            getProperty("_horsery") === "crazy horse" &&
-            getProperty("_horseryCrazyName")
-          ) {
-            return checkHookahSource(
-              page,
-              "crazy horse",
-              getProperty("_horseryCrazyName"),
-            );
-          }
-          return null;
-        }
-        // Start of battle
-        case 1: {
-          // The ittah bittah hookah is a familiar equip that gives 6 adventures of a hookahable effect
-          if (equippedAmount(Item.get("ittah bittah hookah")) > 0) {
-            return checkHookahSource(
-              page,
-              "ittah bittha hookah",
-              "takes a pull on the hookah",
-            );
-          }
-          return null;
-        }
-        default:
-          return null;
+function spadeHookah(encounter: string, page: string) {
+  switch (currentRound()) {
+    // End of battle
+    case 0: {
+      // Enhanced signal receiver is an off-hand item that gives 2-11 adventures of a hookahable effect
+      if (equippedAmount(Item.get("enhanced signal receiver")) > 0) {
+        return checkHookahSource(
+          page,
+          "enhanced signal receiver",
+          "Your signal receiver pipes up:",
+        );
       }
-    },
-  },
-};
+      // The crazy horse (acquired from The Horsery) is a slotless resource that gives 5 adventures of a hookahable effect
+      if (
+        getProperty("_horsery") === "crazy horse" &&
+        getProperty("_horseryCrazyName")
+      ) {
+        return checkHookahSource(
+          page,
+          "crazy horse",
+          getProperty("_horseryCrazyName"),
+        );
+      }
+      return null;
+    }
+    // Start of battle
+    case 1: {
+      // The ittah bittah hookah is a familiar equip that gives 6 adventures of a hookahable effect
+      if (equippedAmount(Item.get("ittah bittah hookah")) > 0) {
+        return checkHookahSource(
+          page,
+          "ittah bittha hookah",
+          "takes a pull on the hookah",
+        );
+      }
+      return null;
+    }
+    default:
+      return null;
+  }
+}

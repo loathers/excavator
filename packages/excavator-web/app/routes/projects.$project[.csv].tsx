@@ -5,11 +5,11 @@ import {
 import { stringify } from "csv-stringify/sync";
 import { Readable } from "node:stream";
 
-import { deslug } from "../utils/utils.js";
+import { fromSlug } from "../utils/utils.js";
 import { loadProjectData } from "../utils/utils.server.js";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  let project = deslug(params.project || "");
+  const project = fromSlug(params.project || "");
 
   const data = await loadProjectData(project);
 

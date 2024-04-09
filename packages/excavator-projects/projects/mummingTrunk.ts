@@ -1,11 +1,17 @@
-/**
- * @author gausie
- * Record instances of a familiar indicating that it has a previous undetected attribute through mumming trunk bonuses.
- */
 import { Item, availableAmount, getProperty, myFamiliar } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
 import { notNull } from "../utils";
+
+export const MUMMING_TRUNK: ExcavatorProject = {
+  name: "Mumming Trunk",
+  description:
+    "Record instances of a familiar indicating that it has a previous undetected attribute through mumming trunk bonuses.",
+  author: "gausie",
+  hooks: {
+    COMBAT_ROUND: spadeMummingTrunk,
+  },
+};
 
 const ATTRIBUTE_INDICATORS = {
   "1": {
@@ -109,36 +115,31 @@ const ATTRIBUTE_INDICATORS = {
   },
 };
 
-export const MUMMING_TRUNK: ExcavatorProject = {
-  name: "Mumming Trunk",
-  hooks: {
-    COMBAT_ROUND: (encounter: string, page: string) => {
-      if (availableAmount(Item.get("mumming trunk")) === 0) return null;
-      const fam = myFamiliar();
-      if (!getProperty("_mummeryMods").includes(fam.toString())) return null;
-      return getProperty("_mummeryUses")
-        .split(",")
-        .filter(
-          (costume): costume is keyof typeof ATTRIBUTE_INDICATORS =>
-            costume in ATTRIBUTE_INDICATORS,
-        )
-        .map((costume) => {
-          const match = Object.entries(ATTRIBUTE_INDICATORS[costume]).find(
-            ([attribute, indicators]) =>
-              !fam.attributes.includes(attribute) &&
-              indicators
-                .map((i) => new RegExp(i.replace(/<name>/, fam.name)))
-                .some((i) => i.test(page)),
-          );
+function spadeMummingTrunk(encounter: string, page: string) {
+  if (availableAmount(Item.get("mumming trunk")) === 0) return null;
+  const fam = myFamiliar();
+  if (!getProperty("_mummeryMods").includes(fam.toString())) return null;
+  return getProperty("_mummeryUses")
+    .split(",")
+    .filter(
+      (costume): costume is keyof typeof ATTRIBUTE_INDICATORS =>
+        costume in ATTRIBUTE_INDICATORS,
+    )
+    .map((costume) => {
+      const match = Object.entries(ATTRIBUTE_INDICATORS[costume]).find(
+        ([attribute, indicators]) =>
+          !fam.attributes.includes(attribute) &&
+          indicators
+            .map((i) => new RegExp(i.replace(/<name>/, fam.name)))
+            .some((i) => i.test(page)),
+      );
 
-          if (!match) return null;
+      if (!match) return null;
 
-          return {
-            attribute: match[0],
-            familiar: fam.toString(),
-          };
-        })
-        .filter(notNull);
-    },
-  },
-};
+      return {
+        attribute: match[0],
+        familiar: fam.toString(),
+      };
+    })
+    .filter(notNull);
+}

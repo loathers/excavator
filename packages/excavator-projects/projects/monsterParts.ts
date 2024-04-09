@@ -1,7 +1,4 @@
-/**
- * @author Rinn
- * Determine what parts are considered to make up each monster
- */
+import "core-js/modules/es.string.match-all";
 import {
   availableAmount,
   currentRound,
@@ -23,6 +20,16 @@ import {
 
 import { ExcavatorProject } from "../type";
 import { isAdventureTextAltered, toNormalisedString } from "../utils";
+
+export const MONSTER_PARTS: ExcavatorProject = {
+  name: "Monster Parts",
+  description: "Determine what parts are considered to make up each monster",
+  author: "Rinn",
+  hooks: {
+    COMBAT_ROUND: spadeMonsterParts,
+  },
+  since: 27884, // Monster.prototype.parts added
+};
 
 // eslint-disable-next-line libram/verify-constants
 const MONSTER_DENYLIST = Monster.get(["the darkness (blind)"]);
@@ -303,11 +310,3 @@ function spadeMonsterParts(
 
   return data;
 }
-
-export const MONSTER_PARTS: ExcavatorProject = {
-  name: "Monster Parts",
-  hooks: {
-    COMBAT_ROUND: spadeMonsterParts,
-  },
-  since: 27884, // Monster.prototype.parts added
-};

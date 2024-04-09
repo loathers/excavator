@@ -1,7 +1,3 @@
-/**
- * @author midgleyc
- * Determine difficulty level of zones autumnaton is sent to.
- */
 import {
   getProperty,
   Item,
@@ -12,6 +8,34 @@ import {
 } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
+
+export const AUTUMNATON: ExcavatorProject = {
+  name: "Autumnaton",
+  description: "Determine difficulty level of zones autumnaton is sent to.",
+  author: "midleyc",
+  hooks: {
+    COMBAT_ROUND: (meta: string, page: string) => {
+      const location = getProperty("autumnatonQuestLocation");
+      if (location) {
+        sessionStorage.setItem("lastQuestLocation", location);
+      }
+
+      // If the quest is done, the autumn-aton returns
+      if (!page.includes("You acquire an item: <b>autumn-aton")) return null;
+
+      const lastQuestLocation = sessionStorage.getItem("lastQuestLocation");
+
+      // Exit if we don't know where the autumn-aton was sent
+      if (!lastQuestLocation) {
+        return null;
+      }
+
+      sessionStorage.removeItem("lastQuestLocation");
+
+      return endQuest(lastQuestLocation, page);
+    },
+  },
+};
 
 const UPGRADE_TO_LOCATION_DETAILS = {
   "energy-absorptive hat": "low outdoor",
@@ -116,29 +140,3 @@ function endQuest(locationName: string, page: string) {
   const location = toLocation(locationName);
   return checkUpgrade(location, page) || checkItem(location, page);
 }
-
-export const AUTUMNATON: ExcavatorProject = {
-  name: "Autumnaton",
-  hooks: {
-    COMBAT_ROUND: (meta: string, page: string) => {
-      const location = getProperty("autumnatonQuestLocation");
-      if (location) {
-        sessionStorage.setItem("lastQuestLocation", location);
-      }
-
-      // If the quest is done, the autumn-aton returns
-      if (!page.includes("You acquire an item: <b>autumn-aton")) return null;
-
-      const lastQuestLocation = sessionStorage.getItem("lastQuestLocation");
-
-      // Exit if we don't know where the autumn-aton was sent
-      if (!lastQuestLocation) {
-        return null;
-      }
-
-      sessionStorage.removeItem("lastQuestLocation");
-
-      return endQuest(lastQuestLocation, page);
-    },
-  },
-};

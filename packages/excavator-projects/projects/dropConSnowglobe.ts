@@ -1,11 +1,18 @@
-/**
- * @author rinn
- * Track drops from the KoL Con 13 snowglobe
- */
+import "core-js/modules/es.string.match-all";
 import { currentRound, equippedAmount, Item } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
 import { toNormalisedString } from "../utils";
+
+export const DROP_CON_SNOWGLOBE: ExcavatorProject = {
+  name: "KoL Con 13 Snowglobe",
+  slug: "snowglobe",
+  description: "Track drops from the KoL Con 13 snowglobe.",
+  author: "Rinn",
+  hooks: {
+    COMBAT_ROUND: spadeSnowglobe,
+  },
+};
 
 type Indicator = { type: "substat" | "item"; pattern: RegExp };
 
@@ -89,10 +96,3 @@ function spadeSnowglobe(
 
   return data;
 }
-
-export const DROP_CON_SNOWGLOBE: ExcavatorProject = {
-  name: "KoL Con 13 Snowglobe",
-  hooks: {
-    COMBAT_ROUND: spadeSnowglobe,
-  },
-};

@@ -1,7 +1,3 @@
-/**
- * @author rinn
- * Track drops from the can of mixed everything
- */
 import { currentRound, equippedAmount, Item } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
@@ -9,6 +5,8 @@ import { toNormalisedString } from "../utils";
 
 export const DROP_MIXED_EVERYTHING: ExcavatorProject = {
   name: "Can Of Mixed Everything",
+  description: "Track drops from the can of mixed everything.",
+  author: "Rinn",
   hooks: {
     COMBAT_ROUND: (encounter: string, page: string) => {
       // Must be end of battle
