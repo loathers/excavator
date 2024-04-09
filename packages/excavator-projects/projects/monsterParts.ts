@@ -143,15 +143,6 @@ const INDICATORS: Indicator[] = [
   },
 ];
 
-const MUTANT_COUTURE_SKILLS = {
-  head: Skill.get("Strangle"),
-  arm: Skill.get("Disarm"),
-  leg: Skill.get("Entangle"),
-};
-
-const DART_REGEX =
-  /<div class="ed_part.*?name="whichskill" value="\d+".*?<button>([^<]+?)<\/button>/g;
-
 function checkPrerequisite({
   type,
   prerequisite,
@@ -179,6 +170,154 @@ type MonsterPartsData = {
   source: string;
 };
 
+function checkSimpleIndicators(
+  data: MonsterPartsData[],
+  page: string,
+  monster: string,
+  monsterParts: readonly string[],
+) {
+  for (const indicator of INDICATORS) {
+    if (!checkPrerequisite(indicator)) continue;
+    const part = page.match(indicator.pattern)?.[1];
+    if (!part) continue;
+    if (monsterParts.includes(part)) continue;
+    data.push({
+      monster,
+      part,
+      confirmation: true,
+      source: indicator.prerequisite.toString(),
+    });
+  }
+}
+
+function checkElVibratoRestraints(
+  data: MonsterPartsData[],
+  page: string,
+  monster: string,
+  monsterParts: readonly string[],
+) {
+  if (
+    availableAmount(Item.get("El Vibrato restraints")) === 0 ||
+    !page.includes("lvcuff.gif")
+  )
+    return;
+
+  const base = { monster, part: "arm", source: "El Vibrato restraints" };
+  if (
+    monsterParts.includes("arm") &&
+    page.includes("This foe doesn't have any arms that you can find")
+  ) {
+    data.push({ ...base, confirmation: false });
+  } else if (
+    !monsterParts.includes("arm") &&
+    page.includes("You push the button on top of the restraints")
+  ) {
+    data.push({ ...base, confirmation: true });
+  }
+}
+
+const MUTANT_COUTURE_SKILLS = {
+  head: Skill.get("Strangle"),
+  arm: Skill.get("Disarm"),
+  leg: Skill.get("Entangle"),
+};
+
+function checkMutantCouture(
+  data: MonsterPartsData[],
+  page: string,
+  monster: string,
+  monsterParts: readonly string[],
+) {
+  if (
+    currentRound() !== 1 ||
+    !isWearingOutfit("Mutant Couture") ||
+    !page.includes("<select name=whichskill>")
+  )
+    return;
+
+  data.push(
+    ...Object.entries(MUTANT_COUTURE_SKILLS)
+      .filter(
+        ([part, skill]) =>
+          !monsterParts.includes(part) &&
+          page.includes(`<option value="${skill.id}"`),
+      )
+      .map(([part, _]) => ({
+        monster,
+        part,
+        confirmation: true,
+        source: "Mutant Couture",
+      })),
+  );
+
+  data.push(
+    ...Object.entries(MUTANT_COUTURE_SKILLS)
+      .filter(
+        ([part, skill]) =>
+          monsterParts.includes(part) &&
+          !page.includes(`<option value="${skill.id}"`),
+      )
+      .map(([part, _]) => ({
+        monster,
+        part,
+        confirmation: true,
+        source: "Mutant Couture",
+      })),
+  );
+}
+
+const DART_REGEX =
+  /<div class="ed_part.*?name="whichskill" value="\d+".*?<button>([^<]+?)<\/button>/g;
+
+function checkEverfullDartHolster(
+  data: MonsterPartsData[],
+  page: string,
+  monster: string,
+  monsterParts: readonly string[],
+) {
+  // Everfull Dart Holster
+  if (
+    currentRound() !== 1 ||
+    // eslint-disable-next-line libram/verify-constants
+    !haveEquipped(Item.get("Everfull Dart Holster"))
+  )
+    return;
+
+  const buttAwareness =
+    getProperty("everfullDartPerks").includes("Butt awareness");
+  const allDartParts = [...page.matchAll(DART_REGEX)].map((match) => match[1]);
+
+  const dartParts = [
+    ...new Set(
+      allDartParts.filter((part) => !buttAwareness || part !== "butt"),
+    ),
+  ];
+
+  data.push(
+    ...dartParts
+      .filter((part) => !monsterParts.includes(part))
+      .map((part) => ({
+        monster: monster,
+        part,
+        confirmation: true,
+        source: "Everfull Dart Holster",
+      })),
+  );
+
+  if (allDartParts.length <= 4) {
+    data.push(
+      ...monsterParts
+        .filter((part) => !dartParts.includes(part))
+        .map((part) => ({
+          monster: monster,
+          part,
+          confirmation: false,
+          source: "Everfull Dart Holster",
+        })),
+    );
+  }
+}
+
 function spadeMonsterParts(
   encounter: string,
   page: string,
@@ -188,125 +327,18 @@ function spadeMonsterParts(
   const monster = toNormalisedString(lastMonster());
   const monsterParts = lastMonster().parts;
 
-  const data = [];
+  const data: MonsterPartsData[] = [];
 
   if (
     !isAdventureTextAltered() &&
     !MONSTER_SEARCH_DENYLIST.includes(lastMonster())
   ) {
-    // Simple indicators
-    for (const indicator of INDICATORS) {
-      if (!checkPrerequisite(indicator)) continue;
-      const part = page.match(indicator.pattern)?.[1];
-      if (!part) continue;
-      if (monsterParts.includes(part)) continue;
-      data.push({
-        monster,
-        part,
-        confirmation: true,
-        source: indicator.prerequisite.toString(),
-      });
-    }
-
-    // El Vibrato restraints
-    if (
-      availableAmount(Item.get("El Vibrato restraints")) > 0 &&
-      page.includes("lvcuff.gif")
-    ) {
-      const base = { monster, part: "arm", source: "El Vibrato restraints" };
-      if (
-        monsterParts.includes("arm") &&
-        page.includes("This foe doesn't have any arms that you can find")
-      ) {
-        data.push({ ...base, confirmation: false });
-      } else if (
-        !monsterParts.includes("arm") &&
-        page.includes("You push the button on top of the restraints")
-      ) {
-        data.push({ ...base, confirmation: true });
-      }
-    }
+    checkSimpleIndicators(data, page, monster, monsterParts);
+    checkElVibratoRestraints(data, page, monster, monsterParts);
   }
 
-  // Mutant Couture
-  if (
-    currentRound() === 1 &&
-    isWearingOutfit("Mutant Couture") &&
-    page.includes("<select name=whichskill>")
-  ) {
-    data.push(
-      ...Object.entries(MUTANT_COUTURE_SKILLS)
-        .filter(
-          ([part, skill]) =>
-            !monsterParts.includes(part) &&
-            page.includes(`<option value="${skill.id}"`),
-        )
-        .map(([part, _]) => ({
-          monster,
-          part,
-          confirmation: true,
-          source: "Mutant Couture",
-        })),
-    );
-
-    data.push(
-      ...Object.entries(MUTANT_COUTURE_SKILLS)
-        .filter(
-          ([part, skill]) =>
-            monsterParts.includes(part) &&
-            !page.includes(`<option value="${skill.id}"`),
-        )
-        .map(([part, _]) => ({
-          monster,
-          part,
-          confirmation: true,
-          source: "Mutant Couture",
-        })),
-    );
-  }
-
-  // Everfull Dart Holster
-  if (
-    currentRound() === 1 &&
-    // eslint-disable-next-line libram/verify-constants
-    haveEquipped(Item.get("Everfull Dart Holster"))
-  ) {
-    const buttAwareness =
-      getProperty("everfullDartPerks").includes("Butt awareness");
-    const allDartParts = [...page.matchAll(DART_REGEX)].map(
-      (match) => match[1],
-    );
-
-    const dartParts = [
-      ...new Set(
-        allDartParts.filter((part) => !buttAwareness || part !== "butt"),
-      ),
-    ];
-
-    data.push(
-      ...dartParts
-        .filter((part) => !monsterParts.includes(part))
-        .map((part) => ({
-          monster: monster,
-          part,
-          confirmation: true,
-          source: "Everfull Dart Holster",
-        })),
-    );
-
-    if (allDartParts.length <= 4) {
-      data.push(
-        ...monsterParts
-          .filter((part) => !dartParts.includes(part))
-          .map((part) => ({
-            monster: monster,
-            part,
-            confirmation: false,
-            source: "Everfull Dart Holster",
-          })),
-      );
-    }
-  }
+  checkMutantCouture(data, page, monster, monsterParts);
+  checkEverfullDartHolster(data, page, monster, monsterParts);
 
   return data;
 }
