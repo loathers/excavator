@@ -1640,7 +1640,7 @@ var import_kolmafia3 = require("kolmafia");
 
 // ../excavator-projects/utils.ts
 init_kolmafia_polyfill();
-var import_kolmafia2 = require("kolmafia"), ALTERING_EFFECTS = import_kolmafia2.Effect.get(["Can Has Cyborger", "Dis Abled", "Haiku State of Mind", "Just the Best Anapests", "O Hai!", "Robocamo", "Temporary Blindness"]), ALTERING_EQUIPMENT = import_kolmafia2.Item.get(["makeshift turban", "papier-m\xE2chine gun", "papier-m\xE2ch\xE9te", "staph of homophones", "sword behind inappropriate prepositions"]), ALTERING_LOCATIONS = import_kolmafia2.Location.get(["The Haiku Dungeon"]);
+var import_kolmafia2 = require("kolmafia"), ALTERING_EFFECTS = import_kolmafia2.Effect.get(["Can Has Cyborger", "Dis Abled", "Haiku State of Mind", "Just the Best Anapests", "O Hai!", "Robocamo", "Temporary Blindness"]), ALTERING_EQUIPMENT = import_kolmafia2.Item.get(["makeshift turban", "papier-m\xE2chine gun", "papier-m\xE2ch\xE9te", "staph of homophones", "sword behind inappropriate prepositions"]), ALTERING_LOCATIONS = import_kolmafia2.Location.get(["The Haiku Dungeon", "The Deep Machine Tunnels"]);
 function isAdventureTextAltered() {
   return ALTERING_EFFECTS.some(function(effect) {
     return (0, import_kolmafia2.haveEffect)(effect);
