@@ -33,7 +33,10 @@ const ALTERING_EQUIPMENT = Item.get([
   "staph of homophones",
   "sword behind inappropriate prepositions",
 ]);
-const ALTERING_LOCATIONS = Location.get(["The Haiku Dungeon"]);
+const ALTERING_LOCATIONS = Location.get([
+  "The Haiku Dungeon",
+  "The Deep Machine Tunnels",
+]);
 
 export function isAdventureTextAltered(): boolean {
   return (
