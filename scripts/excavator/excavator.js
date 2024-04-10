@@ -1664,7 +1664,7 @@ function getDifficultySeed() {
   };
 }
 function toNormalisedString(thing) {
-  return "[".concat(thing.id, "]").concat(thing.name);
+  return "[".concat(thing.id, "]").concat("name" in thing ? thing.name : thing.toString());
 }
 function notNull(value) {
   return value !== null;
@@ -1913,9 +1913,31 @@ function getPaintModifiers(page) {
   return bonus && (paintMods.bonus = bonus[1]), paintMods;
 }
 
+// ../excavator-projects/projects/designerSweatpants.ts
+init_kolmafia_polyfill();
+var import_kolmafia5 = require("kolmafia");
+function spadeSweatpants(encounter, page) {
+  var _page$match;
+  if ((0, import_kolmafia5.currentRound)() !== 0 || !import_kolmafia5.Item.get(["designer sweatpants", "replica designer sweatpants"]).includes((0, import_kolmafia5.equippedItem)(import_kolmafia5.Slot.get("pants"))))
+    return null;
+  var sweat = (_page$match = page.match(/You get (\d)% sweatier/)) === null || _page$match === void 0 ? void 0 : _page$match[1];
+  return sweat ? {
+    location: toNormalisedString((0, import_kolmafia5.myLocation)()),
+    sweat: Number(sweat)
+  } : null;
+}
+var DESIGNER_SWEATPANTS = {
+  name: "Designer Sweatpants",
+  description: "Tracks sweatiness of various zones for the Designer Sweatpants and its replica.",
+  author: "horrible-little-slime",
+  hooks: {
+    COMBAT_ROUND: spadeSweatpants
+  }
+};
+
 // ../excavator-projects/projects/dropConSnowglobe.ts
 init_kolmafia_polyfill();
-var import_es_string = __toESM(require_es_string_match_all()), import_kolmafia5 = require("kolmafia");
+var import_es_string = __toESM(require_es_string_match_all()), import_kolmafia6 = require("kolmafia");
 function _createForOfIteratorHelper(o, allowArrayLike) {
   var it = typeof Symbol < "u" && o[Symbol.iterator] || o["@@iterator"];
   if (!it) {
@@ -2011,7 +2033,7 @@ var DROP_CON_SNOWGLOBE = {
   pattern: /that dinner is still in your refrigerator.*?You acquire an item: <b>(.*?)<\/b>/g
 }];
 function spadeSnowglobe(encounter, page) {
-  if ((0, import_kolmafia5.currentRound)() !== 0 || (0, import_kolmafia5.equippedAmount)(import_kolmafia5.Item.get("KoL Con 13 snowglobe")) < 1)
+  if ((0, import_kolmafia6.currentRound)() !== 0 || (0, import_kolmafia6.equippedAmount)(import_kolmafia6.Item.get("KoL Con 13 snowglobe")) < 1)
     return null;
   var data = [], _iterator = _createForOfIteratorHelper(INDICATORS), _step;
   try {
@@ -2021,8 +2043,8 @@ function spadeSnowglobe(encounter, page) {
         for (_iterator2.s(); !(_step2 = _iterator2.n()).done; ) {
           var match = _step2.value, str = "";
           if (indicator.type === "item") {
-            var item = import_kolmafia5.Item.get(match[1]);
-            str = item !== import_kolmafia5.Item.none ? toNormalisedString(item) : match[1];
+            var item = import_kolmafia6.Item.get(match[1]);
+            str = item !== import_kolmafia6.Item.none ? toNormalisedString(item) : match[1];
           }
           data.push({
             type: indicator.type,
@@ -2045,39 +2067,16 @@ function spadeSnowglobe(encounter, page) {
 
 // ../excavator-projects/projects/dropMixedEverything.ts
 init_kolmafia_polyfill();
-var import_kolmafia6 = require("kolmafia");
+var import_kolmafia7 = require("kolmafia");
 var DROP_MIXED_EVERYTHING = {
   name: "Can Of Mixed Everything",
   description: "Track drops from the can of mixed everything.",
   author: "Rinn",
   hooks: {
     COMBAT_ROUND: function(encounter, page) {
-      if ((0, import_kolmafia6.currentRound)() !== 0 || (0, import_kolmafia6.equippedAmount)(import_kolmafia6.Item.get("can of mixed everything")) < 1)
+      if ((0, import_kolmafia7.currentRound)() !== 0 || (0, import_kolmafia7.equippedAmount)(import_kolmafia7.Item.get("can of mixed everything")) < 1)
         return null;
       var result = page.match(/Something falls out of your can of mixed everything.*?You acquire an item: <b>(.*?)<\/b>/);
-      if (!result)
-        return null;
-      var item = import_kolmafia6.Item.get(result[1]);
-      return {
-        item: item !== import_kolmafia6.Item.none ? toNormalisedString(item) : result[1]
-      };
-    }
-  }
-};
-
-// ../excavator-projects/projects/dropMrCheengs.ts
-init_kolmafia_polyfill();
-var import_kolmafia7 = require("kolmafia");
-var DROP_MR_CHEENGS = {
-  name: "Mr. Cheeng's Spectacles",
-  slug: "cheengs",
-  description: "Track drops from the Mr. Cheeng's Spectacles.",
-  author: "Rinn",
-  hooks: {
-    COMBAT_ROUND: function(encounter, page) {
-      if ((0, import_kolmafia7.currentRound)() !== 0 || (0, import_kolmafia7.equippedAmount)(import_kolmafia7.Item.get("Mr. Cheeng's spectacles")) < 1)
-        return null;
-      var result = page.match(/You see a weird thing out of the corner of your eye, and you grab it.\s+Far out, man!.*?You acquire an item: <b>(.*?)<\/b>/);
       if (!result)
         return null;
       var item = import_kolmafia7.Item.get(result[1]);
@@ -2088,19 +2087,19 @@ var DROP_MR_CHEENGS = {
   }
 };
 
-// ../excavator-projects/projects/dropMrScreeges.ts
+// ../excavator-projects/projects/dropMrCheengs.ts
 init_kolmafia_polyfill();
 var import_kolmafia8 = require("kolmafia");
-var DROP_MR_SCREEGES = {
-  name: "Mr. Screege's Spectacles",
-  slug: "screeges",
-  description: "Track drops from the Mr. Screege's Spectacles.",
+var DROP_MR_CHEENGS = {
+  name: "Mr. Cheeng's Spectacles",
+  slug: "cheengs",
+  description: "Track drops from the Mr. Cheeng's Spectacles.",
   author: "Rinn",
   hooks: {
     COMBAT_ROUND: function(encounter, page) {
-      if ((0, import_kolmafia8.currentRound)() !== 0 || (0, import_kolmafia8.equippedAmount)(import_kolmafia8.Item.get("Mr. Screege's spectacles")) < 1)
+      if ((0, import_kolmafia8.currentRound)() !== 0 || (0, import_kolmafia8.equippedAmount)(import_kolmafia8.Item.get("Mr. Cheeng's spectacles")) < 1)
         return null;
-      var result = page.match(/You notice something valuable hidden .*?You acquire an item: <b>(.*?)<\/b>/);
+      var result = page.match(/You see a weird thing out of the corner of your eye, and you grab it.\s+Far out, man!.*?You acquire an item: <b>(.*?)<\/b>/);
       if (!result)
         return null;
       var item = import_kolmafia8.Item.get(result[1]);
@@ -2111,9 +2110,32 @@ var DROP_MR_SCREEGES = {
   }
 };
 
+// ../excavator-projects/projects/dropMrScreeges.ts
+init_kolmafia_polyfill();
+var import_kolmafia9 = require("kolmafia");
+var DROP_MR_SCREEGES = {
+  name: "Mr. Screege's Spectacles",
+  slug: "screeges",
+  description: "Track drops from the Mr. Screege's Spectacles.",
+  author: "Rinn",
+  hooks: {
+    COMBAT_ROUND: function(encounter, page) {
+      if ((0, import_kolmafia9.currentRound)() !== 0 || (0, import_kolmafia9.equippedAmount)(import_kolmafia9.Item.get("Mr. Screege's spectacles")) < 1)
+        return null;
+      var result = page.match(/You notice something valuable hidden .*?You acquire an item: <b>(.*?)<\/b>/);
+      if (!result)
+        return null;
+      var item = import_kolmafia9.Item.get(result[1]);
+      return {
+        item: item !== import_kolmafia9.Item.none ? toNormalisedString(item) : result[1]
+      };
+    }
+  }
+};
+
 // ../excavator-projects/projects/genie.ts
 init_kolmafia_polyfill();
-var import_kolmafia9 = require("kolmafia"), GENIE = {
+var import_kolmafia10 = require("kolmafia"), GENIE = {
   name: "Genie",
   description: "Determine which monsters and effects can be fought/acquired with the Genie.",
   author: "gausie",
@@ -2135,8 +2157,8 @@ function spadeGenie(page) {
     return null;
   var success = !page.includes("<br />You could try, "), fightWished = wish.match(/(?:(?:to fight|i (?:was|were) fighting) (?:a )?)(.*)/), effectWished = wish.match(/(?:to be|i (?:was|were)) (?!big|a baller|rich|a little bit taller)(.*)/);
   if (fightWished) {
-    var monster = (0, import_kolmafia9.toMonster)(fightWished[1]);
-    if (monster === import_kolmafia9.Monster.none)
+    var monster = (0, import_kolmafia10.toMonster)(fightWished[1]);
+    if (monster === import_kolmafia10.Monster.none)
       return null;
     var wishable = !monster.boss && monster.copyable && !monster.attributes.includes("NOWISH");
     return wishable === success ? null : {
@@ -2145,8 +2167,8 @@ function spadeGenie(page) {
       value: monster.name
     };
   } else if (effectWished) {
-    var effect = (0, import_kolmafia9.toEffect)(effectWished[1]);
-    if (effect === import_kolmafia9.Effect.none)
+    var effect = (0, import_kolmafia10.toEffect)(effectWished[1]);
+    if (effect === import_kolmafia10.Effect.none)
       return null;
     var _wishable = !effect.attributes.includes("nohookah");
     return _wishable === success ? null : {
@@ -2160,7 +2182,7 @@ function spadeGenie(page) {
 
 // ../excavator-projects/projects/hookah.ts
 init_kolmafia_polyfill();
-var import_kolmafia10 = require("kolmafia"), HOOKAH = {
+var import_kolmafia11 = require("kolmafia"), HOOKAH = {
   name: "Hookah",
   description: "Record instances of an effect obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible.",
   author: "gausie",
@@ -2171,26 +2193,26 @@ var import_kolmafia10 = require("kolmafia"), HOOKAH = {
 function extractEffectFromEvent(page, eventTriggerText) {
   var _page$match;
   if (!page.includes(eventTriggerText))
-    return import_kolmafia10.Effect.none;
+    return import_kolmafia11.Effect.none;
   var descid = (_page$match = page.match(new RegExp("".concat(eventTriggerText, '.*?<center><table><tr><td><img .*? onClick=\'eff\\("(.*?)"\\);\' width=30 height=30 alt="(.*?)" title=')))) === null || _page$match === void 0 ? void 0 : _page$match[1];
-  return descid ? (0, import_kolmafia10.descToEffect)(descid) : import_kolmafia10.Effect.none;
+  return descid ? (0, import_kolmafia11.descToEffect)(descid) : import_kolmafia11.Effect.none;
 }
 function isHookahable(effect) {
   return !(effect.quality !== "good" || effect.attributes.includes("nohookah"));
 }
 function checkHookahSource(page, source, eventTriggerText) {
   var effect = extractEffectFromEvent(page, eventTriggerText);
-  return effect === import_kolmafia10.Effect.none || isHookahable(effect) ? null : {
+  return effect === import_kolmafia11.Effect.none || isHookahable(effect) ? null : {
     source: source,
     effect: effect.toString()
   };
 }
 function spadeHookah(encounter, page) {
-  switch ((0, import_kolmafia10.currentRound)()) {
+  switch ((0, import_kolmafia11.currentRound)()) {
     case 0:
-      return (0, import_kolmafia10.equippedAmount)(import_kolmafia10.Item.get("enhanced signal receiver")) > 0 ? checkHookahSource(page, "enhanced signal receiver", "Your signal receiver pipes up:") : (0, import_kolmafia10.getProperty)("_horsery") === "crazy horse" && (0, import_kolmafia10.getProperty)("_horseryCrazyName") ? checkHookahSource(page, "crazy horse", (0, import_kolmafia10.getProperty)("_horseryCrazyName")) : null;
+      return (0, import_kolmafia11.equippedAmount)(import_kolmafia11.Item.get("enhanced signal receiver")) > 0 ? checkHookahSource(page, "enhanced signal receiver", "Your signal receiver pipes up:") : (0, import_kolmafia11.getProperty)("_horsery") === "crazy horse" && (0, import_kolmafia11.getProperty)("_horseryCrazyName") ? checkHookahSource(page, "crazy horse", (0, import_kolmafia11.getProperty)("_horseryCrazyName")) : null;
     case 1:
-      return (0, import_kolmafia10.equippedAmount)(import_kolmafia10.Item.get("ittah bittah hookah")) > 0 ? checkHookahSource(page, "ittah bittha hookah", "takes a pull on the hookah") : null;
+      return (0, import_kolmafia11.equippedAmount)(import_kolmafia11.Item.get("ittah bittah hookah")) > 0 ? checkHookahSource(page, "ittah bittha hookah", "takes a pull on the hookah") : null;
     default:
       return null;
   }
@@ -2288,7 +2310,7 @@ var JUICE_BAR = {
 
 // ../excavator-projects/projects/monsterParts.ts
 init_kolmafia_polyfill();
-var import_es_string3 = __toESM(require_es_string_match_all()), import_kolmafia11 = require("kolmafia");
+var import_es_string3 = __toESM(require_es_string_match_all()), import_kolmafia12 = require("kolmafia");
 function _slicedToArray3(arr, i) {
   return _arrayWithHoles3(arr) || _iterableToArrayLimit3(arr, i) || _unsupportedIterableToArray5(arr, i) || _nonIterableRest3();
 }
@@ -2437,46 +2459,46 @@ var MONSTER_PARTS = {
   },
   since: 27884
   // Monster.prototype.parts added
-}, MONSTER_DENYLIST = import_kolmafia11.Monster.get(["the darkness (blind)"]), MONSTER_SEARCH_DENYLIST = import_kolmafia11.Monster.get(["Perceiver of Sensations", "Performer of Actions", "Thinker of Thoughts"]), INDICATORS2 = [
+}, MONSTER_DENYLIST = import_kolmafia12.Monster.get(["the darkness (blind)"]), MONSTER_SEARCH_DENYLIST = import_kolmafia12.Monster.get(["Perceiver of Sensations", "Performer of Actions", "Thinker of Thoughts"]), INDICATORS2 = [
   // { type: "familiar", prerequisite: Familiar.get("Bowlet"), pattern: "flaps directly into your opponent's (.+?), causing \\d+? damage" },
   {
     type: "effect",
-    prerequisite: import_kolmafia11.Effect.get("Little Mouse Skull Buddy"),
+    prerequisite: import_kolmafia12.Effect.get("Little Mouse Skull Buddy"),
     pattern: "The cute little floating mouse skull nibbles at your opponent's (.+?), dealing \\d+? damage"
   },
   {
     type: "equip",
-    prerequisite: import_kolmafia11.Item.get("battery-powered drill"),
+    prerequisite: import_kolmafia12.Item.get("battery-powered drill"),
     pattern: "You drill a neat hole in your opponent's (.+?) which deals \\d+? damage"
   },
   {
     type: "equip",
-    prerequisite: import_kolmafia11.Item.get("high-temperature mining drill"),
+    prerequisite: import_kolmafia12.Item.get("high-temperature mining drill"),
     pattern: "You drill a neat hole in your opponent's (.+?) which deals \\d+? damage"
   },
   {
     type: "familiar",
-    prerequisite: import_kolmafia11.Familiar.get("Adorable Seal Larva"),
+    prerequisite: import_kolmafia12.Familiar.get("Adorable Seal Larva"),
     pattern: "fangs your opponent in the (.+?) and greedily sucks the vital juices from the wound"
   },
   {
     type: "familiar",
-    prerequisite: import_kolmafia11.Familiar.get("Adventurous Spelunker"),
+    prerequisite: import_kolmafia12.Familiar.get("Adventurous Spelunker"),
     pattern: "whips your opponent in the (.+?), dealing \\d+? damage"
   },
   {
     type: "familiar",
-    prerequisite: import_kolmafia11.Familiar.get("Left-Hand Man"),
+    prerequisite: import_kolmafia12.Familiar.get("Left-Hand Man"),
     pattern: "smacks your opponent in the (.+?) with the"
   },
   {
     type: "item",
-    prerequisite: import_kolmafia11.Item.get("electronics kit"),
+    prerequisite: import_kolmafia12.Item.get("electronics kit"),
     pattern: "You wire up a quick circuit and hook it to your opponent's (.+?)\\. You flip the switch"
   },
   {
     type: "item",
-    prerequisite: import_kolmafia11.Item.get("small golem"),
+    prerequisite: import_kolmafia12.Item.get("small golem"),
     pattern: "Your little golem punches your foe in the (.+?) for \\d+? damage"
   },
   {
@@ -2486,37 +2508,37 @@ var MONSTER_PARTS = {
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia11.Skill.get("Extract"),
+    prerequisite: import_kolmafia12.Skill.get("Extract"),
     pattern: "You reach into your foe's (.+?) and pull out some juicy, pulsating data"
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia11.Skill.get("Hammer Smash"),
+    prerequisite: import_kolmafia12.Skill.get("Hammer Smash"),
     pattern: "You smack your foe right in the (.+?) with your hammer, dealing"
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia11.Skill.get("Shoot"),
+    prerequisite: import_kolmafia12.Skill.get("Shoot"),
     pattern: "You draw your sixgun and shoot your foe right in the (.+?), dealing \\d+? damage"
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia11.Skill.get("Stream of Sauce"),
+    prerequisite: import_kolmafia12.Skill.get("Stream of Sauce"),
     pattern: "You blast it with a stream of hot .+?, dealing \\d+? damage. Right in the (.+?)"
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia11.Skill.get("Ultrasonic Ululations"),
+    prerequisite: import_kolmafia12.Skill.get("Ultrasonic Ululations"),
     pattern: "You shriek in the direction of your foe's (.+?), vibrating it to the tune of \\d+? damage"
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia11.Skill.get("Unleash Terra Cotta Army"),
+    prerequisite: import_kolmafia12.Skill.get("Unleash Terra Cotta Army"),
     pattern: "A terra cotta .+?s your foe(?: in the|'s) (.+?)(?:, dealing| with a fireball)"
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia11.Skill.get("Utensil Twist"),
+    prerequisite: import_kolmafia12.Skill.get("Utensil Twist"),
     pattern: "You slap your .+? against the ground, kicking up a spark that strikes your foe in the (.+?), dealing \\d+? damage"
   }
 ];
@@ -2524,15 +2546,15 @@ function checkPrerequisite(_ref) {
   var _getFloristPlants$myL, _getFloristPlants$myL2, type = _ref.type, prerequisite = _ref.prerequisite;
   switch (type) {
     case "skill":
-      return (0, import_kolmafia11.haveSkill)(prerequisite);
+      return (0, import_kolmafia12.haveSkill)(prerequisite);
     case "effect":
-      return (0, import_kolmafia11.haveEffect)(prerequisite) > 0;
+      return (0, import_kolmafia12.haveEffect)(prerequisite) > 0;
     case "familiar":
-      return (0, import_kolmafia11.myFamiliar)() === prerequisite;
+      return (0, import_kolmafia12.myFamiliar)() === prerequisite;
     case "equip":
-      return (0, import_kolmafia11.haveEquipped)(prerequisite);
+      return (0, import_kolmafia12.haveEquipped)(prerequisite);
     case "plant":
-      return (_getFloristPlants$myL = (_getFloristPlants$myL2 = (0, import_kolmafia11.getFloristPlants)()[(0, import_kolmafia11.myLocation)().toString()]) === null || _getFloristPlants$myL2 === void 0 ? void 0 : _getFloristPlants$myL2.includes(prerequisite)) !== null && _getFloristPlants$myL !== void 0 ? _getFloristPlants$myL : !1;
+      return (_getFloristPlants$myL = (_getFloristPlants$myL2 = (0, import_kolmafia12.getFloristPlants)()[(0, import_kolmafia12.myLocation)().toString()]) === null || _getFloristPlants$myL2 === void 0 ? void 0 : _getFloristPlants$myL2.includes(prerequisite)) !== null && _getFloristPlants$myL !== void 0 ? _getFloristPlants$myL : !1;
     default:
       return !1;
   }
@@ -2559,7 +2581,7 @@ function checkSimpleIndicators(data, page, monster, monsterParts) {
   }
 }
 function checkElVibratoRestraints(data, page, monster, monsterParts) {
-  if (!((0, import_kolmafia11.availableAmount)(import_kolmafia11.Item.get("El Vibrato restraints")) === 0 || !page.includes("lvcuff.gif"))) {
+  if (!((0, import_kolmafia12.availableAmount)(import_kolmafia12.Item.get("El Vibrato restraints")) === 0 || !page.includes("lvcuff.gif"))) {
     var base = {
       monster: monster,
       part: "arm",
@@ -2573,12 +2595,12 @@ function checkElVibratoRestraints(data, page, monster, monsterParts) {
   }
 }
 var MUTANT_COUTURE_SKILLS = {
-  head: import_kolmafia11.Skill.get("Strangle"),
-  arm: import_kolmafia11.Skill.get("Disarm"),
-  leg: import_kolmafia11.Skill.get("Entangle")
+  head: import_kolmafia12.Skill.get("Strangle"),
+  arm: import_kolmafia12.Skill.get("Disarm"),
+  leg: import_kolmafia12.Skill.get("Entangle")
 };
 function checkMutantCouture(data, page, monster, monsterParts) {
-  (0, import_kolmafia11.currentRound)() !== 1 || !(0, import_kolmafia11.isWearingOutfit)("Mutant Couture") || !page.includes("<select name=whichskill>") || (data.push.apply(data, _toConsumableArray2(Object.entries(MUTANT_COUTURE_SKILLS).filter(function(_ref2) {
+  (0, import_kolmafia12.currentRound)() !== 1 || !(0, import_kolmafia12.isWearingOutfit)("Mutant Couture") || !page.includes("<select name=whichskill>") || (data.push.apply(data, _toConsumableArray2(Object.entries(MUTANT_COUTURE_SKILLS).filter(function(_ref2) {
     var _ref3 = _slicedToArray3(_ref2, 2), part = _ref3[0], skill = _ref3[1];
     return !monsterParts.includes(part) && page.includes('<option value="'.concat(skill.id, '"'));
   }).map(function(_ref4) {
@@ -2604,9 +2626,9 @@ function checkMutantCouture(data, page, monster, monsterParts) {
 }
 var DART_REGEX = /<div class="ed_part.*?name="whichskill" value="\d+".*?<button>([^<]+?)<\/button>/g;
 function checkEverfullDartHolster(data, page, monster, monsterParts) {
-  if (!((0, import_kolmafia11.currentRound)() !== 1 || // eslint-disable-next-line libram/verify-constants
-  !(0, import_kolmafia11.haveEquipped)(import_kolmafia11.Item.get("Everfull Dart Holster")))) {
-    var buttAwareness = (0, import_kolmafia11.getProperty)("everfullDartPerks").includes("Butt awareness"), allDartParts = _toConsumableArray2(page.matchAll(DART_REGEX)).map(function(match) {
+  if (!((0, import_kolmafia12.currentRound)() !== 1 || // eslint-disable-next-line libram/verify-constants
+  !(0, import_kolmafia12.haveEquipped)(import_kolmafia12.Item.get("Everfull Dart Holster")))) {
+    var buttAwareness = (0, import_kolmafia12.getProperty)("everfullDartPerks").includes("Butt awareness"), allDartParts = _toConsumableArray2(page.matchAll(DART_REGEX)).map(function(match) {
       return match[1];
     }), dartParts = _toConsumableArray2(new Set(allDartParts.filter(function(part) {
       return !buttAwareness || part !== "butt";
@@ -2633,15 +2655,15 @@ function checkEverfullDartHolster(data, page, monster, monsterParts) {
   }
 }
 function spadeMonsterParts(encounter, page) {
-  if (MONSTER_DENYLIST.includes((0, import_kolmafia11.lastMonster)()))
+  if (MONSTER_DENYLIST.includes((0, import_kolmafia12.lastMonster)()))
     return null;
-  var monster = toNormalisedString((0, import_kolmafia11.lastMonster)()), monsterParts = (0, import_kolmafia11.lastMonster)().parts, data = [];
-  return !isAdventureTextAltered() && !MONSTER_SEARCH_DENYLIST.includes((0, import_kolmafia11.lastMonster)()) && (checkSimpleIndicators(data, page, monster, monsterParts), checkElVibratoRestraints(data, page, monster, monsterParts)), checkMutantCouture(data, page, monster, monsterParts), checkEverfullDartHolster(data, page, monster, monsterParts), data;
+  var monster = toNormalisedString((0, import_kolmafia12.lastMonster)()), monsterParts = (0, import_kolmafia12.lastMonster)().parts, data = [];
+  return !isAdventureTextAltered() && !MONSTER_SEARCH_DENYLIST.includes((0, import_kolmafia12.lastMonster)()) && (checkSimpleIndicators(data, page, monster, monsterParts), checkElVibratoRestraints(data, page, monster, monsterParts)), checkMutantCouture(data, page, monster, monsterParts), checkEverfullDartHolster(data, page, monster, monsterParts), data;
 }
 
 // ../excavator-projects/projects/mummingTrunk.ts
 init_kolmafia_polyfill();
-var import_kolmafia12 = require("kolmafia");
+var import_kolmafia13 = require("kolmafia");
 function _slicedToArray4(arr, i) {
   return _arrayWithHoles4(arr) || _iterableToArrayLimit4(arr, i) || _unsupportedIterableToArray6(arr, i) || _nonIterableRest4();
 }
@@ -2733,10 +2755,10 @@ var MUMMING_TRUNK = {
   }
 };
 function spadeMummingTrunk(encounter, page) {
-  if ((0, import_kolmafia12.availableAmount)(import_kolmafia12.Item.get("mumming trunk")) === 0)
+  if ((0, import_kolmafia13.availableAmount)(import_kolmafia13.Item.get("mumming trunk")) === 0)
     return null;
-  var fam = (0, import_kolmafia12.myFamiliar)();
-  return (0, import_kolmafia12.getProperty)("_mummeryMods").includes(fam.toString()) ? (0, import_kolmafia12.getProperty)("_mummeryUses").split(",").filter(function(costume) {
+  var fam = (0, import_kolmafia13.myFamiliar)();
+  return (0, import_kolmafia13.getProperty)("_mummeryMods").includes(fam.toString()) ? (0, import_kolmafia13.getProperty)("_mummeryUses").split(",").filter(function(costume) {
     return costume in ATTRIBUTE_INDICATORS;
   }).map(function(costume) {
     var match = Object.entries(ATTRIBUTE_INDICATORS[costume]).find(function(_ref) {
@@ -2756,39 +2778,39 @@ function spadeMummingTrunk(encounter, page) {
 
 // ../excavator-projects/projects/outOfOrder.ts
 init_kolmafia_polyfill();
-var import_kolmafia13 = require("kolmafia"), OUT_OF_ORDER = {
+var import_kolmafia14 = require("kolmafia"), OUT_OF_ORDER = {
   name: "Out of Order",
   description: "Determine the relationship between initiative bonus and beeps from the GPS-tracking wristwatch during the Out of Order quest.",
   author: "gausie",
   hooks: {
     COMBAT_ROUND: function(encounter, page) {
-      if ((0, import_kolmafia13.getProperty)("questEspOutOfOrder") === "unstarted" || (0, import_kolmafia13.currentRound)() !== 0 || (0, import_kolmafia13.equippedAmount)(import_kolmafia13.Item.get("GPS-tracking wristwatch")) < 1 || (0, import_kolmafia13.myLocation)() !== import_kolmafia13.Location.get("The Deep Dark Jungle"))
+      if ((0, import_kolmafia14.getProperty)("questEspOutOfOrder") === "unstarted" || (0, import_kolmafia14.currentRound)() !== 0 || (0, import_kolmafia14.equippedAmount)(import_kolmafia14.Item.get("GPS-tracking wristwatch")) < 1 || (0, import_kolmafia14.myLocation)() !== import_kolmafia14.Location.get("The Deep Dark Jungle"))
         return null;
       var beeps = page.match(/Your GPS tracker beeps ([0-9]+) times as it zeroes in on your quarry/);
       return beeps ? {
         beeps: beeps[1],
-        initiative: (0, import_kolmafia13.numericModifier)(import_kolmafia13.Modifier.get("Initiative"))
+        initiative: (0, import_kolmafia14.numericModifier)(import_kolmafia14.Modifier.get("Initiative"))
       } : null;
     }
   }
 };
 
 // ../excavator-projects/index.ts
-var projects = [AUTUMNATON, BIRD_A_DAY, COAT_OF_PAINT, GENIE, HOOKAH, JUICE_BAR, DROP_CON_SNOWGLOBE, DROP_MIXED_EVERYTHING, DROP_MR_CHEENGS, DROP_MR_SCREEGES, MONSTER_PARTS, MUMMING_TRUNK, OUT_OF_ORDER];
+var projects = [AUTUMNATON, BIRD_A_DAY, COAT_OF_PAINT, GENIE, HOOKAH, JUICE_BAR, DROP_CON_SNOWGLOBE, DROP_MIXED_EVERYTHING, DROP_MR_CHEENGS, DROP_MR_SCREEGES, MONSTER_PARTS, MUMMING_TRUNK, OUT_OF_ORDER, DESIGNER_SWEATPANTS];
 
 // src/excavator.ts
-var import_kolmafia18 = require("kolmafia");
+var import_kolmafia19 = require("kolmafia");
 
 // src/utils.ts
 init_kolmafia_polyfill();
-var import_kolmafia17 = require("kolmafia");
+var import_kolmafia18 = require("kolmafia");
 
 // ../../node_modules/libram/dist/index.js
 init_kolmafia_polyfill();
 
 // ../../node_modules/libram/dist/property.js
 init_kolmafia_polyfill();
-var import_kolmafia14 = require("kolmafia");
+var import_kolmafia15 = require("kolmafia");
 
 // ../../node_modules/libram/dist/propertyTyping.js
 init_kolmafia_polyfill();
@@ -2936,7 +2958,7 @@ function _arrayWithHoles5(arr) {
 }
 var createPropertyGetter = function(transform) {
   return function(property, default_) {
-    var value = (0, import_kolmafia14.getProperty)(property);
+    var value = (0, import_kolmafia15.getProperty)(property);
     return default_ !== void 0 && value === "" ? default_ : transform(value, property);
   };
 }, createMafiaClassPropertyGetter = function(Type, toType) {
@@ -2954,7 +2976,7 @@ var createPropertyGetter = function(transform) {
   return value === "true";
 }), getNumber = createPropertyGetter(function(value) {
   return Number(value);
-}), getBounty = createMafiaClassPropertyGetter(import_kolmafia14.Bounty, import_kolmafia14.toBounty), getClass = createMafiaClassPropertyGetter(import_kolmafia14.Class, import_kolmafia14.toClass), getCoinmaster = createMafiaClassPropertyGetter(import_kolmafia14.Coinmaster, import_kolmafia14.toCoinmaster), getEffect = createMafiaClassPropertyGetter(import_kolmafia14.Effect, import_kolmafia14.toEffect), getElement = createMafiaClassPropertyGetter(import_kolmafia14.Element, import_kolmafia14.toElement), getFamiliar = createMafiaClassPropertyGetter(import_kolmafia14.Familiar, import_kolmafia14.toFamiliar), getItem = createMafiaClassPropertyGetter(import_kolmafia14.Item, import_kolmafia14.toItem), getLocation = createMafiaClassPropertyGetter(import_kolmafia14.Location, import_kolmafia14.toLocation), getMonster = createMafiaClassPropertyGetter(import_kolmafia14.Monster, import_kolmafia14.toMonster), getPhylum = createMafiaClassPropertyGetter(import_kolmafia14.Phylum, import_kolmafia14.toPhylum), getServant = createMafiaClassPropertyGetter(import_kolmafia14.Servant, import_kolmafia14.toServant), getSkill = createMafiaClassPropertyGetter(import_kolmafia14.Skill, import_kolmafia14.toSkill), getSlot = createMafiaClassPropertyGetter(import_kolmafia14.Slot, import_kolmafia14.toSlot), getStat = createMafiaClassPropertyGetter(import_kolmafia14.Stat, import_kolmafia14.toStat), getThrall = createMafiaClassPropertyGetter(import_kolmafia14.Thrall, import_kolmafia14.toThrall);
+}), getBounty = createMafiaClassPropertyGetter(import_kolmafia15.Bounty, import_kolmafia15.toBounty), getClass = createMafiaClassPropertyGetter(import_kolmafia15.Class, import_kolmafia15.toClass), getCoinmaster = createMafiaClassPropertyGetter(import_kolmafia15.Coinmaster, import_kolmafia15.toCoinmaster), getEffect = createMafiaClassPropertyGetter(import_kolmafia15.Effect, import_kolmafia15.toEffect), getElement = createMafiaClassPropertyGetter(import_kolmafia15.Element, import_kolmafia15.toElement), getFamiliar = createMafiaClassPropertyGetter(import_kolmafia15.Familiar, import_kolmafia15.toFamiliar), getItem = createMafiaClassPropertyGetter(import_kolmafia15.Item, import_kolmafia15.toItem), getLocation = createMafiaClassPropertyGetter(import_kolmafia15.Location, import_kolmafia15.toLocation), getMonster = createMafiaClassPropertyGetter(import_kolmafia15.Monster, import_kolmafia15.toMonster), getPhylum = createMafiaClassPropertyGetter(import_kolmafia15.Phylum, import_kolmafia15.toPhylum), getServant = createMafiaClassPropertyGetter(import_kolmafia15.Servant, import_kolmafia15.toServant), getSkill = createMafiaClassPropertyGetter(import_kolmafia15.Skill, import_kolmafia15.toSkill), getSlot = createMafiaClassPropertyGetter(import_kolmafia15.Slot, import_kolmafia15.toSlot), getStat = createMafiaClassPropertyGetter(import_kolmafia15.Stat, import_kolmafia15.toStat), getThrall = createMafiaClassPropertyGetter(import_kolmafia15.Thrall, import_kolmafia15.toThrall);
 function get(property, _default) {
   var value = getString(property);
   if (isBooleanProperty(property)) {
@@ -2979,11 +3001,11 @@ function get(property, _default) {
     if (isStringProperty(property))
       return value;
   }
-  return _default instanceof import_kolmafia14.Location ? getLocation(property, _default) : _default instanceof import_kolmafia14.Monster ? getMonster(property, _default) : _default instanceof import_kolmafia14.Familiar ? getFamiliar(property, _default) : _default instanceof import_kolmafia14.Stat ? getStat(property, _default) : _default instanceof import_kolmafia14.Phylum ? getPhylum(property, _default) : typeof _default == "boolean" ? value === "true" ? !0 : value === "false" ? !1 : _default : typeof _default == "number" ? value === "" ? _default : parseInt(value) : value === "" ? _default === void 0 ? "" : _default : value;
+  return _default instanceof import_kolmafia15.Location ? getLocation(property, _default) : _default instanceof import_kolmafia15.Monster ? getMonster(property, _default) : _default instanceof import_kolmafia15.Familiar ? getFamiliar(property, _default) : _default instanceof import_kolmafia15.Stat ? getStat(property, _default) : _default instanceof import_kolmafia15.Phylum ? getPhylum(property, _default) : typeof _default == "boolean" ? value === "true" ? !0 : value === "false" ? !1 : _default : typeof _default == "number" ? value === "" ? _default : parseInt(value) : value === "" ? _default === void 0 ? "" : _default : value;
 }
 function _set(property, value) {
   var stringValue = value === null ? "" : value.toString();
-  return (0, import_kolmafia14.setProperty)(property, stringValue), value;
+  return (0, import_kolmafia15.setProperty)(property, stringValue), value;
 }
 function setProperties(properties) {
   for (var _i = 0, _Object$entries = Object.entries(properties); _i < _Object$entries.length; _i++) {
@@ -3010,7 +3032,7 @@ var PropertiesManager = /* @__PURE__ */ function() {
     value: function(propertiesToSet) {
       for (var _i2 = 0, _Object$entries2 = Object.entries(propertiesToSet); _i2 < _Object$entries2.length; _i2++) {
         var _Object$entries2$_i = _slicedToArray5(_Object$entries2[_i2], 2), propertyName = _Object$entries2$_i[0], propertyValue = _Object$entries2$_i[1];
-        propertyName in this.properties || (this.properties[propertyName] = (0, import_kolmafia14.propertyExists)(propertyName) ? get(propertyName) : PropertiesManager2.EMPTY_PREFERENCE), _set(propertyName, propertyValue);
+        propertyName in this.properties || (this.properties[propertyName] = (0, import_kolmafia15.propertyExists)(propertyName) ? get(propertyName) : PropertiesManager2.EMPTY_PREFERENCE), _set(propertyName, propertyValue);
       }
     }
     /**
@@ -3051,7 +3073,7 @@ var PropertiesManager = /* @__PURE__ */ function() {
         var property = _properties[_i3];
         if (property in this.properties) {
           var value = this.properties[property];
-          value === PropertiesManager2.EMPTY_PREFERENCE ? (0, import_kolmafia14.removeProperty)(property) : value ? _set(property, value) : _set(property, "");
+          value === PropertiesManager2.EMPTY_PREFERENCE ? (0, import_kolmafia15.removeProperty)(property) : value ? _set(property, value) : _set(property, "");
         }
       }
     }
@@ -3205,11 +3227,11 @@ function arrayToCountedMap(array) {
 
 // ../../node_modules/libram/dist/Kmail.js
 init_kolmafia_polyfill();
-var import_kolmafia16 = require("kolmafia");
+var import_kolmafia17 = require("kolmafia");
 
 // ../../node_modules/libram/dist/url.js
 init_kolmafia_polyfill();
-var import_kolmafia15 = require("kolmafia");
+var import_kolmafia16 = require("kolmafia");
 function _toConsumableArray3(arr) {
   return _arrayWithoutHoles3(arr) || _iterableToArray3(arr) || _unsupportedIterableToArray8(arr) || _nonIterableSpread3();
 }
@@ -3312,7 +3334,7 @@ function _arrayLikeToArray8(arr, len) {
 var EMPTY_VALUE = Symbol("empty");
 function fetchUrl(path) {
   var query = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : [], options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, _options$method = options.method, method = _options$method === void 0 ? "POST" : _options$method, url = buildUrl(path, query);
-  return (0, import_kolmafia15.visitUrl)(url, method === "POST", !0);
+  return (0, import_kolmafia16.visitUrl)(url, method === "POST", !0);
 }
 function buildUrl(path) {
   var query = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : [], urlParams = Array.isArray(query) ? query : Object.entries(query);
@@ -3508,9 +3530,9 @@ var Kmail = /* @__PURE__ */ function() {
   }, {
     key: "items",
     value: function() {
-      return new Map(Object.entries((0, import_kolmafia16.extractItems)(this.rawMessage)).map(function(_ref) {
+      return new Map(Object.entries((0, import_kolmafia17.extractItems)(this.rawMessage)).map(function(_ref) {
         var _ref2 = _slicedToArray7(_ref, 2), itemName = _ref2[0], quantity = _ref2[1];
-        return [import_kolmafia16.Item.get(itemName), quantity];
+        return [import_kolmafia17.Item.get(itemName), quantity];
       }));
     }
     /**
@@ -3521,7 +3543,7 @@ var Kmail = /* @__PURE__ */ function() {
   }, {
     key: "meat",
     value: function() {
-      return (0, import_kolmafia16.extractMeat)(this.rawMessage);
+      return (0, import_kolmafia17.extractMeat)(this.rawMessage);
     }
     /**
      * Reply to kmail
@@ -3561,7 +3583,7 @@ var Kmail = /* @__PURE__ */ function() {
     key: "inbox",
     value: function() {
       var count = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 100;
-      return JSON.parse((0, import_kolmafia16.visitUrl)("api.php?what=kmail&for=libram&count=".concat(count))).map(Kmail2.parse);
+      return JSON.parse((0, import_kolmafia17.visitUrl)("api.php?what=kmail&for=libram&count=".concat(count))).map(Kmail2.parse);
     }
     /**
      * Bulk delete kmails
@@ -3582,7 +3604,7 @@ var Kmail = /* @__PURE__ */ function() {
     value: function(to, message, items, meat, chunkSize, constructUrl, successString) {
       var m = meat, sendableItems = _toConsumableArray4(arrayToCountedMap(items).entries()).filter(function(_ref3) {
         var _ref4 = _slicedToArray7(_ref3, 1), item = _ref4[0];
-        return (0, import_kolmafia16.isGiftable)(item);
+        return (0, import_kolmafia17.isGiftable)(item);
       }), result = !0, chunks = chunk(sendableItems, chunkSize), _iterator = _createForOfIteratorHelper4(chunks.length > 0 ? chunks : [null]), _step;
       try {
         var _loop = function() {
@@ -3722,19 +3744,19 @@ function _toPrimitive7(t, r) {
 }
 var DATA_PROPERTY = "spadingData", RECIPIENT_PROPERTY = "excavatorRecipient";
 function getExcavatorVersion() {
-  return (0, import_kolmafia17.gitInfo)("loathers-excavator-release").commit.substring(0, 7) || (0, import_kolmafia17.gitInfo)("gausie-excavator-release").commit.substring(0, 7) || 0;
+  return (0, import_kolmafia18.gitInfo)("loathers-excavator-release").commit.substring(0, 7) || (0, import_kolmafia18.gitInfo)("gausie-excavator-release").commit.substring(0, 7) || 0;
 }
 function getVersionString() {
-  return "".concat((0, import_kolmafia17.getRevision)(), "/").concat(getExcavatorVersion());
+  return "".concat((0, import_kolmafia18.getRevision)(), "/").concat(getExcavatorVersion());
 }
 function canKmail() {
   return (
     // In a fight
-    !((0, import_kolmafia17.currentRound)() > 0 || // In a choice
-    (0, import_kolmafia17.handlingChoice)() || // Was in a choice, gonna be in a fight
-    (0, import_kolmafia17.fightFollowsChoice)() || // Was in a fight, gonna be in a choice
-    (0, import_kolmafia17.choiceFollowsFight)() || // Was in a fight, gonna be in another fight
-    (0, import_kolmafia17.inMultiFight)())
+    !((0, import_kolmafia18.currentRound)() > 0 || // In a choice
+    (0, import_kolmafia18.handlingChoice)() || // Was in a choice, gonna be in a fight
+    (0, import_kolmafia18.fightFollowsChoice)() || // Was in a fight, gonna be in a choice
+    (0, import_kolmafia18.choiceFollowsFight)() || // Was in a fight, gonna be in another fight
+    (0, import_kolmafia18.inMultiFight)())
   );
 }
 function addSpadingData(data, recipient, reason) {
@@ -3747,7 +3769,7 @@ function flushSpadingData() {
     ++i;
     var success = Kmail.send(recipient, contents);
     if (!success) {
-      (0, import_kolmafia17.print)("Sending a kmail failed while Excavator was flushing the spading cache. Flush aborted.", "red");
+      (0, import_kolmafia18.print)("Sending a kmail failed while Excavator was flushing the spading cache. Flush aborted.", "red");
       return;
     }
     i++;
@@ -3761,13 +3783,13 @@ function sendSpadingData(projectName, data) {
   }))), recipient = get(RECIPIENT_PROPERTY, "Excavator");
   if (canKmail()) {
     var flushMessage = get(DATA_PROPERTY, "") ? ", as well as some other data we couldn't send before, " : "";
-    (0, import_kolmafia17.printHtml)('<font color="green">Sending spading data for <b>'.concat(projectName, "</b>").concat(flushMessage, " to ").concat(recipient, ". Thanks!</font>"));
+    (0, import_kolmafia18.printHtml)('<font color="green">Sending spading data for <b>'.concat(projectName, "</b>").concat(flushMessage, " to ").concat(recipient, ". Thanks!</font>"));
     var success = Kmail.send(recipient, dataString);
     if (success) {
       flushSpadingData();
       return;
     }
-    (0, import_kolmafia17.print)("Excavator thought it could send data via kmail but it can't. Saving to cache instead.", "orange");
+    (0, import_kolmafia18.print)("Excavator thought it could send data via kmail but it can't. Saving to cache instead.", "orange");
   }
   addSpadingData(dataString, recipient, "Excavator's project to spade ".concat(projectName));
 }
@@ -3832,7 +3854,7 @@ function tupleNotNull(value) {
 function main(event, meta, page) {
   projects.filter(function(_ref) {
     var hooks = _ref.hooks, _ref$since = _ref.since, since = _ref$since === void 0 ? 0 : _ref$since;
-    return event in hooks && since <= (0, import_kolmafia18.getRevision)();
+    return event in hooks && since <= (0, import_kolmafia19.getRevision)();
   }).map(function(_ref2) {
     var name = _ref2.name, hooks = _ref2.hooks;
     return [name, hooks[event](meta, page)];
