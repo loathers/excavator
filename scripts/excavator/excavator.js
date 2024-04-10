@@ -1656,7 +1656,7 @@ function getDaySeed() {
   };
 }
 function getDifficulty() {
-  return (0, import_kolmafia2.myPath)() !== import_kolmafia2.Path.none ? "Normal" : (0, import_kolmafia2.canInteract)() ? (0, import_kolmafia2.inHardcore)() ? "Hardcore" : "Casual" : "Normal (Ronin)";
+  return (0, import_kolmafia2.inHardcore)() ? "Hardcore" : (0, import_kolmafia2.canInteract)() ? (0, import_kolmafia2.myPath)() !== import_kolmafia2.Path.none ? "Normal" : "Casual" : "Normal (Ronin)";
 }
 function getDifficultySeed() {
   return {
