@@ -22,7 +22,7 @@ function spadeSweatpants(encounter: string, page: string) {
 export const DESIGNER_SWEATPANTS: ExcavatorProject = {
   name: "Designer Sweatpants",
   description:
-    "Tracks sweatiness of various zones for the Designer Sweatpants and its replica",
+    "Tracks sweatiness of various zones for the Designer Sweatpants and its replica.",
   author: "horrible-little-slime",
   hooks: { COMBAT_ROUND: spadeSweatpants },
 };
