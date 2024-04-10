@@ -1,6 +1,7 @@
 import { AUTUMNATON } from "./projects/autumnaton";
 import { BIRD_A_DAY } from "./projects/birdADay";
 import { COAT_OF_PAINT } from "./projects/coatOfPaint";
+import { DESIGNER_SWEATPANTS } from "./projects/designerSweatpants";
 import { DROP_CON_SNOWGLOBE } from "./projects/dropConSnowglobe";
 import { DROP_MIXED_EVERYTHING } from "./projects/dropMixedEverything";
 import { DROP_MR_CHEENGS } from "./projects/dropMrCheengs";
@@ -29,4 +30,5 @@ export const projects: ExcavatorProject[] = [
   MONSTER_PARTS,
   MUMMING_TRUNK,
   OUT_OF_ORDER,
+  DESIGNER_SWEATPANTS,
 ];
