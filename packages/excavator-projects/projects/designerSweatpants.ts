@@ -26,13 +26,13 @@ function spadeSweatpants(encounter: string, page: string) {
 
   const location = toNormalisedString(myLocation());
   const reportedLocations = getProperty("reportedSweatpantsLocations").split(
-    ",",
+    "|",
   );
   if (reportedLocations.includes(location)) return null;
 
   setProperty(
     "reportedSweatpantsLocations",
-    [...reportedLocations, location].join(","),
+    [...reportedLocations, location].join("|"),
   );
 
   return {
