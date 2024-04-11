@@ -11,7 +11,7 @@ function spadeSweatpants(encounter: string, page: string) {
     )
   )
     return null;
-  const sweat = page.match(/You get (\d)% sweatier/)?.[1];
+  const sweat = page.match(/You get (\d)% Sweatier/)?.[1];
   if (!sweat) return null;
   return {
     location: toNormalisedString(myLocation()),
