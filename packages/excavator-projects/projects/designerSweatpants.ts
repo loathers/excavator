@@ -1,15 +1,7 @@
-import {
-  currentRound,
-  Item,
-  equippedItem,
-  Slot,
-  myLocation,
-  getProperty,
-  setProperty,
-} from "kolmafia";
+import { currentRound, Item, equippedItem, Slot, myLocation } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedString } from "../utils";
+import { shouldDiscardData, toNormalisedString } from "../utils";
 
 function spadeSweatpants(encounter: string, page: string) {
   if (currentRound() !== 0) return null;
@@ -25,15 +17,7 @@ function spadeSweatpants(encounter: string, page: string) {
   if (!sweat) return null;
 
   const location = toNormalisedString(myLocation());
-  const reportedLocations = getProperty("excavatorSweatpantsLocations").split(
-    "|",
-  );
-  if (reportedLocations.includes(location)) return null;
-
-  setProperty(
-    "excavatorSweatpantsLocations",
-    [...reportedLocations, location].join("|"),
-  );
+  if (shouldDiscardData("_excavatorSweatpantsLocations", location)) return null;
 
   return {
     location,

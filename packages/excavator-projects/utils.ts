@@ -2,6 +2,7 @@ import {
   canInteract,
   Effect,
   gamedayToInt,
+  getProperty,
   haveEffect,
   haveEquipped,
   inHardcore,
@@ -15,6 +16,7 @@ import {
   myLocation,
   myPath,
   Path,
+  setProperty,
 } from "kolmafia";
 
 const ALTERING_EFFECTS = Effect.get([
@@ -85,4 +87,12 @@ export function toNormalisedString(thing: Item | Monster | Location) {
 
 export function notNull<T>(value: T | null): value is T {
   return value !== null;
+}
+
+export function shouldDiscardData(property: string, data: string) {
+  const sentData = getProperty(property).split("|");
+  if (sentData.includes(data)) return true;
+
+  setProperty(property, [...sentData, data].join("|"));
+  return false;
 }

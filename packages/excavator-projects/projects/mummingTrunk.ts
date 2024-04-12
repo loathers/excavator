@@ -1,7 +1,7 @@
 import { Item, availableAmount, getProperty, myFamiliar } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
-import { notNull } from "../utils";
+import { notNull, shouldDiscardData } from "../utils";
 
 export const MUMMING_TRUNK: ExcavatorProject = {
   name: "Mumming Trunk",
@@ -135,6 +135,8 @@ function spadeMummingTrunk(encounter: string, page: string) {
       );
 
       if (!match) return null;
+      if (shouldDiscardData("_excavatorMummingTrunk", `${fam.id}:${match[0]}`))
+        return null;
 
       return {
         attribute: match[0],
