@@ -16,7 +16,7 @@ import {
   myLocation,
   myPath,
   Path,
-  setProperty,
+  sessionStorage,
 } from "kolmafia";
 
 const ALTERING_EFFECTS = Effect.get([
@@ -90,9 +90,9 @@ export function notNull<T>(value: T | null): value is T {
 }
 
 export function shouldDiscardData(property: string, data: string) {
-  const sentData = getProperty(property).split("|");
+  const sentData = (sessionStorage.getItem(property) ?? "").split("|");
   if (sentData.includes(data)) return true;
 
-  setProperty(property, [...sentData, data].join("|"));
+  sessionStorage.setItem(property, [...sentData, data].join("|"));
   return false;
 }
