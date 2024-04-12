@@ -31,7 +31,7 @@ function spadeSweatpants(encounter: string, page: string) {
   if (reportedLocations.includes(location)) return null;
 
   setProperty(
-    "reportedSweatpantsLocations",
+    "excavatorSweatpantsLocations",
     [...reportedLocations, location].join("|"),
   );
 
