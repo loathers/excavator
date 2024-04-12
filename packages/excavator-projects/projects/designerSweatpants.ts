@@ -25,7 +25,7 @@ function spadeSweatpants(encounter: string, page: string) {
   if (!sweat) return null;
 
   const location = toNormalisedString(myLocation());
-  const reportedLocations = getProperty("reportedSweatpantsLocations").split(
+  const reportedLocations = getProperty("excavatorSweatpantsLocations").split(
     "|",
   );
   if (reportedLocations.includes(location)) return null;
