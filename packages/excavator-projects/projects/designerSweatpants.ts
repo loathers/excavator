@@ -1,4 +1,12 @@
-import { currentRound, Item, equippedItem, Slot, myLocation } from "kolmafia";
+import {
+  currentRound,
+  Item,
+  equippedItem,
+  Slot,
+  myLocation,
+  getProperty,
+  setProperty,
+} from "kolmafia";
 
 import { ExcavatorProject } from "../type";
 import { toNormalisedString } from "../utils";
@@ -9,13 +17,27 @@ function spadeSweatpants(encounter: string, page: string) {
     !Item.get(["designer sweatpants", "replica designer sweatpants"]).includes(
       equippedItem(Slot.get("pants")),
     )
-  )
+  ) {
     return null;
-  const sweat = page.match(/You get (\d)% Sweatier/)?.[1];
+  }
+
+  const sweat = Number(page.match(/You get (\d)% Sweatier/)?.[1]);
   if (!sweat) return null;
+
+  const location = toNormalisedString(myLocation());
+  const reportedLocations = getProperty("excavatorSweatpantsLocations").split(
+    "|",
+  );
+  if (reportedLocations.includes(location)) return null;
+
+  setProperty(
+    "excavatorSweatpantsLocations",
+    [...reportedLocations, location].join("|"),
+  );
+
   return {
-    location: toNormalisedString(myLocation()),
-    sweat: Number(sweat),
+    location,
+    sweat,
   };
 }
 
