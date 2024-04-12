@@ -1640,7 +1640,39 @@ var import_kolmafia3 = require("kolmafia");
 
 // ../excavator-projects/utils.ts
 init_kolmafia_polyfill();
-var import_kolmafia2 = require("kolmafia"), ALTERING_EFFECTS = import_kolmafia2.Effect.get(["Can Has Cyborger", "Dis Abled", "Haiku State of Mind", "Just the Best Anapests", "O Hai!", "Robocamo", "Temporary Blindness"]), ALTERING_EQUIPMENT = import_kolmafia2.Item.get(["makeshift turban", "papier-m\xE2chine gun", "papier-m\xE2ch\xE9te", "staph of homophones", "sword behind inappropriate prepositions"]), ALTERING_LOCATIONS = import_kolmafia2.Location.get(["The Haiku Dungeon", "The Deep Machine Tunnels"]);
+var import_kolmafia2 = require("kolmafia");
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray(o, minLen) {
+  if (o) {
+    if (typeof o == "string")
+      return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor && (n = o.constructor.name), n === "Map" || n === "Set")
+      return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+      return _arrayLikeToArray(o, minLen);
+  }
+}
+function _iterableToArray(iter) {
+  if (typeof Symbol < "u" && iter[Symbol.iterator] != null || iter["@@iterator"] != null)
+    return Array.from(iter);
+}
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr))
+    return _arrayLikeToArray(arr);
+}
+function _arrayLikeToArray(arr, len) {
+  (len == null || len > arr.length) && (len = arr.length);
+  for (var i = 0, arr2 = new Array(len); i < len; i++)
+    arr2[i] = arr[i];
+  return arr2;
+}
+var ALTERING_EFFECTS = import_kolmafia2.Effect.get(["Can Has Cyborger", "Dis Abled", "Haiku State of Mind", "Just the Best Anapests", "O Hai!", "Robocamo", "Temporary Blindness"]), ALTERING_EQUIPMENT = import_kolmafia2.Item.get(["makeshift turban", "papier-m\xE2chine gun", "papier-m\xE2ch\xE9te", "staph of homophones", "sword behind inappropriate prepositions"]), ALTERING_LOCATIONS = import_kolmafia2.Location.get(["The Haiku Dungeon", "The Deep Machine Tunnels"]);
 function isAdventureTextAltered() {
   return ALTERING_EFFECTS.some(function(effect) {
     return (0, import_kolmafia2.haveEffect)(effect);
@@ -1669,26 +1701,30 @@ function toNormalisedString(thing) {
 function notNull(value) {
   return value !== null;
 }
+function shouldDiscardData(property, data) {
+  var sentData = (0, import_kolmafia2.getProperty)(property).split("|");
+  return sentData.includes(data) ? !0 : ((0, import_kolmafia2.setProperty)(property, [].concat(_toConsumableArray(sentData), [data]).join("|")), !1);
+}
 
 // ../excavator-projects/projects/birdADay.ts
 function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray2(arr, i) || _nonIterableRest();
 }
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-function _unsupportedIterableToArray(o, minLen) {
+function _unsupportedIterableToArray2(o, minLen) {
   if (o) {
     if (typeof o == "string")
-      return _arrayLikeToArray(o, minLen);
+      return _arrayLikeToArray2(o, minLen);
     var n = Object.prototype.toString.call(o).slice(8, -1);
     if (n === "Object" && o.constructor && (n = o.constructor.name), n === "Map" || n === "Set")
       return Array.from(o);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
-      return _arrayLikeToArray(o, minLen);
+      return _arrayLikeToArray2(o, minLen);
   }
 }
-function _arrayLikeToArray(arr, len) {
+function _arrayLikeToArray2(arr, len) {
   (len == null || len > arr.length) && (len = arr.length);
   for (var i = 0, arr2 = new Array(len); i < len; i++)
     arr2[i] = arr[i];
@@ -1794,23 +1830,23 @@ function getBlessingModifiers() {
 init_kolmafia_polyfill();
 var import_kolmafia4 = require("kolmafia");
 function _slicedToArray2(arr, i) {
-  return _arrayWithHoles2(arr) || _iterableToArrayLimit2(arr, i) || _unsupportedIterableToArray2(arr, i) || _nonIterableRest2();
+  return _arrayWithHoles2(arr) || _iterableToArrayLimit2(arr, i) || _unsupportedIterableToArray3(arr, i) || _nonIterableRest2();
 }
 function _nonIterableRest2() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-function _unsupportedIterableToArray2(o, minLen) {
+function _unsupportedIterableToArray3(o, minLen) {
   if (o) {
     if (typeof o == "string")
-      return _arrayLikeToArray2(o, minLen);
+      return _arrayLikeToArray3(o, minLen);
     var n = Object.prototype.toString.call(o).slice(8, -1);
     if (n === "Object" && o.constructor && (n = o.constructor.name), n === "Map" || n === "Set")
       return Array.from(o);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
-      return _arrayLikeToArray2(o, minLen);
+      return _arrayLikeToArray3(o, minLen);
   }
 }
-function _arrayLikeToArray2(arr, len) {
+function _arrayLikeToArray3(arr, len) {
   (len == null || len > arr.length) && (len = arr.length);
   for (var i = 0, arr2 = new Array(len); i < len; i++)
     arr2[i] = arr[i];
@@ -1916,37 +1952,6 @@ function getPaintModifiers(page) {
 // ../excavator-projects/projects/designerSweatpants.ts
 init_kolmafia_polyfill();
 var import_kolmafia5 = require("kolmafia");
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray3(arr) || _nonIterableSpread();
-}
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-function _unsupportedIterableToArray3(o, minLen) {
-  if (o) {
-    if (typeof o == "string")
-      return _arrayLikeToArray3(o, minLen);
-    var n = Object.prototype.toString.call(o).slice(8, -1);
-    if (n === "Object" && o.constructor && (n = o.constructor.name), n === "Map" || n === "Set")
-      return Array.from(o);
-    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
-      return _arrayLikeToArray3(o, minLen);
-  }
-}
-function _iterableToArray(iter) {
-  if (typeof Symbol < "u" && iter[Symbol.iterator] != null || iter["@@iterator"] != null)
-    return Array.from(iter);
-}
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr))
-    return _arrayLikeToArray3(arr);
-}
-function _arrayLikeToArray3(arr, len) {
-  (len == null || len > arr.length) && (len = arr.length);
-  for (var i = 0, arr2 = new Array(len); i < len; i++)
-    arr2[i] = arr[i];
-  return arr2;
-}
 function spadeSweatpants(encounter, page) {
   var _page$match;
   if ((0, import_kolmafia5.currentRound)() !== 0 || !import_kolmafia5.Item.get(["designer sweatpants", "replica designer sweatpants"]).includes((0, import_kolmafia5.equippedItem)(import_kolmafia5.Slot.get("pants"))))
@@ -1954,11 +1959,11 @@ function spadeSweatpants(encounter, page) {
   var sweat = Number((_page$match = page.match(/You get (\d)% Sweatier/)) === null || _page$match === void 0 ? void 0 : _page$match[1]);
   if (!sweat)
     return null;
-  var location = toNormalisedString((0, import_kolmafia5.myLocation)()), reportedLocations = (0, import_kolmafia5.getProperty)("excavatorSweatpantsLocations").split("|");
-  return reportedLocations.includes(location) ? null : ((0, import_kolmafia5.setProperty)("excavatorSweatpantsLocations", [].concat(_toConsumableArray(reportedLocations), [location]).join("|")), {
+  var location = toNormalisedString((0, import_kolmafia5.myLocation)());
+  return shouldDiscardData("_excavatorSweatpantsLocations", location) ? null : {
     location: location,
     sweat: sweat
-  });
+  };
 }
 var DESIGNER_SWEATPANTS = {
   name: "Designer Sweatpants",
@@ -2803,10 +2808,10 @@ function spadeMummingTrunk(encounter, page) {
         return i.test(page);
       });
     });
-    return match ? {
+    return !match || shouldDiscardData("_excavatorMummingTrunk", "".concat(fam.id, ":").concat(match[0])) ? null : {
       attribute: match[0],
       familiar: fam.toString()
-    } : null;
+    };
   }).filter(notNull) : null;
 }
 
