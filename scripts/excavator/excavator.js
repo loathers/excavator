@@ -1702,8 +1702,8 @@ function notNull(value) {
   return value !== null;
 }
 function shouldDiscardData(property, data) {
-  var sentData = (0, import_kolmafia2.getProperty)(property).split("|");
-  return sentData.includes(data) ? !0 : ((0, import_kolmafia2.setProperty)(property, [].concat(_toConsumableArray(sentData), [data]).join("|")), !1);
+  var _sessionStorage$getIt, sentData = ((_sessionStorage$getIt = import_kolmafia2.sessionStorage.getItem(property)) !== null && _sessionStorage$getIt !== void 0 ? _sessionStorage$getIt : "").split("|");
+  return sentData.includes(data) ? !0 : (import_kolmafia2.sessionStorage.setItem(property, [].concat(_toConsumableArray(sentData), [data]).join("|")), !1);
 }
 
 // ../excavator-projects/projects/birdADay.ts
@@ -1960,7 +1960,7 @@ function spadeSweatpants(encounter, page) {
   if (!sweat)
     return null;
   var location = toNormalisedString((0, import_kolmafia5.myLocation)());
-  return shouldDiscardData("_excavatorSweatpantsLocations", location) ? null : {
+  return shouldDiscardData("DesignerSweatpants", location) ? null : {
     location: location,
     sweat: sweat
   };
@@ -2808,7 +2808,7 @@ function spadeMummingTrunk(encounter, page) {
         return i.test(page);
       });
     });
-    return !match || shouldDiscardData("_excavatorMummingTrunk", "".concat(fam.id, ":").concat(match[0])) ? null : {
+    return !match || shouldDiscardData("MummingTrunk", "".concat(fam.id, ":").concat(match[0])) ? null : {
       attribute: match[0],
       familiar: fam.toString()
     };
