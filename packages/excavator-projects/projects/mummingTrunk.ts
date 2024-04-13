@@ -135,7 +135,7 @@ function spadeMummingTrunk(encounter: string, page: string) {
       );
 
       if (!match) return null;
-      if (shouldDiscardData("_excavatorMummingTrunk", `${fam.id}:${match[0]}`))
+      if (shouldDiscardData("MummingTrunk", `${fam.id}:${match[0]}`))
         return null;
 
       return {

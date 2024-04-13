@@ -17,7 +17,7 @@ function spadeSweatpants(encounter: string, page: string) {
   if (!sweat) return null;
 
   const location = toNormalisedString(myLocation());
-  if (shouldDiscardData("_excavatorSweatpantsLocations", location)) return null;
+  if (shouldDiscardData("DesignerSweatpants", location)) return null;
 
   return {
     location,
