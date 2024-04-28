@@ -45,10 +45,7 @@ function spadeGenie(page: string) {
 
     if (monster === Monster.none) return null;
 
-    const wishable =
-      !monster.boss &&
-      monster.copyable &&
-      !monster.attributes.includes("NOWISH");
+    const wishable = monster.wishable;
 
     if (wishable === success) return null;
 
