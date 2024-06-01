@@ -3825,12 +3825,28 @@ function sendSpadingData(projectName, data) {
     (0, import_kolmafia18.printHtml)('<font color="green">Sending spading data for <b>'.concat(projectName, "</b>").concat(flushMessage, " to ").concat(recipient, ". Thanks!</font>"));
     var success = Kmail.send(recipient, dataString);
     if (success) {
-      flushSpadingData();
+      flushSpadingData(), deleteSpadingKmail(recipient);
       return;
     }
     (0, import_kolmafia18.print)("Excavator thought it could send data via kmail but it can't. Saving to cache instead.", "orange");
   }
   addSpadingData(dataString, recipient, "Excavator's project to spade ".concat(projectName));
+}
+function deleteSpadingKmail(sentTo) {
+  var buffer = (0, import_kolmafia18.visitUrl)("messages.php?box=Outbox&begin=1&per_page=10").toLowerCase(), messageIds = buffer.split("td valign=top").filter(function(s) {
+    return s.match('<a href="showplayer.php\\?who=(\\d+)">'.concat(sentTo.toLowerCase(), "</a>"));
+  }).map(function(s) {
+    var match = s.match('checkbox name="sel(\\d+)"');
+    return match ? match[1] : "";
+  }).filter(function(s) {
+    return s.length > 0;
+  });
+  if (messageIds.length > 0) {
+    var del = "messages.php?the_action=delete&box=Outbox&pwd".concat(messageIds.map(function(id) {
+      return "&sel".concat(id, "=on");
+    }).join(""));
+    (0, import_kolmafia18.visitUrl)(del);
+  }
 }
 
 // src/excavator.ts
