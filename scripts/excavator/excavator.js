@@ -3825,36 +3825,12 @@ function sendSpadingData(projectName, data) {
     (0, import_kolmafia18.printHtml)('<font color="green">Sending spading data for <b>'.concat(projectName, "</b>").concat(flushMessage, " to ").concat(recipient, ". Thanks!</font>"));
     var success = Kmail.send(recipient, dataString);
     if (success) {
-      flushSpadingData(), deleteSpadingKmail(recipient);
+      flushSpadingData();
       return;
     }
     (0, import_kolmafia18.print)("Excavator thought it could send data via kmail but it can't. Saving to cache instead.", "orange");
   }
   addSpadingData(dataString, recipient, "Excavator's project to spade ".concat(projectName));
-}
-function deleteSpadingKmail(sentTo) {
-  for (var _sessionStorage$getIt, maxPage = ((_sessionStorage$getIt = import_kolmafia18.sessionStorage.getItem("LastOutboxPurge")) !== null && _sessionStorage$getIt !== void 0 ? _sessionStorage$getIt : "") !== (0, import_kolmafia18.todayToString)() ? 1 / 0 : 1, currentPage = 1; currentPage <= maxPage; ) {
-    var buffer = (0, import_kolmafia18.visitUrl)("messages.php?box=Outbox&begin=".concat(currentPage, "&per_page=10")).toLowerCase();
-    if (!buffer.includes("toid"))
-      break;
-    var messageIds = buffer.split("td valign=top").filter(function(s) {
-      return s.match('<a href="showplayer.php\\?who=(\\d+)">'.concat(sentTo.toLowerCase(), "</a>"));
-    }).map(function(s) {
-      var match = s.match('checkbox name="sel(\\d+)"');
-      return match ? match[1] : "";
-    }).filter(function(s) {
-      return s.length > 0;
-    });
-    if (messageIds.length === 0) {
-      currentPage += 1;
-      continue;
-    }
-    var del = "messages.php?the_action=delete&box=Outbox&pwd".concat(messageIds.map(function(id) {
-      return "&sel".concat(id, "=on");
-    }).join(""));
-    (0, import_kolmafia18.visitUrl)(del);
-  }
-  maxPage === 1 / 0 && import_kolmafia18.sessionStorage.setItem("LastOutboxPurge", (0, import_kolmafia18.todayToString)());
 }
 
 // src/excavator.ts
