@@ -132,41 +132,25 @@ export function sendSpadingData(projectName: string, data: object) {
 }
 
 function deleteSpadingKmail(sentTo: string): void {
-  // Check all Outbox pages once a day, then only the first page
-  const maxPage =
-    (sessionStorage.getItem("LastOutboxPurge") ?? "") !== todayToString()
-      ? Infinity
-      : 1;
+  // Only delete from the first page
+  const buffer = visitUrl(
+    `messages.php?box=Outbox&begin=1&per_page=10`,
+  ).toLowerCase();
+  const messageIds: string[] = buffer
+    .split("td valign=top")
+    .filter((s) =>
+      s.match(
+        `<a href="showplayer.php\\?who=(\\d+)">${sentTo.toLowerCase()}</a>`,
+      ),
+    )
+    .map((s) => {
+      const match = s.match('checkbox name="sel(\\d+)"');
+      return match ? match[1] : "";
+    })
+    .filter((s) => s.length > 0);
 
-  let currentPage = 1;
-  while (currentPage <= maxPage) {
-    const buffer = visitUrl(
-      `messages.php?box=Outbox&begin=${currentPage}&per_page=10`,
-    ).toLowerCase();
-    if (!buffer.includes("sendmessage.php?toid=")) break;
-    const messageIds: string[] = buffer
-      .split("td valign=top")
-      .filter((s) =>
-        s.match(
-          `<a href="showplayer.php\\?who=(\\d+)">${sentTo.toLowerCase()}</a>`,
-        ),
-      )
-      .map((s) => {
-        const match = s.match('checkbox name="sel(\\d+)"');
-        return match ? match[1] : "";
-      })
-      .filter((s) => s.length > 0);
-
-    if (messageIds.length === 0) {
-      currentPage += 1;
-      continue;
-    }
-
+  if (messageIds.length > 0) {
     const del = `messages.php?the_action=delete&box=Outbox&pwd${messageIds.map((id) => `&sel${id}=on`).join("")}`;
     visitUrl(del);
-  }
-
-  if (maxPage === Infinity) {
-    sessionStorage.setItem("LastOutboxPurge", todayToString());
   }
 }
