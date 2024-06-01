@@ -8,8 +8,6 @@ import {
   inMultiFight,
   print,
   printHtml,
-  sessionStorage,
-  todayToString,
   visitUrl,
 } from "kolmafia";
 import { get, Kmail, set } from "libram";
