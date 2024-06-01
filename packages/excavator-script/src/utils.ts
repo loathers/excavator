@@ -162,9 +162,7 @@ function deleteSpadingKmail(sentTo: string): void {
       continue;
     }
 
-    const del =
-      "messages.php?the_action=delete&box=Outbox&pwd" +
-      messageIds.map((id) => `&sel${id}=on`).join();
+    const del = `messages.php?the_action=delete&box=Outbox&pwd${messageIds.map((id) => `&sel${id}=on`).join()}`;
     visitUrl(del);
   }
 
