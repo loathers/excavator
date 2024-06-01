@@ -8,6 +8,7 @@ import {
   inMultiFight,
   print,
   printHtml,
+  visitUrl,
 } from "kolmafia";
 import { get, Kmail, set } from "libram";
 
@@ -111,6 +112,7 @@ export function sendSpadingData(projectName: string, data: object) {
 
     if (success) {
       flushSpadingData();
+      deleteSpadingKmail(recipient);
       return;
     }
 
@@ -125,4 +127,28 @@ export function sendSpadingData(projectName: string, data: object) {
     recipient,
     `Excavator's project to spade ${projectName}`,
   );
+}
+
+function deleteSpadingKmail(sentTo: string): void {
+  // Only delete from the first page
+  const buffer = visitUrl(
+    `messages.php?box=Outbox&begin=1&per_page=10`,
+  ).toLowerCase();
+  const messageIds: string[] = buffer
+    .split("td valign=top")
+    .filter((s) =>
+      s.match(
+        `<a href="showplayer.php\\?who=(\\d+)">${sentTo.toLowerCase()}</a>`,
+      ),
+    )
+    .map((s) => {
+      const match = s.match('checkbox name="sel(\\d+)"');
+      return match ? match[1] : "";
+    })
+    .filter((s) => s.length > 0);
+
+  if (messageIds.length > 0) {
+    const del = `messages.php?the_action=delete&box=Outbox&pwd${messageIds.map((id) => `&sel${id}=on`).join("")}`;
+    visitUrl(del);
+  }
 }
