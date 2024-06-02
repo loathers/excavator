@@ -2,6 +2,7 @@ import { AUTUMNATON } from "./projects/autumnaton";
 import { BIRD_A_DAY } from "./projects/birdADay";
 import { COAT_OF_PAINT } from "./projects/coatOfPaint";
 import { DESIGNER_SWEATPANTS } from "./projects/designerSweatpants";
+import { DROP_BINDLESTOCKING } from "./projects/dropBindlestocking";
 import { DROP_CON_SNOWGLOBE } from "./projects/dropConSnowglobe";
 import { DROP_MIXED_EVERYTHING } from "./projects/dropMixedEverything";
 import { DROP_MR_CHEENGS } from "./projects/dropMrCheengs";
@@ -23,6 +24,7 @@ export const projects: ExcavatorProject[] = [
   GENIE,
   HOOKAH,
   JUICE_BAR,
+  DROP_BINDLESTOCKING,
   DROP_CON_SNOWGLOBE,
   DROP_MIXED_EVERYTHING,
   DROP_MR_CHEENGS,
