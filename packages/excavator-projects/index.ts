@@ -12,6 +12,7 @@ import { JUICE_BAR } from "./projects/juiceBar";
 import { MONSTER_PARTS } from "./projects/monsterParts";
 import { MUMMING_TRUNK } from "./projects/mummingTrunk";
 import { OUT_OF_ORDER } from "./projects/outOfOrder";
+import { SUMMON_MAYFLY_SWARM } from "./projects/summonMayflySwarm";
 import type { ExcavatorProject } from "./type";
 
 export { ExcavatorProject };
@@ -31,4 +32,5 @@ export const projects: ExcavatorProject[] = [
   MUMMING_TRUNK,
   OUT_OF_ORDER,
   DESIGNER_SWEATPANTS,
+  SUMMON_MAYFLY_SWARM,
 ];
