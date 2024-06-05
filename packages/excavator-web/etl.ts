@@ -49,6 +49,27 @@ async function loadKmails() {
   return (await request.json()) as Kmail[];
 }
 
+async function getPwd() {
+  const request = await fetch(
+    "https://www.kingdomofloathing.com/api.php?what=status&for=excavator",
+  );
+  const json = await request.json();
+  return json["pwd"];
+}
+
+async function deleteKmails(ids: number[]) {
+  const pwd = await getPwd();
+  const response = await fetch(
+    "https://www.kingdomofloathing.com/messages.php",
+    {
+      body: `the_action=delete&pwd=${pwd}&box=Inbox&${ids.map((id) => `sel${id}=on`).join("&")}`,
+      method: "POST",
+    },
+  );
+  const text = await response.text();
+  return text.includes(`${ids.length} messages deleted.`);
+}
+
 function hashData(data: Record<string, string | number | boolean>) {
   return crypto
     .createHash("md5")
@@ -98,45 +119,55 @@ async function main() {
     return;
   }
 
-  for (const kmail of await loadKmails()) {
-    try {
-      const message = decodeURIComponent(
-        kmail.message.replace(/ /g, "").replace(/\+/g, " "),
-      );
-      const fixed = applyFixes(JSON.parse(message) as SpadingData);
+  // Try reloading kmails 10 times
+  for (let i = 0; i < 10; i++) {
+    const kmails = await loadKmails();
 
-      if (fixed === null) continue;
+    // If there are no kmails, we're done
+    if (kmails.length === 0) break;
 
-      const { _PROJECT, _VERSION, ...data } = fixed;
+    for (const kmail of kmails) {
+      try {
+        const message = decodeURIComponent(
+          kmail.message.replace(/ /g, "").replace(/\+/g, " "),
+        );
+        const fixed = applyFixes(JSON.parse(message) as SpadingData);
 
-      const id = Number(kmail.id);
+        if (fixed === null) continue;
 
-      await prisma.spadingData.upsert({
-        create: {
-          id,
-          createdAt: new Date(Number(kmail.azunixtime) * 1000),
-          playerId: Number(kmail.fromid),
-          project: _PROJECT,
-          version: _VERSION,
-          dataHash: hashData(data),
-          data,
-        },
-        update: {},
-        where: { id },
-      });
-    } catch (error) {
-      const intro = `Kmail ${kmail.id} from ${kmail.fromname} (#${kmail.fromid})`;
-      if (error instanceof URIError) {
-        console.error(intro, "is poorly encoded");
-        continue;
+        const { _PROJECT, _VERSION, ...data } = fixed;
+
+        const id = Number(kmail.id);
+
+        await prisma.spadingData.upsert({
+          create: {
+            id,
+            createdAt: new Date(Number(kmail.azunixtime) * 1000),
+            playerId: Number(kmail.fromid),
+            project: _PROJECT,
+            version: _VERSION,
+            dataHash: hashData(data),
+            data,
+          },
+          update: {},
+          where: { id },
+        });
+      } catch (error) {
+        const intro = `Kmail ${kmail.id} from ${kmail.fromname} (#${kmail.fromid})`;
+        if (error instanceof URIError) {
+          console.error(intro, "is poorly encoded");
+          continue;
+        }
+        if (error instanceof SyntaxError) {
+          console.error(intro, "contains bad JSON");
+          continue;
+        }
+
+        console.error(intro, "causes some other error", error);
       }
-      if (error instanceof SyntaxError) {
-        console.error(intro, "contains bad JSON");
-        continue;
-      }
-
-      console.error(intro, "causes some other error", error);
     }
+
+    await deleteKmails(kmails.map((k) => Number(k.id)));
   }
 }
 
