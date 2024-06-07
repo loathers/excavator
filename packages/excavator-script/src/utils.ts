@@ -132,7 +132,7 @@ export function sendSpadingData(projectName: string, data: object) {
 function deleteSpadingKmail(sentTo: string): void {
   // Only delete from the first page
   const buffer = visitUrl(
-    `messages.php?box=Outbox&begin=1&per_page=10`,
+    `messages.php?box=Outbox&begin=1&order=0&per_page=10`,
   ).toLowerCase();
   const messageIds: string[] = buffer
     .split("td valign=top")
