@@ -1,7 +1,7 @@
 import { currentRound, equippedAmount, Item } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedString } from "../utils";
+import { toNormalisedItem } from "../utils";
 
 export const DROP_MR_CHEENGS: ExcavatorProject = {
   name: "Mr. Cheeng's Spectacles",
@@ -18,10 +18,8 @@ export const DROP_MR_CHEENGS: ExcavatorProject = {
         /You see a weird thing out of the corner of your eye, and you grab it.\s+Far out, man!.*?You acquire an item: <b>(.*?)<\/b>/,
       );
       if (!result) return null;
-      const item = Item.get(result[1]);
-      return {
-        item: item !== Item.none ? toNormalisedString(item) : result[1],
-      };
+      const item = toNormalisedItem(result[1]);
+      return { item };
     },
   },
 };

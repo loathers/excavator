@@ -1,7 +1,7 @@
 import { currentRound, equippedAmount, Item } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedString } from "../utils";
+import { toNormalisedItem } from "../utils";
 
 export const DROP_MIXED_EVERYTHING: ExcavatorProject = {
   name: "Can Of Mixed Everything",
@@ -17,10 +17,8 @@ export const DROP_MIXED_EVERYTHING: ExcavatorProject = {
         /Something falls out of your can of mixed everything.*?You acquire an item: <b>(.*?)<\/b>/,
       );
       if (!result) return null;
-      const item = Item.get(result[1]);
-      return {
-        item: item !== Item.none ? toNormalisedString(item) : result[1],
-      };
+      const item = toNormalisedItem(result[1]);
+      return { item };
     },
   },
 };

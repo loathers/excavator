@@ -1,7 +1,7 @@
 import { equippedAmount, Item } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedString } from "../utils";
+import { toNormalisedItem } from "../utils";
 
 export const DROP_BINDLESTOCKING: ExcavatorProject = {
   name: "Bindlestocking",
@@ -15,10 +15,8 @@ export const DROP_BINDLESTOCKING: ExcavatorProject = {
         /Something gets knocked loose from your bindlestocking!.*?You acquire an item: <b>(.*?)<\/b>/,
       );
       if (!result) return null;
-      const item = Item.get(result[1]);
-      return {
-        item: item !== Item.none ? toNormalisedString(item) : result[1],
-      };
+      const item = toNormalisedItem(result[1]);
+      return { item };
     },
   },
 };
