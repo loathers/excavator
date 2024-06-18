@@ -50,7 +50,7 @@ async function loadKmails() {
 }
 
 async function getPwd() {
-  const request = await fetch(
+  const request = await f(
     "https://www.kingdomofloathing.com/api.php?what=status&for=excavator",
   );
   const json = await request.json();
