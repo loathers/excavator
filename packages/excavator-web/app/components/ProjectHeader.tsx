@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { Link as RemixLink, useNavigate } from "@remix-run/react";
 import { ExcavatorProject } from "excavator-projects";
-import React from "react";
 
 import { toSlug } from "../utils/utils.js";
 

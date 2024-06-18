@@ -1,11 +1,6 @@
 import {
   Alert,
   Spinner,
-  Tab,
-  TabIndicator,
-  TabList,
-  TabPanels,
-  Tabs,
 } from "@chakra-ui/react";
 import { MetaFunction } from "@remix-run/node";
 import {

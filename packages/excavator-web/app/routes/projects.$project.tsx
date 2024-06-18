@@ -16,7 +16,7 @@ import { projects } from "excavator-projects";
 import { Frequency } from "../components/Frequency.js";
 import { ProjectHeader } from "../components/ProjectHeader.js";
 import { db } from "../db.server.js";
-import { fromSlug, getValuesInKeyOrder, toSlug } from "../utils/utils.js";
+import { fromSlug, getValuesInKeyOrder } from "../utils/utils.js";
 import { loadProjectData } from "../utils/utils.server.js";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
