@@ -87,7 +87,7 @@ export function toNormalisedItem(name: string) {
   return item === Item.none ? name : toNormalisedString(item);
 }
 
-export function toNormalisedString(thing: Item | Monster | Location) {
+export function toNormalisedString(thing: Item | Monster | Location | Path) {
   return `[${thing.id}]${"name" in thing ? thing.name : thing.toString()}`;
 }
 
