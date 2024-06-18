@@ -6844,9 +6844,37 @@ var JUICE_BAR = {
   }
 };
 
+// ../excavator-projects/projects/miniKiwi.ts
+init_kolmafia_polyfill();
+var import_kolmafia13 = require("kolmafia");
+function spadeKiwi(encounter, page) {
+  return (0, import_kolmafia13.currentRound)() !== 0 || (0, import_kolmafia13.myFamiliar)() !== import_kolmafia13.Familiar.get("Mini Kiwi") ? null : {
+    player: Number((0, import_kolmafia13.myId)()),
+    gotDrop: page.includes("You acquire an item: <b>mini kiwi</b>"),
+    dropsToday: Number((0, import_kolmafia13.getProperty)("_miniKiwiDrops")),
+    location: toNormalisedString((0, import_kolmafia13.myLocation)()),
+    path: toNormalisedString((0, import_kolmafia13.myPath)()),
+    baseWeight: (0, import_kolmafia13.familiarWeight)(import_kolmafia13.Familiar.get("Mini Kiwi")),
+    buffedWeight: (0, import_kolmafia13.familiarWeight)(import_kolmafia13.Familiar.get("Mini Kiwi")) + (0, import_kolmafia13.weightAdjustment)(),
+    turn: (0, import_kolmafia13.myTotalTurnsSpent)(),
+    hasGoggles: (0, import_kolmafia13.haveEquipped)(import_kolmafia13.Item.get("aviator goggles")),
+    monster: toNormalisedString((0, import_kolmafia13.lastMonster)())
+  };
+}
+var MINI_KIWI = {
+  name: "Mini Kiwi",
+  description: "Determine the formula and factors of the Mini Kiwi's mini-kiwi drop rate",
+  author: "sweaty bill",
+  hooks: {
+    COMBAT_ROUND: spadeKiwi
+  },
+  since: 27973
+  // mini kiwi familiar equipment added
+};
+
 // ../excavator-projects/projects/monsterParts.ts
 init_kolmafia_polyfill();
-var import_es_string3 = __toESM(require_es_string_match_all()), import_kolmafia13 = require("kolmafia");
+var import_es_string3 = __toESM(require_es_string_match_all()), import_kolmafia14 = require("kolmafia");
 function _slicedToArray3(r, e) {
   return _arrayWithHoles3(r) || _iterableToArrayLimit3(r, e) || _unsupportedIterableToArray6(r, e) || _nonIterableRest3();
 }
@@ -6979,46 +7007,46 @@ var MONSTER_PARTS = {
   },
   since: 27884
   // Monster.prototype.parts added
-}, MONSTER_DENYLIST = import_kolmafia13.Monster.get(["the darkness (blind)"]), MONSTER_SEARCH_DENYLIST = import_kolmafia13.Monster.get(["Perceiver of Sensations", "Performer of Actions", "Thinker of Thoughts"]), INDICATORS2 = [
+}, MONSTER_DENYLIST = import_kolmafia14.Monster.get(["the darkness (blind)"]), MONSTER_SEARCH_DENYLIST = import_kolmafia14.Monster.get(["Perceiver of Sensations", "Performer of Actions", "Thinker of Thoughts"]), INDICATORS2 = [
   // { type: "familiar", prerequisite: Familiar.get("Bowlet"), pattern: "flaps directly into your opponent's (.+?), causing \\d+? damage" },
   {
     type: "effect",
-    prerequisite: import_kolmafia13.Effect.get("Little Mouse Skull Buddy"),
+    prerequisite: import_kolmafia14.Effect.get("Little Mouse Skull Buddy"),
     pattern: "The cute little floating mouse skull nibbles at your opponent's (.+?), dealing \\d+? damage"
   },
   {
     type: "equip",
-    prerequisite: import_kolmafia13.Item.get("battery-powered drill"),
+    prerequisite: import_kolmafia14.Item.get("battery-powered drill"),
     pattern: "You drill a neat hole in your opponent's (.+?) which deals \\d+? damage"
   },
   {
     type: "equip",
-    prerequisite: import_kolmafia13.Item.get("high-temperature mining drill"),
+    prerequisite: import_kolmafia14.Item.get("high-temperature mining drill"),
     pattern: "You drill a neat hole in your opponent's (.+?) which deals \\d+? damage"
   },
   {
     type: "familiar",
-    prerequisite: import_kolmafia13.Familiar.get("Adorable Seal Larva"),
+    prerequisite: import_kolmafia14.Familiar.get("Adorable Seal Larva"),
     pattern: "fangs your opponent in the (.+?) and greedily sucks the vital juices from the wound"
   },
   {
     type: "familiar",
-    prerequisite: import_kolmafia13.Familiar.get("Adventurous Spelunker"),
+    prerequisite: import_kolmafia14.Familiar.get("Adventurous Spelunker"),
     pattern: "whips your opponent in the (.+?), dealing \\d+? damage"
   },
   {
     type: "familiar",
-    prerequisite: import_kolmafia13.Familiar.get("Left-Hand Man"),
+    prerequisite: import_kolmafia14.Familiar.get("Left-Hand Man"),
     pattern: "smacks your opponent in the (.+?) with the"
   },
   {
     type: "item",
-    prerequisite: import_kolmafia13.Item.get("electronics kit"),
+    prerequisite: import_kolmafia14.Item.get("electronics kit"),
     pattern: "You wire up a quick circuit and hook it to your opponent's (.+?)\\. You flip the switch"
   },
   {
     type: "item",
-    prerequisite: import_kolmafia13.Item.get("small golem"),
+    prerequisite: import_kolmafia14.Item.get("small golem"),
     pattern: "Your little golem punches your foe in the (.+?) for \\d+? damage"
   },
   {
@@ -7028,37 +7056,37 @@ var MONSTER_PARTS = {
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia13.Skill.get("Extract"),
+    prerequisite: import_kolmafia14.Skill.get("Extract"),
     pattern: "You reach into your foe's (.+?) and pull out some juicy, pulsating data"
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia13.Skill.get("Hammer Smash"),
+    prerequisite: import_kolmafia14.Skill.get("Hammer Smash"),
     pattern: "You smack your foe right in the (.+?) with your hammer, dealing"
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia13.Skill.get("Shoot"),
+    prerequisite: import_kolmafia14.Skill.get("Shoot"),
     pattern: "You draw your sixgun and shoot your foe right in the (.+?), dealing \\d+? damage"
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia13.Skill.get("Stream of Sauce"),
+    prerequisite: import_kolmafia14.Skill.get("Stream of Sauce"),
     pattern: "You blast it with a stream of hot .+?, dealing \\d+? damage. Right in the (.+?)"
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia13.Skill.get("Ultrasonic Ululations"),
+    prerequisite: import_kolmafia14.Skill.get("Ultrasonic Ululations"),
     pattern: "You shriek in the direction of your foe's (.+?), vibrating it to the tune of \\d+? damage"
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia13.Skill.get("Unleash Terra Cotta Army"),
+    prerequisite: import_kolmafia14.Skill.get("Unleash Terra Cotta Army"),
     pattern: "A terra cotta .+?s your foe(?: in the|'s) (.+?)(?:, dealing| with a fireball)"
   },
   {
     type: "skill",
-    prerequisite: import_kolmafia13.Skill.get("Utensil Twist"),
+    prerequisite: import_kolmafia14.Skill.get("Utensil Twist"),
     pattern: "You slap your .+? against the ground, kicking up a spark that strikes your foe in the (.+?), dealing \\d+? damage"
   }
 ];
@@ -7066,15 +7094,15 @@ function checkPrerequisite(_ref) {
   var _getFloristPlants$myL, _getFloristPlants$myL2, type = _ref.type, prerequisite = _ref.prerequisite;
   switch (type) {
     case "skill":
-      return (0, import_kolmafia13.haveSkill)(prerequisite);
+      return (0, import_kolmafia14.haveSkill)(prerequisite);
     case "effect":
-      return (0, import_kolmafia13.haveEffect)(prerequisite) > 0;
+      return (0, import_kolmafia14.haveEffect)(prerequisite) > 0;
     case "familiar":
-      return (0, import_kolmafia13.myFamiliar)() === prerequisite;
+      return (0, import_kolmafia14.myFamiliar)() === prerequisite;
     case "equip":
-      return (0, import_kolmafia13.haveEquipped)(prerequisite);
+      return (0, import_kolmafia14.haveEquipped)(prerequisite);
     case "plant":
-      return (_getFloristPlants$myL = (_getFloristPlants$myL2 = (0, import_kolmafia13.getFloristPlants)()[(0, import_kolmafia13.myLocation)().toString()]) === null || _getFloristPlants$myL2 === void 0 ? void 0 : _getFloristPlants$myL2.includes(prerequisite)) !== null && _getFloristPlants$myL !== void 0 ? _getFloristPlants$myL : !1;
+      return (_getFloristPlants$myL = (_getFloristPlants$myL2 = (0, import_kolmafia14.getFloristPlants)()[(0, import_kolmafia14.myLocation)().toString()]) === null || _getFloristPlants$myL2 === void 0 ? void 0 : _getFloristPlants$myL2.includes(prerequisite)) !== null && _getFloristPlants$myL !== void 0 ? _getFloristPlants$myL : !1;
     default:
       return !1;
   }
@@ -7101,7 +7129,7 @@ function checkSimpleIndicators(data, page, monster, monsterParts) {
   }
 }
 function checkElVibratoRestraints(data, page, monster, monsterParts) {
-  if (!((0, import_kolmafia13.availableAmount)(import_kolmafia13.Item.get("El Vibrato restraints")) === 0 || !page.includes("lvcuff.gif"))) {
+  if (!((0, import_kolmafia14.availableAmount)(import_kolmafia14.Item.get("El Vibrato restraints")) === 0 || !page.includes("lvcuff.gif"))) {
     var base = {
       monster: monster,
       part: "arm",
@@ -7115,12 +7143,12 @@ function checkElVibratoRestraints(data, page, monster, monsterParts) {
   }
 }
 var MUTANT_COUTURE_SKILLS = {
-  head: import_kolmafia13.Skill.get("Strangle"),
-  arm: import_kolmafia13.Skill.get("Disarm"),
-  leg: import_kolmafia13.Skill.get("Entangle")
+  head: import_kolmafia14.Skill.get("Strangle"),
+  arm: import_kolmafia14.Skill.get("Disarm"),
+  leg: import_kolmafia14.Skill.get("Entangle")
 };
 function checkMutantCouture(data, page, monster, monsterParts) {
-  (0, import_kolmafia13.currentRound)() !== 1 || !(0, import_kolmafia13.isWearingOutfit)("Mutant Couture") || !page.includes("<select name=whichskill>") || (data.push.apply(data, _toConsumableArray3(Object.entries(MUTANT_COUTURE_SKILLS).filter(function(_ref2) {
+  (0, import_kolmafia14.currentRound)() !== 1 || !(0, import_kolmafia14.isWearingOutfit)("Mutant Couture") || !page.includes("<select name=whichskill>") || (data.push.apply(data, _toConsumableArray3(Object.entries(MUTANT_COUTURE_SKILLS).filter(function(_ref2) {
     var _ref3 = _slicedToArray3(_ref2, 2), part = _ref3[0], skill = _ref3[1];
     return !monsterParts.includes(part) && page.includes('<option value="'.concat(skill.id, '"'));
   }).map(function(_ref4) {
@@ -7146,9 +7174,9 @@ function checkMutantCouture(data, page, monster, monsterParts) {
 }
 var DART_REGEX = /<div class="ed_part.*?name="whichskill" value="\d+".*?<button>([^<]+?)<\/button>/g;
 function checkEverfullDartHolster(data, page, monster, monsterParts) {
-  if (!((0, import_kolmafia13.currentRound)() !== 1 || // eslint-disable-next-line libram/verify-constants
-  !(0, import_kolmafia13.haveEquipped)(import_kolmafia13.Item.get("Everfull Dart Holster")))) {
-    var buttAwareness = (0, import_kolmafia13.getProperty)("everfullDartPerks").includes("Butt awareness"), allDartParts = _toConsumableArray3(page.matchAll(DART_REGEX)).map(function(match) {
+  if (!((0, import_kolmafia14.currentRound)() !== 1 || // eslint-disable-next-line libram/verify-constants
+  !(0, import_kolmafia14.haveEquipped)(import_kolmafia14.Item.get("Everfull Dart Holster")))) {
+    var buttAwareness = (0, import_kolmafia14.getProperty)("everfullDartPerks").includes("Butt awareness"), allDartParts = _toConsumableArray3(page.matchAll(DART_REGEX)).map(function(match) {
       return match[1];
     }), dartParts = _toConsumableArray3(new Set(allDartParts.filter(function(part) {
       return !buttAwareness || part !== "butt";
@@ -7175,14 +7203,14 @@ function checkEverfullDartHolster(data, page, monster, monsterParts) {
   }
 }
 function spadeMonsterParts(encounter, page) {
-  if (MONSTER_DENYLIST.includes((0, import_kolmafia13.lastMonster)())) return null;
-  var monster = toNormalisedString((0, import_kolmafia13.lastMonster)()), monsterParts = (0, import_kolmafia13.lastMonster)().parts, data = [];
-  return !isAdventureTextAltered() && !MONSTER_SEARCH_DENYLIST.includes((0, import_kolmafia13.lastMonster)()) && (checkSimpleIndicators(data, page, monster, monsterParts), checkElVibratoRestraints(data, page, monster, monsterParts)), checkMutantCouture(data, page, monster, monsterParts), checkEverfullDartHolster(data, page, monster, monsterParts), data;
+  if (MONSTER_DENYLIST.includes((0, import_kolmafia14.lastMonster)())) return null;
+  var monster = toNormalisedString((0, import_kolmafia14.lastMonster)()), monsterParts = (0, import_kolmafia14.lastMonster)().parts, data = [];
+  return !isAdventureTextAltered() && !MONSTER_SEARCH_DENYLIST.includes((0, import_kolmafia14.lastMonster)()) && (checkSimpleIndicators(data, page, monster, monsterParts), checkElVibratoRestraints(data, page, monster, monsterParts)), checkMutantCouture(data, page, monster, monsterParts), checkEverfullDartHolster(data, page, monster, monsterParts), data;
 }
 
 // ../excavator-projects/projects/mummingTrunk.ts
 init_kolmafia_polyfill();
-var import_kolmafia14 = require("kolmafia");
+var import_kolmafia15 = require("kolmafia");
 function _slicedToArray4(r, e) {
   return _arrayWithHoles4(r) || _iterableToArrayLimit4(r, e) || _unsupportedIterableToArray7(r, e) || _nonIterableRest4();
 }
@@ -7263,9 +7291,9 @@ var MUMMING_TRUNK = {
   }
 };
 function spadeMummingTrunk(encounter, page) {
-  if ((0, import_kolmafia14.availableAmount)(import_kolmafia14.Item.get("mumming trunk")) === 0) return null;
-  var fam = (0, import_kolmafia14.myFamiliar)();
-  return (0, import_kolmafia14.getProperty)("_mummeryMods").includes(fam.toString()) ? (0, import_kolmafia14.getProperty)("_mummeryUses").split(",").filter(function(costume) {
+  if ((0, import_kolmafia15.availableAmount)(import_kolmafia15.Item.get("mumming trunk")) === 0) return null;
+  var fam = (0, import_kolmafia15.myFamiliar)();
+  return (0, import_kolmafia15.getProperty)("_mummeryMods").includes(fam.toString()) ? (0, import_kolmafia15.getProperty)("_mummeryUses").split(",").filter(function(costume) {
     return costume in ATTRIBUTE_INDICATORS;
   }).map(function(costume) {
     var match = Object.entries(ATTRIBUTE_INDICATORS[costume]).find(function(_ref) {
@@ -7285,17 +7313,17 @@ function spadeMummingTrunk(encounter, page) {
 
 // ../excavator-projects/projects/outOfOrder.ts
 init_kolmafia_polyfill();
-var import_kolmafia15 = require("kolmafia"), OUT_OF_ORDER = {
+var import_kolmafia16 = require("kolmafia"), OUT_OF_ORDER = {
   name: "Out of Order",
   description: "Determine the relationship between initiative bonus and beeps from the GPS-tracking wristwatch during the Out of Order quest.",
   author: "gausie",
   hooks: {
     COMBAT_ROUND: function(encounter, page) {
-      if ((0, import_kolmafia15.getProperty)("questEspOutOfOrder") === "unstarted" || (0, import_kolmafia15.currentRound)() !== 0 || (0, import_kolmafia15.equippedAmount)(import_kolmafia15.Item.get("GPS-tracking wristwatch")) < 1 || (0, import_kolmafia15.myLocation)() !== import_kolmafia15.Location.get("The Deep Dark Jungle")) return null;
+      if ((0, import_kolmafia16.getProperty)("questEspOutOfOrder") === "unstarted" || (0, import_kolmafia16.currentRound)() !== 0 || (0, import_kolmafia16.equippedAmount)(import_kolmafia16.Item.get("GPS-tracking wristwatch")) < 1 || (0, import_kolmafia16.myLocation)() !== import_kolmafia16.Location.get("The Deep Dark Jungle")) return null;
       var beeps = page.match(/Your GPS tracker beeps ([0-9]+) times as it zeroes in on your quarry/);
       return beeps ? {
         beeps: beeps[1],
-        initiative: (0, import_kolmafia15.numericModifier)(import_kolmafia15.Modifier.get("Initiative"))
+        initiative: (0, import_kolmafia16.numericModifier)(import_kolmafia16.Modifier.get("Initiative"))
       } : null;
     }
   }
@@ -7303,7 +7331,7 @@ var import_kolmafia15 = require("kolmafia"), OUT_OF_ORDER = {
 
 // ../excavator-projects/projects/summonMayflySwarm.ts
 init_kolmafia_polyfill();
-var import_kolmafia16 = require("kolmafia");
+var import_kolmafia17 = require("kolmafia");
 function _slicedToArray5(r, e) {
   return _arrayWithHoles5(r) || _iterableToArrayLimit5(r, e) || _unsupportedIterableToArray8(r, e) || _nonIterableRest5();
 }
@@ -7346,7 +7374,7 @@ function _iterableToArrayLimit5(r, l) {
 function _arrayWithHoles5(r) {
   if (Array.isArray(r)) return r;
 }
-var ZONE_PATTERNS = /* @__PURE__ */ new Map([["Conspiracy Island", /The swarm of mayflies buzzes off into the spooky distance and returns a few minutes later, struggling under the weight of a mysterious coin/], ["Dinseylandfill", /The swarm of mayflies buzzes off into the distance and returns a few moments later carrying a rolled up FunFunds/], ["Twitch", /The swarm of mayflies buzzes off into the greasy distance and returns a few minutes later, struggling under the weight of a shiny coin/], ["Spring Break Beach", /The swarm of mayflies buzzes off into the greasy distance and returns a few minutes later, struggling under the weight of a damp bill/], ["The Glaciest", /The swarm of mayflies buzzes off into the frigid distance and returns a short while later carrying a rolled up Wal-Mart gift certificate/], ["Dreadsylvania", /The swarm of mayflies buzzes off into the dreary distance and returns a few minutes later, struggling under the weight of a coin/], ["Degrassi Knoll", /The swarm of mayflies buzzes off in the direction of one of the myriad workbenches littering the Knoll/]]), LOCATION_PATTERNS = /* @__PURE__ */ new Map([[import_kolmafia16.Location.get("Hobopolis Town Square"), /The swarm of mayflies buzzes off into the distance and returns a few minutes later, struggling under the weight of a coin/], [import_kolmafia16.Location.get("The Hole in the Sky"), /mistakes the swarm of flies for a different (and apparently very frightening) constellation, and runs off so fast it leaves some little bits of itself behind/], [import_kolmafia16.Location.get("The Sleazy Back Alley"), /The swarm flies into a dumpster, buzzes around for a bit, and flies back out looking slightly larger/], [import_kolmafia16.Location.get("The Slime Tube"), /The swarm of mayflies plunges into the mass of Slime and emerges a few moments later, coated with goo and carrying a little glob of something/], [import_kolmafia16.Location.get("South of The Border"), /After the fight is over, one of those annoying kids runs up and tries to sell you some gum/]]), SWARM_PATTERN = /mayflies(\d+)\.gif/, ITEM_PATTERN = /The swarm of mayflies buzzes around the ground, helping you find stuff/, MEAT_PATTERN = /The swarm of mayflies draws your attention to more Meat than you would've otherwise found/, SUMMON_MAYFLY_SWARM = {
+var ZONE_PATTERNS = /* @__PURE__ */ new Map([["Conspiracy Island", /The swarm of mayflies buzzes off into the spooky distance and returns a few minutes later, struggling under the weight of a mysterious coin/], ["Dinseylandfill", /The swarm of mayflies buzzes off into the distance and returns a few moments later carrying a rolled up FunFunds/], ["Twitch", /The swarm of mayflies buzzes off into the greasy distance and returns a few minutes later, struggling under the weight of a shiny coin/], ["Spring Break Beach", /The swarm of mayflies buzzes off into the greasy distance and returns a few minutes later, struggling under the weight of a damp bill/], ["The Glaciest", /The swarm of mayflies buzzes off into the frigid distance and returns a short while later carrying a rolled up Wal-Mart gift certificate/], ["Dreadsylvania", /The swarm of mayflies buzzes off into the dreary distance and returns a few minutes later, struggling under the weight of a coin/], ["Degrassi Knoll", /The swarm of mayflies buzzes off in the direction of one of the myriad workbenches littering the Knoll/]]), LOCATION_PATTERNS = /* @__PURE__ */ new Map([[import_kolmafia17.Location.get("Hobopolis Town Square"), /The swarm of mayflies buzzes off into the distance and returns a few minutes later, struggling under the weight of a coin/], [import_kolmafia17.Location.get("The Hole in the Sky"), /mistakes the swarm of flies for a different (and apparently very frightening) constellation, and runs off so fast it leaves some little bits of itself behind/], [import_kolmafia17.Location.get("The Sleazy Back Alley"), /The swarm flies into a dumpster, buzzes around for a bit, and flies back out looking slightly larger/], [import_kolmafia17.Location.get("The Slime Tube"), /The swarm of mayflies plunges into the mass of Slime and emerges a few moments later, coated with goo and carrying a little glob of something/], [import_kolmafia17.Location.get("South of The Border"), /After the fight is over, one of those annoying kids runs up and tries to sell you some gum/]]), SWARM_PATTERN = /mayflies(\d+)\.gif/, ITEM_PATTERN = /The swarm of mayflies buzzes around the ground, helping you find stuff/, MEAT_PATTERN = /The swarm of mayflies draws your attention to more Meat than you would've otherwise found/, SUMMON_MAYFLY_SWARM = {
   name: "Summon Mayfly Swarm",
   slug: "mayflyswarm",
   description: "Spade how swarm size affects result odds when casting Summon Mayfly Swarm",
@@ -7354,12 +7382,12 @@ var ZONE_PATTERNS = /* @__PURE__ */ new Map([["Conspiracy Island", /The swarm of
   hooks: {
     COMBAT_ROUND: function(_, page) {
       var _ZONE_PATTERNS$get, _Object$entries$find$, _Object$entries$find;
-      if ((0, import_kolmafia16.currentRound)() !== 0 || (0, import_kolmafia16.equippedAmount)(import_kolmafia16.Item.get("mayfly bait necklace")) < 1) return null;
-      var specialPattern = (_ZONE_PATTERNS$get = ZONE_PATTERNS.get((0, import_kolmafia16.myLocation)().zone)) !== null && _ZONE_PATTERNS$get !== void 0 ? _ZONE_PATTERNS$get : LOCATION_PATTERNS.get((0, import_kolmafia16.myLocation)());
+      if ((0, import_kolmafia17.currentRound)() !== 0 || (0, import_kolmafia17.equippedAmount)(import_kolmafia17.Item.get("mayfly bait necklace")) < 1) return null;
+      var specialPattern = (_ZONE_PATTERNS$get = ZONE_PATTERNS.get((0, import_kolmafia17.myLocation)().zone)) !== null && _ZONE_PATTERNS$get !== void 0 ? _ZONE_PATTERNS$get : LOCATION_PATTERNS.get((0, import_kolmafia17.myLocation)());
       if (!specialPattern) return null;
       var swarmResult = page.match(SWARM_PATTERN);
       if (!swarmResult) return null;
-      var swarmSize = Number(swarmResult[1]), area = (0, import_kolmafia16.myLocation)().zone in ZONE_PATTERNS ? (0, import_kolmafia16.myLocation)().zone : "".concat((0, import_kolmafia16.myLocation)()), patterns = {
+      var swarmSize = Number(swarmResult[1]), area = (0, import_kolmafia17.myLocation)().zone in ZONE_PATTERNS ? (0, import_kolmafia17.myLocation)().zone : "".concat((0, import_kolmafia17.myLocation)()), patterns = {
         special: specialPattern,
         item: ITEM_PATTERN,
         meat: MEAT_PATTERN
@@ -7377,25 +7405,25 @@ var ZONE_PATTERNS = /* @__PURE__ */ new Map([["Conspiracy Island", /The swarm of
 };
 
 // ../excavator-projects/index.ts
-var projects = [AUTUMNATON, BIRD_A_DAY, COAT_OF_PAINT, GENIE, HOOKAH, JUICE_BAR, DROP_BINDLESTOCKING, DROP_CON_SNOWGLOBE, DROP_MIXED_EVERYTHING, DROP_MR_CHEENGS, DROP_MR_SCREEGES, MONSTER_PARTS, MUMMING_TRUNK, OUT_OF_ORDER, DESIGNER_SWEATPANTS, SUMMON_MAYFLY_SWARM];
+var projects = [AUTUMNATON, BIRD_A_DAY, COAT_OF_PAINT, GENIE, HOOKAH, JUICE_BAR, DROP_BINDLESTOCKING, DROP_CON_SNOWGLOBE, DROP_MIXED_EVERYTHING, DROP_MR_CHEENGS, DROP_MR_SCREEGES, MINI_KIWI, MONSTER_PARTS, MUMMING_TRUNK, OUT_OF_ORDER, DESIGNER_SWEATPANTS, SUMMON_MAYFLY_SWARM];
 
 // src/excavator.ts
-var import_kolmafia23 = require("kolmafia");
+var import_kolmafia24 = require("kolmafia");
 
 // src/utils.ts
 init_kolmafia_polyfill();
-var import_kolmafia22 = require("kolmafia");
+var import_kolmafia23 = require("kolmafia");
 
 // ../../node_modules/libram/dist/index.js
 init_kolmafia_polyfill();
 
 // ../../node_modules/libram/dist/lib.js
 init_kolmafia_polyfill();
-var import_kolmafia19 = require("kolmafia");
+var import_kolmafia20 = require("kolmafia");
 
 // ../../node_modules/libram/dist/property.js
 init_kolmafia_polyfill();
-var import_kolmafia17 = require("kolmafia");
+var import_kolmafia18 = require("kolmafia");
 
 // ../../node_modules/libram/dist/propertyTyping.js
 init_kolmafia_polyfill();
@@ -7529,7 +7557,7 @@ function _arrayWithHoles6(r) {
 }
 var createPropertyGetter = function(transform) {
   return function(property, default_) {
-    var value = (0, import_kolmafia17.getProperty)(property);
+    var value = (0, import_kolmafia18.getProperty)(property);
     return default_ !== void 0 && value === "" ? default_ : transform(value, property);
   };
 }, createMafiaClassPropertyGetter = function(Type, toType) {
@@ -7546,7 +7574,7 @@ var createPropertyGetter = function(transform) {
   return value === "true";
 }), getNumber = createPropertyGetter(function(value) {
   return Number(value);
-}), getBounty = createMafiaClassPropertyGetter(import_kolmafia17.Bounty, import_kolmafia17.toBounty), getClass = createMafiaClassPropertyGetter(import_kolmafia17.Class, import_kolmafia17.toClass), getCoinmaster = createMafiaClassPropertyGetter(import_kolmafia17.Coinmaster, import_kolmafia17.toCoinmaster), getEffect = createMafiaClassPropertyGetter(import_kolmafia17.Effect, import_kolmafia17.toEffect), getElement = createMafiaClassPropertyGetter(import_kolmafia17.Element, import_kolmafia17.toElement), getFamiliar = createMafiaClassPropertyGetter(import_kolmafia17.Familiar, import_kolmafia17.toFamiliar), getItem = createMafiaClassPropertyGetter(import_kolmafia17.Item, import_kolmafia17.toItem), getLocation = createMafiaClassPropertyGetter(import_kolmafia17.Location, import_kolmafia17.toLocation), getMonster = createMafiaClassPropertyGetter(import_kolmafia17.Monster, import_kolmafia17.toMonster), getPhylum = createMafiaClassPropertyGetter(import_kolmafia17.Phylum, import_kolmafia17.toPhylum), getServant = createMafiaClassPropertyGetter(import_kolmafia17.Servant, import_kolmafia17.toServant), getSkill = createMafiaClassPropertyGetter(import_kolmafia17.Skill, import_kolmafia17.toSkill), getSlot = createMafiaClassPropertyGetter(import_kolmafia17.Slot, import_kolmafia17.toSlot), getStat = createMafiaClassPropertyGetter(import_kolmafia17.Stat, import_kolmafia17.toStat), getThrall = createMafiaClassPropertyGetter(import_kolmafia17.Thrall, import_kolmafia17.toThrall);
+}), getBounty = createMafiaClassPropertyGetter(import_kolmafia18.Bounty, import_kolmafia18.toBounty), getClass = createMafiaClassPropertyGetter(import_kolmafia18.Class, import_kolmafia18.toClass), getCoinmaster = createMafiaClassPropertyGetter(import_kolmafia18.Coinmaster, import_kolmafia18.toCoinmaster), getEffect = createMafiaClassPropertyGetter(import_kolmafia18.Effect, import_kolmafia18.toEffect), getElement = createMafiaClassPropertyGetter(import_kolmafia18.Element, import_kolmafia18.toElement), getFamiliar = createMafiaClassPropertyGetter(import_kolmafia18.Familiar, import_kolmafia18.toFamiliar), getItem = createMafiaClassPropertyGetter(import_kolmafia18.Item, import_kolmafia18.toItem), getLocation = createMafiaClassPropertyGetter(import_kolmafia18.Location, import_kolmafia18.toLocation), getMonster = createMafiaClassPropertyGetter(import_kolmafia18.Monster, import_kolmafia18.toMonster), getPhylum = createMafiaClassPropertyGetter(import_kolmafia18.Phylum, import_kolmafia18.toPhylum), getServant = createMafiaClassPropertyGetter(import_kolmafia18.Servant, import_kolmafia18.toServant), getSkill = createMafiaClassPropertyGetter(import_kolmafia18.Skill, import_kolmafia18.toSkill), getSlot = createMafiaClassPropertyGetter(import_kolmafia18.Slot, import_kolmafia18.toSlot), getStat = createMafiaClassPropertyGetter(import_kolmafia18.Stat, import_kolmafia18.toStat), getThrall = createMafiaClassPropertyGetter(import_kolmafia18.Thrall, import_kolmafia18.toThrall);
 function get(property, _default) {
   var value = getString(property);
   if (isBooleanProperty(property)) {
@@ -7571,11 +7599,11 @@ function get(property, _default) {
     if (isStringProperty(property))
       return value;
   }
-  return _default instanceof import_kolmafia17.Location ? getLocation(property, _default) : _default instanceof import_kolmafia17.Monster ? getMonster(property, _default) : _default instanceof import_kolmafia17.Familiar ? getFamiliar(property, _default) : _default instanceof import_kolmafia17.Stat ? getStat(property, _default) : _default instanceof import_kolmafia17.Phylum ? getPhylum(property, _default) : typeof _default == "boolean" ? value === "true" ? !0 : value === "false" ? !1 : _default : typeof _default == "number" ? value === "" ? _default : parseInt(value) : value === "" ? _default === void 0 ? "" : _default : value;
+  return _default instanceof import_kolmafia18.Location ? getLocation(property, _default) : _default instanceof import_kolmafia18.Monster ? getMonster(property, _default) : _default instanceof import_kolmafia18.Familiar ? getFamiliar(property, _default) : _default instanceof import_kolmafia18.Stat ? getStat(property, _default) : _default instanceof import_kolmafia18.Phylum ? getPhylum(property, _default) : typeof _default == "boolean" ? value === "true" ? !0 : value === "false" ? !1 : _default : typeof _default == "number" ? value === "" ? _default : parseInt(value) : value === "" ? _default === void 0 ? "" : _default : value;
 }
 function _set(property, value) {
   var stringValue = value === null ? "" : value.toString();
-  return (0, import_kolmafia17.setProperty)(property, stringValue), value;
+  return (0, import_kolmafia18.setProperty)(property, stringValue), value;
 }
 function setProperties(properties) {
   for (var _i = 0, _Object$entries = Object.entries(properties); _i < _Object$entries.length; _i++) {
@@ -7602,7 +7630,7 @@ var PropertiesManager = /* @__PURE__ */ function() {
     value: function(propertiesToSet) {
       for (var _i2 = 0, _Object$entries2 = Object.entries(propertiesToSet); _i2 < _Object$entries2.length; _i2++) {
         var _Object$entries2$_i = _slicedToArray6(_Object$entries2[_i2], 2), propertyName = _Object$entries2$_i[0], propertyValue = _Object$entries2$_i[1];
-        propertyName in this.properties || (this.properties[propertyName] = (0, import_kolmafia17.propertyExists)(propertyName) ? get(propertyName) : PropertiesManager2.EMPTY_PREFERENCE), _set(propertyName, propertyValue);
+        propertyName in this.properties || (this.properties[propertyName] = (0, import_kolmafia18.propertyExists)(propertyName) ? get(propertyName) : PropertiesManager2.EMPTY_PREFERENCE), _set(propertyName, propertyValue);
       }
     }
     /**
@@ -7643,7 +7671,7 @@ var PropertiesManager = /* @__PURE__ */ function() {
         var property = _properties[_i3];
         if (property in this.properties) {
           var value = this.properties[property];
-          value === PropertiesManager2.EMPTY_PREFERENCE ? (0, import_kolmafia17.removeProperty)(property) : value ? _set(property, value) : _set(property, "");
+          value === PropertiesManager2.EMPTY_PREFERENCE ? (0, import_kolmafia18.removeProperty)(property) : value ? _set(property, value) : _set(property, "");
         }
       }
     }
@@ -7778,7 +7806,7 @@ _defineProperty5(PropertiesManager, "EMPTY_PREFERENCE", Symbol("empty preference
 
 // ../../node_modules/libram/dist/template-string.js
 init_kolmafia_polyfill();
-var import_kolmafia18 = require("kolmafia");
+var import_kolmafia19 = require("kolmafia");
 
 // ../../node_modules/libram/dist/utils.js
 init_kolmafia_polyfill();
@@ -7873,7 +7901,7 @@ var concatTemplateString = function(literals) {
   }, "");
 }, handleTypeGetError = function(Type, error) {
   var message = "".concat(error), match = message.match(RegExp("Bad ".concat(Type.name.toLowerCase(), " value: .*")));
-  match ? (0, import_kolmafia18.print)("".concat(match[0], "; if you're certain that this ").concat(Type.name, " exists and is spelled correctly, please update KoLMafia"), "red") : (0, import_kolmafia18.print)(message);
+  match ? (0, import_kolmafia19.print)("".concat(match[0], "; if you're certain that this ").concat(Type.name, " exists and is spelled correctly, please update KoLMafia"), "red") : (0, import_kolmafia19.print)(message);
 }, createSingleConstant = function(Type) {
   var tagFunction = function(literals) {
     for (var _len2 = arguments.length, placeholders = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++)
@@ -7884,7 +7912,7 @@ var concatTemplateString = function(literals) {
     } catch (error) {
       handleTypeGetError(Type, error);
     }
-    (0, import_kolmafia18.abort)();
+    (0, import_kolmafia19.abort)();
   };
   return tagFunction.cls = Type, tagFunction.none = Type.none, tagFunction;
 }, createPluralConstant = function(Type) {
@@ -7899,12 +7927,12 @@ var concatTemplateString = function(literals) {
     } catch (error) {
       handleTypeGetError(Type, error);
     }
-    (0, import_kolmafia18.abort)();
+    (0, import_kolmafia19.abort)();
   };
   return tagFunction.all = function() {
     return Type.all();
   }, tagFunction;
-}, $bounty = createSingleConstant(import_kolmafia18.Bounty), $bounties = createPluralConstant(import_kolmafia18.Bounty), $class = createSingleConstant(import_kolmafia18.Class), $classes = createPluralConstant(import_kolmafia18.Class), $coinmaster = createSingleConstant(import_kolmafia18.Coinmaster), $coinmasters = createPluralConstant(import_kolmafia18.Coinmaster), $effect = createSingleConstant(import_kolmafia18.Effect), $effects = createPluralConstant(import_kolmafia18.Effect), $element = createSingleConstant(import_kolmafia18.Element), $elements = createPluralConstant(import_kolmafia18.Element), $familiar = createSingleConstant(import_kolmafia18.Familiar), $familiars = createPluralConstant(import_kolmafia18.Familiar), $item = createSingleConstant(import_kolmafia18.Item), $items = createPluralConstant(import_kolmafia18.Item), $location = createSingleConstant(import_kolmafia18.Location), $locations = createPluralConstant(import_kolmafia18.Location), $modifier = createSingleConstant(import_kolmafia18.Modifier), $modifiers = createPluralConstant(import_kolmafia18.Modifier), $monster = createSingleConstant(import_kolmafia18.Monster), $monsters = createPluralConstant(import_kolmafia18.Monster), $phylum = createSingleConstant(import_kolmafia18.Phylum), $phyla = createPluralConstant(import_kolmafia18.Phylum), $servant = createSingleConstant(import_kolmafia18.Servant), $servants = createPluralConstant(import_kolmafia18.Servant), $skill = createSingleConstant(import_kolmafia18.Skill), $skills = createPluralConstant(import_kolmafia18.Skill), $slot = createSingleConstant(import_kolmafia18.Slot), $slots = createPluralConstant(import_kolmafia18.Slot), $stat = createSingleConstant(import_kolmafia18.Stat), $stats = createPluralConstant(import_kolmafia18.Stat), $thrall = createSingleConstant(import_kolmafia18.Thrall), $thralls = createPluralConstant(import_kolmafia18.Thrall), $path = createSingleConstant(import_kolmafia18.Path), $paths = createPluralConstant(import_kolmafia18.Path);
+}, $bounty = createSingleConstant(import_kolmafia19.Bounty), $bounties = createPluralConstant(import_kolmafia19.Bounty), $class = createSingleConstant(import_kolmafia19.Class), $classes = createPluralConstant(import_kolmafia19.Class), $coinmaster = createSingleConstant(import_kolmafia19.Coinmaster), $coinmasters = createPluralConstant(import_kolmafia19.Coinmaster), $effect = createSingleConstant(import_kolmafia19.Effect), $effects = createPluralConstant(import_kolmafia19.Effect), $element = createSingleConstant(import_kolmafia19.Element), $elements = createPluralConstant(import_kolmafia19.Element), $familiar = createSingleConstant(import_kolmafia19.Familiar), $familiars = createPluralConstant(import_kolmafia19.Familiar), $item = createSingleConstant(import_kolmafia19.Item), $items = createPluralConstant(import_kolmafia19.Item), $location = createSingleConstant(import_kolmafia19.Location), $locations = createPluralConstant(import_kolmafia19.Location), $modifier = createSingleConstant(import_kolmafia19.Modifier), $modifiers = createPluralConstant(import_kolmafia19.Modifier), $monster = createSingleConstant(import_kolmafia19.Monster), $monsters = createPluralConstant(import_kolmafia19.Monster), $phylum = createSingleConstant(import_kolmafia19.Phylum), $phyla = createPluralConstant(import_kolmafia19.Phylum), $servant = createSingleConstant(import_kolmafia19.Servant), $servants = createPluralConstant(import_kolmafia19.Servant), $skill = createSingleConstant(import_kolmafia19.Skill), $skills = createPluralConstant(import_kolmafia19.Skill), $slot = createSingleConstant(import_kolmafia19.Slot), $slots = createPluralConstant(import_kolmafia19.Slot), $stat = createSingleConstant(import_kolmafia19.Stat), $stats = createPluralConstant(import_kolmafia19.Stat), $thrall = createSingleConstant(import_kolmafia19.Thrall), $thralls = createPluralConstant(import_kolmafia19.Thrall), $path = createSingleConstant(import_kolmafia19.Path), $paths = createPluralConstant(import_kolmafia19.Path);
 
 // ../../node_modules/libram/dist/lib.js
 var _templateObject9, _templateObject10, _templateObject11, _templateObject12, _templateObject13, _templateObject14, _templateObject15, _templateObject16, _templateObject17, _templateObject18, _templateObject19, _templateObject20, _templateObject21, _templateObject22, _templateObject23, _templateObject24, _templateObject25, _templateObject26, _templateObject27, _templateObject28, _templateObject29, _templateObject30, _templateObject31, _templateObject32, _templateObject33, _templateObject34;
@@ -7961,24 +7989,24 @@ var deterministicWanderers = [Wanderer.Digitize, Wanderer.Portscan];
 var holidayWanderers = /* @__PURE__ */ new Map([["El Dia De Los Muertos Borrachos", $monsters(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["Novia Cad\xE1ver, Novio Cad\xE1ver, Padre Cad\xE1ver, Persona Inocente Cad\xE1ver"])))], ["Feast of Boris", $monsters(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["Candied Yam Golem, Malevolent Tofurkey, Possessed Can of Cranberry Sauce, Stuffing Golem"])))], ["Talk Like a Pirate Day", $monsters(_templateObject11 || (_templateObject11 = _taggedTemplateLiteral(["ambulatory pirate, migratory pirate, peripatetic pirate"])))]]);
 var telescopeStats = /* @__PURE__ */ new Map([["standing around flexing their muscles and using grip exercisers", $stat(_templateObject12 || (_templateObject12 = _taggedTemplateLiteral(["Muscle"])))], ["sitting around playing chess and solving complicated-looking logic puzzles", $stat(_templateObject13 || (_templateObject13 = _taggedTemplateLiteral(["Mysticality"])))], ["all wearing sunglasses and dancing", $stat(_templateObject14 || (_templateObject14 = _taggedTemplateLiteral(["Moxie"])))]]), telescopeElements = /* @__PURE__ */ new Map([["people, all of whom appear to be on fire", $element(_templateObject15 || (_templateObject15 = _taggedTemplateLiteral(["hot"])))], ["people, surrounded by a cloud of eldritch mist", $element(_templateObject16 || (_templateObject16 = _taggedTemplateLiteral(["spooky"])))], ["greasy-looking people furtively skulking around", $element(_templateObject17 || (_templateObject17 = _taggedTemplateLiteral(["sleaze"])))], ["people, surrounded by garbage and clouds of flies", $element(_templateObject18 || (_templateObject18 = _taggedTemplateLiteral(["stench"])))], ["people, clustered around a group of igloos", $element(_templateObject19 || (_templateObject19 = _taggedTemplateLiteral(["cold"])))]]), hedgeTrap1 = /* @__PURE__ */ new Map([["smoldering bushes on the outskirts of a hedge maze", $element(_templateObject20 || (_templateObject20 = _taggedTemplateLiteral(["hot"])))], ["creepy-looking black bushes on the outskirts of a hedge maze", $element(_templateObject21 || (_templateObject21 = _taggedTemplateLiteral(["spooky"])))], ["purplish, greasy-looking hedges", $element(_templateObject22 || (_templateObject22 = _taggedTemplateLiteral(["sleaze"])))], ["nasty-looking, dripping green bushes on the outskirts of a hedge maze", $element(_templateObject23 || (_templateObject23 = _taggedTemplateLiteral(["stench"])))], ["frost-rimed bushes on the outskirts of a hedge maze", $element(_templateObject24 || (_templateObject24 = _taggedTemplateLiteral(["cold"])))]]), hedgeTrap2 = /* @__PURE__ */ new Map([["smoke rising from deeper within the maze", $element(_templateObject25 || (_templateObject25 = _taggedTemplateLiteral(["hot"])))], ["a miasma of eldritch vapors rising from deeper within the maze", $element(_templateObject26 || (_templateObject26 = _taggedTemplateLiteral(["spooky"])))], ["a greasy purple cloud hanging over the center of the maze", $element(_templateObject27 || (_templateObject27 = _taggedTemplateLiteral(["sleaze"])))], ["a cloud of green gas hovering over the maze", $element(_templateObject28 || (_templateObject28 = _taggedTemplateLiteral(["stench"])))], ["wintry mists rising from deeper within the maze", $element(_templateObject29 || (_templateObject29 = _taggedTemplateLiteral(["cold"])))]]), hedgeTrap3 = /* @__PURE__ */ new Map([["with lava slowly oozing out of it", $element(_templateObject30 || (_templateObject30 = _taggedTemplateLiteral(["hot"])))], ["surrounded by creepy black mist", $element(_templateObject31 || (_templateObject31 = _taggedTemplateLiteral(["spooky"])))], ["that occasionally vomits out a greasy ball of hair", $element(_templateObject32 || (_templateObject32 = _taggedTemplateLiteral(["sleaze"])))], ["disgorging a really surprising amount of sewage", $element(_templateObject33 || (_templateObject33 = _taggedTemplateLiteral(["stench"])))], ["occasionally disgorging a bunch of ice cubes", $element(_templateObject34 || (_templateObject34 = _taggedTemplateLiteral(["cold"])))]]);
 var byStat = makeByXFunction(function() {
-  return (0, import_kolmafia19.myPrimestat)().toString();
+  return (0, import_kolmafia20.myPrimestat)().toString();
 }), byClass = makeByXFunction(function() {
-  return (0, import_kolmafia19.myClass)().toString();
+  return (0, import_kolmafia20.myClass)().toString();
 });
 function extractItems(text) {
-  return new Map(Object.entries((0, import_kolmafia19.extractItems)(text)).map(function(_ref13) {
+  return new Map(Object.entries((0, import_kolmafia20.extractItems)(text)).map(function(_ref13) {
     var _ref14 = _slicedToArray7(_ref13, 2), itemName = _ref14[0], quantity = _ref14[1];
-    return [import_kolmafia19.Item.get(itemName), quantity];
+    return [import_kolmafia20.Item.get(itemName), quantity];
   }));
 }
 
 // ../../node_modules/libram/dist/Kmail.js
 init_kolmafia_polyfill();
-var import_html_entities = __toESM(require_lib(), 1), import_kolmafia21 = require("kolmafia");
+var import_html_entities = __toESM(require_lib(), 1), import_kolmafia22 = require("kolmafia");
 
 // ../../node_modules/libram/dist/url.js
 init_kolmafia_polyfill();
-var import_kolmafia20 = require("kolmafia");
+var import_kolmafia21 = require("kolmafia");
 function _toConsumableArray4(r) {
   return _arrayWithoutHoles4(r) || _iterableToArray4(r) || _unsupportedIterableToArray12(r) || _nonIterableSpread4();
 }
@@ -8067,7 +8095,7 @@ function _arrayLikeToArray12(r, a) {
 var EMPTY_VALUE = Symbol("empty");
 function fetchUrl(path) {
   var query = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : [], options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, _options$method = options.method, method = _options$method === void 0 ? "POST" : _options$method, url = buildUrl(path, query);
-  return (0, import_kolmafia20.visitUrl)(url, method === "POST", !0);
+  return (0, import_kolmafia21.visitUrl)(url, method === "POST", !0);
 }
 function buildUrl(path) {
   var query = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : [], urlParams = Array.isArray(query) ? query : Object.entries(query);
@@ -8330,7 +8358,7 @@ var Kmail = /* @__PURE__ */ function() {
     key: "meat",
     value: function() {
       var _this$_messageParts3 = this._messageParts, outsideAttachments = _this$_messageParts3.outsideAttachments, insideAttachments = _this$_messageParts3.insideAttachments;
-      return !outsideAttachments && !insideAttachments ? 0 : (0, import_kolmafia21.extractMeat)("".concat(outsideAttachments).concat(insideAttachments));
+      return !outsideAttachments && !insideAttachments ? 0 : (0, import_kolmafia22.extractMeat)("".concat(outsideAttachments).concat(insideAttachments));
     }
     /**
      * Reply to kmail
@@ -8370,7 +8398,7 @@ var Kmail = /* @__PURE__ */ function() {
     key: "inbox",
     value: function() {
       var count = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 100;
-      return JSON.parse((0, import_kolmafia21.visitUrl)("api.php?what=kmail&for=libram&count=".concat(count))).map(Kmail2.parse);
+      return JSON.parse((0, import_kolmafia22.visitUrl)("api.php?what=kmail&for=libram&count=".concat(count))).map(Kmail2.parse);
     }
     /**
      * Bulk delete kmails
@@ -8391,7 +8419,7 @@ var Kmail = /* @__PURE__ */ function() {
     value: function(to, message, items, meat, chunkSize, constructUrl, successString) {
       var m = meat, sendableItems = _toConsumableArray5(arrayToCountedMap(items).entries()).filter(function(_ref3) {
         var _ref4 = _slicedToArray9(_ref3, 1), item = _ref4[0];
-        return (0, import_kolmafia21.isGiftable)(item);
+        return (0, import_kolmafia22.isGiftable)(item);
       }), result = !0, chunks = chunk(sendableItems, chunkSize), _iterator = _createForOfIteratorHelper5(chunks.length > 0 ? chunks : [null]), _step;
       try {
         var _loop = function() {
@@ -8528,19 +8556,19 @@ function _toPrimitive7(t, r) {
 }
 var DATA_PROPERTY = "spadingData", RECIPIENT_PROPERTY = "excavatorRecipient";
 function getExcavatorVersion() {
-  return (0, import_kolmafia22.gitInfo)("loathers-excavator-release").commit.substring(0, 7) || (0, import_kolmafia22.gitInfo)("gausie-excavator-release").commit.substring(0, 7) || 0;
+  return (0, import_kolmafia23.gitInfo)("loathers-excavator-release").commit.substring(0, 7) || (0, import_kolmafia23.gitInfo)("gausie-excavator-release").commit.substring(0, 7) || 0;
 }
 function getVersionString() {
-  return "".concat((0, import_kolmafia22.getRevision)(), "/").concat(getExcavatorVersion());
+  return "".concat((0, import_kolmafia23.getRevision)(), "/").concat(getExcavatorVersion());
 }
 function canKmail() {
   return (
     // In a fight
-    !((0, import_kolmafia22.currentRound)() > 0 || // In a choice
-    (0, import_kolmafia22.handlingChoice)() || // Was in a choice, gonna be in a fight
-    (0, import_kolmafia22.fightFollowsChoice)() || // Was in a fight, gonna be in a choice
-    (0, import_kolmafia22.choiceFollowsFight)() || // Was in a fight, gonna be in another fight
-    (0, import_kolmafia22.inMultiFight)())
+    !((0, import_kolmafia23.currentRound)() > 0 || // In a choice
+    (0, import_kolmafia23.handlingChoice)() || // Was in a choice, gonna be in a fight
+    (0, import_kolmafia23.fightFollowsChoice)() || // Was in a fight, gonna be in a choice
+    (0, import_kolmafia23.choiceFollowsFight)() || // Was in a fight, gonna be in another fight
+    (0, import_kolmafia23.inMultiFight)())
   );
 }
 function addSpadingData(data, recipient, reason) {
@@ -8553,7 +8581,7 @@ function flushSpadingData() {
     ++i;
     var success = Kmail.send(recipient, contents);
     if (!success) {
-      (0, import_kolmafia22.print)("Sending a kmail failed while Excavator was flushing the spading cache. Flush aborted.", "red");
+      (0, import_kolmafia23.print)("Sending a kmail failed while Excavator was flushing the spading cache. Flush aborted.", "red");
       return;
     }
     i++;
@@ -8567,18 +8595,18 @@ function sendSpadingData(projectName, data) {
   }))), recipient = get(RECIPIENT_PROPERTY, "Excavator");
   if (canKmail()) {
     var flushMessage = get(DATA_PROPERTY, "") ? ", as well as some other data we couldn't send before, " : "";
-    (0, import_kolmafia22.printHtml)('<font color="green">Sending spading data for <b>'.concat(projectName, "</b>").concat(flushMessage, " to ").concat(recipient, ". Thanks!</font>"));
+    (0, import_kolmafia23.printHtml)('<font color="green">Sending spading data for <b>'.concat(projectName, "</b>").concat(flushMessage, " to ").concat(recipient, ". Thanks!</font>"));
     var success = Kmail.send(recipient, dataString);
     if (success) {
       flushSpadingData(), deleteSpadingKmail(recipient);
       return;
     }
-    (0, import_kolmafia22.print)("Excavator thought it could send data via kmail but it can't. Saving to cache instead.", "orange");
+    (0, import_kolmafia23.print)("Excavator thought it could send data via kmail but it can't. Saving to cache instead.", "orange");
   }
   addSpadingData(dataString, recipient, "Excavator's project to spade ".concat(projectName));
 }
 function deleteSpadingKmail(sentTo) {
-  var buffer = (0, import_kolmafia22.visitUrl)("messages.php?box=Outbox&begin=1&order=0&per_page=10").toLowerCase(), messageIds = buffer.split("td valign=top").filter(function(s) {
+  var buffer = (0, import_kolmafia23.visitUrl)("messages.php?box=Outbox&begin=1&order=0&per_page=10").toLowerCase(), messageIds = buffer.split("td valign=top").filter(function(s) {
     return s.match('<a href="showplayer.php\\?who=(\\d+)">'.concat(sentTo.toLowerCase(), "</a>"));
   }).map(function(s) {
     var match = s.match('checkbox name="sel(\\d+)"');
@@ -8590,7 +8618,7 @@ function deleteSpadingKmail(sentTo) {
     var del = "messages.php?the_action=delete&box=Outbox&pwd".concat(messageIds.map(function(id) {
       return "&sel".concat(id, "=on");
     }).join(""));
-    (0, import_kolmafia22.visitUrl)(del);
+    (0, import_kolmafia23.visitUrl)(del);
   }
 }
 
@@ -8643,7 +8671,7 @@ function tupleNotNull(value) {
 function main(event, meta, page) {
   projects.filter(function(_ref) {
     var hooks = _ref.hooks, _ref$since = _ref.since, since = _ref$since === void 0 ? 0 : _ref$since;
-    return event in hooks && since <= (0, import_kolmafia23.getRevision)();
+    return event in hooks && since <= (0, import_kolmafia24.getRevision)();
   }).map(function(_ref2) {
     var name = _ref2.name, hooks = _ref2.hooks;
     return [name, hooks[event](meta, page)];
