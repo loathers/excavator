@@ -2,7 +2,7 @@ import "core-js/modules/es.string.match-all";
 import { currentRound, equippedAmount, Item } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedString } from "../utils";
+import { toNormalisedItem } from "../utils";
 
 export const DROP_CON_SNOWGLOBE: ExcavatorProject = {
   name: "KoL Con 13 Snowglobe",
@@ -82,14 +82,10 @@ function spadeSnowglobe(
   for (const indicator of INDICATORS) {
     // Multiple results are possible if the time-twitching toolbelt is equipped
     for (const match of page.matchAll(indicator.pattern)) {
-      let str = "";
-      if (indicator.type === "item") {
-        const item = Item.get(match[1]);
-        str = item !== Item.none ? toNormalisedString(item) : match[1];
-      }
+      const item = indicator.type === "item" ? toNormalisedItem(match[1]) : "";
       data.push({
         type: indicator.type,
-        item: str,
+        item,
       });
     }
   }
