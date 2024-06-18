@@ -1,26 +1,22 @@
 import {
   Alert,
-  Badge,
-  Box,
-  Button,
-  HStack,
   Stack,
   Table,
   TableContainer,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
 import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
-import { Link as RemixLink, useLoaderData, useParams } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { projects } from "excavator-projects";
 
-import Frequency from "../components/Frequency.js";
+import { Frequency } from "../components/Frequency.js";
+import { ProjectHeader } from "../components/ProjectHeader.js";
 import { db } from "../db.server.js";
-import { fromSlug, getValuesInKeyOrder, toSlug } from "../utils/utils.js";
+import { fromSlug, getValuesInKeyOrder } from "../utils/utils.js";
 import { loadProjectData } from "../utils/utils.server.js";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
@@ -41,6 +37,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   const data = await loadProjectData(projectName);
 
   return json({
+    projectNames: projects.map((p) => p.name).sort(),
     project,
     data: data.map(({ count, ...rest }) => ({ count: Number(count), ...rest })),
     total,
@@ -48,25 +45,13 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 export default function Project() {
-  const { data, total, project } = useLoaderData<typeof loader>();
+  const { data, total, project, projectNames } = useLoaderData<typeof loader>();
 
   const headers = Object.keys(data.at(0)?.data ?? {});
 
   return (
     <Stack spacing={8} mt={8}>
-      <HStack>
-        <Text>{project.description}</Text>
-        <Box flex={1} />
-        <Button
-          as={RemixLink}
-          size="xs"
-          rightIcon={<>⬇</>}
-          to={`../${toSlug(project.name)}.csv`}
-          reloadDocument
-        >
-          <Text display={["none", null, "block"]}>Download Data</Text>
-        </Button>
-      </HStack>
+      <ProjectHeader project={project} projects={projectNames} />
       {data.length === 0 ? (
         <Alert>No data for this project yet - you better get excavating!</Alert>
       ) : (
