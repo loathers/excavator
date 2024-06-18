@@ -1,7 +1,4 @@
-import {
-  Alert,
-  Spinner,
-} from "@chakra-ui/react";
+import { Alert, Spinner } from "@chakra-ui/react";
 import { MetaFunction } from "@remix-run/node";
 import {
   Outlet,
