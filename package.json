@@ -12,8 +12,8 @@
   },
   "scripts": {
     "build": "yarn workspace excavator-script run build",
-    "format": "yarn workspaces run format && yarn prettier --write .github",
-    "lint": "yarn workspaces run lint && yarn prettier --check .github",
+    "format": "yarn workspaces foreach -Ap run format && yarn prettier --write .github",
+    "lint": "yarn workspaces foreach -Ap run lint && yarn prettier --check .github",
     "etl": "yarn workspace excavator-web run etl"
   },
   "engines": {
