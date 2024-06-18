@@ -6228,6 +6228,10 @@ function getDifficultySeed() {
     difficulty: getDifficulty()
   };
 }
+function toNormalisedItem(name) {
+  var item = (0, import_kolmafia2.toItem)(name);
+  return item === import_kolmafia2.Item.none ? name : toNormalisedString(item);
+}
 function toNormalisedString(thing) {
   return "[".concat(thing.id, "]").concat("name" in thing ? thing.name : thing.toString());
 }
@@ -6491,9 +6495,9 @@ var DROP_BINDLESTOCKING = {
       if ((0, import_kolmafia6.equippedAmount)(import_kolmafia6.Item.get("bindlestocking")) < 1) return null;
       var result = page.match(/Something gets knocked loose from your bindlestocking!.*?You acquire an item: <b>(.*?)<\/b>/);
       if (!result) return null;
-      var item = import_kolmafia6.Item.get(result[1]);
+      var item = toNormalisedItem(result[1]);
       return {
-        item: item !== import_kolmafia6.Item.none ? toNormalisedString(item) : result[1]
+        item: item
       };
     }
   }
@@ -6598,14 +6602,10 @@ function spadeSnowglobe(encounter, page) {
       var indicator = _step.value, _iterator2 = _createForOfIteratorHelper(page.matchAll(indicator.pattern)), _step2;
       try {
         for (_iterator2.s(); !(_step2 = _iterator2.n()).done; ) {
-          var match = _step2.value, str = "";
-          if (indicator.type === "item") {
-            var item = import_kolmafia7.Item.get(match[1]);
-            str = item !== import_kolmafia7.Item.none ? toNormalisedString(item) : match[1];
-          }
+          var match = _step2.value, item = indicator.type === "item" ? toNormalisedItem(match[1]) : "";
           data.push({
             type: indicator.type,
-            item: str
+            item: item
           });
         }
       } catch (err) {
@@ -6634,9 +6634,9 @@ var DROP_MIXED_EVERYTHING = {
       if ((0, import_kolmafia8.currentRound)() !== 0 || (0, import_kolmafia8.equippedAmount)(import_kolmafia8.Item.get("can of mixed everything")) < 1) return null;
       var result = page.match(/Something falls out of your can of mixed everything.*?You acquire an item: <b>(.*?)<\/b>/);
       if (!result) return null;
-      var item = import_kolmafia8.Item.get(result[1]);
+      var item = toNormalisedItem(result[1]);
       return {
-        item: item !== import_kolmafia8.Item.none ? toNormalisedString(item) : result[1]
+        item: item
       };
     }
   }
@@ -6655,9 +6655,9 @@ var DROP_MR_CHEENGS = {
       if ((0, import_kolmafia9.currentRound)() !== 0 || (0, import_kolmafia9.equippedAmount)(import_kolmafia9.Item.get("Mr. Cheeng's spectacles")) < 1) return null;
       var result = page.match(/You see a weird thing out of the corner of your eye, and you grab it.\s+Far out, man!.*?You acquire an item: <b>(.*?)<\/b>/);
       if (!result) return null;
-      var item = import_kolmafia9.Item.get(result[1]);
+      var item = toNormalisedItem(result[1]);
       return {
-        item: item !== import_kolmafia9.Item.none ? toNormalisedString(item) : result[1]
+        item: item
       };
     }
   }
@@ -6676,9 +6676,9 @@ var DROP_MR_SCREEGES = {
       if ((0, import_kolmafia10.currentRound)() !== 0 || (0, import_kolmafia10.equippedAmount)(import_kolmafia10.Item.get("Mr. Screege's spectacles")) < 1) return null;
       var result = page.match(/You notice something valuable hidden .*?You acquire an item: <b>(.*?)<\/b>/);
       if (!result) return null;
-      var item = import_kolmafia10.Item.get(result[1]);
+      var item = toNormalisedItem(result[1]);
       return {
-        item: item !== import_kolmafia10.Item.none ? toNormalisedString(item) : result[1]
+        item: item
       };
     }
   }
