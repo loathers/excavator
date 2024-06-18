@@ -17,6 +17,7 @@ import {
   myPath,
   Path,
   sessionStorage,
+  toItem,
 } from "kolmafia";
 
 const ALTERING_EFFECTS = Effect.get([
@@ -79,6 +80,11 @@ export function getDifficultySeed() {
   return {
     difficulty: getDifficulty(),
   };
+}
+
+export function toNormalisedItem(name: string) {
+  const item = toItem(name);
+  return item === Item.none ? name : toNormalisedString(item);
 }
 
 export function toNormalisedString(thing: Item | Monster | Location) {
