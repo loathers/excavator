@@ -59,15 +59,12 @@ async function getPwd() {
 
 async function deleteKmails(ids: number[]) {
   const pwd = await getPwd();
-  const response = await f(
-    "https://www.kingdomofloathing.com/messages.php",
-    {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `the_action=delete&pwd=${pwd}&box=Inbox&${ids.map((id) => `sel${id}=on`).join("&")}`,
-      credentials: "include",
-      method: "POST",
-    },
-  );
+  const response = await f("https://www.kingdomofloathing.com/messages.php", {
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `the_action=delete&pwd=${pwd}&box=Inbox&${ids.map((id) => `sel${id}=on`).join("&")}`,
+    credentials: "include",
+    method: "POST",
+  });
   const text = await response.text();
   return text.includes(`${ids.length} messages deleted.`);
 }
@@ -170,7 +167,9 @@ async function main() {
     }
 
     const deleteSuccess = await deleteKmails(kmails.map((k) => Number(k.id)));
-    deleteSuccess ? console.log("Deleted kmails") : console.error("Failed to delete kmails");
+    deleteSuccess
+      ? console.log("Deleted kmails")
+      : console.error("Failed to delete kmails");
   }
 }
 
