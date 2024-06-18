@@ -37,32 +37,5 @@ export default function Projects() {
 
   if (projects.length === 0) return <Alert>No projects found</Alert>;
 
-  const projectIndex = projects.findIndex((p) => toSlug(p.name) === project);
-
-  return (
-    <Tabs
-      defaultIndex={projectIndex}
-      maxWidth="100%"
-      onChange={(i) => navigate(`./${toSlug(projects[i].name)}`)}
-    >
-      <TabList
-        overflowX="scroll"
-        sx={{
-          scrollbarWidth: "none",
-          "::-webkit-scrollbar": {
-            display: "none",
-          },
-        }}
-        pb={1}
-      >
-        {projects.map((p) => (
-          <Tab key={p.name} sx={{ textWrap: "nowrap" }}>
-            {p.name}
-          </Tab>
-        ))}
-      </TabList>
-      <TabIndicator />
-      <TabPanels>{showSpinner ? <Spinner /> : <Outlet />}</TabPanels>
-    </Tabs>
-  );
+  return showSpinner ? <Spinner /> : <Outlet />;
 }
