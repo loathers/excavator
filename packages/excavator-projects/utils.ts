@@ -81,7 +81,7 @@ export function getDifficultySeed() {
   };
 }
 
-export function toNormalisedString(thing: Item | Monster | Location) {
+export function toNormalisedString(thing: Item | Monster | Location | Path) {
   return `[${thing.id}]${"name" in thing ? thing.name : thing.toString()}`;
 }
 

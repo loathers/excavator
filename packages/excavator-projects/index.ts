@@ -10,6 +10,7 @@ import { DROP_MR_SCREEGES } from "./projects/dropMrScreeges";
 import { GENIE } from "./projects/genie";
 import { HOOKAH } from "./projects/hookah";
 import { JUICE_BAR } from "./projects/juiceBar";
+import { MINI_KIWI } from "./projects/miniKiwi";
 import { MONSTER_PARTS } from "./projects/monsterParts";
 import { MUMMING_TRUNK } from "./projects/mummingTrunk";
 import { OUT_OF_ORDER } from "./projects/outOfOrder";
@@ -30,6 +31,7 @@ export const projects: ExcavatorProject[] = [
   DROP_MIXED_EVERYTHING,
   DROP_MR_CHEENGS,
   DROP_MR_SCREEGES,
+  MINI_KIWI,
   MONSTER_PARTS,
   MUMMING_TRUNK,
   OUT_OF_ORDER,
