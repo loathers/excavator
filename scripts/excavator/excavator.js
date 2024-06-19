@@ -6242,6 +6242,13 @@ function shouldDiscardData(property, data) {
   var _sessionStorage$getIt, sentData = ((_sessionStorage$getIt = import_kolmafia2.sessionStorage.getItem(property)) !== null && _sessionStorage$getIt !== void 0 ? _sessionStorage$getIt : "").split("|");
   return sentData.includes(data) ? !0 : (import_kolmafia2.sessionStorage.setItem(property, [].concat(_toConsumableArray(sentData), [data]).join("|")), !1);
 }
+function isEquippedAtEndOfCombat(item) {
+  if ((0, import_kolmafia2.currentRound)() !== 0) return !1;
+  var items = Array.isArray(item) ? item : [item];
+  return items.some(function(i) {
+    return (0, import_kolmafia2.equippedAmount)(i) > 0;
+  });
+}
 
 // ../excavator-projects/projects/birdADay.ts
 function _slicedToArray(r, e) {
@@ -6464,8 +6471,7 @@ init_kolmafia_polyfill();
 var import_kolmafia5 = require("kolmafia");
 function spadeSweatpants(encounter, page) {
   var _page$match;
-  if ((0, import_kolmafia5.currentRound)() !== 0 || !import_kolmafia5.Item.get(["designer sweatpants", "replica designer sweatpants"]).includes((0, import_kolmafia5.equippedItem)(import_kolmafia5.Slot.get("pants"))))
-    return null;
+  if (!isEquippedAtEndOfCombat(import_kolmafia5.Item.get(["designer sweatpants", "replica designer sweatpants"]))) return null;
   var sweat = Number((_page$match = page.match(/You get (\d)% Sweatier/)) === null || _page$match === void 0 ? void 0 : _page$match[1]);
   if (!sweat) return null;
   var location = toNormalisedString((0, import_kolmafia5.myLocation)());
@@ -6595,7 +6601,7 @@ var DROP_CON_SNOWGLOBE = {
   pattern: /that dinner is still in your refrigerator.*?You acquire an item: <b>(.*?)<\/b>/g
 }];
 function spadeSnowglobe(encounter, page) {
-  if ((0, import_kolmafia7.currentRound)() !== 0 || (0, import_kolmafia7.equippedAmount)(import_kolmafia7.Item.get("KoL Con 13 snowglobe")) < 1) return null;
+  if (!isEquippedAtEndOfCombat(import_kolmafia7.Item.get("KoL Con 13 snowglobe"))) return null;
   var data = [], _iterator = _createForOfIteratorHelper(INDICATORS), _step;
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done; ) {
@@ -6631,7 +6637,7 @@ var DROP_MIXED_EVERYTHING = {
   author: "Rinn",
   hooks: {
     COMBAT_ROUND: function(encounter, page) {
-      if ((0, import_kolmafia8.currentRound)() !== 0 || (0, import_kolmafia8.equippedAmount)(import_kolmafia8.Item.get("can of mixed everything")) < 1) return null;
+      if (!isEquippedAtEndOfCombat(import_kolmafia8.Item.get("can of mixed everything"))) return null;
       var result = page.match(/Something falls out of your can of mixed everything.*?You acquire an item: <b>(.*?)<\/b>/);
       if (!result) return null;
       var item = toNormalisedItem(result[1]);
@@ -6652,7 +6658,7 @@ var DROP_MR_CHEENGS = {
   author: "Rinn",
   hooks: {
     COMBAT_ROUND: function(encounter, page) {
-      if ((0, import_kolmafia9.currentRound)() !== 0 || (0, import_kolmafia9.equippedAmount)(import_kolmafia9.Item.get("Mr. Cheeng's spectacles")) < 1) return null;
+      if (!isEquippedAtEndOfCombat(import_kolmafia9.Item.get("Mr. Cheeng's spectacles"))) return null;
       var result = page.match(/You see a weird thing out of the corner of your eye, and you grab it.\s+Far out, man!.*?You acquire an item: <b>(.*?)<\/b>/);
       if (!result) return null;
       var item = toNormalisedItem(result[1]);
@@ -6673,7 +6679,7 @@ var DROP_MR_SCREEGES = {
   author: "Rinn",
   hooks: {
     COMBAT_ROUND: function(encounter, page) {
-      if ((0, import_kolmafia10.currentRound)() !== 0 || (0, import_kolmafia10.equippedAmount)(import_kolmafia10.Item.get("Mr. Screege's spectacles")) < 1) return null;
+      if (!isEquippedAtEndOfCombat(import_kolmafia10.Item.get("Mr. Screege's spectacles"))) return null;
       var result = page.match(/You notice something valuable hidden .*?You acquire an item: <b>(.*?)<\/b>/);
       if (!result) return null;
       var item = toNormalisedItem(result[1]);
@@ -7313,13 +7319,14 @@ function spadeMummingTrunk(encounter, page) {
 
 // ../excavator-projects/projects/outOfOrder.ts
 init_kolmafia_polyfill();
-var import_kolmafia16 = require("kolmafia"), OUT_OF_ORDER = {
+var import_kolmafia16 = require("kolmafia");
+var OUT_OF_ORDER = {
   name: "Out of Order",
   description: "Determine the relationship between initiative bonus and beeps from the GPS-tracking wristwatch during the Out of Order quest.",
   author: "gausie",
   hooks: {
     COMBAT_ROUND: function(encounter, page) {
-      if ((0, import_kolmafia16.getProperty)("questEspOutOfOrder") === "unstarted" || (0, import_kolmafia16.currentRound)() !== 0 || (0, import_kolmafia16.equippedAmount)(import_kolmafia16.Item.get("GPS-tracking wristwatch")) < 1 || (0, import_kolmafia16.myLocation)() !== import_kolmafia16.Location.get("The Deep Dark Jungle")) return null;
+      if ((0, import_kolmafia16.getProperty)("questEspOutOfOrder") === "unstarted" || !isEquippedAtEndOfCombat(import_kolmafia16.Item.get("GPS-tracking wristwatch")) || (0, import_kolmafia16.myLocation)() !== import_kolmafia16.Location.get("The Deep Dark Jungle")) return null;
       var beeps = page.match(/Your GPS tracker beeps ([0-9]+) times as it zeroes in on your quarry/);
       return beeps ? {
         beeps: beeps[1],
@@ -7382,7 +7389,7 @@ var ZONE_PATTERNS = /* @__PURE__ */ new Map([["Conspiracy Island", /The swarm of
   hooks: {
     COMBAT_ROUND: function(_, page) {
       var _ZONE_PATTERNS$get, _Object$entries$find$, _Object$entries$find;
-      if ((0, import_kolmafia17.currentRound)() !== 0 || (0, import_kolmafia17.equippedAmount)(import_kolmafia17.Item.get("mayfly bait necklace")) < 1) return null;
+      if (!isEquippedAtEndOfCombat(import_kolmafia17.Item.get("mayfly bait necklace"))) return null;
       var specialPattern = (_ZONE_PATTERNS$get = ZONE_PATTERNS.get((0, import_kolmafia17.myLocation)().zone)) !== null && _ZONE_PATTERNS$get !== void 0 ? _ZONE_PATTERNS$get : LOCATION_PATTERNS.get((0, import_kolmafia17.myLocation)());
       if (!specialPattern) return null;
       var swarmResult = page.match(SWARM_PATTERN);
