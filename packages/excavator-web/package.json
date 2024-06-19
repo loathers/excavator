@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
-    "dev": "node --loader tsm ./server.ts",
-    "start": "NODE_ENV=production node --loader tsm ./server.ts",
-    "etl": "node --loader tsm ./etl.ts",
+    "dev": "node --import tsx ./server.ts",
+    "start": "NODE_ENV=production node --import tsx ./server.ts",
+    "etl": "node --import tsx ./etl.ts",
     "format": "prettier --write .",
     "lint": "prettier --check ."
   },
@@ -32,7 +32,8 @@
     "isbot": "5.1.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "spin-delay": "^2.0.0"
+    "spin-delay": "^2.0.0",
+    "tsx": "^4.15.6"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.9.2",
@@ -43,7 +44,6 @@
     "excavator-prettier-config": "^0.0.0",
     "prettier": "^3.3.2",
     "prisma": "^5.15.0",
-    "tsm": "^2.3.0",
     "typescript": "^5.4.5",
     "vite": "^5.3.1"
   },
