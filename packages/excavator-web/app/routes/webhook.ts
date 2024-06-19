@@ -1,8 +1,11 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
+import { projects } from "excavator-projects";
 import crypto from "node:crypto";
 
 import { db } from "../db.server.js";
+
+const VALID_PROJECTs = projects.map((p) => p.name);
 
 type SpadingData = {
   _PROJECT: string;
@@ -60,13 +63,22 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
   const payload = (await request.json()) as SpadingData;
 
+  if (!VALID_PROJECTs.includes(payload._PROJECT))
+    return json(
+      {
+        success: false,
+        message: "The project ${payload._PROJECT} is not a valid project",
+      },
+      200,
+    );
+
   const fixed = applyFixes(payload);
 
   if (fixed === null)
     return json(
       {
         success: false,
-        message: "This project is invalid, please update excavator",
+        message: `The project ${payload._PROJECT} is outdated, please update excavator`,
       },
       200,
     );

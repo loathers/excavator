@@ -1,4 +1,4 @@
-import { getRevision, gitInfo, myId, printHtml, visitUrl } from "kolmafia";
+import { getRevision, gitInfo, myId, print, visitUrl } from "kolmafia";
 
 function getExcavatorVersion() {
   return (
@@ -29,10 +29,6 @@ export function sendSpadingData(projectName: string, data: object) {
   const result = JSON.parse(response);
 
   if (!result.success) {
-    if (result.message === "This project is invalid, please update excavator") {
-      printHtml(
-        `Excavator project <b>${projectName}</b> is invalid, please update excavator.`,
-      );
-    }
+    print(result.message);
   }
 }
