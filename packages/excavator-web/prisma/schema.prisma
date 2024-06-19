@@ -14,7 +14,7 @@ datasource db {
 }
 
 model SpadingData {
-  id        Int      @id
+  id        String      @id @default(uuid())
   createdAt DateTime
   playerId  Int
   project   String

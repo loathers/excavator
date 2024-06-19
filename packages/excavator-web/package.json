@@ -8,7 +8,6 @@
     "build": "remix vite:build",
     "dev": "node --loader tsm ./server.ts",
     "start": "NODE_ENV=production node --loader tsm ./server.ts",
-    "etl": "node --loader tsm ./etl.ts",
     "format": "prettier --write .",
     "lint": "prettier --check ."
   },
@@ -19,7 +18,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.11.5",
-    "@prisma/client": "5.15.0",
+    "@prisma/client": "5.15.1",
     "@remix-run/express": "^2.9.2",
     "@remix-run/node": "^2.9.2",
     "@remix-run/react": "^2.9.2",
@@ -42,7 +41,7 @@
     "@types/react-dom": "^18.3.0",
     "excavator-prettier-config": "^0.0.0",
     "prettier": "^3.3.2",
-    "prisma": "^5.15.0",
+    "prisma": "^5.15.1",
     "tsm": "^2.3.0",
     "typescript": "^5.4.5",
     "vite": "^5.3.1"

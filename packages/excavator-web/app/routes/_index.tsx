@@ -15,11 +15,7 @@ export default function Index() {
             KoLmafia
           </Link>{" "}
           (at least r20145) for collaboratively gathering data while playing the
-          Kingdom of Loathing. It collects sends data via kmail to the player{" "}
-          <Code>Excavator</Code> when possible (i.e. when you're not in an
-          encounter), otherwise it is cached in the <Code>spadingData</Code>{" "}
-          property. The cache can be processed by running the <Code>spade</Code>{" "}
-          command in the CLI.
+          Kingdom of Loathing. It collects sends data here via a webhook.
         </Text>
 
         <Text>
@@ -29,7 +25,8 @@ export default function Index() {
           </Link>{" "}
           are reported (outcomes from combats, state of flags or counters on
           your player etc) and each packet of data can be reviewed and approved
-          before it is sent. No personal information will ever be transmitted.
+          before it is sent. No personal information beyond your player id will
+          ever be transmitted.
         </Text>
 
         <Text>
