@@ -10,6 +10,7 @@ import {
 } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
+import { isEquippedAtEndOfCombat } from "../utils";
 
 export const OUT_OF_ORDER: ExcavatorProject = {
   name: "Out of Order",
@@ -20,10 +21,9 @@ export const OUT_OF_ORDER: ExcavatorProject = {
     COMBAT_ROUND: (encounter: string, page: string) => {
       // Must be on the quest
       if (getProperty("questEspOutOfOrder") === "unstarted") return null;
-      // Must be end of battle
-      if (currentRound() !== 0) return null;
-      // Must be wearing the wristwatch
-      if (equippedAmount(Item.get("GPS-tracking wristwatch")) < 1) return null;
+      // Must be equipped and at the end of a combat
+      if (!isEquippedAtEndOfCombat(Item.get("GPS-tracking wristwatch")))
+        return null;
       // Must be in the jungle
       if (myLocation() !== Location.get("The Deep Dark Jungle")) return null;
       const beeps = page.match(

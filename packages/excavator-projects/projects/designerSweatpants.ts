@@ -1,17 +1,19 @@
-import { currentRound, Item, equippedItem, Slot, myLocation } from "kolmafia";
+import { Item, myLocation } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
-import { shouldDiscardData, toNormalisedString } from "../utils";
+import {
+  isEquippedAtEndOfCombat,
+  shouldDiscardData,
+  toNormalisedString,
+} from "../utils";
 
 function spadeSweatpants(encounter: string, page: string) {
-  if (currentRound() !== 0) return null;
   if (
-    !Item.get(["designer sweatpants", "replica designer sweatpants"]).includes(
-      equippedItem(Slot.get("pants")),
+    !isEquippedAtEndOfCombat(
+      Item.get(["designer sweatpants", "replica designer sweatpants"]),
     )
-  ) {
+  )
     return null;
-  }
 
   const sweat = Number(page.match(/You get (\d)% Sweatier/)?.[1]);
   if (!sweat) return null;

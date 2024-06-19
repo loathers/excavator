@@ -7,6 +7,7 @@ import {
 } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
+import { isEquippedAtEndOfCombat } from "../utils";
 
 const ZONE_PATTERNS = new Map<string, RegExp>([
   [
@@ -76,10 +77,8 @@ export const SUMMON_MAYFLY_SWARM: ExcavatorProject = {
   author: "Rinn",
   hooks: {
     COMBAT_ROUND: (_: string, page: string) => {
-      // Must be end of battle
-      if (currentRound() !== 0) return null;
-      // Must be wearing mayfly bait necklace
-      if (equippedAmount(Item.get("mayfly bait necklace")) < 1) return null;
+      if (!isEquippedAtEndOfCombat(Item.get("mayfly bait necklace")))
+        return null;
       // Must be in a tracked zone or location
       const specialPattern =
         ZONE_PATTERNS.get(myLocation().zone) ??

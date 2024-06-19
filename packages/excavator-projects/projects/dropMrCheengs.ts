@@ -1,7 +1,7 @@
-import { currentRound, equippedAmount, Item } from "kolmafia";
+import { Item } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedItem } from "../utils";
+import { isEquippedAtEndOfCombat, toNormalisedItem } from "../utils";
 
 export const DROP_MR_CHEENGS: ExcavatorProject = {
   name: "Mr. Cheeng's Spectacles",
@@ -10,10 +10,8 @@ export const DROP_MR_CHEENGS: ExcavatorProject = {
   author: "Rinn",
   hooks: {
     COMBAT_ROUND: (encounter: string, page: string) => {
-      // Must be end of battle
-      if (currentRound() !== 0) return null;
-      // Must be wearing Mr. Cheeng's spectacles
-      if (equippedAmount(Item.get("Mr. Cheeng's spectacles")) < 1) return null;
+      if (!isEquippedAtEndOfCombat(Item.get("Mr. Cheeng's spectacles")))
+        return null;
       const result = page.match(
         /You see a weird thing out of the corner of your eye, and you grab it.\s+Far out, man!.*?You acquire an item: <b>(.*?)<\/b>/,
       );
