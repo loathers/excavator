@@ -56,7 +56,7 @@ function applyFixes(data: SpadingData) {
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   if (request.method !== "POST") {
-    return json({ message: "Method not allowed" }, 405);
+    return json({ success: false, message: "Method not allowed" }, 405);
   }
   const payload = (await request.json()) as SpadingData;
 
