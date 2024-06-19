@@ -1,6 +1,8 @@
 import {
   canInteract,
+  currentRound,
   Effect,
+  equippedAmount,
   gamedayToInt,
   getProperty,
   haveEffect,
@@ -101,4 +103,10 @@ export function shouldDiscardData(property: string, data: string) {
 
   sessionStorage.setItem(property, [...sentData, data].join("|"));
   return false;
+}
+
+export function isEquippedAtEndOfCombat(item: Item | Item[]) {
+  if (currentRound() !== 0) return false;
+  const items = Array.isArray(item) ? item : [item];
+  return items.some((i) => equippedAmount(i) > 0);
 }

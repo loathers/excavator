@@ -1,8 +1,8 @@
 import "core-js/modules/es.string.match-all";
-import { currentRound, equippedAmount, Item } from "kolmafia";
+import { Item } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedItem } from "../utils";
+import { isEquippedAtEndOfCombat, toNormalisedItem } from "../utils";
 
 export const DROP_CON_SNOWGLOBE: ExcavatorProject = {
   name: "KoL Con 13 Snowglobe",
@@ -72,10 +72,7 @@ function spadeSnowglobe(
   encounter: string,
   page: string,
 ): SnowglobeData[] | null {
-  // Must be end of battle
-  if (currentRound() !== 0) return null;
-  // Must be wearing KoL Con 13 snowglobe
-  if (equippedAmount(Item.get("KoL Con 13 snowglobe")) < 1) return null;
+  if (!isEquippedAtEndOfCombat(Item.get("KoL Con 13 snowglobe"))) return null;
 
   const data = [];
 

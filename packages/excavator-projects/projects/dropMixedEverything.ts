@@ -1,7 +1,7 @@
 import { currentRound, equippedAmount, Item } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
-import { toNormalisedItem } from "../utils";
+import { isEquippedAtEndOfCombat, toNormalisedItem } from "../utils";
 
 export const DROP_MIXED_EVERYTHING: ExcavatorProject = {
   name: "Can Of Mixed Everything",
@@ -9,10 +9,8 @@ export const DROP_MIXED_EVERYTHING: ExcavatorProject = {
   author: "Rinn",
   hooks: {
     COMBAT_ROUND: (encounter: string, page: string) => {
-      // Must be end of battle
-      if (currentRound() !== 0) return null;
-      // Must be wearing the can of mixed everything
-      if (equippedAmount(Item.get("can of mixed everything")) < 1) return null;
+      if (!isEquippedAtEndOfCombat(Item.get("can of mixed everything")))
+        return null;
       const result = page.match(
         /Something falls out of your can of mixed everything.*?You acquire an item: <b>(.*?)<\/b>/,
       );
