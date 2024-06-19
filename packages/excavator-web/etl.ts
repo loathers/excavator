@@ -42,11 +42,38 @@ async function login() {
   return (await request.text()).includes("main.php");
 }
 
+function isKmailArray(data: unknown): data is Kmail[] {
+  if (!Array.isArray(data)) return false;
+  if (data.length === 0) return true;
+  // Just check the first one
+  const d = data[0];
+  return (
+    typeof d === "object" &&
+    typeof d.id === "string" &&
+    typeof d.message === "string" &&
+    typeof d.fromid === "string" &&
+    typeof d.fromname === "string" &&
+    typeof d.azunixtime === "string" &&
+    typeof d.type === "string" &&
+    typeof d.localtime === "string"
+  );
+}
+
 async function loadKmails() {
   const request = await f(
     "https://www.kingdomofloathing.com/api.php?what=kmail&for=excavator&count=100",
   );
-  return (await request.json()) as Kmail[];
+  try {
+    const results = await request.json();
+    if (!isKmailArray(results)) {
+      console.error("Kmails not in expected format");
+      return [];
+    }
+    return results;
+  } catch (error) {
+    console.error("Failed to load kmails, either logged out or it's rollover");
+    return [];
+  }
 }
 
 async function getPwd() {
