@@ -118,8 +118,8 @@ async function main() {
     return;
   }
 
-  // Try reloading kmails 10 times
-  for (let i = 0; i < 10; i++) {
+  // Try reloading kmails a load of times to deal with volume
+  for (let i = 0; i < 100; i++) {
     const kmails = await loadKmails();
 
     // If there are no kmails, we're done
