@@ -67,7 +67,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return json(
       {
         success: false,
-        message: "The project ${payload._PROJECT} is not a valid project",
+        message: `The project ${payload._PROJECT} is not a valid project`,
       },
       200,
     );
