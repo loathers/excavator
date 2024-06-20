@@ -52,7 +52,11 @@ export default function Project() {
   return (
     <Stack spacing={8} mt={8}>
       <ProjectHeader project={project} projects={projectNames} />
-      {project.completed && <Alert>This project is completed. It is no longer accepting data.</Alert>}
+      {project.completed && (
+        <Alert>
+          This project is completed. It is no longer accepting data.
+        </Alert>
+      )}
       {data.length === 0 ? (
         <Alert>No data for this project yet - you better get excavating!</Alert>
       ) : (
