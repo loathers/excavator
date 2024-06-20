@@ -58,4 +58,5 @@ export const MINI_KIWI: ExcavatorProject = {
     COMBAT_ROUND: spadeKiwi,
   },
   since: 27973, // mini kiwi familiar equipment added
+  completed: true,
 };

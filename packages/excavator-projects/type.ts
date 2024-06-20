@@ -19,4 +19,5 @@ export type ExcavatorProject = {
   author: string;
   hooks: Partial<Hooks>;
   since?: number;
+  completed?: boolean;
 };

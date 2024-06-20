@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import "dotenv/config";
+import { projects } from "excavator-projects";
 import makeFetchCookie from "fetch-cookie";
 import crypto from "node:crypto";
 
@@ -112,6 +113,10 @@ function applyFixes(data: SpadingData) {
   // 2024-03-31: The old version of excavator used to have a capital letter here that annoyed gausie
   if (data._PROJECT === "Fresh Coat Of Paint")
     data._PROJECT = "Fresh Coat of Paint";
+
+  // 24-06-20: Some projects are "completed"
+  const project = projects.find(({ name }) => name === data._PROJECT);
+  if (project?.completed) return null;
 
   // 2024-04-02: Accidentally zero-indexed this item count
   if (data._PROJECT === "Continental Juice Bar" && "item0" in data) {
