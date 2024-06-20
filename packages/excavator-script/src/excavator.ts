@@ -14,7 +14,10 @@ type Event = keyof ExcavatorProject["hooks"];
 
 function main(event: Event, meta: string, page: string) {
   projects
-    .filter(({ hooks, since = 0 }) => event in hooks && since <= getRevision())
+    .filter(
+      ({ hooks, since = 0, completed }) =>
+        !completed && event in hooks && since <= getRevision(),
+    )
     .map(({ name, hooks }) => [name, hooks[event]!(meta, page)] as const)
     .filter(tupleNotNull)
     .forEach(([name, data]) => {

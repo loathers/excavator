@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import "dotenv/config";
+import { projects } from "excavator-projects";
 import makeFetchCookie from "fetch-cookie";
 import crypto from "node:crypto";
 
@@ -162,6 +163,9 @@ async function main() {
         if (fixed === null) continue;
 
         const { _PROJECT, _VERSION, ...data } = fixed;
+
+        if (projects.find((project) => project.name === _PROJECT)?.completed)
+          continue;
 
         const id = Number(kmail.id);
 
