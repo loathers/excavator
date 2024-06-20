@@ -114,6 +114,10 @@ function applyFixes(data: SpadingData) {
   if (data._PROJECT === "Fresh Coat Of Paint")
     data._PROJECT = "Fresh Coat of Paint";
 
+  // 24-06-20: Some projects are "completed"
+  const project = projects.find(({ name }) => name === data._PROJECT);
+  if (project?.completed) return null;
+
   // 2024-04-02: Accidentally zero-indexed this item count
   if (data._PROJECT === "Continental Juice Bar" && "item0" in data) {
     data["item3"] = data["item2"];
@@ -136,9 +140,6 @@ function applyFixes(data: SpadingData) {
   if (data._PROJECT === "Monster Parts" && !("source" in data)) {
     data["source"] = "Unknown";
   }
-
-  const project = projects.find(({ name }) => name === data._PROJECT);
-  if (project?.completed) return null;
 
   return data;
 }
