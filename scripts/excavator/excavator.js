@@ -6874,8 +6874,9 @@ var MINI_KIWI = {
   hooks: {
     COMBAT_ROUND: spadeKiwi
   },
-  since: 27973
+  since: 27973,
   // mini kiwi familiar equipment added
+  completed: !0
 };
 
 // ../excavator-projects/projects/monsterParts.ts
@@ -8677,8 +8678,8 @@ function tupleNotNull(value) {
 }
 function main(event, meta, page) {
   projects.filter(function(_ref) {
-    var hooks = _ref.hooks, _ref$since = _ref.since, since = _ref$since === void 0 ? 0 : _ref$since;
-    return event in hooks && since <= (0, import_kolmafia24.getRevision)();
+    var hooks = _ref.hooks, _ref$since = _ref.since, since = _ref$since === void 0 ? 0 : _ref$since, completed = _ref.completed;
+    return !completed && event in hooks && since <= (0, import_kolmafia24.getRevision)();
   }).map(function(_ref2) {
     var name = _ref2.name, hooks = _ref2.hooks;
     return [name, hooks[event](meta, page)];
