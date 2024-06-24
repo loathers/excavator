@@ -97,7 +97,7 @@ async function deleteKmails(ids: number[]) {
   return text.includes(`${ids.length} messages deleted.`);
 }
 
-function hashData(data: Record<string, string | number | boolean>) {
+export function hashData(data: Record<string, string | number | boolean>) {
   return crypto
     .createHash("md5")
     .update(

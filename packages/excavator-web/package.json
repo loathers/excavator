@@ -10,7 +10,8 @@
     "start": "NODE_ENV=production node --import tsx ./server.ts",
     "etl": "node --import tsx ./etl.ts",
     "format": "prettier --write .",
-    "lint": "prettier --check ."
+    "lint": "prettier --check .",
+    "data-migration:fix-mayfly-zone": "node --import tsx ./prisma/migrations/20240624083527_fix_mayfly_zone/data-migration.ts"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
