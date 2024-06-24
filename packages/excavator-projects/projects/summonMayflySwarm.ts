@@ -89,10 +89,9 @@ export const SUMMON_MAYFLY_SWARM: ExcavatorProject = {
       if (!swarmResult) return null;
       const swarmSize = Number(swarmResult[1]);
       // either zone or location, no need for multiple columns
-      const area =
-        myLocation().zone in ZONE_PATTERNS
-          ? myLocation().zone
-          : `${myLocation()}`;
+      const area = ZONE_PATTERNS.has(myLocation().zone)
+        ? myLocation().zone
+        : `${myLocation()}`;
       const patterns = {
         special: specialPattern,
         item: ITEM_PATTERN,
