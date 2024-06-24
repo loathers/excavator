@@ -7395,7 +7395,7 @@ var ZONE_PATTERNS = /* @__PURE__ */ new Map([["Conspiracy Island", /The swarm of
       if (!specialPattern) return null;
       var swarmResult = page.match(SWARM_PATTERN);
       if (!swarmResult) return null;
-      var swarmSize = Number(swarmResult[1]), area = (0, import_kolmafia17.myLocation)().zone in ZONE_PATTERNS ? (0, import_kolmafia17.myLocation)().zone : "".concat((0, import_kolmafia17.myLocation)()), patterns = {
+      var swarmSize = Number(swarmResult[1]), area = ZONE_PATTERNS.has((0, import_kolmafia17.myLocation)().zone) ? (0, import_kolmafia17.myLocation)().zone : "".concat((0, import_kolmafia17.myLocation)()), patterns = {
         special: specialPattern,
         item: ITEM_PATTERN,
         meat: MEAT_PATTERN
