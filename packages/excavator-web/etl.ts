@@ -144,9 +144,17 @@ function applyFixes(data: SpadingData) {
   return data;
 }
 
+async function resultOrError<T>(promise: Promise<T>, onError: T) {
+  try {
+    return await promise;
+  } catch (error) {
+    return onError;
+  }
+}
+
 async function main() {
-  if (!(await login())) {
-    console.log("Can't log in, probably rollover");
+  if (!resultOrError(login(), false)) {
+    console.warn("Can't log in, probably rollover");
     return;
   }
 
