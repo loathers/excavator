@@ -7006,7 +7006,7 @@ function _arrayLikeToArray6(r, a) {
   return n;
 }
 var MONSTER_PARTS = {
-  name: "Monster Parts",
+  name: "Monster Parts v2",
   description: "Determine what parts are considered to make up each monster.",
   author: "Rinn",
   hooks: {
