@@ -22,7 +22,7 @@ import { ExcavatorProject } from "../type";
 import { isAdventureTextAltered, toNormalisedString } from "../utils";
 
 export const MONSTER_PARTS: ExcavatorProject = {
-  name: "Monster Parts",
+  name: "Monster Parts v2",
   description: "Determine what parts are considered to make up each monster.",
   author: "Rinn",
   hooks: {
