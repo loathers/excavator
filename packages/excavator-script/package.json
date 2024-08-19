@@ -13,30 +13,30 @@
     "watch": "node build.mjs --watch"
   },
   "dependencies": {
-    "core-js": "^3.37.1",
-    "kolmafia": "^5.27983.0",
-    "libram": "^0.9.0"
+    "core-js": "^3.38.0",
+    "kolmafia": "^5.28020.0",
+    "libram": "^0.9.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.7",
+    "@babel/core": "^7.25.2",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
-    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-env": "^7.25.3",
     "@babel/preset-typescript": "^7.24.7",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/node": "^20.14.5",
+    "@types/node": "^22.4.0",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
-    "esbuild": "^0.21.5",
+    "esbuild": "^0.23.1",
     "esbuild-plugin-babel": "^0.2.3",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-libram": "^0.4.8",
-    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-libram": "^0.4.11",
+    "eslint-plugin-prettier": "^5.2.1",
     "excavator-prettier-config": "^0.0.0",
     "excavator-projects": "^0.0.0",
-    "prettier": "^3.3.2",
-    "typescript": "^5.4.5"
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
   },
   "prettier": "excavator-prettier-config"
 }

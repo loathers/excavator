@@ -7,8 +7,8 @@
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/prettier": "^3.0.0",
-    "@vue/compiler-sfc": "^3.4.29",
-    "prettier": "^3.3.2"
+    "@vue/compiler-sfc": "^3.4.38",
+    "prettier": "^3.3.3"
   },
   "scripts": {
     "build": "yarn workspace excavator-script run build",

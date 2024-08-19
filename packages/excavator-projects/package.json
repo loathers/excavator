@@ -10,11 +10,11 @@
   },
   "devDependencies": {
     "excavator-prettier-config": "^0.0.0",
-    "prettier": "^3.3.2",
-    "typescript": "^5.4.5"
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
   },
   "prettier": "excavator-prettier-config",
   "dependencies": {
-    "kolmafia": "^5.27983.0"
+    "kolmafia": "^5.28020.0"
   }
 }
