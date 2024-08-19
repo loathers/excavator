@@ -153,7 +153,7 @@ async function resultOrError<T>(promise: Promise<T>, onError: T) {
 }
 
 async function main() {
-  if (!resultOrError(login(), false)) {
+  if (!(await resultOrError(login(), false))) {
     console.warn("Can't log in, probably rollover");
     return;
   }
