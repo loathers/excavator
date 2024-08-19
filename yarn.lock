@@ -5089,12 +5089,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.4.0":
-  version: 22.4.0
-  resolution: "@types/node@npm:22.4.0"
+"@types/node@npm:^22.4.1":
+  version: 22.4.1
+  resolution: "@types/node@npm:22.4.1"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10c0/84cd094b19a27e0db425f1d02614e4f7ac59b5eb3b21e288c8f8d4d0a4c9ad370107bc1a649d4c2b4e810cd133feea26e0bbf7e7c617f93e9e139d6d2568cf50
+  checksum: 10c0/e42607438fcbd3a6aebd09084868fa0b22a4b0daf9eda79ed615df7ff8ae95e35ea56e090e1f3140ebae76b640abe42d4a6d5b60c0819eadf499adca737305b6
   languageName: node
   linkType: hard
 
@@ -7283,7 +7283,7 @@ __metadata:
   resolution: "excavator-projects@workspace:packages/excavator-projects"
   dependencies:
     excavator-prettier-config: "npm:^0.0.0"
-    kolmafia: "npm:^5.28020.0"
+    kolmafia: "npm:^5.28021.0"
     prettier: "npm:^3.3.3"
     typescript: "npm:^5.5.4"
   languageName: unknown
@@ -7299,7 +7299,7 @@ __metadata:
     "@babel/preset-env": "npm:^7.25.3"
     "@babel/preset-typescript": "npm:^7.24.7"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
-    "@types/node": "npm:^22.4.0"
+    "@types/node": "npm:^22.4.1"
     "@typescript-eslint/eslint-plugin": "npm:^7.13.1"
     "@typescript-eslint/parser": "npm:^7.13.1"
     core-js: "npm:^3.38.0"
@@ -7311,7 +7311,7 @@ __metadata:
     eslint-plugin-prettier: "npm:^5.2.1"
     excavator-prettier-config: "npm:^0.0.0"
     excavator-projects: "npm:^0.0.0"
-    kolmafia: "npm:^5.28020.0"
+    kolmafia: "npm:^5.28021.0"
     libram: "npm:^0.9.4"
     prettier: "npm:^3.3.3"
     typescript: "npm:^5.5.4"
@@ -7344,7 +7344,7 @@ __metadata:
     express: "npm:^4.19.2"
     fetch-cookie: "npm:^3.0.1"
     framer-motion: "npm:^11.3.28"
-    isbot: "npm:5.1.16"
+    isbot: "npm:5.1.17"
     prettier: "npm:^3.3.3"
     prisma: "npm:^5.18.0"
     react: "npm:^18.3.1"
@@ -8408,10 +8408,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isbot@npm:5.1.16":
-  version: 5.1.16
-  resolution: "isbot@npm:5.1.16"
-  checksum: 10c0/363d8ebcc65393e3b23794cfae80763d2ee10f4300d35861d301286892765dc7b134cc050471646905c255d4de3e2133654f21fdb2cb84a1b11c281c84f41334
+"isbot@npm:5.1.17":
+  version: 5.1.17
+  resolution: "isbot@npm:5.1.17"
+  checksum: 10c0/b4adee17c54bee4cfca5ed9ab1b3151f4df558a1d3b37c94bbd3b7e1f7e4a5130efdc2f54bae83e6fe3371d40576dcd90cd7072823a85b9e0a517eb51e057074
   languageName: node
   linkType: hard
 
@@ -8601,10 +8601,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kolmafia@npm:^5.28020.0":
-  version: 5.28020.0
-  resolution: "kolmafia@npm:5.28020.0"
-  checksum: 10c0/3e5ed732594ea0997452bd0bc82db430959d7ab626ee24e9b7df19830b60851f9782894ad6a18a959479544c09a16657522d6f2a23d7fea758759ccb7444a9db
+"kolmafia@npm:^5.28021.0":
+  version: 5.28021.0
+  resolution: "kolmafia@npm:5.28021.0"
+  checksum: 10c0/7c8a118b7070b3b18407240316c4ae40ba5716057aedd4516fa5ece0ca4e68b2d600c1895cba40e68b971faa2f458d0ab4364a0621d62cfa620f8165a57f5f08
   languageName: node
   linkType: hard
 

@@ -15,6 +15,6 @@
   },
   "prettier": "excavator-prettier-config",
   "dependencies": {
-    "kolmafia": "^5.28020.0"
+    "kolmafia": "^5.28021.0"
   }
 }
