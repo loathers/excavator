@@ -19,15 +19,14 @@ export const DROP_CON_SNOWGLOBE: ExcavatorProject = {
     COMBAT_ROUND: (_: string, page: string): ExcavatorData | null => {
       if (!isEquippedAtEndOfCombat(Item.get("KoL Con 13 snowglobe")))
         return null;
-      for (const pattern of PATTERNS) {
-        const result = page.match(pattern);
-        if (!result) continue;
-        const item = toNormalisedItem(result[1]);
-        return {
-          item,
-        };
-      }
-      return null;
+      const result = PATTERNS.reduce(
+        (result, pattern) => result ?? page.match(pattern)?.[1],
+        undefined as string | undefined,
+      );
+      if (!result) return null;
+      return {
+        item: toNormalisedItem(result),
+      };
     },
   },
 };
