@@ -46,7 +46,7 @@
     "prettier": "^3.3.3",
     "prisma": "^5.18.0",
     "typescript": "^5.5.4",
-    "vite": "^5.4.1"
+    "vite": "^5.4.6"
   },
   "prettier": "excavator-prettier-config"
 }
