@@ -27,7 +27,7 @@
     "csv-stringify": "^6.5.1",
     "dotenv": "^16.4.5",
     "excavator-projects": "^0.0.0",
-    "express": "^4.19.2",
+    "express": "^4.20.0",
     "fetch-cookie": "^3.0.1",
     "framer-motion": "^11.3.28",
     "isbot": "5.1.17",
