@@ -7,7 +7,6 @@
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/prettier": "^3.0.0",
-    "@vue/compiler-sfc": "^3.4.38",
     "prettier": "^3.3.3"
   },
   "scripts": {
@@ -19,5 +18,5 @@
   "engines": {
     "node": ">= 18.20"
   },
-  "packageManager": "yarn@4.3.0"
+  "packageManager": "yarn@4.5.0"
 }
