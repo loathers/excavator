@@ -1,4 +1,4 @@
-import { getProperty, getVersion, myClass, myDaycount, myPath } from "kolmafia";
+import { getProperty, getVersion, myClass, myDaycount, myPath, print } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
 
@@ -17,7 +17,7 @@ export const BLACK_AND_WHITE_APRON: ExcavatorProject = {
 
 function spadeBw(page: string) {
   const version = getVersion().match(/KoLmafia r([0-9]+)/)?.[1];
-  if (!version || parseInt(version[1]) < 28071) return null;
+  if (!version || parseInt(version) < 28071) return null;
 
   const main0 = page.match(
     /name="meal"\s+value="0"\s+data-name="([^"]*)"/,
