@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "prisma generate --sql && remix vite:build",
+    "build": "remix vite:build",
     "dev": "node --import tsx ./server.ts",
     "start": "NODE_ENV=production node --import tsx ./server.ts",
     "etl": "node --import tsx ./etl.ts",
