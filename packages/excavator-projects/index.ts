@@ -1,5 +1,6 @@
 import { AUTUMNATON } from "./projects/autumnaton";
 import { BIRD_A_DAY } from "./projects/birdADay";
+import { BLACK_AND_WHITE_APRON } from "./projects/blackAndWhiteApron";
 import { COAT_OF_PAINT } from "./projects/coatOfPaint";
 import { DESIGNER_SWEATPANTS } from "./projects/designerSweatpants";
 import { DROP_BINDLESTOCKING } from "./projects/dropBindlestocking";
@@ -22,6 +23,7 @@ export { ExcavatorProject };
 export const projects: ExcavatorProject[] = [
   AUTUMNATON,
   BIRD_A_DAY,
+  BLACK_AND_WHITE_APRON,
   COAT_OF_PAINT,
   GENIE,
   HOOKAH,
