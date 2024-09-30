@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "core-js": "^3.38.1",
-    "kolmafia": "^5.28068.0",
+    "kolmafia": "^5.28070.0",
     "libram": "^0.9.10"
   },
   "devDependencies": {
@@ -23,20 +23,21 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-typescript": "^7.24.7",
+    "@eslint/js": "^9.11.1",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/node": "^22.7.4",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
     "esbuild": "^0.24.0",
     "esbuild-plugin-babel": "^0.2.3",
-    "eslint": "^8.57.1",
+    "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-libram": "^0.4.13",
     "eslint-plugin-prettier": "^5.2.1",
     "excavator-prettier-config": "^0.0.0",
     "excavator-projects": "^0.0.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.7.0"
   },
   "prettier": "excavator-prettier-config"
 }

@@ -18,7 +18,9 @@ function main(event: Event, meta: string, page: string) {
       ({ hooks, since = 0, completed }) =>
         !completed && event in hooks && since <= getRevision(),
     )
-    .map(({ name, hooks }) => [name, hooks[event]!(meta, page)] as const)
+    .map(
+      ({ name, hooks }) => [name, hooks[event]?.(meta, page) ?? null] as const,
+    )
     .filter(tupleNotNull)
     .forEach(([name, data]) => {
       // Projects are permitted to send a single or multiple data points at a time
