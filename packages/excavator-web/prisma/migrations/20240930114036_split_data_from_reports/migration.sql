@@ -6,7 +6,7 @@ CREATE TEMPORARY TABLE "SpadingDataTemp" AS
   FROM
     "SpadingData"
 );
-TRUNCATE TABLE "SpadingData";
+TRUNCATE TABLE "SpadingData" CASCADE;
 
 -- AlterTable
 CREATE SEQUENCE spadingdata_id_seq;
