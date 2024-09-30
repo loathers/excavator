@@ -8744,8 +8744,8 @@ function main(event, meta, page) {
     var hooks = _ref.hooks, _ref$since = _ref.since, since = _ref$since === void 0 ? 0 : _ref$since, completed = _ref.completed;
     return !completed && event in hooks && since <= (0, import_kolmafia24.getRevision)();
   }).map(function(_ref2) {
-    var name = _ref2.name, hooks = _ref2.hooks;
-    return [name, hooks[event](meta, page)];
+    var _hooks$event, _hooks$event2, name = _ref2.name, hooks = _ref2.hooks;
+    return [name, (_hooks$event = (_hooks$event2 = hooks[event]) === null || _hooks$event2 === void 0 ? void 0 : _hooks$event2.call(hooks, meta, page)) !== null && _hooks$event !== void 0 ? _hooks$event : null];
   }).filter(tupleNotNull).forEach(function(_ref3) {
     var _ref4 = _slicedToArray10(_ref3, 2), name = _ref4[0], data = _ref4[1];
     (Array.isArray(data) ? data : [data]).forEach(function(d) {
