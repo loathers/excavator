@@ -14,11 +14,20 @@ datasource db {
 }
 
 model SpadingData {
-  id        Int      @id
-  createdAt DateTime
+  id       Int      @id @default(autoincrement())
+  project  String
+  version  String
+  data     Json
+  dataHash String
+  reports  Report[]
+
+  @@unique([dataHash, version, project])
+}
+
+model Report {
+  id        Int         @id
   playerId  Int
-  project   String
-  version   String
-  data      Json
-  dataHash  String
+  createdAt DateTime
+  data      SpadingData @relation(fields: [dataId], references: [id])
+  dataId    Int
 }

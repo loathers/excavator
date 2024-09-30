@@ -39,7 +39,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   return json({
     projectNames: projects.map((p) => p.name).sort(),
     project,
-    data: data.map(({ count, ...rest }) => ({ count: Number(count), ...rest })),
+    data,
     total,
   });
 }
@@ -78,7 +78,10 @@ export default function Project() {
                   <Td>
                     <Frequency count={d.count} total={total} />
                   </Td>
-                  {getValuesInKeyOrder(d.data, headers).map((v, i) => (
+                  {getValuesInKeyOrder(
+                    d.data as Record<string, any>,
+                    headers,
+                  ).map((v, i) => (
                     <Td key={headers[i]}>{String(v)}</Td>
                   ))}
                 </Tr>

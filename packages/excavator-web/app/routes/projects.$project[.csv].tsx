@@ -17,11 +17,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     throw new Response("No data found for this project", { status: 404 });
   }
 
-  const csvData = data.map(({ count, data }) => ({
-    count: Number(count),
-    ...data,
-  }));
-  const csvString = stringify(csvData, {
+  const csvString = stringify(data, {
     header: true,
     cast: { boolean: (v) => String(v) },
   });

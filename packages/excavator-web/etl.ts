@@ -174,19 +174,30 @@ async function main() {
 
         if (fixed === null) continue;
 
-        const { _PROJECT, _VERSION, ...data } = fixed;
+        const { _PROJECT: project, _VERSION: version, ...data } = fixed;
+
+        const dataHash = hashData(data);
 
         const id = Number(kmail.id);
 
-        await prisma.spadingData.upsert({
+        await prisma.report.upsert({
           create: {
             id,
             createdAt: new Date(Number(kmail.azunixtime) * 1000),
             playerId: Number(kmail.fromid),
-            project: _PROJECT,
-            version: _VERSION,
-            dataHash: hashData(data),
-            data,
+            data: {
+              connectOrCreate: {
+                where: {
+                  dataHash_version_project: { project, dataHash, version },
+                },
+                create: {
+                  project,
+                  version,
+                  dataHash,
+                  data,
+                },
+              },
+            },
           },
           update: {},
           where: { id },
