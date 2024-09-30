@@ -28,6 +28,6 @@ model Report {
   id        Int         @id
   playerId  Int
   createdAt DateTime
-  data      SpadingData @relation(fields: [dataId], references: [id])
+  data      SpadingData @relation(fields: [dataId], references: [id], onDelete: Cascade)
   dataId    Int
 }
