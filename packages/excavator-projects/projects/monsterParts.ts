@@ -15,6 +15,8 @@ import {
   Monster,
   myFamiliar,
   myLocation,
+  myPath,
+  Path,
   Skill,
 } from "kolmafia";
 
@@ -326,6 +328,9 @@ function spadeMonsterParts(
   page: string,
 ): MonsterPartsData[] | null {
   if (MONSTER_DENYLIST.includes(lastMonster())) return null;
+
+  // in FotD, monster parts are the parts of the dino that ate the monster
+  if (myPath() == Path.get("Fall of the Dinosaurs")) return null;
 
   const monster = toNormalisedString(lastMonster());
   const monsterParts = lastMonster().parts;
