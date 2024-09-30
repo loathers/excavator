@@ -30,8 +30,8 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
   if (!project) throw new Response("No project found", { status: 404 });
 
-  const total = await db.spadingData.count({
-    where: { project: { equals: projectName, mode: "insensitive" } },
+  const total = await db.report.count({
+    where: { data: { project: { equals: projectName, mode: "insensitive" } } },
   });
 
   const data = await loadProjectData(projectName);
