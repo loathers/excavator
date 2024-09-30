@@ -7,7 +7,7 @@ WHERE
 -- Update remaining data to remove type
 UPDATE "SpadingData"
 SET
-  "data" = "data" - "type"
+  "data" = "data" - 'type'
 WHERE
   "project" = 'KoL Con 13 Snowglobe'
   AND "data"->>'type' = 'item'
