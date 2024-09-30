@@ -76,7 +76,7 @@ export default function Project() {
               {data.map((d) => (
                 <Tr key={d.dataHash}>
                   <Td>
-                    <Frequency count={d.count} total={total} />
+                    <Frequency count={d.count ?? 0} total={total} />
                   </Td>
                   {getValuesInKeyOrder(
                     d.data as Record<string, any>,
