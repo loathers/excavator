@@ -1,45 +1,142 @@
-import { CacheProvider } from "@emotion/react";
+import createEmotionCache from "@emotion/cache";
+import { CacheProvider as EmotionCacheProvider } from "@emotion/react";
 import createEmotionServer from "@emotion/server/create-instance";
-import type { EntryContext } from "@remix-run/node";
+import type { AppLoadContext, EntryContext } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
-import React from "react";
-import { renderToString } from "react-dom/server";
+import { Response } from "@remix-run/web-fetch";
+import { isbot } from "isbot";
+import { renderToPipeableStream } from "react-dom/server";
+import { PassThrough } from "stream";
 
-// Depends on the runtime you choose
-import { ServerStyleContext } from "./context.js";
-import createEmotionCache from "./createEmotionCache.js";
+const ABORT_DELAY = 5000;
 
-export default function handleRequest(
+const handleRequest = (
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext,
-) {
-  const cache = createEmotionCache();
-  const { extractCriticalToChunks } = createEmotionServer(cache);
+  // This is ignored so we can keep it in the template for visibility.  Feel
+  // free to delete this parameter in your app if you're not using it!
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  loadContext: AppLoadContext,
+) =>
+  isbot(request.headers.get("user-agent"))
+    ? handleBotRequest(
+        request,
+        responseStatusCode,
+        responseHeaders,
+        remixContext,
+      )
+    : handleBrowserRequest(
+        request,
+        responseStatusCode,
+        responseHeaders,
+        remixContext,
+      );
+export default handleRequest;
 
-  const html = renderToString(
-    <ServerStyleContext.Provider value={null}>
-      <CacheProvider value={cache}>
+const handleBotRequest = (
+  request: Request,
+  responseStatusCode: number,
+  responseHeaders: Headers,
+  remixContext: EntryContext,
+) =>
+  new Promise((resolve, reject) => {
+    let shellRendered = false;
+    const emotionCache = createEmotionCache({ key: "css" });
+
+    const { pipe, abort } = renderToPipeableStream(
+      <EmotionCacheProvider value={emotionCache}>
         <RemixServer context={remixContext} url={request.url} />
-      </CacheProvider>
-    </ServerStyleContext.Provider>,
-  );
+      </EmotionCacheProvider>,
+      {
+        onAllReady: () => {
+          shellRendered = true;
+          const reactBody = new PassThrough();
+          const emotionServer = createEmotionServer(emotionCache);
 
-  const chunks = extractCriticalToChunks(html);
+          const bodyWithStyles = emotionServer.renderStylesToNodeStream();
+          reactBody.pipe(bodyWithStyles);
 
-  const markup = renderToString(
-    <ServerStyleContext.Provider value={chunks.styles}>
-      <CacheProvider value={cache}>
-        <RemixServer context={remixContext} url={request.url} />
-      </CacheProvider>
-    </ServerStyleContext.Provider>,
-  );
+          responseHeaders.set("Content-Type", "text/html");
 
-  responseHeaders.set("Content-Type", "text/html");
+          resolve(
+            // @ts-expect-error: Stream is not compatible with ReadWriteStream
+            new Response(bodyWithStyles, {
+              headers: responseHeaders,
+              status: responseStatusCode,
+            }),
+          );
 
-  return new Response(`<!DOCTYPE html>${markup}`, {
-    status: responseStatusCode,
-    headers: responseHeaders,
+          pipe(reactBody);
+        },
+        onShellError: (error: unknown) => {
+          reject(error);
+        },
+        onError: (error: unknown) => {
+          responseStatusCode = 500;
+          // Log streaming rendering errors from inside the shell.  Don't log
+          // errors encountered during initial shell rendering since they'll
+          // reject and get logged in handleDocumentRequest.
+          if (shellRendered) {
+            console.error(error);
+          }
+        },
+      },
+    );
+
+    setTimeout(abort, ABORT_DELAY);
   });
-}
+
+const handleBrowserRequest = (
+  request: Request,
+  responseStatusCode: number,
+  responseHeaders: Headers,
+  remixContext: EntryContext,
+) =>
+  new Promise((resolve, reject) => {
+    const emotionCache = createEmotionCache({ key: "css" });
+
+    let shellRendered = false;
+    const { pipe, abort } = renderToPipeableStream(
+      <EmotionCacheProvider value={emotionCache}>
+        <RemixServer context={remixContext} url={request.url} />
+      </EmotionCacheProvider>,
+      {
+        onShellReady: () => {
+          shellRendered = true;
+          const reactBody = new PassThrough();
+          const emotionServer = createEmotionServer(emotionCache);
+
+          const bodyWithStyles = emotionServer.renderStylesToNodeStream();
+          reactBody.pipe(bodyWithStyles);
+
+          responseHeaders.set("Content-Type", "text/html");
+
+          resolve(
+            // @ts-expect-error: Stream is not compatible with ReadWriteStream
+            new Response(bodyWithStyles, {
+              headers: responseHeaders,
+              status: responseStatusCode,
+            }),
+          );
+
+          pipe(reactBody);
+        },
+        onShellError: (error: unknown) => {
+          reject(error);
+        },
+        onError: (error: unknown) => {
+          responseStatusCode = 500;
+          // Log streaming rendering errors from inside the shell.  Don't log
+          // errors encountered during initial shell rendering since they'll
+          // reject and get logged in handleDocumentRequest.
+          if (shellRendered) {
+            console.error(error);
+          }
+        },
+      },
+    );
+
+    setTimeout(abort, ABORT_DELAY);
+  });

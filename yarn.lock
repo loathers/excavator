@@ -3555,24 +3555,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/utils@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "@emotion/utils@npm:1.2.1"
-  checksum: 10c0/db43ca803361740c14dfb1cca1464d10d27f4c8b40d3e8864e6932ccf375d1450778ff4e4eadee03fb97f2aeb18de9fae98294905596a12ff7d4cd1910414d8d
-  languageName: node
-  linkType: hard
-
-"@emotion/utils@npm:^1.4.0":
+"@emotion/utils@npm:1.4.0":
   version: 1.4.0
   resolution: "@emotion/utils@npm:1.4.0"
   checksum: 10c0/b2ae698d6e935f4961a8349286b5b0a6117a16e179459cbf9c8d97d5daa7d96c99876b950f09b1a793d6b295713b2c8f89544bd8c3f26b8e4db60a218a0d4c42
-  languageName: node
-  linkType: hard
-
-"@emotion/utils@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "@emotion/utils@npm:1.4.1"
-  checksum: 10c0/f4704e0bdf48062fd6eb9c64771c88f521aab1e108a48cb23d65b6438597c63a6945301cef4c43611e79e0e76a304ec5481c31025ea8f573d7ad5423d747602c
   languageName: node
   linkType: hard
 
