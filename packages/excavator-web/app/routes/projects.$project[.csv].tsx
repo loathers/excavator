@@ -1,3 +1,4 @@
+import { getSpadingDataCounts } from "@prisma/client/sql";
 import {
   LoaderFunctionArgs,
   createReadableStreamFromReadable,
@@ -5,13 +6,15 @@ import {
 import { stringify } from "csv-stringify/sync";
 import { Readable } from "node:stream";
 
+import { db } from "../db.server.js";
 import { fromSlug } from "../utils/utils.js";
-import { loadProjectData } from "../utils/utils.server.js";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const project = fromSlug(params.project || "");
 
-  const data = await loadProjectData(project);
+  const data = await db.$queryRawTyped(
+    getSpadingDataCounts(project, 0, Infinity),
+  );
 
   if (data.length === 0) {
     throw new Response("No data found for this project", { status: 404 });
