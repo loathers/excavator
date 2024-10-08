@@ -13,11 +13,11 @@ export const BAT_WINGS: ExcavatorProject = {
 
 type BatwingData = {
   userAscensionDay: string; // Used to assemble multiple data points into a single cohesive set
-  wingsEquipped: boolean;
-  triggersToday: number;
-  encounterWasFree: boolean;
-  victory: boolean;
-  wingsTriggered: boolean;
+  wingsEquipped: boolean; // We include data without wings equipped in case it's kramco-like
+  triggersToday: number; // Calculated _after_ the wings trigger; so "triggersToday" is 1 on your first trigger
+  encounterWasFree: boolean; // independent of `wingsTriggered`; wings cannot trigger when a fight is natively free
+  victory: boolean; // Checks for WINWINWIN
+  wingsTriggered: boolean; // Checks if the wings triggerd on this particular combat
 }
 
 
