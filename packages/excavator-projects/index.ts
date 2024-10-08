@@ -1,4 +1,5 @@
 import { AUTUMNATON } from "./projects/autumnaton";
+import { BAT_WINGS } from "./projects/batWings";
 import { BIRD_A_DAY } from "./projects/birdADay";
 import { BLACK_AND_WHITE_APRON } from "./projects/blackAndWhiteApron";
 import { COAT_OF_PAINT } from "./projects/coatOfPaint";
@@ -22,6 +23,7 @@ export { ExcavatorProject };
 
 export const projects: ExcavatorProject[] = [
   AUTUMNATON,
+  BAT_WINGS,
   BIRD_A_DAY,
   BLACK_AND_WHITE_APRON,
   COAT_OF_PAINT,
