@@ -17,6 +17,7 @@ type BatwingData = {
   triggersToday: number;
   encounterWasFree: boolean;
   victory: boolean;
+  wingsTriggered: boolean;
 }
 
 
@@ -31,6 +32,7 @@ function spadeBatWings(encounter: string, page: string): BatwingData | null {
   return {
     userAscensionDay: `${myId()};${myAscensions()};${myDaycount()}`,
     wingsEquipped: haveEquipped(Item.get("bat wings")),
+    wingsTriggered,
     triggersToday,
     victory: page.includes("WINWINWIN"),
     encounterWasFree: page.includes('FREEFREEFREE')
