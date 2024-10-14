@@ -4886,6 +4886,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prisma/generator-helper@npm:5.20.0":
+  version: 5.20.0
+  resolution: "@prisma/generator-helper@npm:5.20.0"
+  dependencies:
+    "@prisma/debug": "npm:5.20.0"
+  checksum: 10c0/3628b960b0c3dad40b781e9f226d6bf79423fcb4708c408852e265735709346cf037ae42cad5624cae3ea3884e6919098a0dfeba70d8d379b8dd1049a7a59fb0
+  languageName: node
+  linkType: hard
+
 "@prisma/get-platform@npm:5.20.0":
   version: 5.20.0
   resolution: "@prisma/get-platform@npm:5.20.0"
@@ -7817,6 +7826,7 @@ __metadata:
     isbot: "npm:5.1.17"
     prettier: "npm:^3.3.3"
     prisma: "npm:^5.20.0"
+    prisma-json-types-generator: "npm:^3.1.1"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     spin-delay: "npm:^2.0.1"
@@ -10713,6 +10723,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prisma-json-types-generator@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "prisma-json-types-generator@npm:3.1.1"
+  dependencies:
+    "@prisma/generator-helper": "npm:5.20.0"
+    tslib: "npm:2.7.0"
+  peerDependencies:
+    prisma: ^5.20
+    typescript: ^5.6.2
+  bin:
+    prisma-json-types-generator: index.js
+  checksum: 10c0/d319343fb0611dbe1da269f3a7ea1b795498fabc948522f04fb2f8ee558c3c27620240dd0d71464337fab450b721c7ebdcd5cd58fca5a1a75edf73d5a8980e6b
+  languageName: node
+  linkType: hard
+
 "prisma@npm:^5.20.0":
   version: 5.20.0
   resolution: "prisma@npm:5.20.0"
@@ -12110,6 +12135,13 @@ __metadata:
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 10c0/eb19bda3ae545b03caea6a244b34593468e23d53b26bf8649fbc20fce43e9b21a71127fd6d2b9662c0fe48ee6ff668ead48fd00d3b88b2b716b1c12edae25b5d
+  languageName: node
+  linkType: hard
+
+"tslib@npm:2.7.0":
+  version: 2.7.0
+  resolution: "tslib@npm:2.7.0"
+  checksum: 10c0/469e1d5bf1af585742128827000711efa61010b699cb040ab1800bcd3ccdd37f63ec30642c9e07c4439c1db6e46345582614275daca3e0f4abae29b0083f04a6
   languageName: node
   linkType: hard
 

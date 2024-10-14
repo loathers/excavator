@@ -9,6 +9,10 @@ generator client {
   previewFeatures = ["typedSql"]
 }
 
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -18,6 +22,7 @@ model SpadingData {
   id       Int      @id @default(autoincrement())
   project  String
   version  String
+  /// [SpadingDataObject]
   data     Json
   dataHash String
   reports  Report[]

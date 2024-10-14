@@ -45,6 +45,7 @@
     "excavator-prettier-config": "^0.0.0",
     "prettier": "^3.3.3",
     "prisma": "^5.20.0",
+    "prisma-json-types-generator": "^3.1.1",
     "typescript": "^5.6.2",
     "vite": "^5.4.8"
   },

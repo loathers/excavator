@@ -1,3 +1,4 @@
+import { SpadingData } from "@prisma/client";
 import { getSpadingDataCounts } from "@prisma/client/sql";
 import {
   LoaderFunctionArgs,
@@ -12,9 +13,12 @@ import { fromSlug } from "../utils/utils.js";
 export async function loader({ params }: LoaderFunctionArgs) {
   const project = fromSlug(params.project || "");
 
-  const data = await db.$queryRawTyped(
-    getSpadingDataCounts(project, 0, Infinity),
-  );
+  const data = (
+    await db.$queryRawTyped(getSpadingDataCounts(project, 0, Infinity))
+  ).map(({ count, data }) => ({
+    ...(data as SpadingData["data"]),
+    _COUNT: count,
+  }));
 
   if (data.length === 0) {
     throw new Response("No data found for this project", { status: 404 });

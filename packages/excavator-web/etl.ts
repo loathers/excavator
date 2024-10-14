@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, SpadingData } from "@prisma/client";
 import "dotenv/config";
 import { projects } from "excavator-projects";
 import makeFetchCookie from "fetch-cookie";
@@ -6,6 +6,11 @@ import crypto from "node:crypto";
 
 const f = makeFetchCookie(fetch);
 const prisma = new PrismaClient();
+
+type SpadingDataSubmission = SpadingData["data"] & {
+  _VERSION: string;
+  _PROJECT: string;
+};
 
 type Kmail = {
   id: string;
@@ -15,12 +20,6 @@ type Kmail = {
   localtime: string;
   azunixtime: string;
   message: string;
-};
-
-type SpadingData = {
-  _PROJECT: string;
-  _VERSION: string;
-  [key: string]: string | number | boolean;
 };
 
 function createBody(data: Record<string, string>) {
@@ -109,7 +108,7 @@ export function hashData(data: Record<string, string | number | boolean>) {
     .digest("hex");
 }
 
-function applyFixes(data: SpadingData) {
+function applyFixes(data: SpadingDataSubmission) {
   // 2024-03-31: The old version of excavator used to have a capital letter here that annoyed gausie
   if (data._PROJECT === "Fresh Coat Of Paint")
     data._PROJECT = "Fresh Coat of Paint";
@@ -170,7 +169,7 @@ async function main() {
         const message = decodeURIComponent(
           kmail.message.replace(/ /g, "").replace(/\+/g, " "),
         );
-        const fixed = applyFixes(JSON.parse(message) as SpadingData);
+        const fixed = applyFixes(JSON.parse(message) as SpadingDataSubmission);
 
         if (fixed === null) continue;
 
