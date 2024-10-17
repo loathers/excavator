@@ -140,6 +140,11 @@ function applyFixes(data: SpadingDataSubmission) {
     data["source"] = "Unknown";
   }
 
+  if (data._PROJECT === "KoL Con 13 Snowglobe" && "type" in data) {
+    if (data.type === "substat") return null;
+    delete data["type"];
+  }
+
   return data;
 }
 
