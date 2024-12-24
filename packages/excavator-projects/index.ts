@@ -40,5 +40,5 @@ export const projects: ExcavatorProject[] = [
   OUT_OF_ORDER,
   DESIGNER_SWEATPANTS,
   SUMMON_MAYFLY_SWARM,
-  TEMPORAL_RIFTLET
+  TEMPORAL_RIFTLET,
 ];
