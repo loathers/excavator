@@ -16,6 +16,7 @@ import { MONSTER_PARTS } from "./projects/monsterParts";
 import { MUMMING_TRUNK } from "./projects/mummingTrunk";
 import { OUT_OF_ORDER } from "./projects/outOfOrder";
 import { SUMMON_MAYFLY_SWARM } from "./projects/summonMayflySwarm";
+import { TEMPORAL_RIFTLET } from "./projects/temporalRiftlet";
 import type { ExcavatorProject } from "./type";
 
 export { ExcavatorProject };
@@ -39,4 +40,5 @@ export const projects: ExcavatorProject[] = [
   OUT_OF_ORDER,
   DESIGNER_SWEATPANTS,
   SUMMON_MAYFLY_SWARM,
+  TEMPORAL_RIFTLET,
 ];
