@@ -7459,7 +7459,8 @@ var TEMPORAL_RIFTLET = {
   author: "sweaty bill",
   hooks: {
     COMBAT_ROUND: spadeRiftlet
-  }
+  },
+  completed: !0
 };
 
 // ../excavator-projects/index.ts
