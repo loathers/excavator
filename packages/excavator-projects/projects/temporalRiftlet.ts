@@ -40,4 +40,5 @@ export const TEMPORAL_RIFTLET: ExcavatorProject = {
   hooks: {
     COMBAT_ROUND: spadeRiftlet,
   },
+  completed: true,
 };
