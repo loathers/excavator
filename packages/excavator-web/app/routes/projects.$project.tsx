@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { getSpadingDataCounts } from "@prisma/client/sql";
 import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
-import { useLoaderData, useLocation, useNavigate } from "@remix-run/react";
+import { useLoaderData, useNavigate } from "@remix-run/react";
 import { projects } from "excavator-projects";
 import { useCallback } from "react";
 
@@ -52,14 +52,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     getSpadingDataCounts(project.name, page * PER_PAGE, PER_PAGE),
   );
 
-  return json({
+  return {
     projectNames: projects.map((p) => p.name).sort(),
     project,
     data,
     total,
     page,
     pages,
-  });
+  };
 }
 
 export default function Project() {
