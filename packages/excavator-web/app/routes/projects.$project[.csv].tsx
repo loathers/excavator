@@ -1,11 +1,9 @@
-import { SpadingData } from "@prisma/client";
+import { type SpadingData } from "@prisma/client";
 import { getSpadingDataCounts } from "@prisma/client/sql";
-import {
-  LoaderFunctionArgs,
-  createReadableStreamFromReadable,
-} from "@remix-run/node";
+import { createReadableStreamFromReadable } from "@react-router/node";
 import { stringify } from "csv-stringify/sync";
 import { Readable } from "node:stream";
+import { type LoaderFunctionArgs } from "react-router";
 
 import { db } from "../db.server.js";
 import { fromSlug } from "../utils/utils.js";

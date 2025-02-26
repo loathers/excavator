@@ -9,8 +9,8 @@ import {
   MenuButton,
   MenuList,
 } from "@chakra-ui/react";
-import { Link as RemixLink, useNavigate } from "@remix-run/react";
 import { ExcavatorProject } from "excavator-projects";
+import { Link as RRLink, useNavigate } from "react-router";
 
 import { toSlug } from "../utils/utils.js";
 
@@ -39,7 +39,7 @@ export function ProjectHeader({ project, projects }: Props) {
       <Text>{project.description}</Text>
       <Box flex={1} />
       <Button
-        as={RemixLink}
+        as={RRLink}
         size="xs"
         rightIcon={<>⬇</>}
         to={`../${toSlug(project.name)}.csv`}

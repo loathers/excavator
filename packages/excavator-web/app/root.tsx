@@ -1,9 +1,9 @@
 import { ChakraProvider, Container, Heading, Stack } from "@chakra-ui/react";
 import { withEmotionCache } from "@emotion/react";
-import { LinksFunction, MetaFunction } from "@remix-run/node";
-import { Link, Links, Meta, Outlet, Scripts } from "@remix-run/react";
 import React from "react";
 import { useContext, useEffect } from "react";
+import { LinksFunction, MetaFunction } from "react-router";
+import { Link, Links, Meta, Outlet, Scripts } from "react-router";
 
 import { ClientStyleContext, ServerStyleContext } from "./context.js";
 import faviconUrl from "./favicon.png";

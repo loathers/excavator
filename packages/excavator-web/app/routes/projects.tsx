@@ -1,13 +1,13 @@
 import { Alert, Spinner } from "@chakra-ui/react";
-import { MetaFunction } from "@remix-run/node";
+import { projects } from "excavator-projects";
+import { useEffect } from "react";
 import {
+  type MetaFunction,
   Outlet,
   useNavigate,
   useNavigation,
   useParams,
-} from "@remix-run/react";
-import { projects } from "excavator-projects";
-import { useEffect } from "react";
+} from "react-router";
 import { useSpinDelay } from "spin-delay";
 
 import { toSlug } from "../utils/utils.js";

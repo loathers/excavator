@@ -10,10 +10,14 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { getSpadingDataCounts } from "@prisma/client/sql";
-import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
-import { useLoaderData, useNavigate } from "@remix-run/react";
 import { projects } from "excavator-projects";
 import { useCallback } from "react";
+import {
+  type LoaderFunctionArgs,
+  type MetaFunction,
+  useLoaderData,
+  useNavigate,
+} from "react-router";
 
 import { Frequency } from "../components/Frequency.js";
 import { Pagination } from "../components/Pagination.js";

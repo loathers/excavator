@@ -1,5 +1,5 @@
 import { Button, Code, Link, Stack, Text } from "@chakra-ui/react";
-import { Link as RemixLink } from "@remix-run/react";
+import { Link as RemixLink } from "react-router";
 
 export default function Index() {
   return (
