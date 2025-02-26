@@ -22,6 +22,7 @@
     "@react-router/express": "^7.2.0",
     "@react-router/fs-routes": "^7.2.0",
     "@react-router/node": "^7.2.0",
+    "@react-router/serve": "^7.2.0",
     "csv-stringify": "^6.5.2",
     "dotenv": "^16.4.7",
     "excavator-projects": "^0.0.0",
