@@ -44,7 +44,7 @@ function spadeKick(encounter: string, page: string): ZootomistKickData | null {
     sniffCopies:
       page.match(
         /Your kick lacerates your foe(?:'s|s') .*?, and .*? starts trailing bodily ichor that you can track. \(You will be (.*?) likely to encounter this foe until you track something else\.\)/,
-      )?.[1] ?? "0",
+      )?.[1] ?? "",
     banishTurns: banish?.[1] ?? "0",
     banishELBDuration: banish?.[2] ?? "0",
     banishFree: !!(banish?.[3] ?? ""),
