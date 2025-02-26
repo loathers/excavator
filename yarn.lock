@@ -3187,6 +3187,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@remix-run/fs-routes@npm:^2.15.3":
+  version: 2.15.3
+  resolution: "@remix-run/fs-routes@npm:2.15.3"
+  peerDependencies:
+    "@remix-run/dev": ^2.15.3
+    "@remix-run/route-config": ^2.15.3
+    typescript: ^5.1.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10c0/1c4888a5c3ed87e5ba135b69dae2defa5445943b34d7e85557eb0ebc3d7eed1c8eaf87d9adf71a4e1dee9df0e5756d1e6e79c308893ffb5f03d8c4f3414c5386
+  languageName: node
+  linkType: hard
+
 "@remix-run/node@npm:2.15.3, @remix-run/node@npm:^2.15.3":
   version: 2.15.3
   resolution: "@remix-run/node@npm:2.15.3"
@@ -3224,6 +3238,21 @@ __metadata:
     typescript:
       optional: true
   checksum: 10c0/8af6c95984ce8794bf4a21102ae2f42e7e597726b675f489e9b20d41fb4dd4dfc057ae92af47af3fd0d7cb50d936247920a51c77207f30f14267a4f10c4402f3
+  languageName: node
+  linkType: hard
+
+"@remix-run/route-config@npm:^2.15.3":
+  version: 2.15.3
+  resolution: "@remix-run/route-config@npm:2.15.3"
+  dependencies:
+    lodash: "npm:^4.17.21"
+  peerDependencies:
+    "@remix-run/dev": ^2.15.3
+    typescript: ^5.1.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10c0/f3cac49c7fbd6c91e637554cc2f8301838e9cca7228332921d32a10aa88e63bce59bfc1d99d5c2a4da974123c124984b4e9a1d3375662bdbd2b016686ebf8c0e
   languageName: node
   linkType: hard
 
@@ -5844,8 +5873,10 @@ __metadata:
     "@prisma/client": "npm:6.4.1"
     "@remix-run/dev": "npm:^2.15.3"
     "@remix-run/express": "npm:^2.15.3"
+    "@remix-run/fs-routes": "npm:^2.15.3"
     "@remix-run/node": "npm:^2.15.3"
     "@remix-run/react": "npm:^2.15.3"
+    "@remix-run/route-config": "npm:^2.15.3"
     "@trivago/prettier-plugin-sort-imports": "npm:^5.2.2"
     "@types/express": "npm:^5.0.0"
     "@types/react": "npm:^19.0.10"
