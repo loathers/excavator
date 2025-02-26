@@ -1,8 +1,7 @@
 import { Alert, Stack, Table } from "@chakra-ui/react";
 import { getSpadingDataCounts } from "@prisma/client/sql";
 import { projects } from "excavator-projects";
-import { useCallback } from "react";
-import { type MetaFunction, useLoaderData, useNavigate } from "react-router";
+import { useLoaderData } from "react-router";
 
 import { Frequency } from "../components/Frequency.js";
 import { Pagination } from "../components/Pagination.js";
@@ -30,14 +29,12 @@ export async function loader({ params, request }: Route.LoaderArgs) {
     where: { data: { project: { equals: projectName, mode: "insensitive" } } },
   });
 
-  const pages = Math.ceil(
-    (
-      await db.spadingData.groupBy({
-        by: ["dataHash"],
-        where: { project: { equals: projectName, mode: "insensitive" } },
-      })
-    ).length / PER_PAGE,
-  );
+  const count = (
+    await db.spadingData.groupBy({
+      by: ["dataHash"],
+      where: { project: { equals: projectName, mode: "insensitive" } },
+    })
+  ).length;
 
   const data = await db.$queryRawTyped(
     getSpadingDataCounts(project.name, page * PER_PAGE, PER_PAGE),
@@ -48,26 +45,17 @@ export async function loader({ params, request }: Route.LoaderArgs) {
     project,
     data,
     total,
+    count,
     pageSize: PER_PAGE,
     page,
-    pages,
   };
 }
 
 export default function Project() {
-  const { data, total, project, projectNames, pageSize, pages, page } =
+  const { data, count, total, project, projectNames, pageSize, page } =
     useLoaderData<typeof loader>();
 
   const headers = Object.keys(data.at(0)?.data ?? {});
-
-  const navigate = useNavigate();
-
-  const changePage = useCallback(
-    (nextPage: number) => {
-      navigate(`?page=${nextPage + 1}`);
-    },
-    [navigate],
-  );
 
   return (
     <Stack gap={8} my={8}>
@@ -82,13 +70,8 @@ export default function Project() {
           No data for this project yet - you better get excavating!
         </Alert.Root>
       ) : (
-        <Stack>
-          <Pagination
-            count={total}
-            pageSize={pageSize}
-            page={page}
-            onPageChange={changePage}
-          />
+        <Stack alignItems="center">
+          <Pagination count={count} pageSize={pageSize} page={page} />
           <Table.ScrollArea>
             <Table.Root>
               <Table.Header>
@@ -120,12 +103,7 @@ export default function Project() {
               </Table.Body>
             </Table.Root>
           </Table.ScrollArea>
-          <Pagination
-            count={total}
-            pageSize={pageSize}
-            page={page}
-            onPageChange={changePage}
-          />
+          <Pagination count={count} pageSize={pageSize} page={page} />
         </Stack>
       )}
     </Stack>
