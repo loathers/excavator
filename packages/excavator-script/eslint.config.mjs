@@ -1,13 +1,11 @@
 // @ts-check
 import eslint from "@eslint/js";
-import prettier from "eslint-config-prettier";
 import * as libram from "eslint-plugin-libram";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
-  prettier,
   {
     plugins: { libram },
     languageOptions: {
