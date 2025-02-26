@@ -1,13 +1,15 @@
+import { Stack, Box, PaginationNextTrigger } from "@chakra-ui/react";
+
 import {
-  Stack,
-  Box,
-  PaginationNextTrigger,
-} from "@chakra-ui/react";
-import { PaginationItems, PaginationPageText, PaginationPrevTrigger, PaginationRoot } from "./ui/pagination";
+  PaginationItems,
+  PaginationPageText,
+  PaginationPrevTrigger,
+  PaginationRoot,
+} from "./ui/pagination";
 
 type Props = {
   count: number;
-  pageSize: number,
+  pageSize: number;
   page: number;
   onPageChange: (page: number) => any;
 };

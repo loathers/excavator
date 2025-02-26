@@ -10,9 +10,9 @@ type Params = {
   "/": {};
   "/projects": {};
   "/projects/:project.csv": {
-    "project": string;
+    project: string;
   };
   "/projects/:project": {
-    "project": string;
+    project: string;
   };
 };

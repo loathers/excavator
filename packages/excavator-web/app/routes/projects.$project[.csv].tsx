@@ -8,7 +8,9 @@ import { type LoaderFunctionArgs } from "react-router";
 import { db } from "../db.server.js";
 import { fromSlug } from "../utils/utils.js";
 
-export async function loader({ params }: LoaderFunctionArgs) {
+import { Route } from "./+types/projects.$project[.csv].js";
+
+export async function loader({ params }: Route.LoaderArgs) {
   const project = fromSlug(params.project || "");
 
   const data = (

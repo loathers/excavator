@@ -2,12 +2,7 @@ import { Alert, Stack, Table } from "@chakra-ui/react";
 import { getSpadingDataCounts } from "@prisma/client/sql";
 import { projects } from "excavator-projects";
 import { useCallback } from "react";
-import {
-  type LoaderFunctionArgs,
-  type MetaFunction,
-  useLoaderData,
-  useNavigate,
-} from "react-router";
+import { type MetaFunction, useLoaderData, useNavigate } from "react-router";
 
 import { Frequency } from "../components/Frequency.js";
 import { Pagination } from "../components/Pagination.js";
@@ -15,13 +10,15 @@ import { ProjectHeader } from "../components/ProjectHeader.js";
 import { db } from "../db.server.js";
 import { fromSlug, getValuesInKeyOrder } from "../utils/utils.js";
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
+import { type Route } from "./+types/projects.$project";
+
+export const meta = ({ data }: Route.MetaArgs) => {
   return [{ title: `Excavator ♠️ - ${data?.project.name}` }];
 };
 
 const PER_PAGE = 50;
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
+export async function loader({ params, request }: Route.LoaderArgs) {
   const page = (Number(new URL(request.url).searchParams.get("page")) || 1) - 1;
   const projectName = fromSlug(params.project || "");
 
@@ -81,10 +78,17 @@ export default function Project() {
         </Alert.Root>
       )}
       {data.length === 0 ? (
-        <Alert.Root>No data for this project yet - you better get excavating!</Alert.Root>
+        <Alert.Root>
+          No data for this project yet - you better get excavating!
+        </Alert.Root>
       ) : (
         <Stack>
-          <Pagination count={total} pageSize={pageSize} page={page} onPageChange={changePage} />
+          <Pagination
+            count={total}
+            pageSize={pageSize}
+            page={page}
+            onPageChange={changePage}
+          />
           <Table.ScrollArea>
             <Table.Root>
               <Table.Header>
@@ -116,7 +120,12 @@ export default function Project() {
               </Table.Body>
             </Table.Root>
           </Table.ScrollArea>
-          <Pagination count={total} pageSize={pageSize} page={page} onPageChange={changePage} />
+          <Pagination
+            count={total}
+            pageSize={pageSize}
+            page={page}
+            onPageChange={changePage}
+          />
         </Stack>
       )}
     </Stack>

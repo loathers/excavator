@@ -35,7 +35,13 @@ export default function Projects() {
           <RRLink to="/">Excavator ♠️</RRLink>
         </Link>
       </Heading>
-      {projects.length === 0 ? <Alert.Root>No projects found</Alert.Root> : (showSpinner ? <Spinner /> : <Outlet />)}
+      {projects.length === 0 ? (
+        <Alert.Root>No projects found</Alert.Root>
+      ) : showSpinner ? (
+        <Spinner />
+      ) : (
+        <Outlet />
+      )}
     </Stack>
-  )
+  );
 }

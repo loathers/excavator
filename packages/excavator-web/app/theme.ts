@@ -20,4 +20,3 @@ export const theme = createSystem(defaultConfig, {
     },
   },
 });
-

@@ -52,7 +52,9 @@ export default function Index() {
           <Text>
             It is maintained by{" "}
             <Link asChild>
-              <RRLink to="https://github.com/gausie">gausie <LuExternalLink /></RRLink>
+              <RRLink to="https://github.com/gausie">
+                gausie <LuExternalLink />
+              </RRLink>
             </Link>{" "}
             (#1197090).
           </Text>
