@@ -1,4 +1,4 @@
-import { PrismaClient, SpadingData } from "@prisma/client";
+import { PrismaClient, type SpadingData } from "@prisma/client";
 import "dotenv/config";
 import { projects } from "excavator-projects";
 import makeFetchCookie from "fetch-cookie";

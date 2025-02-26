@@ -29,7 +29,6 @@
     "esbuild": "^0.25.0",
     "esbuild-plugin-babel": "^0.2.3",
     "eslint": "^9.21.0",
-    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-libram": "^0.4.23",
     "excavator-prettier-config": "^0.0.0",
     "excavator-projects": "^0.0.0",

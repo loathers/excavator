@@ -1,14 +1,4 @@
-import {
-  Alert,
-  Stack,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import { Alert, Stack, Table } from "@chakra-ui/react";
 import { getSpadingDataCounts } from "@prisma/client/sql";
 import { projects } from "excavator-projects";
 import { useCallback } from "react";
@@ -61,13 +51,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     project,
     data,
     total,
+    pageSize: PER_PAGE,
     page,
     pages,
   };
 }
 
 export default function Project() {
-  const { data, total, project, projectNames, pages, page } =
+  const { data, total, project, projectNames, pageSize, pages, page } =
     useLoaderData<typeof loader>();
 
   const headers = Object.keys(data.at(0)?.data ?? {});
@@ -82,48 +73,50 @@ export default function Project() {
   );
 
   return (
-    <Stack spacing={8} my={8}>
+    <Stack gap={8} my={8}>
       <ProjectHeader project={project} projects={projectNames} />
       {project.completed && (
-        <Alert>
+        <Alert.Root>
           This project is completed. It is no longer accepting data.
-        </Alert>
+        </Alert.Root>
       )}
       {data.length === 0 ? (
-        <Alert>No data for this project yet - you better get excavating!</Alert>
+        <Alert.Root>No data for this project yet - you better get excavating!</Alert.Root>
       ) : (
         <Stack>
-          <Pagination pages={pages} value={page} onChange={changePage} />
-          <TableContainer>
-            <Table>
-              <Thead>
-                <Tr>
-                  <Th>
+          <Pagination count={total} pageSize={pageSize} page={page} onPageChange={changePage} />
+          <Table.ScrollArea>
+            <Table.Root>
+              <Table.Header>
+                <Table.Row>
+                  <Table.ColumnHeader>
                     <span title="Frequency">&#119891;</span>
-                  </Th>
+                  </Table.ColumnHeader>
                   {headers.map((h) => (
-                    <Th key={h}>{h.replace(/_/g, " ")}</Th>
+                    <Table.ColumnHeader key={h}>
+                      {h.replace(/_/g, " ")}
+                    </Table.ColumnHeader>
                   ))}
-                </Tr>
-              </Thead>
-              <Tbody>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
                 {data.map((d) => (
-                  <Tr key={d.dataHash}>
-                    <Td>
+                  <Table.Row key={d.dataHash}>
+                    <Table.Cell>
                       <Frequency count={d.count ?? 0} total={total} />
-                    </Td>
+                    </Table.Cell>
                     {getValuesInKeyOrder(
                       d.data as Record<string, any>,
                       headers,
                     ).map((v, i) => (
-                      <Td key={headers[i]}>{String(v)}</Td>
+                      <Table.Cell key={headers[i]}>{String(v)}</Table.Cell>
                     ))}
-                  </Tr>
+                  </Table.Row>
                 ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
-          <Pagination pages={pages} value={page} onChange={changePage} />
+              </Table.Body>
+            </Table.Root>
+          </Table.ScrollArea>
+          <Pagination count={total} pageSize={pageSize} page={page} onPageChange={changePage} />
         </Stack>
       )}
     </Stack>

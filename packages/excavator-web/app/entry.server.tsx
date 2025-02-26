@@ -1,142 +1,122 @@
 import createEmotionCache from "@emotion/cache";
 import { CacheProvider as EmotionCacheProvider } from "@emotion/react";
 import createEmotionServer from "@emotion/server/create-instance";
-import { Response } from "@react-router/web-fetch";
+import { createReadableStreamFromReadable } from "@react-router/node";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import type { AppLoadContext, EntryContext } from "react-router";
-import { ServerRouter } from "react-router";
+import { type EntryContext, ServerRouter } from "react-router";
 import { PassThrough } from "stream";
 
 const ABORT_DELAY = 5000;
 
-const handleRequest = (
+export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  reactRouterContext: EntryContext,
-  // This is ignored so we can keep it in the template for visibility.  Feel
-  // free to delete this parameter in your app if you're not using it!
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  loadContext: AppLoadContext,
-) =>
-  isbot(request.headers.get("user-agent"))
-    ? handleBotRequest(
-        request,
-        responseStatusCode,
-        responseHeaders,
-        reactRouterContext,
-      )
+  context: EntryContext,
+) {
+  return isbot(request.headers.get("user-agent"))
+    ? handleBotRequest(request, responseStatusCode, responseHeaders, context)
     : handleBrowserRequest(
         request,
         responseStatusCode,
         responseHeaders,
-        reactRouterContext,
+        context,
       );
-export default handleRequest;
+}
 
-const handleBotRequest = (
+function handleBotRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  reactRouterContext: EntryContext,
-) =>
-  new Promise((resolve, reject) => {
-    let shellRendered = false;
+  context: EntryContext,
+) {
+  return new Promise((resolve, reject) => {
+    let didError = false;
     const emotionCache = createEmotionCache({ key: "css" });
 
     const { pipe, abort } = renderToPipeableStream(
       <EmotionCacheProvider value={emotionCache}>
-        <ServerRouter context={reactRouterContext} url={request.url} />
+        <ServerRouter context={context} url={request.url} />
       </EmotionCacheProvider>,
       {
-        onAllReady: () => {
-          shellRendered = true;
-          const reactBody = new PassThrough();
+        onAllReady() {
+          const body = new PassThrough();
           const emotionServer = createEmotionServer(emotionCache);
 
           const bodyWithStyles = emotionServer.renderStylesToNodeStream();
-          reactBody.pipe(bodyWithStyles);
+          body.pipe(bodyWithStyles);
 
           responseHeaders.set("Content-Type", "text/html");
 
           resolve(
-            // @ts-expect-error: Stream is not compatible with ReadWriteStream
-            new Response(bodyWithStyles, {
+            new Response(createReadableStreamFromReadable(body), {
               headers: responseHeaders,
-              status: responseStatusCode,
+              status: didError ? 500 : responseStatusCode,
             }),
           );
 
-          pipe(reactBody);
+          pipe(body);
         },
-        onShellError: (error: unknown) => {
+        onShellError(error: unknown) {
           reject(error);
         },
-        onError: (error: unknown) => {
-          responseStatusCode = 500;
-          // Log streaming rendering errors from inside the shell.  Don't log
-          // errors encountered during initial shell rendering since they'll
-          // reject and get logged in handleDocumentRequest.
-          if (shellRendered) {
-            console.error(error);
-          }
+        onError(error: unknown) {
+          didError = true;
+
+          console.error(error);
         },
       },
     );
 
     setTimeout(abort, ABORT_DELAY);
   });
+}
 
-const handleBrowserRequest = (
+function handleBrowserRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  reactRouterContext: EntryContext,
-) =>
-  new Promise((resolve, reject) => {
+  context: EntryContext,
+) {
+  return new Promise((resolve, reject) => {
+    let didError = false;
     const emotionCache = createEmotionCache({ key: "css" });
 
-    let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
       <EmotionCacheProvider value={emotionCache}>
-        <ServerRouter context={reactRouterContext} url={request.url} />
+        <ServerRouter context={context} url={request.url} />
       </EmotionCacheProvider>,
       {
-        onShellReady: () => {
-          shellRendered = true;
-          const reactBody = new PassThrough();
+        onShellReady() {
+          const body = new PassThrough();
           const emotionServer = createEmotionServer(emotionCache);
 
           const bodyWithStyles = emotionServer.renderStylesToNodeStream();
-          reactBody.pipe(bodyWithStyles);
+          body.pipe(bodyWithStyles);
 
           responseHeaders.set("Content-Type", "text/html");
 
           resolve(
-            // @ts-expect-error: Stream is not compatible with ReadWriteStream
-            new Response(bodyWithStyles, {
+            new Response(createReadableStreamFromReadable(body), {
               headers: responseHeaders,
-              status: responseStatusCode,
+              status: didError ? 500 : responseStatusCode,
             }),
           );
 
-          pipe(reactBody);
+          pipe(body);
         },
-        onShellError: (error: unknown) => {
-          reject(error);
+        onShellError(err: unknown) {
+          reject(err);
         },
-        onError: (error: unknown) => {
-          responseStatusCode = 500;
-          // Log streaming rendering errors from inside the shell.  Don't log
-          // errors encountered during initial shell rendering since they'll
-          // reject and get logged in handleDocumentRequest.
-          if (shellRendered) {
-            console.error(error);
-          }
+        onError(error: unknown) {
+          didError = true;
+
+          console.error(error);
         },
       },
     );
 
     setTimeout(abort, ABORT_DELAY);
   });
+}

@@ -1,19 +1,23 @@
-import { ChakraProvider, Container, Heading, Stack } from "@chakra-ui/react";
-import { withEmotionCache } from "@emotion/react";
-import React from "react";
-import { useContext, useEffect } from "react";
-import { LinksFunction, MetaFunction } from "react-router";
-import { Link, Links, Meta, Outlet, Scripts } from "react-router";
+import { ChakraProvider, Container } from "@chakra-ui/react";
+import { ThemeProvider } from "next-themes";
+import {
+  type HeadersFunction,
+  Links,
+  type LinksFunction,
+  Meta,
+  type MetaFunction,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from "react-router";
 
-import { ClientStyleContext, ServerStyleContext } from "./context.js";
-import faviconUrl from "./favicon.png";
 import { theme } from "./theme.js";
 
 export const links: LinksFunction = () => [
   {
     rel: "icon",
-    href: faviconUrl,
-    type: "image/png",
+    href: "/favicon.png",
+    type: "image/webp",
   },
 ];
 
@@ -27,60 +31,36 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-const Document = withEmotionCache(
-  ({ children }: React.PropsWithChildren, emotionCache) => {
-    const serverStyleData = useContext(ServerStyleContext);
-    const clientStyleData = useContext(ClientStyleContext);
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+  return loaderHeaders;
+};
 
-    // Only executed on client
-    useEffect(() => {
-      // re-link sheet container
-      emotionCache.sheet.container = document.head;
-      // re-inject tags
-      const tags = emotionCache.sheet.tags;
-      emotionCache.sheet.flush();
-      tags.forEach((tag) => {
-        (emotionCache.sheet as any)._insertTag(tag);
-      });
-      // reset cache to reapply global styles
-      clientStyleData?.reset();
-    }, []);
-
-    return (
-      <html lang="en">
-        <head>
-          <Meta />
-          <Links />
-          {serverStyleData?.map(({ key, ids, css }) => (
-            <style
-              key={key}
-              data-emotion={`${key} ${ids.join(" ")}`}
-              dangerouslySetInnerHTML={{ __html: css }}
-            />
-          ))}
-        </head>
-        <body>
-          {children}
-          <Scripts />
-        </body>
-      </html>
-    );
-  },
-);
+export function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
 export default function App() {
   return (
-    <Document>
-      <ChakraProvider theme={theme}>
-        <Container maxW={["100%", null, "container.xl"]} pt={10}>
-          <Stack spacing={10}>
-            <Heading alignSelf="center">
-              <Link to="/">Excavator ♠️</Link>
-            </Heading>
-            <Outlet />
-          </Stack>
-        </Container>
-      </ChakraProvider>
-    </Document>
+    <ChakraProvider value={theme}>
+      <Container maxW={["100%", null, "container.xl"]} pt={10}>
+        <ThemeProvider attribute="class" disableTransitionOnChange>
+          <Outlet />
+        </ThemeProvider>
+      </Container>
+    </ChakraProvider>
   );
 }
