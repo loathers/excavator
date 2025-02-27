@@ -1,4 +1,4 @@
-import { getProperty } from "kolmafia";
+import { getProperty, myPath, Path } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
 
@@ -17,6 +17,8 @@ type ZootomistKickData = {
 };
 
 function spadeKick(encounter: string, page: string): ZootomistKickData | null {
+  if (myPath() != Path.get("Z is for Zootomist")) return null;
+
   const kick = page.match(
     /You kick your foe with a perfect (left|right)-side side-kick/,
   );
