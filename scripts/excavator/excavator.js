@@ -7555,7 +7555,9 @@ var TEMPORAL_RIFTLET = {
 init_kolmafia_polyfill();
 var import_kolmafia20 = require("kolmafia");
 function spadeKick(encounter, page) {
-  var _page$match$1$replace, _page$match, _page$match$, _page$match2, _banish$, _banish$2, _banish$3, _instakill$, _instakill$2, _instakill$3, _page$match$2, _page$match3, kick = page.match(/You kick your foe with a perfect (left|right)-side side-kick/);
+  var _page$match$1$replace, _page$match, _page$match$, _page$match2, _banish$, _banish$2, _banish$3, _instakill$, _instakill$2, _instakill$3, _page$match$2, _page$match3;
+  if ((0, import_kolmafia20.myPath)() != import_kolmafia20.Path.get("Z is for Zootomist")) return null;
+  var kick = page.match(/You kick your foe with a perfect (left|right)-side side-kick/);
   if (!kick) return null;
   var familiar = (0, import_kolmafia20.getProperty)("zootGraftedFoot".concat(kick[1] === "left" ? "Left" : "Right", "Familiar")), instakill = page.match(/Your kick is so powerful, it launches your foes? (instantly )?into the sun(, leaving all their stuff behind)?\..*?\(duration: (\d+) Adventures\)/), banish = page.match(/Your kick is so fast, that your foes? fl(?:y|ies) off into the distance and likely won't return for (\d+) adventures..*?\(duration: (\d+) Adventures\)(.*?Your kick was so fast that your fight doesn't take any time)?/);
   return {
