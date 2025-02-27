@@ -1,4 +1,4 @@
-import { HStack, Text, Box, Button, Menu, Portal } from "@chakra-ui/react";
+import { Text, Box, Button, Menu, Portal, Stack } from "@chakra-ui/react";
 import { ExcavatorProject } from "excavator-projects";
 import { LuChevronDown } from "react-icons/lu";
 import { Link as RRLink, useNavigate } from "react-router";
@@ -14,7 +14,12 @@ export function ProjectHeader({ project, projects }: Props) {
   const navigate = useNavigate();
 
   return (
-    <HStack>
+    <Stack
+      direction="row"
+      gap={3}
+      alignItems={["top", null, "center"]}
+      justifyContent="space-between"
+    >
       <Menu.Root onSelect={({ value }) => navigate(`../${toSlug(value)}`)}>
         <Menu.Trigger asChild>
           <Button>
@@ -34,12 +39,11 @@ export function ProjectHeader({ project, projects }: Props) {
         </Portal>
       </Menu.Root>
       <Text>{project.description}</Text>
-      <Box flex={1} />
       <Button asChild size="xs">
         <RRLink to={`../${toSlug(project.name)}.csv`} reloadDocument>
           <Text display={["none", null, "block"]}>Download Data</Text> ⬇
         </RRLink>
       </Button>
-    </HStack>
+    </Stack>
   );
 }

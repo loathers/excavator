@@ -72,7 +72,7 @@ export default function Project() {
       ) : (
         <Stack alignItems="center">
           <Pagination count={count} pageSize={pageSize} page={page} />
-          <Table.ScrollArea>
+          <Table.ScrollArea width="100%">
             <Table.Root>
               <Table.Header>
                 <Table.Row>

@@ -1,4 +1,4 @@
-import { Alert, Heading, Link, Spinner, Stack } from "@chakra-ui/react";
+import { Alert, Box, Heading, Link, Spinner, Stack } from "@chakra-ui/react";
 import { projects } from "excavator-projects";
 import { useEffect } from "react";
 import {
@@ -38,7 +38,9 @@ export default function Projects() {
       {projects.length === 0 ? (
         <Alert.Root>No projects found</Alert.Root>
       ) : showSpinner ? (
-        <Spinner />
+        <Box alignSelf="center">
+          <Spinner size="xl" />
+        </Box>
       ) : (
         <Outlet />
       )}
