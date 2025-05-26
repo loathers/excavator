@@ -6397,7 +6397,8 @@ var BIRD_A_DAY = {
     CONSUME_REUSABLE: function(itemName, page) {
       return itemName !== "Bird-a-Day calendar" || page.includes("You already read about today's bird.") ? null : _objectSpread(_objectSpread({}, getBlessingModifiers()), getDaySeed());
     }
-  }
+  },
+  completed: !0
 }, BIRD_A_DAY_MODIFIERS = {
   stat: ["Muscle Percent", "Mysticaliy Percent", "Moxie Percent"],
   element: ["Cold Resistance", "Hot Resistance", "Sleaze Resistance", "Spooky Resistance", "Stench Resistance"],
