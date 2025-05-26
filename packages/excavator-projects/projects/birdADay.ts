@@ -20,6 +20,7 @@ export const BIRD_A_DAY: ExcavatorProject = {
       };
     },
   },
+  completed: true,
 };
 
 const BIRD_A_DAY_MODIFIERS = {
