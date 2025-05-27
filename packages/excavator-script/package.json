@@ -30,8 +30,8 @@
     "esbuild-plugin-babel": "^0.2.3",
     "eslint": "^9.27.0",
     "eslint-plugin-libram": "^0.4.27",
-    "excavator-prettier-config": "^0.0.0",
-    "excavator-projects": "^0.0.0",
+    "excavator-prettier-config": "workspace:*",
+    "excavator-projects": "workspace:*",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.32.1"

@@ -4,12 +4,13 @@
   "main": "index.js",
   "license": "ISC",
   "author": "Sam Gaus <sam@gaus.co.uk>",
+  "type": "module",
   "scripts": {
     "format": "prettier --write .",
     "lint": "prettier --check ."
   },
   "devDependencies": {
-    "excavator-prettier-config": "^0.0.0",
+    "excavator-prettier-config": "workspace:*",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3"
   },

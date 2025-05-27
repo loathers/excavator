@@ -5564,7 +5564,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"excavator-prettier-config@npm:^0.0.0, excavator-prettier-config@workspace:packages/excavator-prettier-config":
+"excavator-prettier-config@workspace:*, excavator-prettier-config@workspace:packages/excavator-prettier-config":
   version: 0.0.0-use.local
   resolution: "excavator-prettier-config@workspace:packages/excavator-prettier-config"
   dependencies:
@@ -5576,11 +5576,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"excavator-projects@npm:^0.0.0, excavator-projects@workspace:packages/excavator-projects":
+"excavator-projects@workspace:*, excavator-projects@workspace:packages/excavator-projects":
   version: 0.0.0-use.local
   resolution: "excavator-projects@workspace:packages/excavator-projects"
   dependencies:
-    excavator-prettier-config: "npm:^0.0.0"
+    excavator-prettier-config: "workspace:*"
     kolmafia: "npm:^5.28541.0"
     prettier: "npm:^3.5.3"
     typescript: "npm:^5.8.3"
@@ -5604,8 +5604,8 @@ __metadata:
     esbuild-plugin-babel: "npm:^0.2.3"
     eslint: "npm:^9.27.0"
     eslint-plugin-libram: "npm:^0.4.27"
-    excavator-prettier-config: "npm:^0.0.0"
-    excavator-projects: "npm:^0.0.0"
+    excavator-prettier-config: "workspace:*"
+    excavator-projects: "workspace:*"
     kolmafia: "npm:^5.28541.0"
     libram: "npm:^0.11.4"
     prettier: "npm:^3.5.3"
@@ -5634,8 +5634,8 @@ __metadata:
     "@types/react-dom": "npm:^19.1.5"
     csv-stringify: "npm:^6.5.2"
     dotenv: "npm:^16.5.0"
-    excavator-prettier-config: "npm:^0.0.0"
-    excavator-projects: "npm:^0.0.0"
+    excavator-prettier-config: "workspace:*"
+    excavator-projects: "workspace:*"
     express: "npm:^4.21.2"
     fetch-cookie: "npm:^3.1.0"
     isbot: "npm:5.1.28"
