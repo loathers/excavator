@@ -7476,6 +7476,51 @@ var OUT_OF_ORDER = {
   }
 };
 
+// ../excavator-projects/projects/requestSupplyDrop.ts
+init_kolmafia_polyfill();
+var REQUEST_SUPPLY_DROP_LETTER = {
+  name: "Request Supply Drop Letter",
+  slug: "supplydropletter",
+  description: "Logs letters from successful Request Supply Drop requests",
+  author: "Rinn",
+  hooks: {
+    CHOICE_VISIT: function(choice, page) {
+      return choice !== "1561" ? null : spadeRequestSupplyDropLetter(page);
+    },
+    CHOICE: function(url, page) {
+      return url.includes("whichchoice=1561") ? spadeRequestSupplyDropLetter(page) : null;
+    }
+  }
+}, REQUEST_SUPPLY_DROP_GREY = {
+  name: "Request Supply Drop Grey Text",
+  slug: "supplydropgrey",
+  description: "Logs grey text from invalid Request Supply Drop requests",
+  author: "Rinn",
+  hooks: {
+    CHOICE_VISIT: function(choice, page) {
+      return choice !== "1561" ? null : spadeRequestSupplyDropGrey(page);
+    },
+    CHOICE: function(url, page) {
+      return url.includes("whichchoice=1561") ? spadeRequestSupplyDropGrey(page) : null;
+    }
+  }
+};
+function spadeRequestSupplyDropLetter(page) {
+  if (!page.includes("<b>Results:</b>")) return null;
+  var result = page.match(/"(\d+)\.\.\.\s+([A-Z])\.\.\."/);
+  return result ? {
+    number: Number.parseInt(result[1]),
+    letter: result[2]
+  } : null;
+}
+function spadeRequestSupplyDropGrey(page) {
+  if (!page.includes("<b>Results:</b>")) return null;
+  var result = page.match(/#999'\>([A-Za-z][A-Za-z][A-Za-z])\</);
+  return result ? {
+    text: result[1]
+  } : null;
+}
+
 // ../excavator-projects/projects/summonMayflySwarm.ts
 init_kolmafia_polyfill();
 var import_kolmafia19 = require("kolmafia");
@@ -7606,7 +7651,7 @@ var ZOOTOMIST_KICK = {
 };
 
 // ../excavator-projects/index.ts
-var projects = [AUTUMNATON, BIRD_A_DAY, BLACK_AND_WHITE_APRON, COAT_OF_PAINT, GENIE, HOOKAH, JUICE_BAR, DROP_BINDLESTOCKING, DROP_CON_SNOWGLOBE, DROP_MIXED_EVERYTHING, DROP_MR_CHEENGS, DROP_MR_SCREEGES, DROP_ORDNANCE_MAGNET, MINI_KIWI, MONSTER_PARTS, MUMMING_TRUNK, OUT_OF_ORDER, DESIGNER_SWEATPANTS, SUMMON_MAYFLY_SWARM, TEMPORAL_RIFTLET, ZOOTOMIST_KICK];
+var projects = [AUTUMNATON, BIRD_A_DAY, BLACK_AND_WHITE_APRON, COAT_OF_PAINT, GENIE, HOOKAH, JUICE_BAR, DROP_BINDLESTOCKING, DROP_CON_SNOWGLOBE, DROP_MIXED_EVERYTHING, DROP_MR_CHEENGS, DROP_MR_SCREEGES, DROP_ORDNANCE_MAGNET, MINI_KIWI, MONSTER_PARTS, MUMMING_TRUNK, OUT_OF_ORDER, REQUEST_SUPPLY_DROP_GREY, REQUEST_SUPPLY_DROP_LETTER, DESIGNER_SWEATPANTS, SUMMON_MAYFLY_SWARM, TEMPORAL_RIFTLET, ZOOTOMIST_KICK];
 
 // src/excavator.ts
 var import_kolmafia28 = require("kolmafia");
