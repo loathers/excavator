@@ -8,6 +8,7 @@ import { DROP_CON_SNOWGLOBE } from "./projects/dropConSnowglobe";
 import { DROP_MIXED_EVERYTHING } from "./projects/dropMixedEverything";
 import { DROP_MR_CHEENGS } from "./projects/dropMrCheengs";
 import { DROP_MR_SCREEGES } from "./projects/dropMrScreeges";
+import { DROP_ORDNANCE_MAGNET } from "./projects/dropOrdnanceMagnet.js";
 import { GENIE } from "./projects/genie";
 import { HOOKAH } from "./projects/hookah";
 import { JUICE_BAR } from "./projects/juiceBar";
@@ -35,6 +36,7 @@ export const projects: ExcavatorProject[] = [
   DROP_MIXED_EVERYTHING,
   DROP_MR_CHEENGS,
   DROP_MR_SCREEGES,
+  DROP_ORDNANCE_MAGNET,
   MINI_KIWI,
   MONSTER_PARTS,
   MUMMING_TRUNK,
