@@ -16,6 +16,10 @@ import { MINI_KIWI } from "./projects/miniKiwi";
 import { MONSTER_PARTS } from "./projects/monsterParts";
 import { MUMMING_TRUNK } from "./projects/mummingTrunk";
 import { OUT_OF_ORDER } from "./projects/outOfOrder";
+import {
+  REQUEST_SUPPLY_DROP_GREY,
+  REQUEST_SUPPLY_DROP_LETTER,
+} from "./projects/requestSupplyDrop.js";
 import { SUMMON_MAYFLY_SWARM } from "./projects/summonMayflySwarm";
 import { TEMPORAL_RIFTLET } from "./projects/temporalRiftlet";
 import { ZOOTOMIST_KICK } from "./projects/zootomistKick";
@@ -41,6 +45,8 @@ export const projects: ExcavatorProject[] = [
   MONSTER_PARTS,
   MUMMING_TRUNK,
   OUT_OF_ORDER,
+  REQUEST_SUPPLY_DROP_GREY,
+  REQUEST_SUPPLY_DROP_LETTER,
   DESIGNER_SWEATPANTS,
   SUMMON_MAYFLY_SWARM,
   TEMPORAL_RIFTLET,
