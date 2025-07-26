@@ -1,4 +1,4 @@
-import { currentRound, equippedAmount, Item } from "kolmafia";
+import { equippedAmount, Item } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
 import { isEquippedAtEndOfCombat, toNormalisedItem } from "../utils";
