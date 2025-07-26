@@ -7383,7 +7383,8 @@ var MUMMING_TRUNK = {
   author: "gausie",
   hooks: {
     COMBAT_ROUND: spadeMummingTrunk
-  }
+  },
+  completed: !0
 }, ATTRIBUTE_INDICATORS = {
   1: {
     hashands: ["Captain <name> waves <pronoun-pos> hands at you until you notice the Meat <pronoun-subj>'s found\\.", "Captain <name> distracts your opponent with <pronoun-pos> left hand while punching the Meat out of their pockets with the other\\.", 'Captain <name> emits an enthusiastic "Arrrr," grabs a shovel, and digs up some extra Meat for you\\.', "Captain <name> rubs <pronoun-pos> hands together gleefully, thinking about all the Meat <pronoun-subj>'s gonna carve off your foe\\."],
