@@ -329,8 +329,14 @@ function spadeMonsterParts(
 ): MonsterPartsData[] | null {
   if (MONSTER_DENYLIST.includes(lastMonster())) return null;
 
+  const path = myPath();
   // in FotD, monster parts are the parts of the dino that ate the monster
-  if (myPath() == Path.get("Fall of the Dinosaurs")) return null;
+  // in Pocket Familiars, combat is completely different, and the dart holster doesn't appear
+  if (
+    path == Path.get("Fall of the Dinosaurs") ||
+    path == Path.get("Pocket Familiars")
+  )
+    return null;
 
   const monster = toNormalisedString(lastMonster());
   const monsterParts = lastMonster().parts;
