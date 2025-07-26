@@ -7348,7 +7348,9 @@ function checkEverfullDartHolster(data, page, monster, monsterParts) {
   }
 }
 function spadeMonsterParts(encounter, page) {
-  if (MONSTER_DENYLIST.includes((0, import_kolmafia16.lastMonster)()) || (0, import_kolmafia16.myPath)() == import_kolmafia16.Path.get("Fall of the Dinosaurs")) return null;
+  if (MONSTER_DENYLIST.includes((0, import_kolmafia16.lastMonster)())) return null;
+  var path = (0, import_kolmafia16.myPath)();
+  if (path == import_kolmafia16.Path.get("Fall of the Dinosaurs") || path == import_kolmafia16.Path.get("Pocket Familiars")) return null;
   var monster = toNormalisedString((0, import_kolmafia16.lastMonster)()), monsterParts = (0, import_kolmafia16.lastMonster)().parts, data = [];
   return !isAdventureTextAltered() && !MONSTER_SEARCH_DENYLIST.includes((0, import_kolmafia16.lastMonster)()) && (checkSimpleIndicators(data, page, monster, monsterParts), checkElVibratoRestraints(data, page, monster, monsterParts)), checkMutantCouture(data, page, monster, monsterParts), checkEverfullDartHolster(data, page, monster, monsterParts), data;
 }
