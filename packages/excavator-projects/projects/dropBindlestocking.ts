@@ -18,6 +18,6 @@ export const DROP_BINDLESTOCKING: ExcavatorProject = {
       const item = toNormalisedItem(result[1]);
       return { item };
     },
-    completed: true,
   },
+  completed: true,
 };
