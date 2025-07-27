@@ -6701,7 +6701,8 @@ var DROP_BINDLESTOCKING = {
       return {
         item: item
       };
-    }
+    },
+    completed: !0
   }
 };
 
