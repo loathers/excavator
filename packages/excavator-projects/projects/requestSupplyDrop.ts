@@ -39,7 +39,7 @@ function spadeRequestSupplyDropLetter(page: string) {
   if (!page.includes("<b>Results:</b>")) return null;
 
   // Find our number and letter or bail out
-  const result = page.match(/&quot;(\d+)\.\.\. ([A-Z])\.\.\.&quot;/);
+  const result = page.match(/(\d+)\.\.\. ([A-Z])\.\.\./);
 
   if (!result) return null;
 
