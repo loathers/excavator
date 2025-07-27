@@ -6701,9 +6701,9 @@ var DROP_BINDLESTOCKING = {
       return {
         item: item
       };
-    },
-    completed: !0
-  }
+    }
+  },
+  completed: !0
 };
 
 // ../excavator-projects/projects/dropConSnowglobe.ts
