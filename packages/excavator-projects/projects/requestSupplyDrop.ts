@@ -7,11 +7,15 @@ export const REQUEST_SUPPLY_DROP_LETTER: ExcavatorProject = {
   author: "Rinn",
   hooks: {
     CHOICE_VISIT: (choice: string, page: string) => {
-      if (choice !== "1561") return null;
+      if (choice !== "1561" && choice != "1563") return null;
       return spadeRequestSupplyDropLetter(page);
     },
     CHOICE: (url: string, page: string) => {
-      if (!url.includes("whichchoice=1561")) return null;
+      if (
+        !url.includes("whichchoice=1561") &&
+        !url.includes("whichchoice=1563")
+      )
+        return null;
       return spadeRequestSupplyDropLetter(page);
     },
   },
@@ -24,11 +28,15 @@ export const REQUEST_SUPPLY_DROP_GREY: ExcavatorProject = {
   author: "Rinn",
   hooks: {
     CHOICE_VISIT: (choice: string, page: string) => {
-      if (choice !== "1561") return null;
+      if (choice !== "1561" && choice != "1563") return null;
       return spadeRequestSupplyDropGrey(page);
     },
     CHOICE: (url: string, page: string) => {
-      if (!url.includes("whichchoice=1561")) return null;
+      if (
+        !url.includes("whichchoice=1561") &&
+        !url.includes("whichchoice=1563")
+      )
+        return null;
       return spadeRequestSupplyDropGrey(page);
     },
   },
@@ -36,7 +44,7 @@ export const REQUEST_SUPPLY_DROP_GREY: ExcavatorProject = {
 
 function spadeRequestSupplyDropLetter(page: string) {
   // Check page validity
-  if (!page.includes("<b>Results:</b>")) return null;
+  if (!page.includes("Results:</b>")) return null;
 
   // Find our number and letter or bail out
   const result = page.match(/(\d+)\.\.\. ([A-Z])\.\.\./);
@@ -51,7 +59,7 @@ function spadeRequestSupplyDropLetter(page: string) {
 
 function spadeRequestSupplyDropGrey(page: string) {
   // Check page validity
-  if (!page.includes("<b>Results:</b>")) return null;
+  if (!page.includes("Results:</b>")) return null;
 
   // Find our grey text or bail out
   const result = page.match(/#999'\>([A-Za-z][A-Za-z][A-Za-z])\</);
