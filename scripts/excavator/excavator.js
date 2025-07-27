@@ -6827,7 +6827,7 @@ var import_kolmafia13 = require("kolmafia"), GENIE = {
 };
 function spadeGenie(page) {
   var _page$match;
-  if (!page.includes("<b>Results:</b>")) return null;
+  if (!page.includes("Results:</b>")) return null;
   var wish = (_page$match = page.match(/You announce, "I wish (.*?)"</)) === null || _page$match === void 0 || (_page$match = _page$match[1]) === null || _page$match === void 0 ? void 0 : _page$match.toLowerCase();
   if (!wish) return null;
   var success = !page.includes("<br />You could try, "), fightWished = wish.match(/(?:(?:to fight|i (?:was|were) fighting) (?:a )?)(.*)/), effectWished = wish.match(/(?:to be|i (?:was|were)) (?!big|a baller|rich|a little bit taller)(.*)/);
@@ -7487,10 +7487,10 @@ var REQUEST_SUPPLY_DROP_LETTER = {
   author: "Rinn",
   hooks: {
     CHOICE_VISIT: function(choice, page) {
-      return choice !== "1561" ? null : spadeRequestSupplyDropLetter(page);
+      return choice !== "1561" && choice != "1563" ? null : spadeRequestSupplyDropLetter(page);
     },
     CHOICE: function(url, page) {
-      return url.includes("whichchoice=1561") ? spadeRequestSupplyDropLetter(page) : null;
+      return !url.includes("whichchoice=1561") && !url.includes("whichchoice=1563") ? null : spadeRequestSupplyDropLetter(page);
     }
   }
 }, REQUEST_SUPPLY_DROP_GREY = {
@@ -7500,15 +7500,15 @@ var REQUEST_SUPPLY_DROP_LETTER = {
   author: "Rinn",
   hooks: {
     CHOICE_VISIT: function(choice, page) {
-      return choice !== "1561" ? null : spadeRequestSupplyDropGrey(page);
+      return choice !== "1561" && choice != "1563" ? null : spadeRequestSupplyDropGrey(page);
     },
     CHOICE: function(url, page) {
-      return url.includes("whichchoice=1561") ? spadeRequestSupplyDropGrey(page) : null;
+      return !url.includes("whichchoice=1561") && !url.includes("whichchoice=1563") ? null : spadeRequestSupplyDropGrey(page);
     }
   }
 };
 function spadeRequestSupplyDropLetter(page) {
-  if (!page.includes("<b>Results:</b>")) return null;
+  if (!page.includes("Results:</b>")) return null;
   var result = page.match(/(\d+)\.\.\. ([A-Z])\.\.\./);
   return result ? {
     number: Number.parseInt(result[1]),
@@ -7516,7 +7516,7 @@ function spadeRequestSupplyDropLetter(page) {
   } : null;
 }
 function spadeRequestSupplyDropGrey(page) {
-  if (!page.includes("<b>Results:</b>")) return null;
+  if (!page.includes("Results:</b>")) return null;
   var result = page.match(/#999'\>([A-Za-z][A-Za-z][A-Za-z])\</);
   return result ? {
     text: result[1]
