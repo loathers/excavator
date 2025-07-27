@@ -7509,7 +7509,7 @@ var REQUEST_SUPPLY_DROP_LETTER = {
 };
 function spadeRequestSupplyDropLetter(page) {
   if (!page.includes("<b>Results:</b>")) return null;
-  var result = page.match(/&quot;(\d+)\.\.\. ([A-Z])\.\.\.&quot;/);
+  var result = page.match(/(\d+)\.\.\. ([A-Z])\.\.\./);
   return result ? {
     number: Number.parseInt(result[1]),
     letter: result[2]
