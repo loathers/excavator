@@ -7555,7 +7555,9 @@ function spadeSkeletonLetters(encounter, page) {
   if ((0, import_kolmafia19.currentRound)() !== 0 || !import_kolmafia19.Monster.get(["Axis artillery skeleton", "Axis grenadier skeleton", "Axis infantry skeleton", "Axis officer skeleton"]).includes((0, import_kolmafia19.lastMonster)())) return null;
   var regimentMatch = page.match(RegExp("".concat((0, import_kolmafia19.lastMonster)(), ", (\\d+)[a-z]+ regiment</span>")));
   if (regimentMatch) {
-    var ribMatch = page.matchAll(/\/otherimages\/skeletonwar\/rib(\d)\.png/g), ribs = _toConsumableArray4(ribMatch).flat().sort().join(","), regiment = Number(regimentMatch[1]), monster = (0, import_kolmafia19.lastMonster)().name;
+    var ribMatch = page.matchAll(/\/otherimages\/skeletonwar\/rib(\d)\.png/g), ribs = _toConsumableArray4(ribMatch).map(function(matchArray) {
+      return matchArray[1];
+    }).sort().join(","), regiment = Number(regimentMatch[1]), monster = (0, import_kolmafia19.lastMonster)().name;
     return {
       ribs: ribs,
       regiment: regiment,
