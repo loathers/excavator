@@ -44,4 +44,5 @@ export const SKELETON_LETTERS: ExcavatorProject = {
     "Determines which ribs are available on which regiments of skeleton",
   author: "sweaty bill",
   hooks: { COMBAT_ROUND: spadeSkeletonLetters },
+  slug: "skeletonlettersv2",
 };
