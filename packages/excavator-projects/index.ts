@@ -20,10 +20,10 @@ import {
   REQUEST_SUPPLY_DROP_GREY,
   REQUEST_SUPPLY_DROP_LETTER,
 } from "./projects/requestSupplyDrop.js";
+import { SKELETON_LETTERS } from "./projects/skeletonLetters.js";
 import { SUMMON_MAYFLY_SWARM } from "./projects/summonMayflySwarm";
 import { TEMPORAL_RIFTLET } from "./projects/temporalRiftlet";
 import { ZOOTOMIST_KICK } from "./projects/zootomistKick";
-import { SKELETON_LETTERS } from "./projects/skeletonLetters.js";
 import type { ExcavatorProject } from "./type";
 
 export { ExcavatorProject };
