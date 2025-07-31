@@ -23,7 +23,7 @@ function spadeSkeletonLetters(
   )
     return null;
   const regimentMatch = page.match(
-    RegExp(`${lastMonster()}, (\d+)[a-z]+ regiment</span>`),
+    RegExp(`${lastMonster()}, (\\d+)[a-z]+ regiment</span>`),
   );
   if (regimentMatch) {
     const ribMatch = page.matchAll(
