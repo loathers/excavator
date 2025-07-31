@@ -6766,7 +6766,8 @@ var DROP_MR_CHEENGS = {
         item: item
       };
     }
-  }
+  },
+  completed: !0
 };
 
 // ../excavator-projects/projects/dropMrScreeges.ts
