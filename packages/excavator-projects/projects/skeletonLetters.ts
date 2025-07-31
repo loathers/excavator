@@ -9,7 +9,7 @@ type SkeletonLetterData = {
 function spadeSkeletonLetters(encounter: string, page: string): SkeletonLetterData | null {
   if (currentRound() !== 0) return null;
   if (!Monster.get(["Axis artillery skeleton", "Axis grenadier skeleton", "Axis infantry skeleton", "Axis officer skeleton"]).includes(lastMonster())) return null;
-  const regimentMatch = page.match(RegExp(`${lastMonster()}, (\d+)[a-z] regiment</span>`));
+  const regimentMatch = page.match(RegExp(`${lastMonster()}, (\d+)[a-z]+ regiment</span>`));
   if (regimentMatch) {
       const ribMatch = page.matchAll(/\/images\/otherimages\/skeletonwar\/rib(\d)\.png/g)
       const ribs = [...ribMatch].flat().sort().join(',');
