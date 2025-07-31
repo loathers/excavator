@@ -27,7 +27,10 @@ function spadeSkeletonLetters(
   );
   if (regimentMatch) {
     const ribMatch = page.matchAll(/\/otherimages\/skeletonwar\/rib(\d)\.png/g);
-    const ribs = [...ribMatch].flat().sort().join(",");
+    const ribs = [...ribMatch]
+      .map((matchArray) => matchArray[1])
+      .sort()
+      .join(",");
     const regiment = Number(regimentMatch[1]);
     const monster = lastMonster().name;
     return { ribs, regiment, monster };
