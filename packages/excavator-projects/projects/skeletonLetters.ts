@@ -27,7 +27,7 @@ function spadeSkeletonLetters(
   );
   if (regimentMatch) {
     const ribMatch = page.matchAll(
-      /\/images\/otherimages\/skeletonwar\/rib(\d)\.png/g,
+      /\/otherimages\/skeletonwar\/rib(\d)\.png/g,
     );
     const ribs = [...ribMatch].flat().sort().join(",");
     const regiment = Number(regimentMatch[1]);
