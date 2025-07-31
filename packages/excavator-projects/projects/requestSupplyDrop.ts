@@ -19,6 +19,7 @@ export const REQUEST_SUPPLY_DROP_LETTER: ExcavatorProject = {
       return spadeRequestSupplyDropLetter(page);
     },
   },
+  completed: true,
 };
 
 export const REQUEST_SUPPLY_DROP_GREY: ExcavatorProject = {
