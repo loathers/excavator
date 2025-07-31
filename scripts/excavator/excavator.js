@@ -7494,7 +7494,8 @@ var REQUEST_SUPPLY_DROP_LETTER = {
     CHOICE: function(url, page) {
       return !url.includes("whichchoice=1561") && !url.includes("whichchoice=1563") ? null : spadeRequestSupplyDropLetter(page);
     }
-  }
+  },
+  completed: !0
 }, REQUEST_SUPPLY_DROP_GREY = {
   name: "Request Supply Drop Grey Text",
   slug: "supplydropgrey",
