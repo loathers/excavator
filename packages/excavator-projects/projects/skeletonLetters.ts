@@ -26,9 +26,7 @@ function spadeSkeletonLetters(
     RegExp(`${lastMonster()}, (\\d+)[a-z]+ regiment</span>`),
   );
   if (regimentMatch) {
-    const ribMatch = page.matchAll(
-      /\/images\/otherimages\/skeletonwar\/rib(\d)\.png/g,
-    );
+    const ribMatch = page.matchAll(/\/otherimages\/skeletonwar\/rib(\d)\.png/g);
     const ribs = [...ribMatch].flat().sort().join(",");
     const regiment = Number(regimentMatch[1]);
     const monster = lastMonster().name;
