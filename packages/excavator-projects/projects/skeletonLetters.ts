@@ -39,10 +39,9 @@ function spadeSkeletonLetters(
 }
 
 export const SKELETON_LETTERS: ExcavatorProject = {
-  name: "Skeleton Letters",
+  name: "Skeleton Letters V2",
   description:
     "Determines which ribs are available on which regiments of skeleton",
   author: "sweaty bill",
   hooks: { COMBAT_ROUND: spadeSkeletonLetters },
-  slug: "skeletonlettersv2",
 };
