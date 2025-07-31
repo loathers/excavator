@@ -23,6 +23,7 @@ import {
 import { SUMMON_MAYFLY_SWARM } from "./projects/summonMayflySwarm";
 import { TEMPORAL_RIFTLET } from "./projects/temporalRiftlet";
 import { ZOOTOMIST_KICK } from "./projects/zootomistKick";
+import { SKELETON_LETTERS } from "./projects/skeletonLetters.js";
 import type { ExcavatorProject } from "./type";
 
 export { ExcavatorProject };
@@ -49,6 +50,7 @@ export const projects: ExcavatorProject[] = [
   REQUEST_SUPPLY_DROP_LETTER,
   DESIGNER_SWEATPANTS,
   SUMMON_MAYFLY_SWARM,
+  SKELETON_LETTERS,
   TEMPORAL_RIFTLET,
   ZOOTOMIST_KICK,
 ];
