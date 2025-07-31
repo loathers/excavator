@@ -7574,7 +7574,8 @@ var SKELETON_LETTERS = {
   author: "sweaty bill",
   hooks: {
     COMBAT_ROUND: spadeSkeletonLetters
-  }
+  },
+  completed: !0
 };
 
 // ../excavator-projects/projects/summonMayflySwarm.ts
