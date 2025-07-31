@@ -20,4 +20,5 @@ export const DROP_MR_CHEENGS: ExcavatorProject = {
       return { item };
     },
   },
+  completed: true,
 };
