@@ -9,6 +9,7 @@ import { DROP_MIXED_EVERYTHING } from "./projects/dropMixedEverything";
 import { DROP_MR_CHEENGS } from "./projects/dropMrCheengs";
 import { DROP_MR_SCREEGES } from "./projects/dropMrScreeges";
 import { DROP_ORDNANCE_MAGNET } from "./projects/dropOrdnanceMagnet.js";
+import { DROP_PULLED_RED_TAFFY } from "./projects/dropPulledRedTaffy.js";
 import { GENIE } from "./projects/genie";
 import { HOOKAH } from "./projects/hookah";
 import { JUICE_BAR } from "./projects/juiceBar";
@@ -42,6 +43,7 @@ export const projects: ExcavatorProject[] = [
   DROP_MR_CHEENGS,
   DROP_MR_SCREEGES,
   DROP_ORDNANCE_MAGNET,
+  DROP_PULLED_RED_TAFFY,
   MINI_KIWI,
   MONSTER_PARTS,
   MUMMING_TRUNK,
