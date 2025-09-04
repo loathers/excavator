@@ -9,7 +9,7 @@ export const DROP_PULLED_RED_TAFFY: ExcavatorProject = {
   author: "Rinn",
   hooks: {
     COMBAT_ROUND: (encounter: string, page: string) => {
-      if (currentRound() !== 0) return null;
+      if (currentRound() !== 0 || myLocation() === Location.none) return null;
       if (
         myLocation().environment === "underwater" ||
         Location.get(getProperty("_seadentWaveZone")) === myLocation()
