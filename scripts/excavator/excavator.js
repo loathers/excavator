@@ -6822,7 +6822,7 @@ var DROP_PULLED_RED_TAFFY = {
   hooks: {
     COMBAT_ROUND: function(encounter, page) {
       if ((0, import_kolmafia13.currentRound)() !== 0 || (0, import_kolmafia13.myLocation)() === import_kolmafia13.Location.none) return null;
-      if ((0, import_kolmafia13.myLocation)().environment === "underwater" || import_kolmafia13.Location.get((0, import_kolmafia13.getProperty)("_seadentWaveZone")) === (0, import_kolmafia13.myLocation)()) {
+      if ((0, import_kolmafia13.myLocation)().environment === "underwater" || (0, import_kolmafia13.getProperty)("_seadentWaveZone") === "".concat((0, import_kolmafia13.myLocation)())) {
         var result = page.match(/and gives you an item before disappearing into the murky depths.*?You acquire an item: <b>(.*?)<\/b>/);
         if (!result) return null;
         var item = toNormalisedItem(result[1]);
