@@ -12,7 +12,7 @@ export const DROP_PULLED_RED_TAFFY: ExcavatorProject = {
       if (currentRound() !== 0 || myLocation() === Location.none) return null;
       if (
         myLocation().environment === "underwater" ||
-        Location.get(getProperty("_seadentWaveZone")) === myLocation()
+        getProperty("_seadentWaveZone") === `${myLocation()}`
       ) {
         const result = page.match(
           /and gives you an item before disappearing into the murky depths.*?You acquire an item: <b>(.*?)<\/b>/,
