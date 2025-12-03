@@ -1,4 +1,21 @@
-import { currentRound, Familiar, familiarWeight, getProperty, haveEquipped, Item, lastMonster, myClass, myDaycount, myFamiliar, myId, myLocation, myPath, myTotalTurnsSpent, Phylum, weightAdjustment } from "kolmafia";
+import {
+  currentRound,
+  Familiar,
+  familiarWeight,
+  getProperty,
+  haveEquipped,
+  Item,
+  lastMonster,
+  myClass,
+  myDaycount,
+  myFamiliar,
+  myId,
+  myLocation,
+  myPath,
+  myTotalTurnsSpent,
+  Phylum,
+  weightAdjustment,
+} from "kolmafia";
 
 import { ExcavatorProject } from "../type";
 import { toNormalisedString } from "../utils.js";
@@ -29,7 +46,9 @@ function spadeSkeleton(encounter: string, page: string): KiwiData | null {
     buffedWeight:
       familiarWeight(Familiar.get("Mini Kiwi")) + weightAdjustment(),
     turn: myTotalTurnsSpent(),
-    hasCane: haveEquipped(Item.get("small peppermint-flavored sugar walking crook")),
+    hasCane: haveEquipped(
+      Item.get("small peppermint-flavored sugar walking crook"),
+    ),
     phylum: lastMonster().phylum.toString(),
     monster: toNormalisedString(lastMonster()),
   };
