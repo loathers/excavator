@@ -62,5 +62,5 @@ export const SKELETON_OF_CRIMBO_PAST: ExcavatorProject = {
   hooks: {
     COMBAT_ROUND: spadeSkeleton,
   },
-  since: 27973, // mini kiwi familiar equipment added
+  since: 28774, // tracking for knucklebone drops
 };
