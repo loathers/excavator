@@ -20,7 +20,7 @@ import {
 import { ExcavatorProject } from "../type";
 import { toNormalisedString } from "../utils.js";
 
-type KiwiData = {
+type SkellyData = {
   player: number;
   gotDrop: boolean;
   dropsToday: number;
@@ -33,7 +33,7 @@ type KiwiData = {
   hasCane: boolean;
 };
 
-function spadeSkeleton(encounter: string, page: string): KiwiData | null {
+function spadeSkeleton(encounter: string, page: string): SkellyData | null {
   if (currentRound() !== 0) return null;
   if (myFamiliar() !== Familiar.get("Skeleton of Crimbo Past")) return null;
 
@@ -42,9 +42,9 @@ function spadeSkeleton(encounter: string, page: string): KiwiData | null {
     gotDrop: page.includes("You acquire an item: <b>knucklebone</b>"),
     dropsToday: Number(getProperty("_knuckleboneDrops")),
     location: toNormalisedString(myLocation()),
-    baseWeight: familiarWeight(Familiar.get("Mini Kiwi")),
+    baseWeight: familiarWeight(Familiar.get("Skeleton of Crimbo Past")),
     buffedWeight:
-      familiarWeight(Familiar.get("Mini Kiwi")) + weightAdjustment(),
+      familiarWeight(Familiar.get("Skeleton of Crimbo Past")) + weightAdjustment(),
     turn: myTotalTurnsSpent(),
     hasCane: haveEquipped(
       Item.get("small peppermint-flavored sugar walking crook"),
