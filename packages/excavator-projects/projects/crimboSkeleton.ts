@@ -31,7 +31,20 @@ type SkellyData = {
   turn: number;
   phylum: string;
   hasCane: boolean;
+  dropText: string;
 };
+
+const knuckleTexts = [
+  "silently gestures at a loose knucklebone lying on the ground",
+  "wordlessly points out a knucklebone you knocked loose from your opponent",
+  "picks something up off the ground and tosses it to you",
+] as const;
+
+type KnuckleText = (typeof knuckleTexts)[number];
+
+function extractKnuckleText(page: string): KnuckleText | "" {
+  return knuckleTexts.find((t) => page.includes(t)) ?? "";
+}
 
 function spadeSkeleton(encounter: string, page: string): SkellyData | null {
   if (Number(getProperty("_knuckleboneDrops")) >= 100) return null;
@@ -53,6 +66,7 @@ function spadeSkeleton(encounter: string, page: string): SkellyData | null {
     ),
     phylum: lastMonster().phylum.toString(),
     monster: toNormalisedString(lastMonster()),
+    dropText: extractKnuckleText(page),
   };
 }
 
