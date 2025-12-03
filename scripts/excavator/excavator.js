@@ -6673,13 +6673,11 @@ function extractKnuckleText(page) {
 }
 function spadeSkeleton(encounter, page) {
   return Number((0, import_kolmafia6.getProperty)("_knuckleboneDrops")) >= 100 || (0, import_kolmafia6.currentRound)() !== 0 || (0, import_kolmafia6.myFamiliar)() !== import_kolmafia6.Familiar.get("Skeleton of Crimbo Past") ? null : {
-    player: Number((0, import_kolmafia6.myId)()),
     gotDrop: page.includes("You acquire an item: <b>knucklebone</b>"),
     dropsToday: Number((0, import_kolmafia6.getProperty)("_knuckleboneDrops")),
     location: toNormalisedString((0, import_kolmafia6.myLocation)()),
     baseWeight: (0, import_kolmafia6.familiarWeight)(import_kolmafia6.Familiar.get("Skeleton of Crimbo Past")),
     buffedWeight: (0, import_kolmafia6.familiarWeight)(import_kolmafia6.Familiar.get("Skeleton of Crimbo Past")) + (0, import_kolmafia6.weightAdjustment)(),
-    turn: (0, import_kolmafia6.myTotalTurnsSpent)(),
     hasCane: (0, import_kolmafia6.haveEquipped)(import_kolmafia6.Item.get("small peppermint-flavored sugar walking crook")),
     phylum: (0, import_kolmafia6.lastMonster)().phylum.toString(),
     monster: toNormalisedString((0, import_kolmafia6.lastMonster)()),
@@ -6694,8 +6692,8 @@ var SKELETON_OF_CRIMBO_PAST = {
   hooks: {
     COMBAT_ROUND: spadeSkeleton
   },
-  since: 28774
-  // tracking for knucklebone drops
+  since: 28777
+  // correct tracking for knucklebone drops
 };
 
 // ../excavator-projects/projects/designerSweatpants.ts
