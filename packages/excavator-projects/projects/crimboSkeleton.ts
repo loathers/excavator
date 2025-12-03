@@ -34,6 +34,7 @@ type SkellyData = {
 };
 
 function spadeSkeleton(encounter: string, page: string): SkellyData | null {
+  if (Number(getProperty("_knuckleboneDrops")) >= 100) return null;
   if (currentRound() !== 0) return null;
   if (myFamiliar() !== Familiar.get("Skeleton of Crimbo Past")) return null;
 
@@ -44,7 +45,8 @@ function spadeSkeleton(encounter: string, page: string): SkellyData | null {
     location: toNormalisedString(myLocation()),
     baseWeight: familiarWeight(Familiar.get("Skeleton of Crimbo Past")),
     buffedWeight:
-      familiarWeight(Familiar.get("Skeleton of Crimbo Past")) + weightAdjustment(),
+      familiarWeight(Familiar.get("Skeleton of Crimbo Past")) +
+      weightAdjustment(),
     turn: myTotalTurnsSpent(),
     hasCane: haveEquipped(
       Item.get("small peppermint-flavored sugar walking crook"),
