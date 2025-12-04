@@ -9133,8 +9133,8 @@ function tupleNotNull(value) {
 }
 function main(event, meta, page) {
   projects.filter(function(_ref) {
-    var hooks = _ref.hooks, _ref$since = _ref.since, since = _ref$since === void 0 ? 0 : _ref$since, completed = _ref.completed;
-    return !completed && event in hooks && since <= (0, import_kolmafia31.getRevision)();
+    var hooks = _ref.hooks, _ref$since = _ref.since, since = _ref$since === void 0 ? 0 : _ref$since, completed = _ref.completed, allowInTcrs = _ref.allowInTcrs;
+    return !completed && event in hooks && since <= (0, import_kolmafia31.getRevision)() && ((0, import_kolmafia31.myPath)() !== import_kolmafia31.Path.get("Two Crazy Random Summer") || allowInTcrs);
   }).map(function(_ref2) {
     var _hooks$event, _hooks$event2, name = _ref2.name, hooks = _ref2.hooks;
     return [name, (_hooks$event = (_hooks$event2 = hooks[event]) === null || _hooks$event2 === void 0 ? void 0 : _hooks$event2.call(hooks, meta, page)) !== null && _hooks$event !== void 0 ? _hooks$event : null];
