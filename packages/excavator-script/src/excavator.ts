@@ -1,6 +1,6 @@
 import type { ExcavatorProject } from "excavator-projects";
 import { projects } from "excavator-projects";
-import { getRevision } from "kolmafia";
+import { getRevision, myPath, Path } from "kolmafia";
 
 import { sendSpadingData } from "./utils";
 
@@ -15,8 +15,11 @@ type Event = keyof ExcavatorProject["hooks"];
 function main(event: Event, meta: string, page: string) {
   projects
     .filter(
-      ({ hooks, since = 0, completed }) =>
-        !completed && event in hooks && since <= getRevision(),
+      ({ hooks, since = 0, completed, allowInTcrs }) =>
+        !completed &&
+        event in hooks &&
+        since <= getRevision() &&
+        (myPath() !== Path.get("Two Crazy Random Summer") || allowInTcrs),
     )
     .map(
       ({ name, hooks }) => [name, hooks[event]?.(meta, page) ?? null] as const,
