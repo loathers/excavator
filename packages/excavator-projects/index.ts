@@ -23,6 +23,9 @@ import {
   REQUEST_SUPPLY_DROP_LETTER,
 } from "./projects/requestSupplyDrop.js";
 import { SKELETON_LETTERS } from "./projects/skeletonLetters.js";
+import { SUBTYPE_GHOST } from "./projects/subtypeGhost.js";
+import { SUBTYPE_SKELETON } from "./projects/subtypeSkeleton.js";
+import { SUBTYPE_ZOMBIE } from "./projects/subtypeZombie.js";
 import { SUMMON_MAYFLY_SWARM } from "./projects/summonMayflySwarm";
 import { TEMPORAL_RIFTLET } from "./projects/temporalRiftlet";
 import { ZOOTOMIST_KICK } from "./projects/zootomistKick";
@@ -55,6 +58,9 @@ export const projects: ExcavatorProject[] = [
   SUMMON_MAYFLY_SWARM,
   SKELETON_LETTERS,
   SKELETON_OF_CRIMBO_PAST,
+  SUBTYPE_GHOST,
+  SUBTYPE_SKELETON,
+  SUBTYPE_ZOMBIE,
   TEMPORAL_RIFTLET,
   ZOOTOMIST_KICK,
 ];

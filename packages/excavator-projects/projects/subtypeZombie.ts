@@ -1,0 +1,31 @@
+import { lastMonster } from "kolmafia";
+
+import { ExcavatorProject } from "../type.js";
+import { toNormalisedString } from "../utils.js";
+
+export const SUBTYPE_ZOMBIE: ExcavatorProject = {
+  name: "Subtype Zombie",
+  slug: "sub_zombie",
+  description: "Determine zombie monsters",
+  author: "midgleyc",
+  hooks: {
+    COMBAT_ROUND: (encounter: string, page: string) => {
+      // wriggling worm dropped
+      // if a zombie, a wriggling worm may drop, but it's not guaranteed
+      if (page.includes("onClick='descitem(952633988)'")) {
+        const monster = lastMonster();
+        const expected = monster.attributes.includes("ZOMBIE");
+
+        if (!expected) {
+          return {
+            monster: toNormalisedString(monster),
+            zombie: true,
+          };
+        }
+      }
+
+      return null;
+    },
+  },
+  since: 28778, // skeleton monster tracking
+};
