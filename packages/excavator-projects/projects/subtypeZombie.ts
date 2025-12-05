@@ -15,7 +15,11 @@ export const SUBTYPE_ZOMBIE: ExcavatorProject = {
         return null;
       }
       // if a zombie, a wriggling worm may drop, but it's not guaranteed
-      if (page.includes("onClick='descitem(952633988)'")) {
+      if (
+        page.includes(
+          "You grab a plump, wriggling worm from what's left of that zombie.",
+        )
+      ) {
         const monster = lastMonster();
         const expected = monster.attributes.includes("ZOMBIE");
 
