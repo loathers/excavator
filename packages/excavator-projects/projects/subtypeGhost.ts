@@ -1,5 +1,6 @@
 import {
   combatSkillAvailable,
+  currentRound,
   haveEquipped,
   haveSkill,
   Item,
@@ -33,6 +34,11 @@ export const SUBTYPE_GHOST: ExcavatorProject = {
         path == Path.get("Pocket Familiars") ||
         path == Path.get("WereProfessor")
       ) {
+        return null;
+      }
+
+      // confirm in fight and has skill selection
+      if (currentRound() !== 1 || !page.includes("<select name=whichskill>")) {
         return null;
       }
 
