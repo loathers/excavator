@@ -34,5 +34,5 @@ export const SUBTYPE_ZOMBIE: ExcavatorProject = {
       return null;
     },
   },
-  since: 28778, // skeleton monster tracking
+  since: 28782, // track zombies
 };
