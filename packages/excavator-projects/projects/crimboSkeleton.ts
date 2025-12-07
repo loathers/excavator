@@ -41,6 +41,7 @@ function spadeSkeleton(encounter: string, page: string): SkellyData | null {
   if (Number(getProperty("_knuckleboneDrops")) >= 100) return null;
   if (currentRound() !== 0) return null;
   if (myFamiliar() !== Familiar.get("Skeleton of Crimbo Past")) return null;
+  if (!page.includes("WINWINWIN")) return null;
 
   const monster = lastMonster();
 
