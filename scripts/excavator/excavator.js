@@ -6672,7 +6672,7 @@ function extractKnuckleText(page) {
   });
 }
 function spadeSkeleton(encounter, page) {
-  if (Number((0, import_kolmafia6.getProperty)("_knuckleboneDrops")) >= 100 || (0, import_kolmafia6.currentRound)() !== 0 || (0, import_kolmafia6.myFamiliar)() !== import_kolmafia6.Familiar.get("Skeleton of Crimbo Past")) return null;
+  if (Number((0, import_kolmafia6.getProperty)("_knuckleboneDrops")) >= 100 || (0, import_kolmafia6.currentRound)() !== 0 || (0, import_kolmafia6.myFamiliar)() !== import_kolmafia6.Familiar.get("Skeleton of Crimbo Past") || !page.includes("WINWINWIN")) return null;
   var monster = (0, import_kolmafia6.lastMonster)();
   return {
     gotDrop: page.includes("You acquire an item: <b>knucklebone</b>"),
