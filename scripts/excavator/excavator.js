@@ -6673,8 +6673,8 @@ function extractKnuckleText(page) {
 }
 function spadeSkeleton(encounter, page) {
   if (Number((0, import_kolmafia6.getProperty)("_knuckleboneDrops")) >= 100 || (0, import_kolmafia6.currentRound)() !== 0 || (0, import_kolmafia6.myFamiliar)() !== import_kolmafia6.Familiar.get("Skeleton of Crimbo Past") || !page.includes("WINWINWIN")) return null;
-  var monster = (0, import_kolmafia6.lastMonster)();
-  return monster === import_kolmafia6.Monster.get("[2502]darkness") ? null : {
+  var monster = (0, import_kolmafia6.lastMonster)(), monsterName = toNormalisedString(monster);
+  return /\[\d+\]darkness/.test(monsterName) ? null : {
     gotDrop: page.includes("You acquire an item: <b>knucklebone</b>"),
     dropsToday: Number((0, import_kolmafia6.getProperty)("_knuckleboneDrops")),
     location: toNormalisedString((0, import_kolmafia6.myLocation)()),
@@ -6683,7 +6683,7 @@ function spadeSkeleton(encounter, page) {
     hasCane: (0, import_kolmafia6.haveEquipped)(import_kolmafia6.Item.get("small peppermint-flavored sugar walking crook")),
     phylum: monster.phylum.toString(),
     skeleton: monster.attributes.includes("SKELETON"),
-    monster: toNormalisedString(monster),
+    monster: monsterName,
     dropText: extractKnuckleText(page)
   };
 }
