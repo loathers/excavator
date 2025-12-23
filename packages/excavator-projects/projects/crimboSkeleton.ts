@@ -75,5 +75,5 @@ export const SKELETON_OF_CRIMBO_PAST: ExcavatorProject = {
     COMBAT_ROUND: spadeSkeleton,
   },
   since: 28778, // skeleton monster tracking
-  completed: true
+  completed: true,
 };
