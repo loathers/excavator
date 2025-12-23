@@ -6695,8 +6695,9 @@ var SKELETON_OF_CRIMBO_PAST = {
   hooks: {
     COMBAT_ROUND: spadeSkeleton
   },
-  since: 28778
+  since: 28778,
   // skeleton monster tracking
+  completed: !0
 };
 
 // ../excavator-projects/projects/designerSweatpants.ts
