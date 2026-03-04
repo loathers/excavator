@@ -208,13 +208,14 @@ function checkElVibratoRestraints(
     return;
 
   const base = { monster, part: "arm", source: "El Vibrato restraints" };
+  const hasArm = monsterParts.some((part) => part.includes("arm"));
   if (
-    monsterParts.includes("arm") &&
+    hasArm &&
     page.includes("This foe doesn't have any arms that you can find")
   ) {
     data.push({ ...base, confirmation: false });
   } else if (
-    !monsterParts.includes("arm") &&
+    !hasArm &&
     page.includes("You push the button on top of the restraints")
   ) {
     data.push({ ...base, confirmation: true });
