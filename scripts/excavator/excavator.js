@@ -7344,10 +7344,12 @@ function checkElVibratoRestraints(data, page, monster, monsterParts) {
       monster: monster,
       part: "arm",
       source: "El Vibrato restraints"
-    };
-    monsterParts.includes("arm") && page.includes("This foe doesn't have any arms that you can find") ? data.push(_objectSpread5(_objectSpread5({}, base), {}, {
+    }, hasArm = monsterParts.some(function(part) {
+      return part.includes("arm");
+    });
+    hasArm && page.includes("This foe doesn't have any arms that you can find") ? data.push(_objectSpread5(_objectSpread5({}, base), {}, {
       confirmation: !1
-    })) : !monsterParts.includes("arm") && page.includes("You push the button on top of the restraints") && data.push(_objectSpread5(_objectSpread5({}, base), {}, {
+    })) : !hasArm && page.includes("You push the button on top of the restraints") && data.push(_objectSpread5(_objectSpread5({}, base), {}, {
       confirmation: !0
     }));
   }
