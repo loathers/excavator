@@ -6763,7 +6763,8 @@ var PATTERNS = [/and find a weird thing you don't remember packing in the first 
         item: toNormalisedItem(result)
       } : null;
     }
-  }
+  },
+  completed: !0
 };
 
 // ../excavator-projects/projects/dropMixedEverything.ts
@@ -6783,7 +6784,8 @@ var DROP_MIXED_EVERYTHING = {
         item: item
       };
     }
-  }
+  },
+  completed: !0
 };
 
 // ../excavator-projects/projects/dropMrCheengs.ts
