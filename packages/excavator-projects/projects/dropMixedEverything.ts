@@ -1,4 +1,4 @@
-import { equippedAmount, Item } from "kolmafia";
+import { Item } from "kolmafia";
 
 import { ExcavatorProject } from "../type";
 import { isEquippedAtEndOfCombat, toNormalisedItem } from "../utils";
@@ -19,4 +19,5 @@ export const DROP_MIXED_EVERYTHING: ExcavatorProject = {
       return { item };
     },
   },
+  completed: true,
 };
