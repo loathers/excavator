@@ -28,17 +28,17 @@ export interface Database {
   Report: ReportTable;
 }
 
-export function createDb() {
-  return new Kysely<Database>({
-    dialect: new PostgresDialect({
-      pool: new pg.Pool({ connectionString: process.env.DATABASE_URL }),
-      cursor: Cursor,
-    }),
-  });
-}
-
 // hard-code a unique key so we can look up the client when this module gets re-imported
-export const db = singleton("kysely", createDb);
+export const db = singleton(
+  "kysely",
+  () =>
+    new Kysely<Database>({
+      dialect: new PostgresDialect({
+        pool: new pg.Pool({ connectionString: process.env.DATABASE_URL }),
+        cursor: Cursor,
+      }),
+    }),
+);
 
 export function getSpadingDataCounts(project: string) {
   return db
@@ -52,4 +52,55 @@ export function getSpadingDataCounts(project: string) {
     .where("SpadingData.project", "ilike", project)
     .groupBy(["SpadingData.dataHash", "SpadingData.data"])
     .orderBy("SpadingData.dataHash");
+}
+
+export async function countReports(project: string) {
+  const { total } = await db
+    .selectFrom("Report")
+    .innerJoin("SpadingData", "SpadingData.id", "Report.dataId")
+    .select((eb) => eb.cast<number>(eb.fn.countAll(), "integer").as("total"))
+    .where("SpadingData.project", "ilike", project)
+    .executeTakeFirstOrThrow();
+  return total;
+}
+
+export async function countDistinctSpadingData(project: string) {
+  const { count } = await db
+    .selectFrom("SpadingData")
+    .select((eb) =>
+      eb
+        .cast<number>(eb.fn.count("dataHash").distinct(), "integer")
+        .as("count"),
+    )
+    .where("project", "ilike", project)
+    .executeTakeFirstOrThrow();
+  return count;
+}
+
+export async function saveReport(
+  report: Omit<ReportTable, "dataId">,
+  spadingData: Omit<SpadingDataTable, "id">,
+) {
+  const { id: dataId } =
+    (await db
+      .insertInto("SpadingData")
+      .values(spadingData)
+      .onConflict((oc) =>
+        oc.columns(["dataHash", "version", "project"]).doNothing(),
+      )
+      .returning("id")
+      .executeTakeFirst()) ??
+    (await db
+      .selectFrom("SpadingData")
+      .select("id")
+      .where("dataHash", "=", spadingData.dataHash)
+      .where("version", "=", spadingData.version)
+      .where("project", "=", spadingData.project)
+      .executeTakeFirstOrThrow());
+
+  await db
+    .insertInto("Report")
+    .values({ ...report, dataId })
+    .onConflict((oc) => oc.column("id").doNothing())
+    .execute();
 }

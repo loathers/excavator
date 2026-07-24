@@ -3,10 +3,9 @@ import { projects } from "excavator-projects";
 import makeFetchCookie from "fetch-cookie";
 import crypto from "node:crypto";
 
-import { type SpadingDataObject, createDb } from "./app/db.server.js";
+import { type SpadingDataObject, db, saveReport } from "./app/db.server.js";
 
 const f = makeFetchCookie(fetch);
-const db = createDb();
 
 type SpadingDataSubmission = SpadingDataObject & {
   _VERSION: string;
@@ -191,33 +190,14 @@ async function main() {
 
         const id = Number(kmail.id);
 
-        const spadingData =
-          (await db
-            .insertInto("SpadingData")
-            .values({ project, version, dataHash, data })
-            .onConflict((oc) =>
-              oc.columns(["dataHash", "version", "project"]).doNothing(),
-            )
-            .returning("id")
-            .executeTakeFirst()) ??
-          (await db
-            .selectFrom("SpadingData")
-            .select("id")
-            .where("dataHash", "=", dataHash)
-            .where("version", "=", version)
-            .where("project", "=", project)
-            .executeTakeFirstOrThrow());
-
-        await db
-          .insertInto("Report")
-          .values({
+        await saveReport(
+          {
             id,
             createdAt: new Date(Number(kmail.azunixtime) * 1000),
             playerId: Number(kmail.fromid),
-            dataId: spadingData.id,
-          })
-          .onConflict((oc) => oc.column("id").doNothing())
-          .execute();
+          },
+          { project, version, dataHash, data },
+        );
       } catch (error) {
         const intro = `Kmail ${kmail.id} from ${kmail.fromname} (#${kmail.fromid})`;
         if (error instanceof URIError) {

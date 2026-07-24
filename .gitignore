@@ -9,4 +9,6 @@ build/
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
-!.yarn/versions.react-router/
+!.yarn/versions
+
+.react-router/

@@ -5,7 +5,11 @@ import { useLoaderData } from "react-router";
 import { Frequency } from "../components/Frequency.js";
 import { Pagination } from "../components/Pagination.js";
 import { ProjectHeader } from "../components/ProjectHeader.js";
-import { db, getSpadingDataCounts } from "../db.server.js";
+import {
+  countDistinctSpadingData,
+  countReports,
+  getSpadingDataCounts,
+} from "../db.server.js";
 import { fromSlug, getValuesInKeyOrder } from "../utils/utils.js";
 
 import { type Route } from "./+types/projects.$project";
@@ -24,22 +28,9 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 
   if (!project) throw new Response("No project found", { status: 404 });
 
-  const { total } = await db
-    .selectFrom("Report")
-    .innerJoin("SpadingData", "SpadingData.id", "Report.dataId")
-    .select((eb) => eb.cast<number>(eb.fn.countAll(), "integer").as("total"))
-    .where("SpadingData.project", "ilike", projectName)
-    .executeTakeFirstOrThrow();
+  const total = await countReports(projectName);
 
-  const { count } = await db
-    .selectFrom("SpadingData")
-    .select((eb) =>
-      eb
-        .cast<number>(eb.fn.count("dataHash").distinct(), "integer")
-        .as("count"),
-    )
-    .where("project", "ilike", projectName)
-    .executeTakeFirstOrThrow();
+  const count = await countDistinctSpadingData(projectName);
 
   const data = await getSpadingDataCounts(project.name)
     .offset(page * PER_PAGE)
