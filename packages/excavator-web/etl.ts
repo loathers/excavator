@@ -114,8 +114,13 @@ function applyFixes(data: SpadingDataSubmission) {
     data._PROJECT = "Fresh Coat of Paint";
 
   // 24-06-20: Some projects are "completed"
-  const project = projects.find(({ name }) => name === data._PROJECT);
+  // 2026-07-24: Database lookups match project names exactly, so
+  // canonicalise the casing of whatever was submitted
+  const project = projects.find(
+    ({ name }) => name.toLowerCase() === data._PROJECT.toLowerCase(),
+  );
   if (project?.completed) return null;
+  if (project) data._PROJECT = project.name;
 
   // 2024-04-02: Accidentally zero-indexed this item count
   if (data._PROJECT === "Continental Juice Bar" && "item0" in data) {

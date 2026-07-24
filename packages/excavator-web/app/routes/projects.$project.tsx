@@ -8,7 +8,7 @@ import { ProjectHeader } from "../components/ProjectHeader.js";
 import {
   countDistinctSpadingData,
   countReports,
-  getSpadingDataCounts,
+  getSpadingDataCountsPage,
 } from "../db.server.js";
 import { fromSlug, getValuesInKeyOrder } from "../utils/utils.js";
 
@@ -28,14 +28,11 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 
   if (!project) throw new Response("No project found", { status: 404 });
 
-  const total = await countReports(projectName);
-
-  const count = await countDistinctSpadingData(projectName);
-
-  const data = await getSpadingDataCounts(project.name)
-    .offset(page * PER_PAGE)
-    .limit(PER_PAGE)
-    .execute();
+  const [total, count, data] = await Promise.all([
+    countReports(project.name),
+    countDistinctSpadingData(project.name),
+    getSpadingDataCountsPage(project.name, page * PER_PAGE, PER_PAGE),
+  ]);
 
   return {
     projectNames: projects.map((p) => p.name).sort(),

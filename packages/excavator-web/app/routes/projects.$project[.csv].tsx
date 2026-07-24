@@ -1,5 +1,6 @@
 import { createReadableStreamFromReadable } from "@react-router/node";
 import { stringify } from "csv-stringify";
+import { projects } from "excavator-projects";
 import { Readable, pipeline } from "node:stream";
 
 import { getSpadingDataCounts } from "../db.server.js";
@@ -8,9 +9,14 @@ import { fromSlug } from "../utils/utils.js";
 import { Route } from "./+types/projects.$project[.csv].js";
 
 export async function loader({ params }: Route.LoaderArgs) {
-  const project = fromSlug(params.project || "");
+  const projectName = fromSlug(params.project || "").toLowerCase();
+  const project = projects.find((p) => p.name.toLowerCase() === projectName);
 
-  const iterator = getSpadingDataCounts(project)
+  if (!project) {
+    throw new Response("No project found", { status: 404 });
+  }
+
+  const iterator = getSpadingDataCounts(project.name)
     .stream(500)
     [Symbol.asyncIterator]();
 
