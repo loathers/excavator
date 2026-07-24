@@ -1,13 +1,13 @@
-import { PrismaClient, type SpadingData } from "@prisma/client";
 import "dotenv/config";
 import { projects } from "excavator-projects";
 import makeFetchCookie from "fetch-cookie";
 import crypto from "node:crypto";
 
-const f = makeFetchCookie(fetch);
-const prisma = new PrismaClient();
+import { type SpadingDataObject, db, saveReport } from "./app/db.server.js";
 
-type SpadingDataSubmission = SpadingData["data"] & {
+const f = makeFetchCookie(fetch);
+
+type SpadingDataSubmission = SpadingDataObject & {
   _VERSION: string;
   _PROJECT: string;
 };
@@ -190,28 +190,14 @@ async function main() {
 
         const id = Number(kmail.id);
 
-        await prisma.report.upsert({
-          create: {
+        await saveReport(
+          {
             id,
             createdAt: new Date(Number(kmail.azunixtime) * 1000),
             playerId: Number(kmail.fromid),
-            data: {
-              connectOrCreate: {
-                where: {
-                  dataHash_version_project: { project, dataHash, version },
-                },
-                create: {
-                  project,
-                  version,
-                  dataHash,
-                  data,
-                },
-              },
-            },
           },
-          update: {},
-          where: { id },
-        });
+          { project, version, dataHash, data },
+        );
       } catch (error) {
         const intro = `Kmail ${kmail.id} from ${kmail.fromname} (#${kmail.fromid})`;
         if (error instanceof URIError) {
@@ -235,5 +221,9 @@ async function main() {
 }
 
 if (import.meta.filename === process?.argv[1]) {
-  main();
+  try {
+    await main();
+  } finally {
+    await db.destroy();
+  }
 }
