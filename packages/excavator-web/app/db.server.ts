@@ -1,4 +1,9 @@
-import { type Generated, Kysely, PostgresDialect } from "kysely";
+import {
+  type ExpressionBuilder,
+  type Generated,
+  Kysely,
+  PostgresDialect,
+} from "kysely";
 import pg from "pg";
 import Cursor from "pg-cursor";
 
@@ -40,6 +45,16 @@ export const db = singleton(
     }),
 );
 
+// Case-insensitive project match that can use the LOWER(project) index,
+// unlike ilike
+const projectMatches =
+  (project: string) => (eb: ExpressionBuilder<Database, "SpadingData">) =>
+    eb(
+      eb.fn<string>("lower", ["SpadingData.project"]),
+      "=",
+      project.toLowerCase(),
+    );
+
 export function getSpadingDataCounts(project: string) {
   return db
     .selectFrom("SpadingData")
@@ -49,7 +64,7 @@ export function getSpadingDataCounts(project: string) {
       "SpadingData.data",
       eb.cast<number>(eb.fn.count("Report.id"), "integer").as("count"),
     ])
-    .where("SpadingData.project", "ilike", project)
+    .where(projectMatches(project))
     .groupBy(["SpadingData.dataHash", "SpadingData.data"])
     .orderBy("SpadingData.dataHash");
 }
@@ -59,7 +74,7 @@ export async function countReports(project: string) {
     .selectFrom("Report")
     .innerJoin("SpadingData", "SpadingData.id", "Report.dataId")
     .select((eb) => eb.cast<number>(eb.fn.countAll(), "integer").as("total"))
-    .where("SpadingData.project", "ilike", project)
+    .where(projectMatches(project))
     .executeTakeFirstOrThrow();
   return total;
 }
@@ -72,7 +87,7 @@ export async function countDistinctSpadingData(project: string) {
         .cast<number>(eb.fn.count("dataHash").distinct(), "integer")
         .as("count"),
     )
-    .where("project", "ilike", project)
+    .where(projectMatches(project))
     .executeTakeFirstOrThrow();
   return count;
 }
