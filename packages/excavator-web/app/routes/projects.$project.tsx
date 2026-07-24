@@ -1,12 +1,11 @@
 import { Alert, Stack, Table } from "@chakra-ui/react";
-import { getSpadingDataCounts } from "@prisma/client/sql";
 import { projects } from "excavator-projects";
 import { useLoaderData } from "react-router";
 
 import { Frequency } from "../components/Frequency.js";
 import { Pagination } from "../components/Pagination.js";
 import { ProjectHeader } from "../components/ProjectHeader.js";
-import { db } from "../db.server.js";
+import { db, getSpadingDataCounts } from "../db.server.js";
 import { fromSlug, getValuesInKeyOrder } from "../utils/utils.js";
 
 import { type Route } from "./+types/projects.$project";
@@ -25,20 +24,27 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 
   if (!project) throw new Response("No project found", { status: 404 });
 
-  const total = await db.report.count({
-    where: { data: { project: { equals: projectName, mode: "insensitive" } } },
-  });
+  const { total } = await db
+    .selectFrom("Report")
+    .innerJoin("SpadingData", "SpadingData.id", "Report.dataId")
+    .select((eb) => eb.cast<number>(eb.fn.countAll(), "integer").as("total"))
+    .where("SpadingData.project", "ilike", projectName)
+    .executeTakeFirstOrThrow();
 
-  const count = (
-    await db.spadingData.groupBy({
-      by: ["dataHash"],
-      where: { project: { equals: projectName, mode: "insensitive" } },
-    })
-  ).length;
+  const { count } = await db
+    .selectFrom("SpadingData")
+    .select((eb) =>
+      eb
+        .cast<number>(eb.fn.count("dataHash").distinct(), "integer")
+        .as("count"),
+    )
+    .where("project", "ilike", projectName)
+    .executeTakeFirstOrThrow();
 
-  const data = await db.$queryRawTyped(
-    getSpadingDataCounts(project.name, page * PER_PAGE, PER_PAGE),
-  );
+  const data = await getSpadingDataCounts(project.name)
+    .offset(page * PER_PAGE)
+    .limit(PER_PAGE)
+    .execute();
 
   return {
     projectNames: projects.map((p) => p.name).sort(),

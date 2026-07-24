@@ -1,13 +1,14 @@
-import { PrismaClient, type SpadingData } from "@prisma/client";
 import "dotenv/config";
 import { projects } from "excavator-projects";
 import makeFetchCookie from "fetch-cookie";
 import crypto from "node:crypto";
 
-const f = makeFetchCookie(fetch);
-const prisma = new PrismaClient();
+import { type SpadingDataObject, createDb } from "./app/db.server.js";
 
-type SpadingDataSubmission = SpadingData["data"] & {
+const f = makeFetchCookie(fetch);
+const db = createDb();
+
+type SpadingDataSubmission = SpadingDataObject & {
   _VERSION: string;
   _PROJECT: string;
 };
@@ -190,28 +191,33 @@ async function main() {
 
         const id = Number(kmail.id);
 
-        await prisma.report.upsert({
-          create: {
+        const spadingData =
+          (await db
+            .insertInto("SpadingData")
+            .values({ project, version, dataHash, data })
+            .onConflict((oc) =>
+              oc.columns(["dataHash", "version", "project"]).doNothing(),
+            )
+            .returning("id")
+            .executeTakeFirst()) ??
+          (await db
+            .selectFrom("SpadingData")
+            .select("id")
+            .where("dataHash", "=", dataHash)
+            .where("version", "=", version)
+            .where("project", "=", project)
+            .executeTakeFirstOrThrow());
+
+        await db
+          .insertInto("Report")
+          .values({
             id,
             createdAt: new Date(Number(kmail.azunixtime) * 1000),
             playerId: Number(kmail.fromid),
-            data: {
-              connectOrCreate: {
-                where: {
-                  dataHash_version_project: { project, dataHash, version },
-                },
-                create: {
-                  project,
-                  version,
-                  dataHash,
-                  data,
-                },
-              },
-            },
-          },
-          update: {},
-          where: { id },
-        });
+            dataId: spadingData.id,
+          })
+          .onConflict((oc) => oc.column("id").doNothing())
+          .execute();
       } catch (error) {
         const intro = `Kmail ${kmail.id} from ${kmail.fromname} (#${kmail.fromid})`;
         if (error instanceof URIError) {
@@ -235,5 +241,9 @@ async function main() {
 }
 
 if (import.meta.filename === process?.argv[1]) {
-  main();
+  try {
+    await main();
+  } finally {
+    await db.destroy();
+  }
 }
