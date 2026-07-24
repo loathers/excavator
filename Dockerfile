@@ -5,7 +5,6 @@ RUN corepack enable
 
 # Install dependencies first so they cache independently of source changes
 COPY package.json yarn.lock .yarnrc.yml ./
-COPY .yarn .yarn
 COPY packages/excavator-prettier-config/package.json packages/excavator-prettier-config/
 COPY packages/excavator-projects/package.json packages/excavator-projects/
 COPY packages/excavator-script/package.json packages/excavator-script/
