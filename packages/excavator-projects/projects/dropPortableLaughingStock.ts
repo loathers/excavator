@@ -1,4 +1,5 @@
 import {
+    daycount,
   getProperty,
   Item,
   myClass,
@@ -31,6 +32,7 @@ export const DROP_PORTABLE_LAUGHING_STOCK: ExcavatorProject = {
         dropsToday: Number(getProperty("_laughingStockFruitDropped")),
         turn: myTotalTurnsSpent(),
         class: myClass().toString(),
+        daycount: daycount()
       };
     },
   },
