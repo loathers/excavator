@@ -21,7 +21,7 @@ export const DROP_PORTABLE_LAUGHING_STOCK: ExcavatorProject = {
       if (!isEquippedAtEndOfCombat(Item.get("portable laughing stock")))
         return null;
       const result = page.match(
-        /You get smacked in the face with a piece of fruit from somewhere|The crowd's derision takes a physical form as a piece of fruit sails toward your head|A jeering onlooker chucks something soft and squishy your way|Someone in the crowd hurls a piece of fruit at you|Someone lobs a piece of fruit at you from the crowd/,
+        /(?:You get smacked in the face with a piece of fruit from somewhere|The crowd's derision takes a physical form as a piece of fruit sails toward your head|A jeering onlooker chucks something soft and squishy your way|Someone in the crowd hurls a piece of fruit at you|Someone lobs a piece of fruit at you from the crowd).*?You acquire an item: <b>(.*?)<\/b>/,
       );
       if (!result) return null;
       const item = toNormalisedItem(result[1]);
@@ -31,6 +31,7 @@ export const DROP_PORTABLE_LAUGHING_STOCK: ExcavatorProject = {
         item,
         dropsToday: Number(getProperty("_laughingStockFruitDropped")),
         numCombats: Number(getProperty("_laughingStockCharges")),
+        turns: myTurncount(),
         class: myClass().toString(),
         daycount: daycount(),
       };
