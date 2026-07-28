@@ -1,4 +1,11 @@
-import { getProperty, Item, myClass, myId, myPath, myTotalTurnsSpent } from "kolmafia";
+import {
+  getProperty,
+  Item,
+  myClass,
+  myId,
+  myPath,
+  myTotalTurnsSpent,
+} from "kolmafia";
 
 import { ExcavatorProject } from "../type.js";
 import { isEquippedAtEndOfCombat, toNormalisedItem } from "../utils.js";
@@ -14,17 +21,17 @@ export const DROP_PORTABLE_LAUGHING_STOCK: ExcavatorProject = {
         return null;
       const result = page.match(
         /You get smacked in the face with a piece of fruit from somewhere|The crowd's derision takes a physical form as a piece of fruit sails toward your head|A jeering onlooker chucks something soft and squishy your way|Someone in the crowd hurls a piece of fruit at you|Someone lobs a piece of fruit at you from the crowd/,
-        );
+      );
       if (!result) return null;
       const item = toNormalisedItem(result[1]);
-      return { 
+      return {
         player: Number(myId()),
         path: toNormalisedString(myPath()),
         item,
         dropsToday: Number(getProperty("_laughingStockFruitDropped")),
         turn: myTotalTurnsSpent(),
-        class: myClass().toString()
-        };
+        class: myClass().toString(),
+      };
     },
   },
   completed: true,
