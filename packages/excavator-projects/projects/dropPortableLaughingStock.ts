@@ -1,11 +1,11 @@
 import {
-    daycount,
+  daycount,
   getProperty,
   Item,
   myClass,
   myId,
   myPath,
-  myTotalTurnsSpent,
+  myTurncount,
 } from "kolmafia";
 
 import { ExcavatorProject } from "../type.js";
@@ -30,9 +30,9 @@ export const DROP_PORTABLE_LAUGHING_STOCK: ExcavatorProject = {
         path: toNormalisedString(myPath()),
         item,
         dropsToday: Number(getProperty("_laughingStockFruitDropped")),
-        turn: myTotalTurnsSpent(),
+        turn: myTurncount(),
         class: myClass().toString(),
-        daycount: daycount()
+        daycount: daycount(),
       };
     },
   },
