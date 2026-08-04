@@ -2635,6 +2635,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mikro-orm/core@npm:^7.0.14":
+  version: 7.1.10
+  resolution: "@mikro-orm/core@npm:7.1.10"
+  peerDependencies:
+    dataloader: 2.2.3
+  peerDependenciesMeta:
+    dataloader:
+      optional: true
+  checksum: 10c0/e86e6674bbef341c8e11800793d3f075635f4e7a83e570ce31dfca583a1484f4ac0f594c58465e66f0879ed522ca353fc1fd70bcf4114a926890d681fc39532c
+  languageName: node
+  linkType: hard
+
+"@mikro-orm/sql@npm:^7.0.14":
+  version: 7.1.10
+  resolution: "@mikro-orm/sql@npm:7.1.10"
+  dependencies:
+    kysely: "npm:0.29.4"
+  peerDependencies:
+    "@mikro-orm/core": 7.1.10
+  checksum: 10c0/e1e9d655fa267ad07f9fd3d6d1a1d10c4ced4c09480e0237a2bfb443f2a393dbc842065549dcde2495c97d005b9238400f1b9aef06e2fbcda920c73431fc6a32
+  languageName: node
+  linkType: hard
+
 "@mjackson/node-fetch-server@npm:^0.2.0":
   version: 0.2.0
   resolution: "@mjackson/node-fetch-server@npm:0.2.0"
@@ -3133,6 +3156,13 @@ __metadata:
   version: 4.41.1
   resolution: "@rollup/rollup-win32-x64-msvc@npm:4.41.1"
   conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@sqlite.org/sqlite-wasm@npm:~3.51.2-build9":
+  version: 3.51.2-build9
+  resolution: "@sqlite.org/sqlite-wasm@npm:3.51.2-build9"
+  checksum: 10c0/2b9c4d3df7b2cf84c1b311ac276c19692d8ccad4a4b34a1a739e1eb3b8938c6be4e64a98d51b7ea6e9ad5000a912d4ed0c25eec146f7eb468fa343b7ce491a08
   languageName: node
   linkType: hard
 
@@ -5033,6 +5063,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"data-of-loathing@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "data-of-loathing@npm:4.3.1"
+  dependencies:
+    "@mikro-orm/core": "npm:^7.0.14"
+    "@mikro-orm/sql": "npm:^7.0.14"
+    "@sqlite.org/sqlite-wasm": "npm:~3.51.2-build9"
+    env-paths: "npm:^4.0.0"
+    kysely: "npm:^0.28.17"
+  peerDependencies:
+    vite: ">=5.0.0"
+    vite-plugin-node-polyfills: ^0.26.0
+  peerDependenciesMeta:
+    vite:
+      optional: true
+    vite-plugin-node-polyfills:
+      optional: true
+  checksum: 10c0/c94c81eadf69547987a715002980f72f0a774f57618d0b0db649b4d3981826339ead7084e905872d1a3b595d126b82587176d64f4da088473c36a60fa281661e
+  languageName: node
+  linkType: hard
+
 "debug@npm:2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -5251,6 +5302,15 @@ __metadata:
   version: 2.2.1
   resolution: "env-paths@npm:2.2.1"
   checksum: 10c0/285325677bf00e30845e330eec32894f5105529db97496ee3f598478e50f008c5352a41a30e5e72ec9de8a542b5a570b85699cd63bd2bc646dbcb9f311d83bc4
+  languageName: node
+  linkType: hard
+
+"env-paths@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "env-paths@npm:4.0.0"
+  dependencies:
+    is-safe-filename: "npm:^0.1.0"
+  checksum: 10c0/13ee7fa4047786ca28f1fbf2239606f8a53304bdf71bfc426e95f806e429060181205316f2c45b4ac560e81c854ded5a45fd9dc3105414c01d504b3469a1294b
   languageName: node
   linkType: hard
 
@@ -5754,6 +5814,7 @@ __metadata:
     "@types/react": "npm:^19.1.6"
     "@types/react-dom": "npm:^19.1.5"
     csv-stringify: "npm:^6.5.2"
+    data-of-loathing: "npm:^4.3.1"
     dotenv: "npm:^16.5.0"
     excavator-prettier-config: "workspace:*"
     excavator-projects: "workspace:*"
@@ -6549,6 +6610,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-safe-filename@npm:^0.1.0":
+  version: 0.1.1
+  resolution: "is-safe-filename@npm:0.1.1"
+  checksum: 10c0/45c35d2253b96348e2c26590e14feed51d1e6b72aaa567930ccb34e68c0eef00ebcf3b7e01b46bf45e578a27355cd8f5bc12f7d6d79a34d33dc93d4560c0f6b6
+  languageName: node
+  linkType: hard
+
 "isarray@npm:0.0.1":
   version: 0.0.1
   resolution: "isarray@npm:0.0.1"
@@ -6785,7 +6853,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kysely@npm:^0.28.2":
+"kysely@npm:0.29.4":
+  version: 0.29.4
+  resolution: "kysely@npm:0.29.4"
+  checksum: 10c0/13843cfaec03aa5c849c35da6d6e263e83c4ba194805d68f822a094609fd3e19053ecee942b9359be10383714bd1224475cc463f94a911666990b754ac13cc34
+  languageName: node
+  linkType: hard
+
+"kysely@npm:^0.28.17, kysely@npm:^0.28.2":
   version: 0.28.17
   resolution: "kysely@npm:0.28.17"
   checksum: 10c0/70573292d8d60a1e29be9b432c1b25fe21d4806ecd5e9859b5ba8d2af799769878f4b3d91731ffe3e03744c7291476fe843640d31741f3637e20c3c49afea3c5

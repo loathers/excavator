@@ -2,9 +2,11 @@ import { Alert, Stack, Table } from "@chakra-ui/react";
 import { projects } from "excavator-projects";
 import { useLoaderData } from "react-router";
 
+import { DataCell } from "../components/DataCell.js";
 import { Frequency } from "../components/Frequency.js";
 import { Pagination } from "../components/Pagination.js";
 import { ProjectHeader } from "../components/ProjectHeader.js";
+import { resolveEntityNames } from "../data-of-loathing.server.js";
 import {
   countDistinctSpadingData,
   countReports,
@@ -34,10 +36,14 @@ export async function loader({ params, request }: Route.LoaderArgs) {
     getSpadingDataCountsPage(project.name, page * PER_PAGE, PER_PAGE),
   ]);
 
+  const headers = Object.keys(data.at(0)?.data ?? {});
+  const names = await resolveEntityNames(data, headers);
+
   return {
     projectNames: projects.map((p) => p.name).sort(),
     project,
     data,
+    names,
     total,
     count,
     pageSize: PER_PAGE,
@@ -46,7 +52,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 }
 
 export default function Project() {
-  const { data, count, total, project, projectNames, pageSize, page } =
+  const { data, names, count, total, project, projectNames, pageSize, page } =
     useLoaderData<typeof loader>();
 
   const headers = Object.keys(data.at(0)?.data ?? {});
@@ -90,7 +96,13 @@ export default function Project() {
                       d.data as Record<string, any>,
                       headers,
                     ).map((v, i) => (
-                      <Table.Cell key={headers[i]}>{String(v)}</Table.Cell>
+                      <Table.Cell key={headers[i]}>
+                        <DataCell
+                          columnName={headers[i]}
+                          value={v}
+                          names={names}
+                        />
+                      </Table.Cell>
                     ))}
                   </Table.Row>
                 ))}
