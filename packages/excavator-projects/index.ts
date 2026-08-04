@@ -2,6 +2,7 @@ import { AUTUMNATON } from "./projects/autumnaton";
 import { BIRD_A_DAY } from "./projects/birdADay";
 import { BLACK_AND_WHITE_APRON } from "./projects/blackAndWhiteApron";
 import { COAT_OF_PAINT } from "./projects/coatOfPaint";
+import { COOKBOOKBAT } from "./projects/cookbookbat";
 import { SKELETON_OF_CRIMBO_PAST } from "./projects/crimboSkeleton.js";
 import { DESIGNER_SWEATPANTS } from "./projects/designerSweatpants";
 import { DROP_BINDLESTOCKING } from "./projects/dropBindlestocking";
@@ -65,4 +66,5 @@ export const projects: ExcavatorProject[] = [
   SUBTYPE_ZOMBIE,
   TEMPORAL_RIFTLET,
   ZOOTOMIST_KICK,
+  COOKBOOKBAT,
 ];
