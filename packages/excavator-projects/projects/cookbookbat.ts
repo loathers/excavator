@@ -17,6 +17,8 @@ export const COOKBOOKBAT: ExcavatorProject = {
       if (currentRound() !== 0) return null;
       if (myFamiliar() !== Familiar.get("Cookbookbat")) return null;
       const currentQuest = getProperty("_cookbookbatQuestLastLocation");
+      // Exit if there is no quest location to report
+      if (!currentQuest) return null;
       const previousQuest = sessionStorage.getItem("lastCBBQuestLocation");
       // Exit if we didn't receive a new quest
       if (currentQuest === previousQuest) {
