@@ -19,12 +19,14 @@ export const COOKBOOKBAT: ExcavatorProject = {
       const currentQuest = getProperty("_cookbookbatQuestLastLocation");
       // Exit if there is no quest location to report
       if (!currentQuest) return null;
-      const previousQuest = sessionStorage.getItem("lastCBBQuestLocation");
+      const previousQuest = sessionStorage.getItem(
+        "lastCookbookbatQuestLocation",
+      );
       // Exit if we didn't receive a new quest
       if (currentQuest === previousQuest) {
         return null;
       }
-      sessionStorage.setItem("lastCBBQuestLocation", currentQuest);
+      sessionStorage.setItem("lastCookbookbatQuestLocation", currentQuest);
       return { questLocation: currentQuest };
     },
   },
