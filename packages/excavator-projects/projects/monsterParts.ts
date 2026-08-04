@@ -208,13 +208,14 @@ function checkElVibratoRestraints(
     return;
 
   const base = { monster, part: "arm", source: "El Vibrato restraints" };
+  const hasArm = monsterParts.some((part) => part.includes("arm"));
   if (
-    monsterParts.includes("arm") &&
+    hasArm &&
     page.includes("This foe doesn't have any arms that you can find")
   ) {
     data.push({ ...base, confirmation: false });
   } else if (
-    !monsterParts.includes("arm") &&
+    !hasArm &&
     page.includes("You push the button on top of the restraints")
   ) {
     data.push({ ...base, confirmation: true });
@@ -329,8 +330,14 @@ function spadeMonsterParts(
 ): MonsterPartsData[] | null {
   if (MONSTER_DENYLIST.includes(lastMonster())) return null;
 
+  const path = myPath();
   // in FotD, monster parts are the parts of the dino that ate the monster
-  if (myPath() == Path.get("Fall of the Dinosaurs")) return null;
+  // in Pocket Familiars, combat is completely different, and the dart holster doesn't appear
+  if (
+    path == Path.get("Fall of the Dinosaurs") ||
+    path == Path.get("Pocket Familiars")
+  )
+    return null;
 
   const monster = toNormalisedString(lastMonster());
   const monsterParts = lastMonster().parts;

@@ -4,17 +4,18 @@
   "main": "index.js",
   "license": "ISC",
   "author": "Sam Gaus <sam@gaus.co.uk>",
+  "type": "module",
   "scripts": {
     "format": "prettier --write .",
     "lint": "prettier --check ."
   },
   "devDependencies": {
-    "excavator-prettier-config": "^0.0.0",
-    "prettier": "^3.5.2",
-    "typescript": "^5.7.3"
+    "excavator-prettier-config": "workspace:*",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
   },
   "prettier": "excavator-prettier-config",
   "dependencies": {
-    "kolmafia": "^5.28390.0"
+    "kolmafia": "^5.28541.0"
   }
 }

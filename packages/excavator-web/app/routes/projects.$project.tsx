@@ -1,12 +1,17 @@
 import { Alert, Stack, Table } from "@chakra-ui/react";
-import { getSpadingDataCounts } from "@prisma/client/sql";
 import { projects } from "excavator-projects";
 import { useLoaderData } from "react-router";
 
+import { DataCell } from "../components/DataCell.js";
 import { Frequency } from "../components/Frequency.js";
 import { Pagination } from "../components/Pagination.js";
 import { ProjectHeader } from "../components/ProjectHeader.js";
-import { db } from "../db.server.js";
+import { resolveEntityNames } from "../data-of-loathing.server.js";
+import {
+  countDistinctSpadingData,
+  countReports,
+  getSpadingDataCountsPage,
+} from "../db.server.js";
 import { fromSlug, getValuesInKeyOrder } from "../utils/utils.js";
 
 import { type Route } from "./+types/projects.$project";
@@ -25,25 +30,20 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 
   if (!project) throw new Response("No project found", { status: 404 });
 
-  const total = await db.report.count({
-    where: { data: { project: { equals: projectName, mode: "insensitive" } } },
-  });
+  const [total, count, data] = await Promise.all([
+    countReports(project.name),
+    countDistinctSpadingData(project.name),
+    getSpadingDataCountsPage(project.name, page * PER_PAGE, PER_PAGE),
+  ]);
 
-  const count = (
-    await db.spadingData.groupBy({
-      by: ["dataHash"],
-      where: { project: { equals: projectName, mode: "insensitive" } },
-    })
-  ).length;
-
-  const data = await db.$queryRawTyped(
-    getSpadingDataCounts(project.name, page * PER_PAGE, PER_PAGE),
-  );
+  const headers = Object.keys(data.at(0)?.data ?? {});
+  const names = await resolveEntityNames(data, headers);
 
   return {
     projectNames: projects.map((p) => p.name).sort(),
     project,
     data,
+    names,
     total,
     count,
     pageSize: PER_PAGE,
@@ -52,7 +52,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 }
 
 export default function Project() {
-  const { data, count, total, project, projectNames, pageSize, page } =
+  const { data, names, count, total, project, projectNames, pageSize, page } =
     useLoaderData<typeof loader>();
 
   const headers = Object.keys(data.at(0)?.data ?? {});
@@ -96,7 +96,13 @@ export default function Project() {
                       d.data as Record<string, any>,
                       headers,
                     ).map((v, i) => (
-                      <Table.Cell key={headers[i]}>{String(v)}</Table.Cell>
+                      <Table.Cell key={headers[i]}>
+                        <DataCell
+                          columnName={headers[i]}
+                          value={v}
+                          names={names}
+                        />
+                      </Table.Cell>
                     ))}
                   </Table.Row>
                 ))}

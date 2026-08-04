@@ -20,4 +20,5 @@ export type ExcavatorProject = {
   hooks: Partial<Hooks>;
   since?: number;
   completed?: boolean;
+  allowInTcrs?: boolean;
 };

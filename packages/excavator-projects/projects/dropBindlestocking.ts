@@ -19,4 +19,5 @@ export const DROP_BINDLESTOCKING: ExcavatorProject = {
       return { item };
     },
   },
+  completed: true,
 };

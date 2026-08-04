@@ -29,4 +29,5 @@ export const DROP_CON_SNOWGLOBE: ExcavatorProject = {
       };
     },
   },
+  completed: true,
 };

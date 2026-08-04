@@ -11,6 +11,7 @@ export const MUMMING_TRUNK: ExcavatorProject = {
   hooks: {
     COMBAT_ROUND: spadeMummingTrunk,
   },
+  completed: true,
 };
 
 const ATTRIBUTE_INDICATORS = {

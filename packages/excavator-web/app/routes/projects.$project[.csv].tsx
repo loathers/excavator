@@ -1,34 +1,48 @@
-import { type SpadingData } from "@prisma/client";
-import { getSpadingDataCounts } from "@prisma/client/sql";
 import { createReadableStreamFromReadable } from "@react-router/node";
-import { stringify } from "csv-stringify/sync";
-import { Readable } from "node:stream";
-import { type LoaderFunctionArgs } from "react-router";
+import { stringify } from "csv-stringify";
+import { projects } from "excavator-projects";
+import { Readable, pipeline } from "node:stream";
 
-import { db } from "../db.server.js";
+import { getSpadingDataCounts } from "../db.server.js";
 import { fromSlug } from "../utils/utils.js";
 
 import { Route } from "./+types/projects.$project[.csv].js";
 
 export async function loader({ params }: Route.LoaderArgs) {
-  const project = fromSlug(params.project || "");
+  const projectName = fromSlug(params.project || "").toLowerCase();
+  const project = projects.find((p) => p.name.toLowerCase() === projectName);
 
-  const data = (
-    await db.$queryRawTyped(getSpadingDataCounts(project, 0, Infinity))
-  ).map(({ count, data }) => ({
-    ...(data as SpadingData["data"]),
-    _COUNT: count,
-  }));
+  if (!project) {
+    throw new Response("No project found", { status: 404 });
+  }
 
-  if (data.length === 0) {
+  const iterator = getSpadingDataCounts(project.name)
+    .stream(500)
+    [Symbol.asyncIterator]();
+
+  const first = await iterator.next();
+
+  if (first.done) {
     throw new Response("No data found for this project", { status: 404 });
   }
 
-  const csvString = stringify(data, {
+  async function* rows() {
+    let result = first;
+    while (!result.done) {
+      const { data, count } = result.value;
+      yield { ...data, _COUNT: count };
+      result = await iterator.next();
+    }
+  }
+
+  const stringifier = stringify({
     header: true,
     cast: { boolean: (v) => String(v) },
   });
-  const file = createReadableStreamFromReadable(Readable.from(csvString));
+  // pipeline (rather than pipe) tears down the row stream - and with it the
+  // database cursor - if the client disconnects mid-download
+  const csv = pipeline(Readable.from(rows()), stringifier, () => {});
+  const file = createReadableStreamFromReadable(csv);
   const yyyymmdd = new Date().toISOString().split("T").at(0)?.replace(/-/g, "");
   return new Response(file, {
     status: 200,

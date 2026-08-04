@@ -21,7 +21,7 @@ export const GENIE: ExcavatorProject = {
 
 function spadeGenie(page: string) {
   // Check page validity
-  if (!page.includes("<b>Results:</b>")) return null;
+  if (!page.includes("Results:</b>")) return null;
 
   // Find our wish or bail out
   const wish = page.match(/You announce, "I wish (.*?)"</)?.[1]?.toLowerCase();
