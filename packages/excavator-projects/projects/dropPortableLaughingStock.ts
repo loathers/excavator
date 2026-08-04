@@ -9,8 +9,11 @@ import {
 } from "kolmafia";
 
 import { ExcavatorProject } from "../type.js";
-import { isEquippedAtEndOfCombat, toNormalisedItem } from "../utils.js";
-import { toNormalisedString } from "../utils.js";
+import {
+  isEquippedAtEndOfCombat,
+  toNormalisedItem,
+  toNormalisedString,
+} from "../utils.js";
 
 export const DROP_PORTABLE_LAUGHING_STOCK: ExcavatorProject = {
   name: "Portable Laughing Stock",
