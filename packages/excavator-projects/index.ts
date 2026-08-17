@@ -13,6 +13,7 @@ import { DROP_MR_SCREEGES } from "./projects/dropMrScreeges";
 import { DROP_ORDNANCE_MAGNET } from "./projects/dropOrdnanceMagnet.js";
 import { DROP_PORTABLE_LAUGHING_STOCK } from "./projects/dropPortableLaughingStock.js";
 import { DROP_PULLED_RED_TAFFY } from "./projects/dropPulledRedTaffy.js";
+import { DROP_CUP_OF_13 } from "./projects/dropCupOf13s.js";
 import { GENIE } from "./projects/genie";
 import { HOOKAH } from "./projects/hookah";
 import { JUICE_BAR } from "./projects/juiceBar";
@@ -45,6 +46,7 @@ export const projects: ExcavatorProject[] = [
   JUICE_BAR,
   DROP_BINDLESTOCKING,
   DROP_CON_SNOWGLOBE,
+  DROP_CUP_OF_13,
   DROP_MIXED_EVERYTHING,
   DROP_MR_CHEENGS,
   DROP_MR_SCREEGES,
