@@ -11,7 +11,7 @@ import { ExcavatorProject } from "../type.js";
 import { toNormalisedString } from "../utils.js";
 
 export const BLUE_TEAM_MONSTERS: ExcavatorProject = {
-  description: "Logs Blue Team monster alignment for the Blue Vs. Red path",
+  description: "Logs Blue Team monster alignment for the Blue vs. Red path",
   author: "Rinn",
   name: "Blue Team Monsters",
   slug: "blueteammonsters",
@@ -30,7 +30,7 @@ export const BLUE_TEAM_MONSTERS: ExcavatorProject = {
 };
 
 export const RED_TEAM_MONSTERS: ExcavatorProject = {
-  description: "Logs Red Team monster alignment for the Blue Vs. Red path",
+  description: "Logs Red Team monster alignment for the Blue vs. Red path",
   author: "Rinn",
   name: "Red Team Monsters",
   slug: "redteammonsters",
