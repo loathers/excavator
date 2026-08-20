@@ -65,6 +65,7 @@ function spadeMonsterTeamAlignedColor(
 
   const monsterId = parseInt(result[1], 10);
   const monster = Monster.get(monsterId);
+  if (monster === Monster.none) return null;
 
   return {
     monster: toNormalisedString(monster),
