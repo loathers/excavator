@@ -1,6 +1,10 @@
 import { AUTUMNATON } from "./projects/autumnaton";
 import { BIRD_A_DAY } from "./projects/birdADay";
 import { BLACK_AND_WHITE_APRON } from "./projects/blackAndWhiteApron";
+import {
+  BLUE_TEAM_MONSTERS,
+  RED_TEAM_MONSTERS,
+} from "./projects/blueVsRedMonsters.js";
 import { COAT_OF_PAINT } from "./projects/coatOfPaint";
 import { COOKBOOKBAT } from "./projects/cookbookbat";
 import { SKELETON_OF_CRIMBO_PAST } from "./projects/crimboSkeleton.js";
@@ -67,4 +71,6 @@ export const projects: ExcavatorProject[] = [
   TEMPORAL_RIFTLET,
   ZOOTOMIST_KICK,
   COOKBOOKBAT,
+  BLUE_TEAM_MONSTERS,
+  RED_TEAM_MONSTERS,
 ];
