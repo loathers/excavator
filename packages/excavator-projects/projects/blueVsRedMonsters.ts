@@ -1,20 +1,13 @@
-import {
-  currentRound,
-  getProperty,
-  lastMonster,
-  Monster,
-  myPath,
-  Path,
-} from "kolmafia";
+import { getProperty, Monster, myPath, Path } from "kolmafia";
 
 import { ExcavatorProject } from "../type.js";
 import { toNormalisedString } from "../utils.js";
 
 export const BLUE_TEAM_MONSTERS: ExcavatorProject = {
-  description: "Logs Blue Team monster alignment for the Blue vs. Red path",
+  description: "Logs Blue Team monster team for the Blue vs. Red path",
   author: "Rinn",
-  name: "Blue Team Monsters",
-  slug: "blueteammonsteralignment",
+  name: "Blue Team Monster Team",
+  slug: "blueteammonsterteam",
   hooks: {
     CHOICE_VISIT: (choice: string, page: string) => {
       const color = getProperty("blueVsRedTeam");
@@ -28,24 +21,15 @@ export const BLUE_TEAM_MONSTERS: ExcavatorProject = {
       const match = url.match(/whichchoice=(\d+)/);
       const choiceId = match ? parseInt(match[1], 10) : 0;
       return spadeMonsterTeamAlignedColor(choiceId, page, color);
-    },
-    COMBAT_ROUND: (encounter: string, page: string) => {
-      if (currentRound() !== 0) return null;
-      if (myPath() !== Path.get("Blue vs. Red")) return null;
-      if (getProperty("blueVsRedTeam") !== "blue") return null;
-      return {
-        monster: toNormalisedString(lastMonster()),
-        color: "red",
-      };
     },
   },
 };
 
 export const RED_TEAM_MONSTERS: ExcavatorProject = {
-  description: "Logs Red Team monster alignment for the Blue vs. Red path",
+  description: "Logs Red Team monster team for the Blue vs. Red path",
   author: "Rinn",
-  name: "Red Team Monsters",
-  slug: "redteammonsteralignment",
+  name: "Red Team Monster Team",
+  slug: "redteammonsterteam",
   hooks: {
     CHOICE_VISIT: (choice: string, page: string) => {
       const color = getProperty("blueVsRedTeam");
@@ -59,15 +43,6 @@ export const RED_TEAM_MONSTERS: ExcavatorProject = {
       const match = url.match(/whichchoice=(\d+)/);
       const choiceId = match ? parseInt(match[1], 10) : 0;
       return spadeMonsterTeamAlignedColor(choiceId, page, color);
-    },
-    COMBAT_ROUND: (encounter: string, page: string) => {
-      if (currentRound() !== 0) return null;
-      if (myPath() !== Path.get("Blue vs. Red")) return null;
-      if (getProperty("blueVsRedTeam") !== "red") return null;
-      return {
-        monster: toNormalisedString(lastMonster()),
-        color: "blue",
-      };
     },
   },
 };
