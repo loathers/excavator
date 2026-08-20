@@ -8,6 +8,7 @@ export const BLUE_TEAM_MONSTERS: ExcavatorProject = {
   author: "Rinn",
   name: "Blue Team Monster Team",
   slug: "blueteammonsterteam",
+  since: 29167,
   hooks: {
     CHOICE_VISIT: (choice: string, page: string) => {
       const color = getProperty("blueVsRedTeam");
@@ -30,6 +31,7 @@ export const RED_TEAM_MONSTERS: ExcavatorProject = {
   author: "Rinn",
   name: "Red Team Monster Team",
   slug: "redteammonsterteam",
+  since: 29167,
   hooks: {
     CHOICE_VISIT: (choice: string, page: string) => {
       const color = getProperty("blueVsRedTeam");
