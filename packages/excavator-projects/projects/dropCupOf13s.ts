@@ -16,7 +16,6 @@ export const DROP_CUP_OF_13: ExcavatorProject = {
       if (!result) return null;
       const item = toNormalisedItem(result[1]);
       return {
-        player: Number(myId()),
         item,
         dropsToday: Number(getProperty("_cupOf13sDrops")),
         turns: myTurncount(),
