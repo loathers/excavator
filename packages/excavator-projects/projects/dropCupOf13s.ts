@@ -18,7 +18,6 @@ export const DROP_CUP_OF_13: ExcavatorProject = {
       return {
         item,
         dropsToday: Number(getProperty("_cupOf13sDrops")),
-        turns: myTurncount(),
       };
     },
   },
