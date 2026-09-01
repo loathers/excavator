@@ -24,4 +24,5 @@ export const DROP_PULLED_RED_TAFFY: ExcavatorProject = {
       return null;
     },
   },
+  completed: true,
 };

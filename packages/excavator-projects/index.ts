@@ -11,6 +11,7 @@ import { SKELETON_OF_CRIMBO_PAST } from "./projects/crimboSkeleton.js";
 import { DESIGNER_SWEATPANTS } from "./projects/designerSweatpants";
 import { DROP_BINDLESTOCKING } from "./projects/dropBindlestocking";
 import { DROP_CON_SNOWGLOBE } from "./projects/dropConSnowglobe";
+import { DROP_CUP_OF_13 } from "./projects/dropCupOf13s.js";
 import { DROP_MIXED_EVERYTHING } from "./projects/dropMixedEverything";
 import { DROP_MR_CHEENGS } from "./projects/dropMrCheengs";
 import { DROP_MR_SCREEGES } from "./projects/dropMrScreeges";
@@ -49,6 +50,7 @@ export const projects: ExcavatorProject[] = [
   JUICE_BAR,
   DROP_BINDLESTOCKING,
   DROP_CON_SNOWGLOBE,
+  DROP_CUP_OF_13,
   DROP_MIXED_EVERYTHING,
   DROP_MR_CHEENGS,
   DROP_MR_SCREEGES,
